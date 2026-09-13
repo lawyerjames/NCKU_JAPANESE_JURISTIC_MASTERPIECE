@@ -5,6 +5,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .furigana_annotator import sanitize_furigana_ruby, audit_annotations
 from .html_builder import build_stacked_bilingual_html
+from .pdf_ocr import process_pdf_smart_ocr
 
 mcp = FastMCP("Japanese Legal Text Formatter & Bilingual Annotator")
 
@@ -44,6 +45,19 @@ def generate_stacked_bilingual_document(
         subtitle_zh=subtitle_zh,
         author=author
     )
+
+@mcp.tool()
+def extract_pdf_smart_ocr(
+    pdf_path: str,
+    output_path: str = None,
+    remove_footnotes: bool = True
+) -> str:
+    """
+    Extracts text from scanned or raster PDFs using native macOS Vision OCR.
+    Automatically detects 1-column vs 2-column/mixed layout, sorts text reading order,
+    and dynamically filters out bottom footnotes and citations when remove_footnotes=True.
+    """
+    return process_pdf_smart_ocr(pdf_path, output_path=output_path, remove_footnotes=remove_footnotes)
 
 def main():
     mcp.run()

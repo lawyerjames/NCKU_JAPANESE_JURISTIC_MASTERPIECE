@@ -1,12 +1,15 @@
 # NCKU_JAPANESE_JURISTIC_MASTERPIECE
 
-日本法學名著選讀課堂教材讀音譯文轉換，提供純 txt 加註漢字讀音、聲調、朗讀停頓底線及中文法律翻譯功能，請搭配 Codex, Claude Code, Cursor 或 Antigravity 使用。
+日本法學名著選讀課堂教材讀音譯文轉換，提供掃描 PDF 智慧 OCR（自動判斷單雙欄與去引註）、純 txt 加註漢字讀音、聲調、朗讀停頓底線及中文法律翻譯功能，請搭配 Codex, Claude Code, Cursor 或 Antigravity 使用。
 
-An open-source **Model Context Protocol (MCP)** server for annotating Japanese legal text with furigana (readings + pitch accents), reading pause underlines (`<u>`), and building responsive, stacked top-and-bottom Japanese-Chinese bilingual HTML documents.
+An open-source **Model Context Protocol (MCP)** server for smart PDF OCR extraction (with dynamic 1-column vs 2-column layout detection and footnote filtering), annotating Japanese legal text with furigana (readings + pitch accents), reading pause underlines (`<u>`), and building responsive, stacked top-and-bottom Japanese-Chinese bilingual HTML documents.
 
 ---
 
 ## 🛠️ 提供之 MCP Tools
+
+- `extract_pdf_smart_ocr(pdf_path, output_path=None, remove_footnotes=True)`:  
+  使用 macOS 原生 Vision 引擎進行高精度 OCR 文字辨識，**自動判讀單欄/雙欄/混合論文版面**並修正閱讀順序，同時自動動態過濾頁尾註腳與引註標號。
 
 - `sanitize_japanese_furigana(html_text)`:  
   自動將日文 `<ruby>` 假名限定標記於漢字上，並清除 `<rt>` 中的羅馬字及修復未閉合標籤。
@@ -21,6 +24,10 @@ An open-source **Model Context Protocol (MCP)** server for annotating Japanese l
 
 ## ✨ 功能特色
 
+- 📄 **智慧 PDF OCR & 版面解析 (Smart PDF OCR & Layout Detection)**：
+  - **原生引擎**：調用 macOS Vision Framework，高精準度辨識日文與英文法學文獻。
+  - **動態版面辨識**：自動識別「單欄（1-Column）」、「雙欄（2-Column）」與「混合版面（全頁標題 + 雙欄內文）」，自動修復閱讀順序，解決傳統 OCR 跨欄混亂問題。
+  - **智慧引註過濾**：自動識別頁尾註腳區塊與內文引註標籤（如 `17）`, `3）` 等），選擇性徹底自動過濾。
 - 🎯 **假名標記校對**：自動清理 `<ruby>` 標籤，確保假名注音僅標記於漢字上，清除 `<rt>` 標籤內的羅馬字並修復 HTML 標籤閉合。
 - 🔍 **品質稽核報告**：自動稽核 `ruby`、`rt`、`u`（紅底線）標籤數量與平衡度，確保 0 語法錯誤。
 - 📱 **上下對照網頁生成**：採用「上方日文原文 + 下方中文譯文」獨立卡片容器排版，搭配 `line-height: 3.1`，徹底解決傳統左右分欄行距碰撞問題。
