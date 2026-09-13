@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "japanese-legal-formatter": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "mcp_japanese_legal_formatter"
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-japanese-legal-formatter"
+version = "0.1.0"
+description = "Model Context Protocol (MCP) server for annotating Japanese legal text with furigana, pitch accents, pause underlines, and bilingual HTML rendering."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "James Chang" }
+]
+license = { text = "MIT" }
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+mcp-japanese-legal-formatter = "mcp_japanese_legal_formatter.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_japanese_legal_formatter"]
