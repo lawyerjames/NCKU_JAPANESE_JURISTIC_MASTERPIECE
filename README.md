@@ -1,0 +1,2 @@
+# NCKU_JAPANESE_JURISTIC_MASTERPIECE
+日本法學名著選讀課堂教材讀音譯文轉換，僅提供純txt加註漢字讀書及翻譯功能，請搭配codex, claude code或antigravity使用。
