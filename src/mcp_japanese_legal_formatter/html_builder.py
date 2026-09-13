@@ -7,7 +7,8 @@ def build_stacked_bilingual_html(
     subtitle: str = "——我が国の刑事手続を規律する基本原理",
     subtitle_zh: str = "（規範我國刑事程序之基本原理）",
     author: str = "山田峻悠（中京大学准教授 / YAMADA Takaharu）",
-    heading_indices: list[int] = None
+    heading_indices: list[int] = None,
+    doc_lang: str = "ja-JP"
 ) -> str:
     """
     Builds a responsive, stacked top-and-bottom bilingual Japanese-Chinese HTML document.
@@ -190,11 +191,13 @@ def build_stacked_bilingual_html(
         let currentCardIndex = -1;
         let isPlayingAll = false;
         let speechRate = 1.0;
-        let japaneseVoice = null;
+        let targetLang = "{doc_lang}";
+        let targetVoice = null;
 
         function loadVoices() {{
             let voices = synth.getVoices();
-            japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja')) || null;
+            let langPrefix = targetLang.split('-')[0].toLowerCase();
+            targetVoice = voices.find(v => v.lang === targetLang || v.lang.toLowerCase().startsWith(langPrefix)) || null;
         }}
 
         if (speechSynthesis.onvoiceschanged !== undefined) {{
@@ -268,8 +271,8 @@ def build_stacked_bilingual_html(
             document.getElementById('tts-detail').textContent = text.substring(0, 30) + '...';
             
             currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.lang = 'ja-JP';
-            if (japaneseVoice) currentUtterance.voice = japaneseVoice;
+            currentUtterance.lang = targetLang;
+            if (targetVoice) currentUtterance.voice = targetVoice;
             currentUtterance.rate = speechRate;
             
             currentUtterance.onend = function() {{
