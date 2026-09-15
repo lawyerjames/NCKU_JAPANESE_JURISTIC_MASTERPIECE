@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPECIAL FEATURE 民法「人」 - 上下對照朗讀與翻譯版</title>
+    <title>SPECIAL FEATURE 民法「人」 - 左右對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: #0f172a;
             color: #1e293b;
         }
 
@@ -63,40 +63,85 @@
     </style>
 </head>
 
-<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                SPECIAL FEATURE 民法「人」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    SPECIAL FEATURE 民法「人」
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——民法および民法学への招待 <span class="text-indigo-300/80 text-sm font-normal">（民法及民法學之邀請）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200"></span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
                 </div>
             </div>
-        </header>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="民法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        SPECIAL FEATURE 民法「人」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——民法および民法学への招待 <span class="text-indigo-300/80 text-xs font-normal">（民法及民法學之邀請）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>
+                    </div>
+                </div>
 
-        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>民法<rt>みんぽう(1)</rt></ruby>「<ruby>人<rt>ひと(0)</rt></ruby>」<ruby>東京大学<rt>とうきょうだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>小粥<rt>こがゆ(0)</rt></ruby><ruby>太郎<rt>たろう(0)</rt></ruby>KOGAYU Taroはじめに<ruby>本稿<rt>ほんこう(0)</rt></ruby>では、<ruby>民法<rt>みんぽう(1)</rt></ruby>および<ruby>民法学<rt>みんぽうがく(0)</rt></ruby>がどのようなものであるのか、それらの<ruby>一端<rt>いったん(0)</rt></ruby>について、「<ruby>人<rt>ひと(0)</rt></ruby>」という<ruby>切り口<rt>きりくち(0)</rt></ruby>からの<ruby>説明<rt>せつめい(0)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>われる。</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>民法<rt>みんぽう(1)</rt></ruby>「<ruby>人<rt>ひと(0)</rt></ruby>」<ruby>東京大学<rt>とうきょうだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>小粥<rt>こがゆ(0)</rt></ruby><ruby>太郎<rt>たろう(0)</rt></ruby>KOGAYU Taroはじめに<ruby>本稿<rt>ほんこう(0)</rt></ruby>では、<ruby>民法<rt>みんぽう(1)</rt></ruby>および<ruby>民法学<rt>みんぽうがく(0)</rt></ruby>がどのようなものであるのか、それらの<ruby>一端<rt>いったん(0)</rt></ruby>について、「<ruby>人<rt>ひと(0)</rt></ruby>」という<ruby>切り口<rt>きりくち(0)</rt></ruby>からの<ruby>説明<rt>せつめい(0)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>われる。</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 專題論文 民法「人」</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 專題論文 民法「人」</div>
         </section>
+
         <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -118,16 +163,18 @@
                 <div class="text-slate-700 font-normal">前言：在本篇論文中，將針對民法及民法學究竟為何物，從「人」這一切入點對其一端進行說明。將「法與權利的世界（de jure world）」與「事實的世界（de facto world）」予以區別並單獨建構的技術，是起源於「西洋」的制度。在該制度中，對於事實世界中所發生的人類接觸與交流之要點，賦予法與權利……</div>
             </div>
         </article>
-        <section id="card-2" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-2" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 「<ruby>人<rt>ひと(0)</rt></ruby>」の<ruby>外延<rt>がいえん(0)</rt></ruby></h2>
-                <button onclick="playCardText(2)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 「<ruby>人<rt>ひと(0)</rt></ruby>」の<ruby>外延<rt>がいえん(0)</rt></ruby></h2>
+                <button onclick="playCardText(2)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 「人」的外延</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅰ 「人」的外延</div>
         </section>
+
         <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -149,6 +196,7 @@
                 <div class="text-slate-700 font-normal">首先，想先與大家就民法究竟為何物粗略地共享資訊。</div>
             </div>
         </article>
+
         <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -170,16 +218,18 @@
                 <div class="text-slate-700 font-normal">1．「人」的形式的與實質的意義。在形式上，民法是以作為法律主體的「人」、作為對物直接支配的「所有」、以及作為所有物交換的「契約」此三項制度為中心，構成了商品交換法的基本結構。規則（rule）乃是當滿足特定條件［要件］時，會產生相應法律結果（權利義務之發生、變更、消滅）［效果］的約定事項。規則雖然有時會明文規定於民法典中，但即便屬於極其重要的規則，因被視為理所當然的前提而未被寫入條文者亦非罕見（正因有此等情事，除了讀條文之外，亦有閱讀教科書之必要）。在民法的世界裡，實體社會的紛爭會被翻譯並掌握為「民法上是否有權利」的形式。例如，實際上交織著各種複雜感情的糾紛，在民法的世界中，會轉化為民法第709條所規定因侵權行為而生之損害賠償請求權（債權）成立要件是否充足的形式。</div>
             </div>
         </article>
-        <section id="card-5" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-5" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>実質<rt>じっしつ(0)</rt></ruby></h2>
-                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>実質<rt>じっしつ(0)</rt></ruby></h2>
+                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．實質觀點：商品交換法的基本結構</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．實質觀點：商品交換法的基本結構</div>
         </section>
+
         <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -201,6 +251,7 @@
                 <div class="text-slate-700 font-normal">2．實質觀點：商品交換法的基本結構</div>
             </div>
         </article>
+
         <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -222,6 +273,7 @@
                 <div class="text-slate-700 font-normal">形成商品交換法基本結構者，為以下三種制度：（a）身為法律主體的「人」；（b）「人」對物進行直接支配的「所有」；（c）「人」與其他「人」之間，為交換各自所「所有」之「物」而進行的「契約」。在現代民法中，凡是人類皆被認可為民法上的「人」，得以「所有」物品（所有權＝物權），並得透過「契約」（＝對雙方當事人而言，分別產生得請求對方交付該「物」之權利〔債權〕的要件），將其所「所有」之物讓與其他「人」。此外，作為「所有」制度內容之一，當該物遭其他「人」毀損時，即產生對該人請求損害賠償之權利（因侵權行為所生之損害賠償請求權）。</div>
             </div>
         </article>
+
         <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -243,6 +295,7 @@
                 <div class="text-slate-700 font-normal">（此即債權之一例）通常會以「所有」該物之「人」作為權利人的形式而產生。正如在「人」的外延Ⅰ所見，「人」作為構成權利（反過來說即義務）主體之制度，奠定了民法此一機制之基礎。話雖如此，既然今日對於「凡是人類皆為民法上之『人』」已無異議，關於「人」的民法學習看似亦無太過困難之處（狗狗或猴子並非人類，故非民法上之「人」＝不成為權利義務的主體，確認至此程度似乎即已足夠）。然而，若稍微回顧歷史，便可得知「人類＝『人』」在過去絕非理所當然。</div>
             </div>
         </article>
+
         <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -264,6 +317,7 @@
                 <div class="text-slate-700 font-normal">從民法學的觀點來看，必須注意到「人」這一概念因其抽象性，隨著時間推移包攝了屬於事實世界的各種事物，且此現象似乎與「平等對待」這一價值有所關聯。1. 人</div>
             </div>
         </article>
+
         <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -285,6 +339,7 @@
                 <div class="text-slate-700 font-normal">依據傳統的法律二分法，若非「人」即被歸類為「物」，不成為權利的主體，而成為權利的客體。在日本現行民法制定時（明治29年法律第89號），其開頭曾置有「私權之享受始於出生」之規定（現行民法第3條1項）……</div>
             </div>
         </article>
+
         <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -306,6 +361,7 @@
                 <div class="text-slate-700 font-normal">另一方面，亦有即便非屬人類亦被認定為「人」者。民法認可了「法人」的存在（民法第1編總則第3章法人）。在講學上，為了將人類與法人予以區別，人類被稱為「自然人」（而非僅稱人），並探討自然人與法人……</div>
             </div>
         </article>
+
         <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -327,6 +383,7 @@
                 <div class="text-slate-700 font-normal">民法第33條1項規定：「法人非依本法或其他法律之規定，不得成立。」緊接著此規定，在制定當時的民法中，曾設有一整套關於公益社團法人及公益財團法人的規範，但……</div>
             </div>
         </article>
+
         <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -348,6 +405,7 @@
                 <div class="text-slate-700 font-normal">其結果，在現行民法關於法人的章節中，僅殘留了法人僅得依法律規定成立（33條1項）、法人所被認可之能力範圍（34條）、法人應辦理登記（36條）等程度的規定。話雖如此……</div>
             </div>
         </article>
+
         <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -369,6 +427,7 @@
                 <div class="text-slate-700 font-normal">日本民法學的代表性體系書關於法人的歷史敘述如下。亦即：「近代個人自由主義最高潮時代的民法，將擁有權利能力者僅限於個人，團體僅在最小限度內例外地被視為個人……」</div>
             </div>
         </article>
+
         <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -390,6 +449,7 @@
                 <div class="text-slate-700 font-normal">然而，亦出現了與此抗衡、以個人為基調的構想。1804年創設世界首部民法典的法國，具有仇視結社的傳統，其民法典至今仍未擁有關於法人的完整規範。</div>
             </div>
         </article>
+
         <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -411,6 +471,7 @@
                 <div class="text-slate-700 font-normal">Ⅱ 「人」的屬性 在第Ⅰ節中，我們主要觀察了「人」概念外延的擴張以及對此擴張的反省。這次，讓我們將焦點對準「人」的性質，特別是自然人的性質。民法學除了注重個別的紛爭與個利的主張外……</div>
             </div>
         </article>
+
         <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -432,6 +493,7 @@
                 <div class="text-slate-700 font-normal">亦即，若從頭順序瀏覽民法條文，在第1編總則附近，「人」（自然人）透過意思表示（以契約為代表之法律行為的構成要素）來使其權利義務產生、變更或消滅……</div>
             </div>
         </article>
+
         <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -453,16 +515,18 @@
                 <div class="text-slate-700 font-normal">民法學在傳統上也將「人」掌握為彷彿遺忘了肉體、僅有靈魂的意思表示機器一般。正因如此，民法的意象才能透過Ⅰ2的圖示來表現，且自然人與法人才能被放在「人」概念之下……</div>
             </div>
         </article>
-        <section id="card-19" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-19" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>性別<rt>せいべつ(0)</rt></ruby><ruby>民法<rt>みんぽう(1)</rt></ruby>における「<ruby>人<rt>ひと(0)</rt></ruby>」は、<ruby>男<rt>おとこ(1)</rt></ruby>と<ruby>女<rt>おんな(1)</rt></ruby>から<ruby>構成<rt>こうせい(0)</rt></ruby>されているようにもみえる。</h2>
-                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>性別<rt>せいべつ(0)</rt></ruby><ruby>民法<rt>みんぽう(1)</rt></ruby>における「<ruby>人<rt>ひと(0)</rt></ruby>」は、<ruby>男<rt>おとこ(1)</rt></ruby>と<ruby>女<rt>おんな(1)</rt></ruby>から<ruby>構成<rt>こうせい(0)</rt></ruby>されているようにもみえる。</h2>
+                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．性別：民法中的「人」，看似是由男性與女性所構成。</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．性別：民法中的「人」，看似是由男性與女性所構成。</div>
         </section>
+
         <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -484,6 +548,7 @@
                 <div class="text-slate-700 font-normal">亦即，在過去，男女之別想必被視為理所當然。「人」的特定要素中，性別與姓名、出生年月日、住所並列，即便在近年亦屬常見。若性別作為「人」的屬性受到重視，這可能意味著民法向來以「社會是由男人與女人所組成，且該男女透過婚姻（或不透過婚姻）形成親子關係」為前提。然而今日，男女之別已非理所當然，中間領域的存在、領域間的遷移可能，以及性傾向與性自認的多樣性，已廣為人知。</div>
             </div>
         </article>
+
         <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -505,6 +570,7 @@
                 <div class="text-slate-700 font-normal">在人們的意識中，對於「『人』僅由男女構成且各自皆專屬異性戀傾向」此一理解所蘊含的問題性，認識亦正逐漸深化。民法學對於此一課題，不僅應從當事人視角的利益與不利益出發，更應在「人」概念的層面上予以接收，視狀況更新過往的「人」概念，並檢討與其相應的社會圖像。在此問題週邊，得以觀察到「人」概念更新與提出新社會圖像關聯性的例子，即為與「人」是否具有婚生性（嫡出性）相關的動向。在民法原始規定下，婚生子女與非婚生子女（庶子）的區別，在保有家制度的社會中，因關係到家族繼承資格之有無及順位，故為極其重要的屬性。</div>
             </div>
         </article>
+
         <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -526,6 +592,7 @@
                 <div class="text-slate-700 font-normal">然而，經由昭和22年（1947年法律第222號）的民法改正，家制度與家督繼承制度均遭廢除；其後，經由平成25年（2013年法律第94號）將當時民法第900條第4款（原規定非婚生子女之法定應繼分為婚生子女之二分之一）刪除的現在，是否為婚生子女的差異，已降至僅為該「人」與其父之親子關係判定方法不同（婚生子女適用婚生推定制度，非婚生子女適用認領制度）的程度。現代家族法教科書雖然猶豫，但仍試圖將婚生／非婚生之別從「人」的屬性中予以消滅。諸如：①「民法首先將整體劃分為婚生與其以外的形式加以規定，看似將『以婚姻關係為前提之親子』與『其以外』作為整體最大的分類。」</div>
             </div>
         </article>
+
         <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -547,16 +614,18 @@
                 <div class="text-slate-700 font-normal">另一方面，②「亦有觀點認為應將母子關係與父子關係定位為親子法最基本的要素。」「不論述婚姻夫婦與子女的親子關係，而始終思考母與子、父與子的關係才是親子法的基本」、「對於將問題理解為婚生子或非婚生子這種子女身分持消極立場」者，則「大致上似乎朝向②的方向」。同樣地，關於同性伴侶婚姻的討論，亦不僅需要當事人的利益與不利益，更需要社會制度的觀點；而要求在交錯著各種利害關係的後者領域進行討論的場所之一，似乎即為「人」的概念、或作為其屬性的男女之別（之維持、修正或放棄，抑或替代方案之創設），以及婚姻的概念（特別是如何思考婚姻制度與親子制度的結合）。</div>
             </div>
         </article>
-        <section id="card-24" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-24" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">•おわりに<ruby>学生<rt>がくせい(0)</rt></ruby>の<ruby>立場<rt>たちば(0)</rt></ruby>になって、<ruby>民法<rt>みんぽう(1)</rt></ruby>を<ruby>学<rt>まな(0)</rt></ruby>び、<ruby>期末<rt>きまつ(0)</rt></ruby><ruby>試験<rt>しけん(2)</rt></ruby>や<ruby>司法<rt>しほう(0)</rt></ruby><ruby>試験<rt>しけん(2)</rt></ruby>などを<ruby>受験<rt>じゅけん(0)</rt></ruby>することを<ruby>想像<rt>そうぞう(0)</rt></ruby>した<ruby>場合<rt>ばあい(0)</rt></ruby>、とりわけ、<ruby>試験<rt>しけん(2)</rt></ruby><ruby>問題<rt>もんだい(0)</rt></ruby>として、ツールとしての<ruby>民法<rt>みんぽう(1)</rt></ruby>をいわば<ruby>所与<rt>しょよ(1)</rt></ruby>として、<ruby>事例<rt>じれい(0)</rt></ruby><ruby>問題<rt>もんだい(0)</rt></ruby>の<ruby>解決<rt>かいけつ(0)</rt></ruby><ruby>案<rt>あん(1)</rt></ruby>を<ruby>考<rt>かんが(0)</rt></ruby>えさせるような<ruby>出題<rt>しゅつだい(0)</rt></ruby>が<ruby>予想<rt>よそう(0)</rt></ruby>されるときには、<ruby>民法<rt>みんぽう(1)</rt></ruby>のたくさんの<ruby>基本<rt>きほん(0)</rt></ruby><ruby>概念<rt>がいねん(1)</rt></ruby>の<ruby>外延<rt>がいえん(0)</rt></ruby>・<ruby>内包<rt>ないほう(0)</rt></ruby>を<ruby>理解<rt>りかい(1)</rt></ruby>し、できれば、その<ruby>定義<rt>ていぎ(1)</rt></ruby>をきっちり<ruby>暗記<rt>あんき(0)</rt></ruby>しておきたくなる。</h2>
-                <button onclick="playCardText(24)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">•おわりに<ruby>学生<rt>がくせい(0)</rt></ruby>の<ruby>立場<rt>たちば(0)</rt></ruby>になって、<ruby>民法<rt>みんぽう(1)</rt></ruby>を<ruby>学<rt>まな(0)</rt></ruby>び、<ruby>期末<rt>きまつ(0)</rt></ruby><ruby>試験<rt>しけん(2)</rt></ruby>や<ruby>司法<rt>しほう(0)</rt></ruby><ruby>試験<rt>しけん(2)</rt></ruby>などを<ruby>受験<rt>じゅけん(0)</rt></ruby>することを<ruby>想像<rt>そうぞう(0)</rt></ruby>した<ruby>場合<rt>ばあい(0)</rt></ruby>、とりわけ、<ruby>試験<rt>しけん(2)</rt></ruby><ruby>問題<rt>もんだい(0)</rt></ruby>として、ツールとしての<ruby>民法<rt>みんぽう(1)</rt></ruby>をいわば<ruby>所与<rt>しょよ(1)</rt></ruby>として、<ruby>事例<rt>じれい(0)</rt></ruby><ruby>問題<rt>もんだい(0)</rt></ruby>の<ruby>解決<rt>かいけつ(0)</rt></ruby><ruby>案<rt>あん(1)</rt></ruby>を<ruby>考<rt>かんが(0)</rt></ruby>えさせるような<ruby>出題<rt>しゅつだい(0)</rt></ruby>が<ruby>予想<rt>よそう(0)</rt></ruby>されるときには、<ruby>民法<rt>みんぽう(1)</rt></ruby>のたくさんの<ruby>基本<rt>きほん(0)</rt></ruby><ruby>概念<rt>がいねん(1)</rt></ruby>の<ruby>外延<rt>がいえん(0)</rt></ruby>・<ruby>内包<rt>ないほう(0)</rt></ruby>を<ruby>理解<rt>りかい(1)</rt></ruby>し、できれば、その<ruby>定義<rt>ていぎ(1)</rt></ruby>をきっちり<ruby>暗記<rt>あんき(0)</rt></ruby>しておきたくなる。</h2>
+                <button onclick="playCardText(24)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">★ 結語——若站在學生的立場，想像學習民法並參加期末考試或司法考試等情形，特別是當預期考試題目會將作為工具的民法視為給定前提、要求思考事例問題的解決方案時，往往會想要理解民法眾多基本概念的外延與內涵，如果可以的話，更想將其定義確實背誦下來。</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">★ 結語——若站在學生的立場，想像學習民法並參加期末考試或司法考試等情形，特別是當預期考試題目會將作為工具的民法視為給定前提、要求思考事例問題的解決方案時，往往會想要理解民法眾多基本概念的外延與內涵，如果可以的話，更想將其定義確實背誦下來。</div>
         </section>
+
         <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -578,6 +647,7 @@
                 <div class="text-slate-700 font-normal">否則，在短暫的考試時間內，要從民法這個工具箱裡所裝的大量工具中挑選出適當者，並利用它們來解決問題，恐怕會顯得毫無把握。然而，在本篇論文中，關於「人」的概念，貫穿第Ⅰ、Ⅱ節描繪了其隨著時間搖擺動搖的樣貌。學生若光是學習虛無飄渺的事物，恐怕難以期望在考試中取得成果。儘管如此，本篇論文為何仍注視著「人」概念的動搖？事實上，20世紀後半葉有力的民法教科書，曾採用了「刻意不寫出基本概念定義」的策略。</div>
             </div>
         </article>
+
         <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -599,6 +669,7 @@
                 <div class="text-slate-700 font-normal">有的教科書指出：「本書對於制度與概念，儘量避免脫離民法規定而突然寫出定義。或許會有批判認為：定義乃學問之始與終，缺乏定義則根本不成概論書之體統。然而，過往教師突然講授制度之定義，學生在半懂不懂的情況下僅背誦定義者並不在少數。然而，如此一來雖能得知依通説體系化之民法，但是否真正學習了民法本身，實存有疑問。」；另有教科書則在序言中宣示：「極力避免抽象的概念規定或要件・效果之羅列，首先敘述具體制度之樣貌與功能，努力讓學生日後自己去構建定義。」</div>
             </div>
         </article>
+
         <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -620,6 +691,7 @@
                 <div class="text-slate-700 font-normal">作者們所企圖的，並非僅停留在以固定的民法系統為前提、培養導出考試題目正確答案的能力——如同為了能解開數學試題而進行訓練的教育？——而是企圖培養將堅固的民法系統予以柔軟化、創出妥當解決方案，進而提示新系統的能力。法律基本概念的定義雖然嚴格，但將其動搖、一點一滴改變其姿態、不知不覺間平穩地改變整個系統的樣貌，這對於使法律系統適應社會變化而言乃屬必要，且為了透過提案新法律系統來改變社會而言亦屬必要。</div>
             </div>
         </article>
+
         <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -641,6 +713,7 @@
                 <div class="text-slate-700 font-normal">此種更新作業往往需要制定法、判例與學説之間的相互作用（光是操作制定法，極難改變市民社會基本詞彙的意義內容）。在民法教育中，有時會刻意不安示概念的定義，或是介紹關於概念外延內涵之見解對立，其背景即存在著上述情事。本篇論文試圖透過「人」來進行民法入門，同時意識到乍看無味乾燥的「人」概念討論（特別是時間軸上的變遷），藉此說明：除了（背誦定義）能在給定且固定的民法系統中得出正確答案之外，學習民法亦具有其他重大意義。</div>
             </div>
         </article>
+
         <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -662,12 +735,9 @@
                 <div class="text-slate-700 font-normal">（小粥太郎）</div>
             </div>
         </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>SPECIAL FEATURE 民法「人」 — 上下對照朗讀與翻譯版</p>
-        </footer>
+                </main>
+            </div>
+        </div>
     </div>
 
     <!-- Floating Audio Control Bar -->
@@ -682,7 +752,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -697,7 +767,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis JavaScript -->
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -706,6 +776,45 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '民法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -724,12 +833,10 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
-            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

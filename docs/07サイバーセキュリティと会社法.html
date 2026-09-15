@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サイバーセキュリティと会社法 - 上下對照朗讀與翻譯版</title>
+    <title>サイバーセキュリティと会社法 - 左右對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: #0f172a;
             color: #1e293b;
         }
 
@@ -63,40 +63,85 @@
     </style>
 </head>
 
-<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                サイバーセキュリティと会社法
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    サイバーセキュリティと会社法
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——サイバーセキュリティと会社法 <span class="text-indigo-300/80 text-sm font-normal">（網路安全與公司法）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200"></span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
                 </div>
             </div>
-        </header>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="07サイバーセキュリティと会社法.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        サイバーセキュリティと会社法
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——サイバーセキュリティと会社法 <span class="text-indigo-300/80 text-xs font-normal">（網路安全與公司法）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>
+                    </div>
+                </div>
 
-        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ サイバー攻撃が会社の経営を揺るがす時代？</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">▶ サイバー攻撃が会社の経営を揺るがす時代？</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 網路攻擊動搖公司經營之時代？</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 網路攻擊動搖公司經營之時代？</div>
         </section>
+
         <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -118,6 +163,7 @@
                 <div class="text-slate-700 font-normal">2025年有多家大型企業遭受網路攻擊（Cyberattack），導致營業額下滑等經營層面的重大打擊，此事記憶猶新。進入2026年後，資訊安全事件的新聞仍接連不斷。網路安全（資訊安全）無疑已成為公司及其經營者至關重要的經營課題。本文以造成嚴重損害並引發廣泛討論的勒索軟體攻擊（Ransomware Attack）類型為背景，首先簡要說明網路安全之基本概念。</div>
             </div>
         </article>
+
         <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -139,6 +185,7 @@
                 <div class="text-slate-700 font-normal">次查，本文將基於公司治理之關聯性，闡述經營者面對網路安全風險所應採取之因應措施。希望讀者能透過本文，從網路安全之視角，具體理解公司法之基本理念，特別係對經營者（董事）設有何種法規範與拘束，進而引領讀者進入公司法之學術殿堂。1. 何謂勒索軟體攻擊：勒索軟體攻擊，係指利用稱為勒索軟體（Ransomware）之惡意程式，將攻擊目標終端設備上之資料予以加密鎖定，並以解密復原為條件勒索贖金（Ransom）之網路攻擊行為。</div>
             </div>
         </article>
+
         <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -160,16 +207,18 @@
                 <div class="text-slate-700 font-normal">「Ransom」即為贖金之意，換言之即脅迫「若想救回資料，就支付贖金！」。此類犯罪行為，係利用企業經營者評估若無法及時復原資料將面臨龐大營運損失之心理，寄望企業最終選擇支付贖金。據統計，勒索軟體攻擊被害件數呈現持續上升趨勢。根據一項針對日本國內員工數500人以上大型組織之問卷調查，高達40%的組織在過去3年內曾遭勒索軟體攻擊，受害組織過去3年間因網路攻擊所受損害金額平均高達約2.2億日圓。</div>
             </div>
         </article>
-        <section id="card-4" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-4" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティとは</h2>
-                <button onclick="playCardText(4)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティとは</h2>
+                <button onclick="playCardText(4)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．何謂資訊安全（情報セキュリティ）</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．何謂資訊安全（情報セキュリティ）</div>
         </section>
+
         <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -191,6 +240,7 @@
                 <div class="text-slate-700 font-normal">2. 何謂資訊安全：面對包含勒索軟體攻擊在內之網路攻擊，若毫無防範，將無法保護公司財產；且客戶出於信任所預託之個人資料若遭洩漏，亦將嚴重破壞商業信賴。因此公司必須採取適當措施以迴避受害風險，進行妥善管理並維持安全狀態，此即資訊安全（Information Security）。資訊安全之具體核心，係著重於維持稱為CIA之三要素：①機密性（Confidentiality）、②完整性（Integrity）及③可用性（Availability）。</div>
             </div>
         </article>
+
         <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -212,6 +262,7 @@
                 <div class="text-slate-700 font-normal">①機密性，係指確保僅有獲授權存取資訊之人始得存取該資訊之狀態；②完整性，係指確保資訊未遭破壞、竄改或刪除；③可用性，則係指確保獲授權存取資訊之人，於需要時得不間斷地存取資訊及相關資產。若因網路攻擊導致未授權之第三方得存取資訊，即侵害機密性；若資訊遭破壞、竄改或刪除，即侵害完整性；若無法正常存取資料，則侵害可用性（單一攻擊事件常同時侵害上述多項要素）。</div>
             </div>
         </article>
+
         <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -233,16 +284,18 @@
                 <div class="text-slate-700 font-normal">例如，勒索軟體攻擊因將資料加密致無法使用而侵害可用性，同時若攻擊者將資料竊取外洩亦侵害機密性。3. 企業之預防措施：企業理應採取措施預防資安事件。具體內容雖受各式指引及法令規範，例如就個人資料安全管理而言，《個人資料保護法》第23條及相關指引即要求企業實施組織性、人力資源性、物理性及技術性等層面之安全管理措施。</div>
             </div>
         </article>
-        <section id="card-8" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-8" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">4．<ruby>企業<rt>きぎょう(1)</rt></ruby>の<ruby>事後<rt>じご(1)</rt></ruby><ruby>対応<rt>たいおう(0)</rt></ruby></h2>
-                <button onclick="playCardText(8)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">4．<ruby>企業<rt>きぎょう(1)</rt></ruby>の<ruby>事後<rt>じご(1)</rt></ruby><ruby>対応<rt>たいおう(0)</rt></ruby></h2>
+                <button onclick="playCardText(8)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">4．企業之事後對應</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">4．企業之事後對應</div>
         </section>
+
         <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -264,6 +317,7 @@
                 <div class="text-slate-700 font-normal">4. 企業之事後因應：縱使採取一定程度之預防措施，仍可能因各種原因發生資安危害事件（Security Incident）。據日本資訊處理推進機構（IPA）公表之「資安10大威脅 2026」組織類別前5名，分別為：勒索軟體攻擊被害、針對供應鏈或委外廠商之攻擊、人工智慧（AI）利用衍生之網路風險、利用系統漏洞（脆弱性）之攻擊及針對機密資訊之標的型攻擊。例如企業自身縱極盡防護，若合作廠商或供應鏈下游受害，亦將導致企業自身生產線停擺之連帶損害。</div>
             </div>
         </article>
+
         <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -285,26 +339,29 @@
                 <div class="text-slate-700 font-normal">精巧之網路攻擊常針對企業或關聯企業中最薄弱之環節發動，致使受害事件仍層出不窮。不幸受害時，應遵循「①初期因應→②全面調查→③防止復發」之步驟，同時併行「④對外回應」。亦即，發現受害徵兆時，首重止血與抑制損害擴大之應急措施，並進行①初期因應以評估是否需要全面啟動相應機制；若評估確實屬重大資安事件，則應召集IT、公關及法務等專家組成調查小組執行②全面調查；依據調查結果研擬③防止復發對策，並於整體過程中同步執行對被害人通知、資訊公開及向監管機關（如個人資料保護委員會）通報等④對外因應措施。</div>
             </div>
         </article>
-        <section id="card-11" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-11" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ サイバーセキュリティとガバナンス</h2>
-                <button onclick="playCardText(11)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅰ サイバーセキュリティとガバナンス</h2>
+                <button onclick="playCardText(11)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 網路安全與公司治理（Governance）</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅰ 網路安全與公司治理（Governance）</div>
         </section>
-        <section id="card-12" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-12" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．サイバーセキュリティとガバナンス</h2>
-                <button onclick="playCardText(12)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">1．サイバーセキュリティとガバナンス</h2>
+                <button onclick="playCardText(12)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．資安與公司治理（ガバナンス）</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">1．資安與公司治理（ガバナンス）</div>
         </section>
+
         <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -326,6 +383,7 @@
                 <div class="text-slate-700 font-normal">經營者應如何面對此一關鍵的資安議題？在此有必要強調公司治理（Governance）對企業經營者之重要性。企業存在股東、勞工、交易對象（含銀行等）、消費者、社區居民及行政機關等多元利害關係人（Stakeholders）。經營者唯有持續向該等利害關係人進行長期利益回饋，企業始得實現永續成長與繁榮。因此，公司治理中確保合規經營之「合法性公司治理（守勢治理）」與提升生產力及收益性之「效率性公司治理（攻勢治理）」二者均至為關鍵。</div>
             </div>
         </article>
+
         <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -347,6 +405,7 @@
                 <div class="text-slate-700 font-normal">日本《公司治理守則》（Corporate Governance Code）將公司治理定義為：「公司於兼顧股東、客戶、員工及在地社會等立場下，為實現透明、公正、迅速暨果斷決策所建立之機制架構」。其中「透明與公正（守勢治理）」與合法性公司治理深刻相關，「迅速與果斷（攻勢治理）」則與效率性公司治理息息相關。若對包含資安風險在內之營運風險聽之任之，一旦風險具體化，恐將動搖企業之存續。守則明確指出：「建立內部控制及前瞻性之全社風險管理體系，乃確保合規營運與健全風險承擔（Risk-taking）之堅實後盾」。</div>
             </div>
         </article>
+
         <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -368,6 +427,7 @@
                 <div class="text-slate-700 font-normal">簡言之，完善風險管理體制，乃支持經營者進行合理風險承擔（Risk-taking）之關鍵，在公司治理上具有極高重要性。資安風險即為企業必須管理之核心風險之一。日本經產省《網路安全經營指引》將資安防護定位為「對未來事業活動與成長所必需之投資」，要求經營者將資安風險納入整體經營風險之中，據此加以審視評估，並透過各項防護措施將資安風險降至企業可承受之水平，此乃經營者不可推卸之職責。</div>
             </div>
         </article>
+
         <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -389,16 +449,18 @@
                 <div class="text-slate-700 font-normal">2. 經營者之義務與作為內部控制系統之資安對策：資訊安全乃公司治理之核心要件，如後所述，公司法明文將實施資訊安全防護措施課以經營者作為其法律義務。</div>
             </div>
         </article>
-        <section id="card-17" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-17" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（1）<ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>の<ruby>負<rt>お(0)</rt></ruby>う<ruby>忠実<rt>ちゅうじつ(0)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby>と<ruby>善管<rt>ぜんかん(0)</rt></ruby><ruby>注意<rt>ちゅうい(1)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby></h2>
-                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">（1）<ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>の<ruby>負<rt>お(0)</rt></ruby>う<ruby>忠実<rt>ちゅうじつ(0)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby>と<ruby>善管<rt>ぜんかん(0)</rt></ruby><ruby>注意<rt>ちゅうい(1)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby></h2>
+                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（1）經營者所負之忠實義務與善管注意義務</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">（1）經營者所負之忠實義務與善管注意義務</div>
         </section>
+
         <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -420,16 +482,18 @@
                 <div class="text-slate-700 font-normal">（1）經營者負擔之忠實義務與善良管理人注意義務：就公司法之基本原則而言，在大規模公開發行上市公司中，所有與經營係相分離。亦即股東並非親自經營公司，而是將投資資金之管理委任予經營者（董事）。針對受託管理資金之經營者，公司法規範其對公司負有忠實執行職務之「忠實義務」（公司法第355條），並負有為股東利益盡善良管理人注意經營企業之「善管注意義務」（公司法第330條準用民法第644條）。</div>
             </div>
         </article>
-        <section id="card-19" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-19" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（2）<ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>の<ruby>負<rt>お(0)</rt></ruby>う<ruby>内部<rt>ないぶ(1)</rt></ruby><ruby>統制<rt>とうせい(0)</rt></ruby>システム<ruby>構築<rt>こうちく(0)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby></h2>
-                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">（2）<ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>の<ruby>負<rt>お(0)</rt></ruby>う<ruby>内部<rt>ないぶ(1)</rt></ruby><ruby>統制<rt>とうせい(0)</rt></ruby>システム<ruby>構築<rt>こうちく(0)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby></h2>
+                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（2）經營者所負之內部控制系統建置義務</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">（2）經營者所負之內部控制系統建置義務</div>
         </section>
+
         <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -451,16 +515,18 @@
                 <div class="text-slate-700 font-normal">（2）經營者負擔之內部控制系統建構義務：基於上述忠實義務與善管注意義務，董事作為其義務內容之一，負有建構確保公司業務合規適正營運所必需之「內部控制系統（Internal Control System）」之法律義務。在大型企業中，經營者欲親自監視公司所有業務實屬不可能，故必須於公司內部建立組織體制以確保業務適正。例如企業設立法務部門支援法令遵循，即屬於內部控制系統之一環。</div>
             </div>
         </article>
-        <section id="card-21" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-21" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（3）<ruby>内部<rt>ないぶ(1)</rt></ruby><ruby>統制<rt>とうせい(0)</rt></ruby>システムとサイバーセキュリティ</h2>
-                <button onclick="playCardText(21)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">（3）<ruby>内部<rt>ないぶ(1)</rt></ruby><ruby>統制<rt>とうせい(0)</rt></ruby>システムとサイバーセキュリティ</h2>
+                <button onclick="playCardText(21)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（3）內部控制系統與資訊安全</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">（3）內部控制系統與資訊安全</div>
         </section>
+
         <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -482,16 +548,18 @@
                 <div class="text-slate-700 font-normal">（3）內部控制系統與網路安全：董事建構內部控制系統之義務，涵蓋實施妥善網路安全對策之義務。具體而言，應依據事業類別、規模、業務實態及風險內容進行適當之系統設計，落實系統漏洞管理以極小化個資外洩風險，並訂定緊急事件應變體制。此時依據「經營判斷原則」，董事得依公司事業規模與經營狀態，於合理裁量範圍內決定應採行之具體防護對策。</div>
             </div>
         </article>
-        <section id="card-23" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-23" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（4）「<ruby>被害者<rt>ひがいしゃ(3)</rt></ruby>」が「<ruby>加害者<rt>かがいしゃ(3)</rt></ruby>」に？</h2>
-                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">（4）「<ruby>被害者<rt>ひがいしゃ(3)</rt></ruby>」が「<ruby>加害者<rt>かがいしゃ(3)</rt></ruby>」に？</h2>
+                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（4）「受害者」變成「加害者」？</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">（4）「受害者」變成「加害者」？</div>
         </section>
+
         <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -513,6 +581,7 @@
                 <div class="text-slate-700 font-normal">（4）「受害者」轉眼變成「加害者」？：經營者被課以實施資安對策義務之深刻意涵在於，若經營者未採行妥適之資安防護，本為資安受害者的公司及其經營者，將反過來在法律責任上轉變為對顧客及股東之「加害者」。</div>
             </div>
         </article>
+
         <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -534,16 +603,18 @@
                 <div class="text-slate-700 font-normal">在涉及某函授教育企業大規模個人資料外洩事件之判決中，董事之法律責任成為核心爭點。法院揭示：「公司法並未對內部控制系統之型態設有唯一標準，其應有之水準應依實務慣行認定，具體內容則應由董事綜合考量事業內容、規模及經營狀態於裁量權範圍內決定」，最終認定經營者於該具體情節下未構成義務違反。然而，若具體個案情景不同，經營者個人損害賠償責任仍有被法院認定成立之可能。再者，縱未被追究個人責任，資安事件爆發亦將嚴重傷害顧客及利害關係人之信賴，重創公司價值。資安威脅日新月異，企業絕非於某一時間點實施防護即可一勞永逸，必須持續檢討升級並隨之動態調整防護體系。</div>
             </div>
         </article>
-        <section id="card-26" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-26" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅱ ランサム攻撃の被害を受けた場合、経営者はどう対応すべきか？</h2>
-                <button onclick="playCardText(26)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅱ ランサム攻撃の被害を受けた場合、経営者はどう対応すべきか？</h2>
+                <button onclick="playCardText(26)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅱ 面臨勒索軟體攻擊受害時，經營者應如何因應處置？</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅱ 面臨勒索軟體攻擊受害時，經營者應如何因應處置？</div>
         </section>
+
         <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -565,6 +636,7 @@
                 <div class="text-slate-700 font-normal">倘若企業雖已採行相當程度之防護對策，攻擊者仍成功入侵系統並發動勒索軟體攻擊，經營者應如何決策？若拒絕支付贖金，公司業務可能面臨長期停擺；然支付贖金無異於向犯罪組織提供資金，且即使支付，亦無法保證資料能獲解密，甚至可能遭受第二次勒索。就此而言，不論選擇「支付」或「不支付」，均屬極度兩難之困境。</div>
             </div>
         </article>
+
         <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -586,6 +658,7 @@
                 <div class="text-slate-700 font-normal">然而，日本最高法院於涉及企業恐嚇（非網路攻擊，而係公司掠奪者恐嚇）案件中，對屈服於恐嚇而向恐嚇者交付利益之董事認定具備「過失」。最高法院認定：董事不應屈從於不合理要求，且無不能報警處理等期待不可能情事，故不能以「情有可原」為由免除董事之過失責任。那麼，經營者究竟是否應支付贖金？對此，最高法院就董事經營決策揭示「經營判斷原則」：只要決策過程與內容無顯著不合理之處，即不構成董事善管注意義務之違反。</div>
             </div>
         </article>
+
         <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -607,6 +680,7 @@
                 <div class="text-slate-700 font-normal">經營者無須就結果承擔嚴格之「結果責任」，只要其決策過程與內容不具顯著不合理性，即可依經營判断原則（Business Judgment Rule）免除責任。因此經營者應諮詢法務、IT部門及外部律師等專家意見，經由董事會充分討論等合理程序，作成落於經營判斷原則保護範圍內之決策。於實務運作上，拒絕支付贖金之決策多被認定具備合理性而不致構成顯著不合理。</div>
             </div>
         </article>
+
         <article id="card-30" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -628,6 +702,7 @@
                 <div class="text-slate-700 font-normal">拒絕支付贖金之理由包括不願成為犯罪組織之資金來源，且付費亦無法保證資料順利復原，此等考量於一般情節下絕非顯著不合理。唯於醫療院所系統遭鎖定攸關人命等極端例外情形，始有考量支付之可能。然而若支付贖金後資料仍未獲解密，董事即可能面臨作成不合理決策致公司資產遭浪費之善管注意義務違反訴追。</div>
             </div>
         </article>
+
         <article id="card-31" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -649,6 +724,7 @@
                 <div class="text-slate-700 font-normal">此外，向特定犯罪組織匯款亦可能觸犯洗錢防制或反恐資金籌集等法令而屬違法。企業於決策時，至少應充分評估匯款之合法性及其他替代復原途徑，並諮詢專家意見後始得作成判斷；於具體個案中，支付贖金極可能被認定為顯著不合理之經營決策，經營者對此須保持高度警惕。</div>
             </div>
         </article>
+
         <article id="card-32" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -670,6 +746,7 @@
                 <div class="text-slate-700 font-normal">小結：閱讀本文後，讀者或許會感嘆企業經營者實屬不易。誠然，包含網路安全在內之各種新興威脅每日不斷湧現並衝擊企業。於此環境中，企業經營者必須採行必要之風險管理對策，並針對新興威脅持續推動防護機制的升級與更新。</div>
             </div>
         </article>
+
         <article id="card-33" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -691,12 +768,9 @@
                 <div class="text-slate-700 font-normal">此類因應過程固屬繁重，然若怠於防護努力，一旦遭大規模攻擊致事業無法運作，甚或導致公司倒閉亦非不可能。當然，即使受害，公司法亦非向經營者要求無過失之「結果責任」，而係於賦予經營者合理裁量權之前提下，僅於其未於裁量範圍內採行適當防護時始產生法律責任。經營者亦非獨力決策，而是得於法務部門及律師等專業協助下進行理性判斷。公司法即係透過此種規範機制，維護股東、勞工及交易對象等利害關係人之利益。期望讀者能透過本文，體會公司法作為協調多元利害關係人利益動態平衡之公司治理規範的深奧趣味。</div>
             </div>
         </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>サイバーセキュリティと会社法 — 上下對照朗讀與翻譯版</p>
-        </footer>
+                </main>
+            </div>
+        </div>
     </div>
 
     <!-- Floating Audio Control Bar -->
@@ -711,7 +785,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -726,7 +800,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis JavaScript -->
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -735,6 +809,45 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '07サイバーセキュリティと会社法.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -753,12 +866,10 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
-            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

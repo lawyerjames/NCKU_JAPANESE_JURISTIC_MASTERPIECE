@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>「闇バイト」に挑む刑法入門 - 上下對照朗讀與翻譯版</title>
+    <title>「闇バイト」に挑む刑法入門 - 左右對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: #0f172a;
             color: #1e293b;
         }
 
@@ -63,40 +63,85 @@
     </style>
 </head>
 
-<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                「闇バイト」に挑む刑法入門
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    「闇バイト」に挑む刑法入門
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——犯罪組織の手先とされる若者たちと刑事責任 <span class="text-indigo-300/80 text-sm font-normal">（被犯罪組織利用為爪牙之青年與其刑事責任）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200"></span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
                 </div>
             </div>
-        </header>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="03闇バイトに挑む刑法.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        「闇バイト」に挑む刑法入門
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——犯罪組織の手先とされる若者たちと刑事責任 <span class="text-indigo-300/80 text-xs font-normal">（被犯罪組織利用為爪牙之青年與其刑事責任）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>
+                    </div>
+                </div>
 
-        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ 「闇バイト」に挑む刑法入門</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">▶ 「闇バイト」に挑む刑法入門</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 挑戰「暗黑打工／求職陷阱」之刑法入門</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 挑戰「暗黑打工／求職陷阱」之刑法入門</div>
         </section>
+
         <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -118,6 +163,7 @@
                 <div class="text-slate-700 font-normal">最近在網路與電視新聞中頻繁出現「暗黑打工（闇バイト）」這一詞彙。這是指透過 SNS 或網路討論區，不標明具體工作內容，而以「短時間獲得高收入」等甜言蜜語招募的「兼職」。應徵者往往被犯罪集團利用作為爪牙，負責從被害人處收取詐欺騙取的財物，或是直接實施強盜。警察廳正大力開展宣導活動，呼籲大眾切勿涉入暗黑打工。</div>
             </div>
         </article>
+
         <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -139,6 +185,7 @@
                 <div class="text-slate-700 font-normal">然而，誘騙者亦日益狡猾，包含十多歲青少年在內的許多人陷於深淵無法自拔：「以為是待遇優渥的兼職而應徵，結果卻被強迫參與犯罪。想辭職時，由於應徵時提交的駕照等已透露了住所等個人資訊，因害怕遭到報復而不敢退出，亦無法向任何人諮詢。」</div>
             </div>
         </article>
+
         <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -160,26 +207,29 @@
                 <div class="text-slate-700 font-normal">起初看似待遇優渥，實質上卻是犯罪，且被迫承擔極高被捕風險的角色。即便實際被捕，在完全不知道搾取利益的核心成員之姓名與長相的情況下，就被當作「蜥蜴斷尾」般棄之不顧。這正是暗黑打工的真實面貌。在近期的刑事裁判中，陸續被起訴的暗黑打工應徵者們的罪責正受到審理。而在累積的各種爭點的新判決中，展現出了絕非一句「我沒有惡意」就能化解的嚴酷現實。</div>
             </div>
         </article>
-        <section id="card-4" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-4" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 特殊詐欺の闇</h2>
-                <button onclick="playCardText(4)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 特殊詐欺の闇</h2>
+                <button onclick="playCardText(4)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 特殊詐欺之暗黑面</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅰ 特殊詐欺之暗黑面</div>
         </section>
-        <section id="card-5" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-5" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．特殊詐欺とは？</h2>
-                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">1．特殊詐欺とは？</h2>
+                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．何謂特殊詐欺？</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">1．何謂特殊詐欺？</div>
         </section>
+
         <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -201,6 +251,7 @@
                 <div class="text-slate-700 font-normal">暗黑打工的代表例之一即為特殊詐欺。所謂特殊詐欺，係指「透過撥打電話等非面對面方式取得被害人信任，並藉由轉帳至指定郵儲帳戶等方法，向不特定多數人騙取現金等」之犯罪總稱。以刑法罪名而言，除詐欺外，亦包含構成恐嚇或竊盜等行為。在特殊詐欺的暗黑打工中所承擔者，主要為後述之「車手／取款員（受け子）」與「提款員（出し子）」等角色。</div>
             </div>
         </article>
+
         <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -222,6 +273,7 @@
                 <div class="text-slate-700 font-normal">特殊詐欺之典型為「猜猜我是誰／假冒親友詐欺（オレオレ詐欺）」。所謂假冒親友詐欺，係指冒充親屬、警察、律師等，以解決親屬引發之事件或事故的和解金等為名目騙取（脅迫勒索）金錢之行為。而在該犯罪架構中，最後前往被害人處收取現金者即為「車手／取款員（受け子）」之角色。因需與被害人直接接觸，被捕風險極高，故多利用經由暗黑打工招募之人。</div>
             </div>
         </article>
+
         <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -243,16 +295,18 @@
                 <div class="text-slate-700 font-normal">因假冒親友詐欺係欺罔他人並使其交付財物，故產生是否構成詐欺罪（刑法第246條第1項）之問題。詐欺罪之構成要件為：①行為人實施欺罔行為，②相對人陷於錯誤，③相對人交付財物（且①為②、②為③之原因）時成立（當然，主觀要件上亦需要具備詐欺罪之故意、不法所有意圖，於共同正犯中亦需要具備共同實行之意思）。</div>
             </div>
         </article>
-        <section id="card-9" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-9" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．受け子の刑事責任ー基礎編</h2>
-                <button onclick="playCardText(9)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．受け子の刑事責任ー基礎編</h2>
+                <button onclick="playCardText(9)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．車手／取款員之刑事責任——基礎篇</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．車手／取款員之刑事責任——基礎篇</div>
         </section>
+
         <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -274,6 +328,7 @@
                 <div class="text-slate-700 font-normal">然而，由於此類「假冒親友詐欺」架構係採分工制，車手在撥電話人員（架け子）成功欺騙相對人後，被指示前往相對人住宅收取現金之情形屢見不鮮。於此類情形中，產生了：①對於從詐欺罪實行行為中途加入犯行之車手，能否作為共同正犯追究其對整體犯行（包含其加入前所實施之欺罔行為部分）之刑事責任；②對不知犯行細節之車手，能否認定其具備故意等爭點。</div>
             </div>
         </article>
+
         <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -295,6 +350,7 @@
                 <div class="text-slate-700 font-normal">就其中①被稱為相續的共同正犯（承継的共同正犯）之問題，判例於傷害罪案件中——即被告於他人施暴後接獲通知趕赴現場、經共謀加入對同一被害人施暴——否定了對與被告暴行無因果關係之共謀加入前行為成立共同正犯；相對地，對上述特殊詐欺之情形，則承認成立共同正犯之餘地。雖然該結論之實質根據未必明確，但學説上提出了關注欺罔行為與所交付財物之受領行為間密接一體性之理解。</div>
             </div>
         </article>
+
         <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -316,16 +372,18 @@
                 <div class="text-slate-700 font-normal">此外，就②故意而言，若確非犯罪而僅係作為適法兼職接下車手角色，追究其刑事責任將違反責任主義（故意責任原則）而不被允許。然而判例歷來認定，只要不確定地（未必地）認識到係該當一定犯罪構成要件之行為，即得認定故意。依循該判例脈絡，即便僅係漠然認識到「可能是最近成為話題的假冒親友詐欺車手」之可能性，亦得認定具備故意。</div>
             </div>
         </article>
-        <section id="card-13" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-13" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">3．受け子の刑事責任ー応用編</h2>
-                <button onclick="playCardText(13)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">3．受け子の刑事責任ー応用編</h2>
+                <button onclick="playCardText(13)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">3．車手／取款員之刑事責任——應用篇</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">3．車手／取款員之刑事責任——應用篇</div>
         </section>
+
         <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -347,6 +405,7 @@
                 <div class="text-slate-700 font-normal">與前述「假冒親友詐欺」之典型例不同，若電話中僅使其相信警察或銀行職員即將拜訪相對人住宅，而具體的「①欺罔行為→②相對人錯誤→③基於錯誤之交付」等詐欺罪實行行為，係預定由車手於拜訪相對人住宅並直接對峙後實施；然而在拜訪被害人住宅前，相對人起疑並報警，車手於被害人住宅周邊遭巡邏警察盤查逮捕，此時車手應負何種罪責？</div>
             </div>
         </article>
+
         <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -368,6 +427,7 @@
                 <div class="text-slate-700 font-normal">單純思考下，看似尚未著手實行，亦不成立詐欺未遂罪。然而最高法院於「氯仿事件（哥羅芳案）」中指出：依犯行計畫，若屬於實行行為不可或缺、且達該階段即對犯罪計畫之遂行無障礙，並於時間與場所上與實行行為密接之準備行為階段，即可認定著手實行。考量此點，對前述案例評估為已著手實行並肯定成立詐欺未遂罪係有其可能性。</div>
             </div>
         </article>
+
         <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -389,26 +449,29 @@
                 <div class="text-slate-700 font-normal">此外，於警方展開「佯裝受騙作戰（だまされたふり作戦）」之情況下，不知情而前往相對人住宅收取現金之車手，將遭埋伏之警察逮捕。最高法院未提及不能犯，直接駁回被告上告，認定於展開佯裝受騙作戰中不知情而企圖自被害人處收取偽造現金之車手，成立詐欺未遂之相續的共同正犯。</div>
             </div>
         </article>
-        <section id="card-17" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-17" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅱ アポ電強盗の闇</h2>
-                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅱ アポ電強盗の闇</h2>
+                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅱ 預約電話強盜（アポ電強盗）之暗黑面</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅱ 預約電話強盜（アポ電強盗）之暗黑面</div>
         </section>
-        <section id="card-18" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-18" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．強盗の闇バイト</h2>
-                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">1．強盗の闇バイト</h2>
+                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．強盜之暗黑打工</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">1．強盜之暗黑打工</div>
         </section>
+
         <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -430,6 +493,7 @@
                 <div class="text-slate-700 font-normal">於首都圈接連發生之同一集團強盜事件（預先撥打電話至被害人住宅掌握資產狀況後實施強盜之「預約電話強盜」）中，經由主打「合法案件」、「高收入」等 SNS 訊息招募之實行犯，依指示者指示闖入目標住宅、拘束被害人並搶奪財物逃逸。其具有：①於不知內容階段即提供個人資訊而無法脫身、②指示者遠端操控並隨時切斷實行役等暗黑打工之共同特徵。</div>
             </div>
         </article>
+
         <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -451,16 +515,18 @@
                 <div class="text-slate-700 font-normal">本案共計18件犯行、被害者達22人（其中1人死亡），被害金額據悉超過2000萬日圓。關於本事件，除了4名涉嫌為指示者外，包含實行役38人、被害物品回收役12人、暗黑打工招募役1人，共計55人遭警方查獲檢舉。今後在為釐清事件全貌而推進偵查之同時，亦將推進用以追究各自刑事責任之刑事裁判。</div>
             </div>
         </article>
-        <section id="card-21" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-21" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．強制された行為の刑事責任</h2>
-                <button onclick="playCardText(21)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．強制された行為の刑事責任</h2>
+                <button onclick="playCardText(21)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．被脅迫／強制行為之刑事責任</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．被脅迫／強制行為之刑事責任</div>
         </section>
+
         <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -482,16 +548,18 @@
                 <div class="text-slate-700 font-normal">若如此般以自身或家人之切身危險為由被強制實施強盜，理論上存在緊急避難或欠缺期待可能性（他行為可能性之不存在）而阻卻責任之可能。然而，判例向來並未輕易採認此種主張。若未達無暇向警察求助、對自己或家人之生命或身體等存在緊迫危險之程度（且緊急避難之成立尚要求具備法益衡平性），絕無可能否定凶惡犯罪之成立。</div>
             </div>
         </article>
-        <section id="card-23" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-23" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅲ 闇バイトの量刑</h2>
-                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">Ⅲ 闇バイトの量刑</h2>
+                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅲ 暗黑打工之量刑</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">Ⅲ 暗黑打工之量刑</div>
         </section>
+
         <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -513,6 +581,7 @@
                 <div class="text-slate-700 font-normal">涉入暗黑打工之各式犯罪多採組織性實施。於此類案件中，關於詐欺與恐嚇將適用組織犯罪處罰法之加重處罰規定（第3條第1項第13款、第14款），可能面臨法定刑為1年以上有期拘禁刑之處罰。此外，如前所述，經由暗黑打工參與犯罪者之角色，雖絕大多數屬組織性犯行之末端，但觀諸實際裁判例，此點未必必然導向法律非難之減輕。相反地，即便屬末端，亦被定位為犯行計畫中不可或缺之重要角色，於量刑上亦受到嚴厲評估。無論是構成要件該當性、違法性或責任阻卻事由之判斷，抑或於量刑層面，嚴酷之刑事司法現實正等待著應徵暗黑打工之人。</div>
             </div>
         </article>
+
         <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -534,12 +603,9 @@
                 <div class="text-slate-700 font-normal">（川崎友日）同志社大學教授</div>
             </div>
         </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>「闇バイト」に挑む刑法入門 — 上下對照朗讀與翻譯版</p>
-        </footer>
+                </main>
+            </div>
+        </div>
     </div>
 
     <!-- Floating Audio Control Bar -->
@@ -554,7 +620,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -569,7 +635,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis JavaScript -->
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -578,6 +644,45 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '03闇バイトに挑む刑法.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -596,12 +701,10 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
-            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

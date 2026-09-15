@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刑事訴訟法「当事者主義」 - 上下對照朗讀與翻譯版</title>
+    <title>刑事訴訟法「当事者主義」 - 左右對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: #0f172a;
             color: #1e293b;
         }
 
@@ -63,40 +63,85 @@
     </style>
 </head>
 
-<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                刑事訴訟法「当事者主義」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    刑事訴訟法「当事者主義」
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——刑事訴訟の基本構造と当事者主義 <span class="text-indigo-300/80 text-sm font-normal">（刑事訴訟之基本結構與當事者主義）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200"></span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
                 </div>
             </div>
-        </header>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="刑事訴訟法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        刑事訴訟法「当事者主義」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——刑事訴訟の基本構造と当事者主義 <span class="text-indigo-300/80 text-xs font-normal">（刑事訴訟之基本結構與當事者主義）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>
+                    </div>
+                </div>
 
-        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>刑事訴訟<rt>けいじそしょう(0)</rt></ruby>の<ruby>基本構造<rt>きほんこうぞう(4)</rt></ruby></h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>刑事訴訟<rt>けいじそしょう(0)</rt></ruby>の<ruby>基本構造<rt>きほんこうぞう(4)</rt></ruby></h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 刑事訴訟之基本結構</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 刑事訴訟之基本結構</div>
         </section>
+
         <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -118,6 +163,7 @@
                 <div class="text-slate-700 font-normal">。於訴訟中，各主體所應擔負之角色與責任相互關係，稱為訴訟結構。所謂「當事者主義」雖屬多義性概念，但總括而言，係指為達成訴訟目的，於與裁判官（法官）之關係中，重視當事者角色之結構。相對地，較當事者更為重視裁判官角色之結構，則稱為「職權主義」。此兩種概念之對置，反映了刑事訴訟法學之核心問題關懷。以下將聚焦於刑事訴訟中為何訴訟結構論得以活絡、以及其如何展開進行解析。</div>
             </div>
         </article>
+
         <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -139,6 +185,7 @@
                 <div class="text-slate-700 font-normal">當事者主義與職權主義之對置，攸關近代刑事訴訟自「糺問主義」變革轉型為「彈劾主義」之歷史。受羅馬法深遠影響之歐洲大陸諸國，自中世至近世發達了以職權探知為內容之糺問程序（糾問主義）。歷經市民革命後，糺問程序被廢除，並在公訴提起權限由檢察官獨占之形式下，轉型為職權主義之刑事訴訟結構。</div>
             </div>
         </article>
+
         <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -160,6 +207,7 @@
                 <div class="text-slate-700 font-normal">然而，大陸法系仍保留了未讓法院貫徹純粹裁判者角色、而對其課以發現實體真實義務之職權主義結構。相對地，受羅馬法影響較小之英國，則發展出如民事訴訟般由當事者主導推進審理之當事者主義。隨後受英國影響之美國，更進一步將當事者主義予以純化。</div>
             </div>
         </article>
+
         <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -181,6 +229,7 @@
                 <div class="text-slate-700 font-normal">由此可知，在歷史發展上，當事者主義係植根於自由主義思想、職權主義則係植根於威權主義思想之訴訟結構。就判決之正當性而言，更為重視程序公正之思維方式即為當事者主義；而更為重視發現實體真實之思維方式則為職權主義。</div>
             </div>
         </article>
+
         <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -202,6 +251,7 @@
                 <div class="text-slate-700 font-normal">於舊刑事訴訟法下，公判雖採彈劾形式，但起訴後之預審程序係進行糺問式審理，並依該結果由法院職權推進訴訟。對此，現行法廢除了預審制度，並將裁判官依職權調查證據限制於補充性地位（刑事訴訟法第298條第2項），從而引入了效法美國法之當事者主義。</div>
             </div>
         </article>
+
         <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -223,6 +273,7 @@
                 <div class="text-slate-700 font-normal">此外，構築以實體真實主義為原理之刑事訴訟理論體系的大師團藤重光說明指出，現行法引進當事者主義僅係作為服務實體真實主義之手段，其背後依然存續著職權主義式之基本結構。</div>
             </div>
         </article>
+
         <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -244,6 +295,7 @@
                 <div class="text-slate-700 font-normal">依私法之基本原則「私法自治原則」，透過訴訟解決紛爭亦應尊重當事人之意思。此一意義下之當事者主義被稱為「當事者處分權主義」。相對地，刑事訴訟因以實現公共利益為目的，故當事人之自由處分受到嚴格限制。</div>
             </div>
         </article>
+
         <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -265,6 +317,7 @@
                 <div class="text-slate-700 font-normal">於現行法草擬過程中，是否引進朗讀起訴狀暨答辯程序（Arraignment / 罪狀認否）亦曾成為爭點，惟據稱因考量與憲法第38條第3項（自白補強法則）之關係而未予採行。然而，憲法第38條第3項所指自白是否包含法庭審判中之自白，學説尚有爭議；依據認為不包含之通説，引進罪狀認否程序原本應屬可行。</div>
             </div>
         </article>
+
         <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -286,6 +339,7 @@
                 <div class="text-slate-700 font-normal">蓋縱屬賦予當事人之權利，於解釋其效力時亦常加入真實發現與程序成本之考量。相對地，將當事人之訴訟上權利視為當事者主義核心本質意義之思維方式，則稱為「實質的當事者主義」。</div>
             </div>
         </article>
+
         <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -307,6 +361,7 @@
                 <div class="text-slate-700 font-normal">訴因制度係關乎當事者追行主義之制度。於舊法下，刑事訴訟之審判對象為經起訴之歷史社會事實（自舊法時代起稱為「公訴事實」），由法院依職權調查事實並宣示判決。相對地，現行法以檢察官所構建之訴因作為審判對象，並設有訴因特定（第256條第3項）與訴因變更（第312條）等程序條款。</div>
             </div>
         </article>
+
         <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -328,6 +383,7 @@
                 <div class="text-slate-700 font-normal">實務判例亦大致採訴因説，回應關於訴因特定與變更之爭點。依訴因説，法院無權踰越訴因進行審判，但確定判決之效力則涵蓋「公訴事實同一性範圍之全部」（即一事不再理 / 既判力之效力）。</div>
             </div>
         </article>
+
         <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -349,6 +405,7 @@
                 <div class="text-slate-700 font-normal">與此相對，於當事者追行主義下，舉證責任由當事者負擔，故法院未行使職權調查並不直接構成審理不盡（未盡調查責任）。順帶一提，於採職權主義之德國，法院負有查明案情真相之義務；相對地，於採當事者主義之美國，法院則係以被動消極之立場主持審理。</div>
             </div>
         </article>
+
         <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -370,6 +427,7 @@
                 <div class="text-slate-700 font-normal">然而，過往法院對當事者提出之調查證據聲請，僅單純簡短記載「無必要性」即予駁回，竟亦被認定為合法。如此一來，當事者所聲請調查之證據完全取決於法院之裁量，致使當事者主導原則面臨形骸化。</div>
             </div>
         </article>
+
         <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -391,6 +449,7 @@
                 <div class="text-slate-700 font-normal">刑事訴訟中當事者武器平等（對等性），係藉由就檢察官之訴追向被告方保障有效之防禦權而得以達成。話雖如此，有效防禦所需之各項具體權利，並無法單憑「平等」概念即直接推導而出。使當事者對等主義模糊性顯現之爭議，即在於是否應全面引進證據開示制度之是非論。</div>
             </div>
         </article>
+
         <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -412,6 +471,7 @@
                 <div class="text-slate-700 font-normal">然而據稱起初檢察官曾以貫徹當事者主義為由，拒絕任意開示偵查卷宗紀錄。如今基於當事者對等主義理念，即便欠缺個別依據條文，檢察官於特定情形下仍負有開示證據義務乙節已獲肯定；惟就全面性證據開示而言，消極否定論至今仍相當有力。</div>
             </div>
         </article>
+
         <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -433,6 +493,7 @@
                 <div class="text-slate-700 font-normal">當事者主義係職權主義之對抗原理，而非直接對抗導向職權主義之實體真實主義；技術的當事者主義論之所以成立即源於此。因此，實質的當事者主義論乃進一步發展為將憲法第31條正當法律程序（Due Process）保障作為實體真實主義對抗原理之正當法律程序論（Due Process 論）。成為日本正當法律程序論第一人者田宮裕說明指出，將憲法性刑事訴訟、司法之法形成功能、實質的當事者主義三者三位一體重疊結合者，即命名為正當法律程序論。亦即自憲法出發、主張法院應積極展開導向當事者主義實質化之刑事訴訟法解釋，此即正當法律程序論。</div>
             </div>
         </article>
+
         <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -454,16 +515,18 @@
                 <div class="text-slate-700 font-normal">美國聯邦最高法院特別於沃倫法院（Warren Court）之1960年代，接連作成關於違法收集證據之排除、受律師協助之權利、拒絕自我證罪特權（默秘權）、以及少年審判中公正程序保障等重大憲法判例。日本雖亦出現若干採納正當法律程序論之判例，但多數仍傾向於判定屬立法裁量問題。正當法律程序論雖使實質當事者主義推進了一定程度，但同時亦凸顯了寄望司法進行法形成之內在限界。</div>
             </div>
         </article>
-        <section id="card-18" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-18" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>当事者主義<rt>とうじしゃしゅぎ(4)</rt></ruby>と<ruby>捜査構造<rt>そうさこうぞう(4)</rt></ruby></h2>
-                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>当事者主義<rt>とうじしゃしゅぎ(4)</rt></ruby>と<ruby>捜査構造<rt>そうさこうぞう(4)</rt></ruby></h2>
+                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 當事者主義與偵查結構</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 當事者主義與偵查結構</div>
         </section>
+
         <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -485,6 +548,7 @@
                 <div class="text-slate-700 font-normal">。就當事者主義之實質化而言，偵查結構亦具備極為重要之意義。倘若偵查採糺問式實施、且偵查結果對公判審判產生強烈決定性影響，則即便將公判當事者主義化，整體訴訟仍屬半糺問式。現行法效法美國，於賦予偵查機關強制偵查權限之基礎上，採行由裁判官透過令狀審查與證據排除法則加以規制、避免實施侵害人權偵查之模式。此外，採行傳聞法則（第320條），使偵查機關製作之供述筆錄不致直接具備證據能力。然而，儘管如此，日美間之偵查態樣仍顯著不同。據稱日本檢察官係於評估公判中證明有罪之確實程度後，始作成起訴或不起訴處分之決定。</div>
             </div>
         </article>
+
         <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -506,6 +570,7 @@
                 <div class="text-slate-700 font-normal">為此，於偵查階段訊問犯罪嫌疑人並取得供述向受高度重視。相對地，於美國，蒐集得據以證明有罪之證據乃偵查之目的，縱對取得自白有所關切，對犯罪嫌疑人之訊問亦不如日本般受重視。此種日美間偵查思維方式之差異，被命名為「糺問式偵查觀」與「彈劾式偵查觀」。日本之所以自糺問式偵查觀出發，與戰前之預審制度密切相關。本來於預審制度下，強制偵查由預審法官擔負，經由任意偵查蒐集足以起訴之證據乃起訴前偵查之角色；然而日本自舊法時代起，為於起訴便宜主義下運用公訴權，於預審之外極度重視起訴前偵查。</div>
             </div>
         </article>
+
         <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -527,16 +592,18 @@
                 <div class="text-slate-700 font-normal">此外，警察因不具備強制偵查權限，曾濫用行政警察權限或違警罪即決處分拘束犯罪嫌疑人，於裁判官統制所不及之處追求自白。現行法之所以廢除預審，係為消除檢察官與預審法官雙重偵查之低效率、以及行政警察權限濫用所致之人權侵害事例，而非源於欲革除糺問式偵查之初衷。於起訴獨占與起訴便宜主義（第247條、第248條）下之公訴權運用，加上廢除預審所致案件篩選功能之一元化，現代檢察官具備作為訴追官之重大責任與權限。舊法時代所孕育、於檢察官具備強大訴追權限意義下之當事者主義，亦被稱為「擬似當事者主義」。</div>
             </div>
         </article>
-        <section id="card-22" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-22" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>当事者主義<rt>とうじしゃしゅぎ(4)</rt></ruby>と<ruby>制度改革論<rt>せいどかいかくろん(0)</rt></ruby></h2>
-                <button onclick="playCardText(22)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>当事者主義<rt>とうじしゃしゅぎ(4)</rt></ruby>と<ruby>制度改革論<rt>せいどかいかくろん(0)</rt></ruby></h2>
+                <button onclick="playCardText(22)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 當事者主義與制度改革論</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 當事者主義與制度改革論</div>
         </section>
+
         <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -558,6 +625,7 @@
                 <div class="text-slate-700 font-normal">。正當法律程序論於規範擬似當事者主義之方向上幾乎未能成功。正當法律程序論雖參考美國判例而展開，但日美間之刑事司法制度存在相當異質之層面，無法僅抓取法律共通面即推導出相同結論。因此，學者主張必須立足於日本特色在於進行執著於犯罪細節之偵查與審理的「精密司法」此一前提，進而討論應如何及糾正何種問題。此外，於美國廣泛運用通訊監察與釣魚偵查（誘捕偵查），日本亦主張為因應組織犯罪而導入後現代式偵查手法，並應於「整體平衡之回復」或「悖論式調和」中實現當事者主義之強化。</div>
             </div>
         </article>
+
         <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -579,12 +647,9 @@
                 <div class="text-slate-700 font-normal">另一方面，律師應擔負起正當法律程序擔當者角色之意識顯著提升，進入1990年代後，以日辯連為中心、旨在強化刑事辯護體制之努力展開並取得一定進展。於此環境變化中，適逢上世紀末司法制度改革成為政治課題，從而推動了擺脫精密司法因習之改革（提出了「自精密司法邁向核心司法」之口號）。其結果，經由2004年與2016年之法修正，引進了犯罪嫌疑人國選辯護制度、公判前整理程序、裁判員制度、即決裁判程序、訊問錄音錄影、協議合意制度（認罪協商）、刑事免責等新制度。現今，刑事裁判中訊問筆錄之比重已告下降，公判審理被認為較過往更具活性。然而，所有訊問錄音錄影原則化、自逮捕起之國選辯護制度、訊問時律師在場權（律師陪同權）等導向當事者主義實質化之課題依然存在。於未來相當一段時間內，當事者主義之實質化無疑將繼續作為改革之指路明燈。（田淵浩二）</div>
             </div>
         </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>刑事訴訟法「当事者主義」 — 上下對照朗讀與翻譯版</p>
-        </footer>
+                </main>
+            </div>
+        </div>
     </div>
 
     <!-- Floating Audio Control Bar -->
@@ -599,7 +664,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -614,7 +679,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis JavaScript -->
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -623,6 +688,45 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '刑事訴訟法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -641,12 +745,10 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
-            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPECIAL FEATURE 商法「株主平等の原則」 - 上下對照朗讀與翻譯版</title>
+    <title>SPECIAL FEATURE 商法「株主平等の原則」 - 左右對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: #0f172a;
             color: #1e293b;
         }
 
@@ -63,40 +63,85 @@
     </style>
 </head>
 
-<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                SPECIAL FEATURE 商法「株主平等の原則」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    SPECIAL FEATURE 商法「株主平等の原則」
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——株主平等の原則の意義と機能 <span class="text-indigo-300/80 text-sm font-normal">（股東平等原則之意義與功能）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200"></span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
                 </div>
             </div>
-        </header>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="商法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        SPECIAL FEATURE 商法「株主平等の原則」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——株主平等の原則の意義と機能 <span class="text-indigo-300/80 text-xs font-normal">（股東平等原則之意義與功能）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>
+                    </div>
+                </div>
 
-        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>商法<rt>しょうほう(1)</rt></ruby>「<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>」<ruby>京都大学<rt>きょうとだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>山下<rt>やました(0)</rt></ruby><ruby>徹哉<rt>てつや(0)</rt></ruby>YAMASHITA Tetsuya・はじめに<ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>は、<ruby>株主<rt>かぶぬし(2)</rt></ruby>を、その<ruby>有<rt>ゆう(0)</rt></ruby>する<ruby>株式<rt>かぶしき(0)</rt></ruby>の<ruby>内容<rt>ないよう(0)</rt></ruby>および<ruby>数<rt>すう(1)</rt></ruby>に<ruby>応<rt>おう(0)</rt></ruby>じて、<ruby>平等<rt>びょうどう(0)</rt></ruby>に<ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>なければならない（<ruby>会社<rt>かいしゃ(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>商法<rt>しょうほう(1)</rt></ruby>「<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>」<ruby>京都大学<rt>きょうとだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>山下<rt>やました(0)</rt></ruby><ruby>徹哉<rt>てつや(0)</rt></ruby>YAMASHITA Tetsuya・はじめに<ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>は、<ruby>株主<rt>かぶぬし(2)</rt></ruby>を、その<ruby>有<rt>ゆう(0)</rt></ruby>する<ruby>株式<rt>かぶしき(0)</rt></ruby>の<ruby>内容<rt>ないよう(0)</rt></ruby>および<ruby>数<rt>すう(1)</rt></ruby>に<ruby>応<rt>おう(0)</rt></ruby>じて、<ruby>平等<rt>びょうどう(0)</rt></ruby>に<ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>なければならない（<ruby>会社<rt>かいしゃ(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 專題論文 商法「股東平等原則」</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">▶ 專題論文 商法「股東平等原則」</div>
         </section>
+
         <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -118,6 +163,7 @@
                 <div class="text-slate-700 font-normal">前言：股份有限公司應依股東所持股份之內容及數量，予以平等對待（公司法第109條第1項）。此即所謂「股東平等原則」。</div>
             </div>
         </article>
+
         <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -139,16 +185,18 @@
                 <div class="text-slate-700 font-normal">然而，作為資本團體的股份有限公司，其特性會受到相應的變容。所謂資本團體的特性，以大規模上市公司為典型代表，包括：①股東僅透過出資參與公司，其股東地位展現為股份此一均一化之細分化單位；②股份得自由轉讓等。依此特性，股東平等原則被解為具有「持股數比例平等（數額比例平等）」之意義。換言之，擁有100股的股東，相較於擁有1股的股東，得享有100倍的經濟利益（如股利分派）及議決權等權利。</div>
             </div>
         </article>
-        <section id="card-3" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-3" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>柔軟化<rt>じゅうなんか(0)</rt></ruby></h2>
-                <button onclick="playCardText(3)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>柔軟化<rt>じゅうなんか(0)</rt></ruby></h2>
+                <button onclick="playCardText(3)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2. 股東平等原則之柔軟化</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2. 股東平等原則之柔軟化</div>
         </section>
+
         <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -170,6 +218,7 @@
                 <div class="text-slate-700 font-normal">作為股東平等原則的內容，首先包含各股份之內容應屬同一；其次包含只要各股份內容同一，即應獲得同一之對待。自第一點而言，種類股份乃被定位為法律所規定的例外。</div>
             </div>
         </article>
+
         <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -191,6 +240,7 @@
                 <div class="text-slate-700 font-normal">首先，在第二次世界大戰前，曾有裁判例將伴隨減資之股份銷除、合併，以及股票分期繳納制度中股金繳納催告之適法性視為問題。第二次世界大戰後，前者是否違反股東平等原則在法院產生爭執之例已不復見，但後者於裁判中主張違反股東平等原則之例仍時有所聞。此外，第二次世界大戰後，關於違反股東平等原則之行為態樣，亦出現了過往所未曾見及的新類型。例如：給與股東私益之行為、股東優待制度、種類株式之設計等。</div>
             </div>
         </article>
+
         <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -212,6 +262,7 @@
                 <div class="text-slate-700 font-normal">作為前者的例子，因財務狀況惡化而無法進行股利分派時，作為補償而向大股東贈與金錢之契約，違反了股東平等原則，參酌平成17年改正前商法第293條本文（現行公司法第454條第3項）之旨趣應屬無效。</div>
             </div>
         </article>
+
         <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -233,6 +284,7 @@
                 <div class="text-slate-700 font-normal">向持有一定數量以上股份的股東一律發放、或每當持股數超過一定數量時發放，但未嚴格與持股數成比例地給與公司營業相關便益的制度，即為「股東優待制度」。日本的上市公司為了鼓勵個人股東增加，積極引進了股東優待制度。學說與實務一般認為，只要優待內容在合理的範圍內，且未顯著損害持股數比例平等，即不違反股東平等原則。</div>
             </div>
         </article>
+
         <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -254,6 +306,7 @@
                 <div class="text-slate-700 font-normal">現行公司法採用股份全額繳納制度，出資者於股份發行時點必須繳納全額發行金額。3. 對傳統見解之批判：學說自昭和50年代以降，傳統見解遭受有力批判。</div>
             </div>
         </article>
+
         <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -275,6 +328,7 @@
                 <div class="text-slate-700 font-normal">其次，學者批判傳統見解對股東平等原則過於嚴格與硬直。首先，依據傳統見解，股份內容之同一性為原則，種類株式為法定之例外。於是，出自「例外應予限定」的意識，種類株式之種類與設計被認為應受到嚴格限制。</div>
             </div>
         </article>
+
         <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -296,6 +350,7 @@
                 <div class="text-slate-700 font-normal">另一方面，由於在某些場面原則上應要求嚴格的持股數比例平等（例如議決權、盈餘分派、剩餘財產分派等），因此若能將該等場面與包含人頭比例平等在內的合理對待、或是排除恣意性即為已足的場面加以區別，即可實現更具彈性的公司管理與資金籌措。</div>
             </div>
         </article>
+
         <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -317,16 +372,18 @@
                 <div class="text-slate-700 font-normal">首先，同項規定「依其所持股份之內容……」，係規定持有相同內容股份之股東間的平等對待，是以種類株式並非股東平等原則的例外。由此，立法擔當者認為股東平等原則已獲明文化。</div>
             </div>
         </article>
-        <section id="card-12" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-12" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>学説<rt>がくせつ(0)</rt></ruby>の<ruby>議論<rt>ぎろん(0)</rt></ruby></h2>
-                <button onclick="playCardText(12)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>学説<rt>がくせつ(0)</rt></ruby>の<ruby>議論<rt>ぎろん(0)</rt></ruby></h2>
+                <button onclick="playCardText(12)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．學説之討論</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2．學説之討論</div>
         </section>
+
         <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -348,6 +405,7 @@
                 <div class="text-slate-700 font-normal">然而，公司法第109條第1項將股東平等原則明文化，係由法務省民事局於法案作成過程中在密室決定的，並未在法制審議會等公開場合進行實質檢討！</div>
             </div>
         </article>
+
         <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -369,6 +427,7 @@
                 <div class="text-slate-700 font-normal">對於傳統上作為不文法理而被認可的股東平等原則，與公司法第109條第1項所規定的股東平等原則究竟處於何種關係，立法時並未予以清晰整理。因此，該項之立法引發了新的法律爭議。</div>
             </div>
         </article>
+
         <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -390,6 +449,7 @@
                 <div class="text-slate-700 font-normal">種類株式多樣化與柔軟化實現的相反面，係制度遭到濫用的疑慮顯著增大。股東平等原則因而被期待成為防止濫用的煞車機制。另一方面，亦有人擔憂股東平等原則若運用不當，恐使種類株式之設計陷入硬直化。</div>
             </div>
         </article>
+
         <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -411,6 +471,7 @@
                 <div class="text-slate-700 font-normal">在此點上，學説並非單純墨守傳統見解。上述學説的方向性，在鬥牛犬醬汁（Bulldog Sauce）事件決定（最高裁決定平成19年8月7日民集61卷5號2215頁）之後，得到了更為廣泛的接受與支持。</div>
             </div>
         </article>
+
         <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -432,6 +493,7 @@
                 <div class="text-slate-700 font-normal">股東平等原則之現狀與課題：1. 與股東平等原則相關情境之擴大。與前述學説動向一致，公司法制定後，與股東平等原則相關的爭議情境，較以往顯著擴大。</div>
             </div>
         </article>
+
         <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -453,6 +515,7 @@
                 <div class="text-slate-700 font-normal">公司法經由引進附全部取得條項種類株式以及許可以現金為對價之組織再編，被解為允許透過股東總會之多數決，未經對象股東同意即剝奪少數股東之股東地位（現金退場 / Cash-Out），且在實務上也獲廣泛利用。然而，在平成17年改正前商法下，以 Cash-Out 為目的之股份合併被認為違反股東平等原則，故可見少數股東主張 Cash-Out 違反股東平等原則而展開爭訟之例。第三，則是閉鎖公司中股東間利害對立的情境（排除 Cash-Out 者）。</div>
             </div>
         </article>
+
         <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -474,16 +537,18 @@
                 <div class="text-slate-700 font-normal">在非公開公司中，僅以特定股份轉讓為對象、增設「視為已獲得董事會轉讓承認」規範之定款變更股東總會決議，係在特定股份與其他股份之間無合理理由而為不同對待，其內容違反股東平等原則而應屬無效（東京地判平成25年7月17日）；此外，在非公開公司中，僅針對與經營陣營敵對之特定股東，將其股東總會議決權及盈餘分派請求權縮減為過往約百份之一的屬人規定（公司法第109條第2項）之定款變更決議，因目的欠缺正當性且手段欠缺相當性，違反股東平等原則之旨趣而無效（東京地立川支判平成25年9月25日）。</div>
             </div>
         </article>
-        <section id="card-20" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-20" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>柔軟化<rt>じゅうなんか(0)</rt></ruby></h2>
-                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>柔軟化<rt>じゅうなんか(0)</rt></ruby></h2>
+                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2. 股東平等原則之柔軟化</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">2. 股東平等原則之柔軟化</div>
         </section>
+
         <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -505,6 +570,7 @@
                 <div class="text-slate-700 font-normal">前述第1點所見的許多例子，係過往被認為不被允許的行為，因法規鬆綁而得以透過股東總會多數決進行，致使遭受不利益的股東主張股東平等原則予以對抗。在結論上亦有裁判例認定違反股東平等原則，實際上發揮了重要功能。如此，若將股東平等原則廣泛用作對抗伴隨法規鬆綁可能產生之法制度濫用行為的對抗法理，則一概不承認股東間的不平等對待實非妥當。因為理所當然地，該行為亦有可能屬於符合制度目的之正當行為。</div>
             </div>
         </article>
+
         <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -526,6 +592,7 @@
                 <div class="text-slate-700 font-normal">因此，正如學説已廣為認可者，應依據必要性要件與相當性要件，判斷是否屬於具有合理理由的不平等對待。此外，關於違反股東平等原則之效果，傳統上雖然一律視為無效，至今亦為通説；然而，若將股東平等原則廣泛用作對抗法制度濫用的對抗法理，則應依據濫用行為之法律性質，使違反時的效果有所差異。因為在公司行為存有瑕疵時，公司法所準備的法律救濟態樣多種多樣，有必要與類似的其他情境保持平衡。</div>
             </div>
         </article>
+
         <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -547,6 +614,7 @@
                 <div class="text-slate-700 font-normal">例如，在判斷股東總會決議內容違反股東平等原則時，若該瑕疵被評價為等同於因特別利害關係股東行使議決權致決議內容顯著不當者，則應解為屬於股東總會決議之撤銷事由，而非無效事由。3. 股東平等原則理論根基與功能之再檢討：當以上述方式理解股東平等原則時，應重新討論者乃股東平等原則的理論根基。傳統見解及判例（前揭最高裁決定平成19年8月7日）將股東平等原則之根基歸於衡平理念，認為即便屬於股東間之不平等對待，只要在符合衡平理念之範圍內即屬許容。</div>
             </div>
         </article>
+
         <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -568,6 +636,7 @@
                 <div class="text-slate-700 font-normal">若然，是否符合衡平即為本質問題。介入「不平等對待」此一中間概念的理由究竟何在？批判正義與衡平理念過於抽象的有力説，即便重視例如保護股東經濟利益之觀點，僅在以「不平等對待」之形態進行經濟利益侵害時特別保護股東的理由亦不彰顯。此外，亦有見解將股東平等原則之根基求諸於提高股票投資收益之預測可能性、進而促進股票投資。若要將該預測可能性提高至最大限度，則一概禁止股東間之不平等對待反而較佳。</div>
             </div>
         </article>
+
         <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -589,6 +658,7 @@
                 <div class="text-slate-700 font-normal">然而，該見解亦承認具有合理理由之不平等對待係屬許容，並將其理由求諸於「實務上之不便」。依此見解，究竟何種不平等對待始屬許容，似乎只能依據具體的「不便」進行 Ad-Hoc 之個別判斷。本篇論文作者之考量如下：法院原則上應尊重公司機關之判斷裁量；然而，因股東間利害對立之結果，結構上存有「無法增進公司利益、反倒僅為遭差別對待之股東帶來不利益」之虞的決定，法院即有必要積極介入公司機關之決定。</div>
             </div>
         </article>
+
         <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -610,16 +680,18 @@
                 <div class="text-slate-700 font-normal">以股東間不平等對待為內容之公司機關決定，在增進獲得有利對待之多數派股東私益的同時，存有未充分顧及遭受不利對待股東不利益之危險。因此，「不平等對待」成為法院取捨是否應積極審查公司機關決定合理性情境之基準（Merkmal）。作為一般原則之股東平等原則，在此種意義下發揮著對抗法制度濫用性利用之對抗法理功能。</div>
             </div>
         </article>
-        <section id="card-27" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+
+        <section id="card-27" class="my-6 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">★おわりに<ruby>本稿<rt>ほんこう(0)</rt></ruby>では，<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>意義<rt>いぎ(1)</rt></ruby>と<ruby>機能<rt>きのう(1)</rt></ruby>について、<ruby>学説<rt>がくせつ(0)</rt></ruby>・<ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>・<ruby>立法<rt>りっぽう(0)</rt></ruby>の<ruby>展開<rt>てんかい(0)</rt></ruby>を<ruby>踏<rt>ふ(0)</rt></ruby>まえて<ruby>解説<rt>かいせつ(0)</rt></ruby>した。</h2>
-                <button onclick="playCardText(27)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                <h2 class="text-lg sm:text-xl font-bold tracking-wide font-serif text-amber-300">★おわりに<ruby>本稿<rt>ほんこう(0)</rt></ruby>では，<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>意義<rt>いぎ(1)</rt></ruby>と<ruby>機能<rt>きのう(1)</rt></ruby>について、<ruby>学説<rt>がくせつ(0)</rt></ruby>・<ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>・<ruby>立法<rt>りっぽう(0)</rt></ruby>の<ruby>展開<rt>てんかい(0)</rt></ruby>を<ruby>踏<rt>ふ(0)</rt></ruby>まえて<ruby>解説<rt>かいせつ(0)</rt></ruby>した。</h2>
+                <button onclick="playCardText(27)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">★ 結語：在本篇論文中，基於學説、裁判例與立法之展開，對股東平等原則之意義與功能進行了講解。</div>
+            <div class="text-sm sm:text-base font-medium text-indigo-200 font-sans">★ 結語：在本篇論文中，基於學説、裁判例與立法之展開，對股東平等原則之意義與功能進行了講解。</div>
         </section>
+
         <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -641,6 +713,7 @@
                 <div class="text-slate-700 font-normal">再者，涉及股東平等原則之公司法上制度多種多樣（例如種類株式、Cash-Out等），但本篇論文因篇幅限制，將該等說明委由一般教科書處理。此乃因筆者認為在本篇論文中專注於股東平等原則本身之講解更具效益。因為在教科書中深掘股東平等原則者甚少，且即便放眼教科書之外，簡潔講解股東平等原則之意義與功能自過去至現在展開之文獻亦屬罕見。因此，本篇論文對於公司法初學者而言或許較難理解且顯得難解。</div>
             </div>
         </article>
+
         <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
@@ -662,12 +735,9 @@
                 <div class="text-slate-700 font-normal">希望閱讀本篇論文的初學者們，即便現階段無法完全理解本篇論文之內容，亦切勿氣餒，請繼續推進公司法之學習。在對公司法進行一輪學習後，若重新閱讀本篇論文，必定能加深對公司法之理解。（山下徹哉）</div>
             </div>
         </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>SPECIAL FEATURE 商法「株主平等の原則」 — 上下對照朗讀與翻譯版</p>
-        </footer>
+                </main>
+            </div>
+        </div>
     </div>
 
     <!-- Floating Audio Control Bar -->
@@ -682,7 +752,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -697,7 +767,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis JavaScript -->
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -706,6 +776,45 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '商法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -724,12 +833,10 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
-            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }
