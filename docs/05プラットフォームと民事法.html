@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プラットフォーム事業者の民事責任 - 左右對照朗讀與翻譯版</title>
+    <title>プラットフォーム事業者の民事責任 - 上下對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0f172a;
+            background-color: #f8fafc;
             color: #1e293b;
         }
 
@@ -63,78 +63,34 @@
     </style>
 </head>
 
-<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
-    <!-- Top Fixed Header -->
-    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
-        <div class="flex items-center space-x-3 truncate">
-            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                <span>總覽</span>
-            </a>
-            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
-                プラットフォーム事業者の民事責任
-            </h1>
-        </div>
-        <div class="flex items-center space-x-2 shrink-0">
-            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Split View Container (Height = 100vh - 3.5rem) -->
-    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
-        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
-        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
-            <!-- PDF Zoom & Control Bar -->
-            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
-                <span class="text-slate-400 font-semibold flex items-center">
-                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    PDF 縮放控制
+<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
+        <!-- Document Header -->
+        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
+            <div class="max-w-3xl">
+                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
+                    法學日文上下對照朗讀版
                 </span>
-                <div class="flex items-center space-x-1.5">
-                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
-                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
-                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
-                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
-                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
-                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
-                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
+                    プラットフォーム事業者の民事責任
+                </h1>
+                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
+                    ——取引型プラットフォームにおける売主の債務不履行 <span class="text-indigo-300/80 text-sm font-normal">（交易型平台中賣方債務不履行之民事責任）</span>
+                </p>
+                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
+                    <span class="font-semibold text-indigo-300">作者：</span>
+                    <span class="ml-1.5 text-slate-200"></span>
                 </div>
             </div>
-            <!-- PDF Iframe Container -->
-            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="05プラットフォームと民事法.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
-            </div>
-        </div>
+        </header>
 
-        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
-        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
-            <div class="max-w-3xl mx-auto space-y-4">
-                <!-- Banner Card -->
-                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
-                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
-                        法學日文左右對照朗讀版
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
-                        プラットフォーム事業者の民事責任
-                    </h2>
-                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
-                        ——取引型プラットフォームにおける売主の債務不履行 <span class="text-indigo-300/80 text-xs font-normal">（交易型平台中賣方債務不履行之民事責任）</span>
-                    </p>
-                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
-                        <span class="font-semibold text-indigo-300">作者：</span>小峯庸平（一橋大学准教授 / KOMINE Yohei）
-                    </div>
-                </div>
-
-                <!-- Main Paragraphs -->
-                <main class="space-y-4">
+        <!-- Document Content -->
+        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
 
         <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATUREプラットフォーム事業者の民事責任一橋大学准教授小峯庸平KOMINE Yohei↓取引型プラットフォームにおける売主の債務不履行1.デジタルプラットフォームの構造デジタルプラットフォーム （DPF）とは、ユーザー同士を結び付ける基盤となるシステムや、このようなシステムを提供するサービスのことを指し、主にインターネット上で行われる。ここには様々なものが含まれ、SNSのように、情報の交換が行われるもの（情報型）もあれば、ユーザー同士がDPF 上で商品や役務の取引を行うもの（取引型）もあるり。</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
@@ -185,19 +141,40 @@
         </article>
         <section id="card-3" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．売主うりぬしの義務ぎむ違反いはんとDPF事業者じぎょうしゃここで問題もんだいとなるのが、取引とりひき当事者とうじしゃとなる売主うりぬしと買主かいぬしとの間のまの紛争ふんそうに起因きいんして、DPF 事業者じぎょうしゃがどのような責任せきにんを負うおうことになるのか、という点てんである。</h2>
-                <button onclick="playCardText(3)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>売主<rt>うりぬし(0)</rt></ruby>の<ruby>義務<rt>ぎむ(1)</rt></ruby><ruby>違反<rt>いはん(0)</rt></ruby>とDPF<ruby>事業者<rt>じぎょうしゃ(0)</rt></ruby></h2>
+                <button onclick="playCardText(3)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．賣方之義務違反與 DPF 業者：於此處成為問題者，係當作為交易當事人之賣方與買方間發生交易上紛爭時，應如何解決。</div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．賣方義務違反與 DPF 事業者</div>
         </section>
         <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
                     <button onclick="playCardText(4)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    ここで問題もんだいとなるのが、取引とりひき当事者とうじしゃとなる売主うりぬしと買主かいぬしとの間のまの紛争ふんそうに起因きいんして、DPF 事業者じぎょうしゃがどのような責任せきにんを負うおうことになるのか、という点てんである。
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">2．賣方之義務違反與 DPF 業者：於此處成為問題者，係當作為交易當事人之賣方與買方間發生交易上紛爭時，應如何解決。</div>
+            </div>
+        </article>
+        <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(5)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -214,11 +191,11 @@
                 <div class="text-slate-700 font-normal">於此處，當提供者與使用者之間發生交易上糾紛時，如何解決成為問題。多數情形下，當買方下單並支付價金後，若賣方未交付商品，或交付之商品存在瑕疵或與契約內容不符（契約不適合）時，買方得依據買賣契約對賣方主張債務不履行責任（民法第415條以下、第562條以下）。</div>
             </div>
         </article>
-        <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(5)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -235,11 +212,11 @@
                 <div class="text-slate-700 font-normal">當事人間紛爭解決之限界 1. 契約當事人間紛爭解決上之障礙：於交易型 DPF 上之交易中，買方擬對賣方主張債務不履行責任時，往往面臨難以特定賣方身分或聯絡賣方之障礙。特別是當賣方為個人而非事業經營者時，此種傾向尤為顯著。</div>
             </div>
         </article>
-        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -256,21 +233,42 @@
                 <div class="text-slate-700 font-normal">當於 DPF 上作為賣方者係以業（營業）之形式進行販售時，該當特定商交易法上之郵購販售，負有表示賣方名稱、住所、電話號碼等之義務（特定商交易法第11條）。然而，若賣方僅為個人兼職販售，則未必適用此等表示義務，導致買方難以掌握賣方之身分資訊。</div>
             </div>
         </article>
-        <section id="card-7" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-8" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．立法りっぽうによる解決かいけつの試みこころみ契約けいやく当事者間とうじしゃかんでの紛争ふんそう解決かいけつにおける障害しょうがいを取り除くとりのぞく試みこころみは、立法りっぽう上うえも行わおこなわれている。</h2>
-                <button onclick="playCardText(7)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>立法<rt>りっぽう(0)</rt></ruby>による<ruby>解決<rt>かいけつ(0)</rt></ruby>の<ruby>試み<rt>こころみ(0)</rt></ruby></h2>
+                <button onclick="playCardText(8)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．立法解決之嘗試：為除去契約當事人間紛爭解決上之障礙，近年進行了相關立法整備。</div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．透過立法尋求解決之嘗試</div>
         </section>
-        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    契約けいやく当事者間とうじしゃかんでの紛争ふんそう解決かいけつにおける障害しょうがいを取り除くとりのぞく試みこころみは、立法りっぽう上うえも行わおこなわれている。
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">2．立法解決之嘗試：為除去契約當事人間紛爭解決上之障礙，近年進行了相關立法整備。</div>
+            </div>
+        </article>
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -287,11 +285,11 @@
                 <div class="text-slate-700 font-normal">近年，作為以交易型平台為對象之法律，制定了《特定數位平台透明性及公正性提升法》（特定 DPF 透明化法）以及《關於利用數位平台締結之消費契約中買方利益保護法》（DPF 消費者保護法）。</div>
             </div>
         </article>
-        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -308,11 +306,11 @@
                 <div class="text-slate-700 font-normal">第一，DPF 業者負有採取使消費者得以順暢聯絡販業者等之措施，以及促使販業者適正表示之義務（DPF 消費者保護法第3條）。</div>
             </div>
         </article>
-        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -329,11 +327,11 @@
                 <div class="text-slate-700 font-normal">乍看之下，DPF 業者必須使販業者得以被特定，從而作為交易當事人之消費者與販業者間之紛爭解決變得容易。然而，此等法律之對象僅限於賣方為「販業者（事業經營者）」之情形，當賣方為個人（C2C 交易）時，並不適用此等規範。</div>
             </div>
         </article>
-        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -350,11 +348,11 @@
                 <div class="text-slate-700 font-normal">第二，於迄今列舉之規定中，有助於遭遇糾紛之買方進行民事救濟者極為有限。亦即，DPF 消費者保護法雖規定了 DPF 業者之各項義務，但大多屬行政上之取締規範，違反時僅生行政上之處分，並不直接導向民事上對買方之損害賠償責任。</div>
             </div>
         </article>
-        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -371,11 +369,11 @@
                 <div class="text-slate-700 font-normal">作為民事上之義務課予 DPF 業者者，僅有同法第5條第1項所定之資訊開示義務。亦即，當買方為對賣方行使權利而有必要時，得請求 DPF 業者開示賣方之姓名、住所等資訊。然而，即便取得賣方之資訊，若賣方無資力或已逃匿，買方仍無法實質填補損害。</div>
             </div>
         </article>
-        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -392,11 +390,11 @@
                 <div class="text-slate-700 font-normal">然而，對此種傳統見解存在諸多批判。其論據在於：於交易型 DPF 中，DPF 業者之角色已非僅係單純提供場所之旁觀者。</div>
             </div>
         </article>
-        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -413,11 +411,11 @@
                 <div class="text-slate-700 font-normal">亦即，DPF 業者之角色，並非僅係單純將自一方當事人接收之資訊傳達予他方當事人之傳達手段提供者，而是深層參與交易之架構，引導交易之成立，並於交易成立後亦介入結算與配送等實質流程。</div>
             </div>
         </article>
-        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -434,11 +432,11 @@
                 <div class="text-slate-700 font-normal">基於此點，DPF 業者自身乃處於基於使用者間交易之成立而享受經濟利益之立場（報益原則），且透過系統之建構控制著交易之危險（危險責任原則）。</div>
             </div>
         </article>
-        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -455,11 +453,11 @@
                 <div class="text-slate-700 font-normal">第四，根本而言，DPF 業者透過建構 DPF 此一系統以提升使用者之便利性，並從中收取手續費獲利。從而，當系統內發生違法行為或欺罔交易時，要求 DPF 業者負擔一定之監視與預防義務，乃屬公平適當。</div>
             </div>
         </article>
-        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -476,17 +474,27 @@
                 <div class="text-slate-700 font-normal">此等學說指出：當賣方非屬販業者時，即便無法享有 DPF 消費者保護法或特定商交易法之行政保護，亦應基於民法上之一般原則（如信義則或附隨義務），承認 DPF 業者對買方負有一定之民事責任。</div>
             </div>
         </article>
-        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-20" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>責任<rt>せきにん(0)</rt></ruby>を <ruby>基礎付<rt>きそづ(0)</rt></ruby>ける <ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>構成<rt>こうせい(0)</rt></ruby></h2>
+                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2. 奠定責任基礎之法律構成</div>
+        </section>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>2.</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>基礎<rt>きそ(0)</rt></ruby><ruby>付ける<rt>つける(0)</rt></ruby></u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>構成<rt>こうせい(0)</rt></ruby><ruby>取引<rt>とりひき(0)</rt></ruby><ruby>型<rt>がた(0)</rt></ruby> </u> <u>DPF </u> <u><ruby>上<rt>うえ(0)</rt></ruby>で</u> <u><ruby>購入<rt>こうにゅう(0)</rt></ruby>した</u> <u><ruby>商品<rt>しょうひん(0)</rt></ruby>に</u> <u><ruby>契約<rt>けいやく(0)</rt></ruby><ruby>不適合<rt>ふてきごう(0)</rt></ruby>があった</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>基礎<rt>きそ(0)</rt></ruby><ruby>付ける<rt>つける(0)</rt></ruby></u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>構成<rt>こうせい(0)</rt></ruby>を</u> <u><ruby>考える<rt>かんがえる(0)</rt></ruby>に</u> <u>あたっては、</u> <u><ruby>二<rt>ふた(0)</rt></ruby>つの</u> <u><ruby>点<rt>てん(0)</rt></ruby>が</u> <u><ruby>前提<rt>ぜんてい(0)</rt></ruby>になる。<ruby>第<rt>だい(0)</rt></ruby><ruby>一<rt>いち(0)</rt></ruby>に、</u> <u><ruby>既に<rt>すでに(0)</rt></ruby></u> <u><ruby>説明<rt>せつめい(0)</rt></ruby>した</u> <u><ruby>通り<rt>とおり(0)</rt></ruby>、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>は</u> <u><ruby>利用者<rt>りようしゃ(3)</rt></ruby>との</u> <u><ruby>間<rt>あいだ(0)</rt></ruby>で</u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>結ん<rt>むすん(0)</rt></ruby>でいる。<ruby>第<rt>だい(0)</rt></ruby><ruby>二<rt>に(0)</rt></ruby>に、</u> <u>DPF </u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>参照<rt>さんしょう(0)</rt></ruby>される</u> <u><ruby>規約<rt>きやく(0)</rt></ruby>の</u> <u><ruby>中<rt>なか(0)</rt></ruby>には、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>減免<rt>げんめん(0)</rt></ruby>する</u> <u><ruby>条項<rt>じょうこう(0)</rt></ruby>（「</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby><ruby>減免<rt>げんめん(0)</rt></ruby><ruby>条項<rt>じょうこう(0)</rt></ruby>」とする）が<ruby>置か<rt>おか(0)</rt></ruby>れる</u> <u>ことが</u> <u><ruby>多い<rt>おおい(0)</rt></ruby>。</u> <u>したがって、</u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby><ruby>上<rt>じょう(0)</rt></ruby>の</u> <u><ruby>義務<rt>ぎむ(0)</rt></ruby>として<ruby>何<rt>なん(0)</rt></ruby>らかの</u> <u><ruby>措置<rt>そち(0)</rt></ruby>を</u> <u>とる</u> <u><ruby>義務<rt>ぎむ(0)</rt></ruby>を</u> <u><ruby>課し<rt>かし(0)</rt></ruby>、</u> <u>その</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>を</u> <u><ruby>問う<rt>とう(0)</rt></ruby>だけでは、</u> <u><ruby>直ちに<rt>ただちに(0)</rt></ruby>は</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>肯定<rt>こうてい(0)</rt></ruby>できない</u> <u>ことになる。</u>
+                    <u><ruby>取引<rt>とりひき(0)</rt></ruby><ruby>型<rt>がた(0)</rt></ruby> </u> <u>DPF </u> <u><ruby>上<rt>うえ(0)</rt></ruby>で</u> <u><ruby>購入<rt>こうにゅう(0)</rt></ruby>した</u> <u><ruby>商品<rt>しょうひん(0)</rt></ruby>に</u> <u><ruby>契約<rt>けいやく(0)</rt></ruby><ruby>不適合<rt>ふてきごう(0)</rt></ruby>があった</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>基礎<rt>きそ(0)</rt></ruby><ruby>付ける<rt>つける(0)</rt></ruby></u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>構成<rt>こうせい(0)</rt></ruby>を</u> <u><ruby>考える<rt>かんがえる(0)</rt></ruby>に</u> <u>あたっては、</u> <u><ruby>二<rt>ふた(0)</rt></ruby>つの</u> <u><ruby>点<rt>てん(0)</rt></ruby>が</u> <u><ruby>前提<rt>ぜんてい(0)</rt></ruby>になる。<ruby>第<rt>だい(0)</rt></ruby><ruby>一<rt>いち(0)</rt></ruby>に、</u> <u><ruby>既に<rt>すでに(0)</rt></ruby></u> <u><ruby>説明<rt>せつめい(0)</rt></ruby>した</u> <u><ruby>通り<rt>とおり(0)</rt></ruby>、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>は</u> <u><ruby>利用者<rt>りようしゃ(3)</rt></ruby>との</u> <u><ruby>間<rt>あいだ(0)</rt></ruby>で</u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>結ん<rt>むすん(0)</rt></ruby>でいる。<ruby>第<rt>だい(0)</rt></ruby><ruby>二<rt>に(0)</rt></ruby>に、</u> <u>DPF </u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>参照<rt>さんしょう(0)</rt></ruby>される</u> <u><ruby>規約<rt>きやく(0)</rt></ruby>の</u> <u><ruby>中<rt>なか(0)</rt></ruby>には、</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>減免<rt>げんめん(0)</rt></ruby>する</u> <u><ruby>条項<rt>じょうこう(0)</rt></ruby>（「</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby><ruby>減免<rt>げんめん(0)</rt></ruby><ruby>条項<rt>じょうこう(0)</rt></ruby>」とする）が<ruby>置か<rt>おか(0)</rt></ruby>れる</u> <u>ことが</u> <u><ruby>多い<rt>おおい(0)</rt></ruby>。</u> <u>したがって、</u> <u><ruby>利用<rt>りよう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby><ruby>上<rt>じょう(0)</rt></ruby>の</u> <u><ruby>義務<rt>ぎむ(0)</rt></ruby>として<ruby>何<rt>なん(0)</rt></ruby>らかの</u> <u><ruby>措置<rt>そち(0)</rt></ruby>を</u> <u>とる</u> <u><ruby>義務<rt>ぎむ(0)</rt></ruby>を</u> <u><ruby>課し<rt>かし(0)</rt></ruby>、</u> <u>その</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>を</u> <u><ruby>問う<rt>とう(0)</rt></ruby>だけでは、</u> <u><ruby>直ちに<rt>ただちに(0)</rt></ruby>は</u> <u>DPF </u> <u><ruby>事業者<rt>じぎょうしゃ(3)</rt></ruby>の</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>肯定<rt>こうてい(0)</rt></ruby>できない</u> <u>ことになる。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -494,14 +502,14 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">2. 奠定責任基礎之法律構成：當於交易型 DPF 上購買之商品存在契約不適合時，DPF 業者應負何種民事責任，學說與裁判例提出了多種法律構成。</div>
+                <div class="text-slate-700 font-normal">於交易型 DPF 上購買之商品存在契約不適合時，DPF 業者應負何種民事責任，學說與裁判例提出了多種法律構成。</div>
             </div>
         </article>
-        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -518,11 +526,11 @@
                 <div class="text-slate-700 font-normal">關於義務之法律構成，若著眼於其與責任減免條項（免責條款）之關係，得整理如下。第一，若將 DPF 業者之義務構成為 DPF 利用契約上之附隨義務或信義則上之義務，則該義務之違反將構成債務不履行（民法第415條），惟此時 DPF 業者預先設訂之責任減免條項是否有效將成為爭點。</div>
             </div>
         </article>
-        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -539,11 +547,11 @@
                 <div class="text-slate-700 font-normal">此種包括性合意乃獨立於 DPF 利用契約之外，不以責任減免條項為限，而係直接奠定 DPF 業者對不特定多數使用者之注意義務與責任基礎。</div>
             </div>
         </article>
-        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -560,11 +568,11 @@
                 <div class="text-slate-700 font-normal">於裁判例中，以往於在拍賣網站上遭詐欺者向拍賣網站營運業者請求損害賠償之案件中，法院認同營運業者基於利用契約上之信義則負有「建構無欠缺之系統以提供本件服務之義務」；此外於 Amazon 商家頁面遭其他賣方擅自跟賣（相乗り出品）偽造品之案件中，認同 DPF 業者作為契約上義務負有「為確保賣方適正之販售機會，監視並取締阻礙販售之不正當刊登等應對不正行為之義務」。</div>
             </div>
         </article>
-        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -581,11 +589,11 @@
                 <div class="text-slate-700 font-normal">前者因拍賣網站營運業者未被認定有義務違反，故未就與責任減免條項之關係予以判斷；後者則依據民法第548條之2第2項（定型約款規定），判定將責任全部免除之條款部分無效，認定於故意或重大過失之情形下 DPF 業者應負責任。</div>
             </div>
         </article>
-        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -602,11 +610,11 @@
                 <div class="text-slate-700 font-normal">3. 平台業者應採取之措施：無論上述責任之法律構成為何，DPF 業者責任之範圍，除何種範圍內使責任減免條項無效之觀點外，亦取決於具體而言課予 DPF 業者採取何種措施之義務。</div>
             </div>
         </article>
-        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -623,21 +631,42 @@
                 <div class="text-slate-700 font-normal">於學說中，參照 EU 法中之 DSA 數位服務法或 ELI 準則，有主張應負擔較依使用者申訴迅速停止問題刊登之措施（Notice and Takedown）為重、但未達一般性監視義務之注意義務者；亦有主張雖不負一般性監視義務，但於知悉為違法內容或虛偽資訊時，負有不將其提供予使用者之善良管理人注意義務者。於裁判例中，前揭平成20年名古屋地裁判決認定業者負有提醒注意之措施義務，並因已採取相當之提醒注意措施而否定義務違反。</div>
             </div>
         </article>
-        <section id="card-25" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-28" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">・おわりに取引とりひき型かたDPFにおいて、契約けいやくの相対そうたい効こうの原則げんそくからは、利用者りようしゃ同士どうしの契約上けいやくじょうの紛争ふんそうについて、DPF 事業者じぎょうしゃが責任せきにんを負うおうことがないという結論けつろんが導かみちびかれることになる。</h2>
-                <button onclick="playCardText(25)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">・<ruby>おわりに<rt>おわりに(0)</rt></ruby></h2>
+                <button onclick="playCardText(28)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">相對地，於在交易型 DPF 上購買行動電源後因發火致生損害、買方向 DPF 業者請求損害賠償之案件中，法院否定了買方所主張之一般性刊登審查義務之存在。雖因主張立證之不備等致使限定該裁判例意義之見解甚多，惟從營運成本之觀點否定一般性監視義務此點，與學說之動向一致。</div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">★ 結語</div>
         </section>
-        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(29)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    取引とりひき型かたDPFにおいて、契約けいやくの相対そうたい効こうの原則げんそくからは、利用者りようしゃ同士どうしの契約上けいやくじょうの紛争ふんそうについて、DPF 事業者じぎょうしゃが責任せきにんを負うおうことがないという結論けつろんが導かみちびかれることになる。
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">相對地，於在交易型 DPF 上購買行動電源後因發火致生損害、買方向 DPF 業者請求損害賠償之案件中，法院否定了買方所主張之一般性刊登審查義務之存在。雖因主張立證之不備等致使限定該裁判例意義之見解甚多，惟從營運成本之觀點否定一般性監視義務此點，與學說之動向一致。</div>
+            </div>
+        </article>
+        <article id="card-30" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(30)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -654,11 +683,11 @@
                 <div class="text-slate-700 font-normal">▶ 結語：於交易型 DPF 中，若僅依契約相對效之原則，導出之結論將係 DPF 業者就使用者間之契約紛爭不負任何責任。</div>
             </div>
         </article>
-        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-31" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(31)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -675,18 +704,16 @@
                 <div class="text-slate-700 font-normal">然而，考量到僅憑當事人間之紛爭解決以回復買方之損害存在限界，且 DPF 業者於交易型 DPF 之系統中擔負著不可或缺之角色，讓 DPF 業者分擔損害乃屬公平。從而，為圖 DPF 業者與 DPF 使用者利害之調整，遂劃定責任之範圍。無論係多數當事人間約款中之包括性合意、網路契約論、契約上之附隨義務或信義則上之義務等多種法律構成，皆在為該責任負擔之根據進行理論奠基。於具體義務水準之確定上，尚待圍繞具體紛爭解決之當事人主張攻防與裁判例之累積。（小峯庸平）一橋大學准教授</div>
             </div>
         </article>
-                </main>
+        </main>
 
-                <!-- Footer -->
-                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
-                    <p>プラットフォーム事業者の民事責任 — 左右對照朗讀與翻譯版</p>
-                </footer>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
+            <p>プラットフォーム事業者の民事責任 — 上下對照朗讀與翻譯版</p>
+        </footer>
     </div>
 
     <!-- Floating Audio Control Bar -->
-    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-2xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
         <div class="flex items-center space-x-3">
             <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
                 <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -697,7 +724,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -712,7 +739,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <!-- Speech Synthesis JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -721,49 +748,6 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
-        let currentPdfZoom = 1.0;
-        let pdfBaseSrc = '05プラットフォームと民事法.pdf';
-
-        function setPdfZoom(scaleFactor) {
-            currentPdfZoom = scaleFactor;
-            applyPdfZoom();
-        }
-
-        function zoomPdf(ratio) {
-            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
-            applyPdfZoom();
-        }
-
-        function resetPdfZoom() {
-            currentPdfZoom = 1.0;
-            applyPdfZoom();
-        }
-
-        function applyPdfZoom() {
-            const zoomPercent = Math.round(currentPdfZoom * 100);
-            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
-            const iframe = document.getElementById('pdf-frame');
-            
-            // Apply PDF Open Parameters
-            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            
-            // Apply CSS Scaling for smooth visual enhancement
-            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-            iframe.style.width = (100 / currentPdfZoom) + '%';
-            iframe.style.height = (100 / currentPdfZoom) + '%';
-        }
-
-        function togglePdfPanel() {
-            const pdfPanel = document.getElementById('pdf-panel');
-            const contentPanel = document.getElementById('content-panel');
-            if (pdfPanel.classList.contains('hidden')) {
-                pdfPanel.classList.remove('hidden');
-                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            } else {
-                pdfPanel.classList.add('hidden');
-                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            }
-        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -782,10 +766,12 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
+            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
+            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

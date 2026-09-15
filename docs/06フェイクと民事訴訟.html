@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フェイクと民事訴訟 - 左右對照朗讀與翻譯版</title>
+    <title>フェイクと民事訴訟 - 上下對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0f172a;
+            background-color: #f8fafc;
             color: #1e293b;
         }
 
@@ -63,78 +63,34 @@
     </style>
 </head>
 
-<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
-    <!-- Top Fixed Header -->
-    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
-        <div class="flex items-center space-x-3 truncate">
-            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                <span>總覽</span>
-            </a>
-            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
-                フェイクと民事訴訟
-            </h1>
-        </div>
-        <div class="flex items-center space-x-2 shrink-0">
-            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Split View Container (Height = 100vh - 3.5rem) -->
-    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
-        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
-        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
-            <!-- PDF Zoom & Control Bar -->
-            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
-                <span class="text-slate-400 font-semibold flex items-center">
-                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    PDF 縮放控制
+<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
+        <!-- Document Header -->
+        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
+            <div class="max-w-3xl">
+                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
+                    法學日文上下對照朗讀版
                 </span>
-                <div class="flex items-center space-x-1.5">
-                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
-                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
-                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
-                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
-                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
-                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
-                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
+                    フェイクと民事訴訟
+                </h1>
+                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
+                    ——フェイクと民事訴訟 <span class="text-indigo-300/80 text-sm font-normal">（假訊息與民事訴訟）</span>
+                </p>
+                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
+                    <span class="font-semibold text-indigo-300">作者：</span>
+                    <span class="ml-1.5 text-slate-200"></span>
                 </div>
             </div>
-            <!-- PDF Iframe Container -->
-            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="06フェイクと民事訴訟.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
-            </div>
-        </div>
+        </header>
 
-        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
-        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
-            <div class="max-w-3xl mx-auto space-y-4">
-                <!-- Banner Card -->
-                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
-                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
-                        法學日文左右對照朗讀版
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
-                        フェイクと民事訴訟
-                    </h2>
-                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
-                        ——フェイクと民事訴訟 <span class="text-indigo-300/80 text-xs font-normal">（假訊息與民事訴訟）</span>
-                    </p>
-                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
-                        <span class="font-semibold text-indigo-300">作者：</span>町村泰貴（成城大学教授 / MACHIMURA Yasutaka）
-                    </div>
-                </div>
-
-                <!-- Main Paragraphs -->
-                <main class="space-y-4">
+        <!-- Document Content -->
+        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
 
         <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ 問題の所在</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
@@ -225,37 +181,17 @@
                 <div class="text-slate-700 font-normal">該判決之效力，依法僅及於實際參與訴訟行為的甲野與乙山之間。然而，若無關的第三人A冒用甲野太郎的名義提起訴訟並取得判決，結果將會如何？抑或反過來，若第三人B冒用乙山花子的名義作為被告參與應訴，又會如何？若非當事人之他人冒充當事人親自實施訴訟行為並導致敗訴，真正的當事人即可能在毫不知情的情況下，因該敗訴判決的效力而遭受重大經濟損失。冒名頂替的風險不僅存在於當事人，亦可能發生於證人身上。倘若此類冒名行為因數位技術發展而變得更易實行，則民事司法制度的根本架構恐將面臨重新檢討。</div>
             </div>
         </article>
-        <section id="card-5" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><u>こうした</u> <u>フェイク<ruby>情報<rt>じょうほう(0)</rt></ruby>の</u> <u><ruby>弊害<rt>へいがい(0)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>しては、</u> <u>フェイクが</u> <u><ruby>手続<rt>てつづき(0)</rt></ruby>に</u> <u><ruby>入<rt>はい(0)</rt></ruby>ってこないように</u> <u><ruby>予防<rt>よぼう(0)</rt></ruby>できれば</u> <u><ruby>最<rt>もっと(0)</rt></ruby>もよい。</u> <u>しかし</u> <u>AI<ruby>生成<rt>せいせい(0)</rt></ruby>フェイクは</u> <u><ruby>巧妙<rt>こうみょう(0)</rt></ruby>で、</u> <u><ruby>完全<rt>かんぜん(0)</rt></ruby>に</u> <u><ruby>予防<rt>よぼう(0)</rt></ruby>することは<ruby>難<rt>むずか(0)</rt></ruby>しい。</u> <u>そうだとすると、</u> <u>フェイクにより</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u><ruby>歪<rt>ひず(2)</rt></ruby>められたときに、</u> <u>それをどう<ruby>是正<rt>ぜせい(0)</rt></ruby>するかということも</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えておく<ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u>そこで、</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>は</u> <u>フェイク<ruby>情報<rt>じょうほう(0)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>して</u> <u>どのような<ruby>防策<rt>ぼうさく(0)</rt></ruby>を</u> <u><ruby>設<rt>もう(0)</rt></ruby>けているか、</u> <u>また、</u> <u>フェイクにより</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u><ruby>歪<rt>ひず(2)</rt></ruby>められた<ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u>どう<ruby>対処<rt>たいしょ(1)</rt></ruby>してきたかということを</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えてみよう。</u> <u><ruby>民事訴訟制度<rt>みんじそしょうせいど(5)</rt></ruby>の</u> <u><ruby>全体<rt>ぜんたい(0)</rt></ruby>に</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>するところではあるが、</u> <u>スペースの<ruby>限界<rt>げんかい(0)</rt></ruby>もあるので、</u> <u><ruby>無関係<rt>むかんけい(2)</rt></ruby>の<ruby>人<rt>ひと(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>や</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>に</u> <u>なりすます<ruby>事例<rt>じれい(0)</rt></ruby>と、</u> <u>フェイクの<ruby>証拠<rt>しょうこ(0)</rt></ruby>が</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>された<ruby>場合<rt>ばあい(0)</rt></ruby>とを</u> <u><ruby>取<rt>と(0)</rt></ruby>り<ruby>上<rt>あ(0)</rt></ruby>げて、</u> <u>それぞれ<ruby>従来<rt>じゅうらい(0)</rt></ruby>の</u> <u><ruby>解決<rt>かいけつ(0)</rt></ruby>と</u> <u><ruby>現代<rt>げんだい(1)</rt></ruby>における</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>の</u> <u><ruby>展開<rt>てんかい(0)</rt></ruby>を</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>する。</u></h2>
-                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-                    <span>朗讀標題</span>
-                </button>
-            </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">面對此類假訊息帶來的危害，若能事先防範假訊息混入訴訟程序中，固為最佳方案。然而，生成式AI所製造的假訊息極為精巧，欲達到完全預防實屬困難。倘若如此，當重要裁判因假訊息而遭扭曲時，即有必要思考應如何加以救濟與更正。為此，本文將探討民事訴訟法針對假訊息設有何種防範機制，以及當裁判遭假訊息扭曲時過往如何因應處理。雖此議題關乎民事訴訟制度全貌，限於篇幅，本文將重點聚焦於「無關第三人冒充當事人或證人」及「提出假證據」兩種案例類型，分別檢視傳統解決方案與現代法學之問題展開。</div>
-        </section>
-        <section id="card-6" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 訴訟関係者へのなりすまし</h2>
-                <button onclick="playCardText(6)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-                    <span>朗讀標題</span>
-                </button>
-            </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 訴訟關係人之冒名頂替</div>
-        </section>
-        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(5)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>1．当事者本人や証人の本人確認</u> <u><ruby>一般社会<rt>いっぱんしゃかい(4)</rt></ruby>であれば、</u> <u><ruby>何<rt>なに(1)</rt></ruby>らかの</u> <u><ruby>取引<rt>とりひき(0)</rt></ruby>を</u> <u><ruby>行<rt>おこな(0)</rt></ruby>うに<ruby>際<rt>さい(1)</rt></ruby>して、</u> <u><ruby>免許証<rt>めんきょしょう(0)</rt></ruby>や</u> <u>マイナンバーカードなどの</u> <u><ruby>提示<rt>ていじ(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(2)</rt></ruby>めて</u> <u><ruby>本人確認<rt>ほんにんかくにん(4)</rt></ruby>をすることで、</u> <u>なりすましを</u> <u><ruby>防止<rt>ぼうし(0)</rt></ruby>する<ruby>仕組<rt>しく(0)</rt></ruby>みが</u> <u><ruby>多<rt>おお(1)</rt></ruby>くとられている。</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>も</u> <u><ruby>当然<rt>とうぜん(0)</rt></ruby>それくらいはしているだろうと</u> <u><ruby>思<rt>おも(0)</rt></ruby>われるかもしれない。</u> <u>ところが、</u> <u><ruby>現在<rt>げんざい(1)</rt></ruby>の</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>も</u> <u><ruby>民事訴訟規則<rt>みんじそしょうきそく(5)</rt></ruby>も、</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>や</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>に</u> <u><ruby>本人確認書類<rt>ほんにんかくにんしょるい(6)</rt></ruby>の</u> <u><ruby>提示<rt>ていじ(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(2)</rt></ruby>めるという</u> <u><ruby>規定<rt>きてい(0)</rt></ruby>はおかれていない。</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>については、</u> <u><ruby>出廷<rt>しゅってい(0)</rt></ruby>した<ruby>際<rt>さい(1)</rt></ruby>に</u> <u><ruby>書記官<rt>しょきかん(2)</rt></ruby>が</u> <u><ruby>証人カード<rt>しょうにんかーど(4)</rt></ruby>への</u> <u><ruby>記入<rt>きにゅう(0)</rt></ruby>や</u> <u><ruby>宣誓書<rt>せんせいしょ(0)</rt></ruby>への</u> <u><ruby>署名捺印<rt>しょめいなついん(4)</rt></ruby>を<ruby>求<rt>もと(2)</rt></ruby>め、</u> <u><ruby>法廷<rt>ほうてい(0)</rt></ruby>では、</u> <u><ruby>裁判長<rt>さいばんちょう(2)</rt></ruby>が</u> <u><ruby>証人尋問<rt>しょうにんじんもん(4)</rt></ruby>に</u> <u><ruby>先立<rt>さきだ(2)</rt></ruby>って</u> <u><ruby>氏名<rt>しめい(1)</rt></ruby>、<ruby>住所<rt>じゅうしょ(1)</rt></ruby>、<ruby>生年月日<rt>せいねんがっぴ(3)</rt></ruby>を</u> <u><ruby>述<rt>のべ(1)</rt></ruby>させる</u> <u><ruby>人定尋問<rt>じんていじんもん(4)</rt></ruby>という</u> <u><ruby>手順<rt>てじゅん(0)</rt></ruby>がある。</u>
+                    <u>こうした</u> <u>フェイク<ruby>情報<rt>じょうほう(0)</rt></ruby>の</u> <u><ruby>弊害<rt>へいがい(0)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>しては、</u> <u>フェイクが</u> <u><ruby>手続<rt>てつづき(0)</rt></ruby>に</u> <u><ruby>入<rt>はい(0)</rt></ruby>ってこないように</u> <u><ruby>予防<rt>よぼう(0)</rt></ruby>できれば</u> <u><ruby>最<rt>もっと(0)</rt></ruby>もよい。</u> <u>しかし</u> <u>AI<ruby>生成<rt>せいせい(0)</rt></ruby>フェイクは</u> <u><ruby>巧妙<rt>こうみょう(0)</rt></ruby>で、</u> <u><ruby>完全<rt>かんぜん(0)</rt></ruby>に</u> <u><ruby>予防<rt>よぼう(0)</rt></ruby>することは<ruby>難<rt>むずか(0)</rt></ruby>しい。</u> <u>そうだとすると、</u> <u>フェイクにより</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u><ruby>歪<rt>ひず(2)</rt></ruby>められたときに、</u> <u>それをどう<ruby>是正<rt>ぜせい(0)</rt></ruby>するかということも</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えておく<ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u>そこで、</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>は</u> <u>フェイク<ruby>情報<rt>じょうほう(0)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>して</u> <u>どのような<ruby>防策<rt>ぼうさく(0)</rt></ruby>を</u> <u><ruby>設<rt>もう(0)</rt></ruby>けているか、</u> <u>また、</u> <u>フェイクにより</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u><ruby>歪<rt>ひず(2)</rt></ruby>められた<ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u>どう<ruby>対処<rt>たいしょ(1)</rt></ruby>してきたかということを</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えてみよう。</u> <u><ruby>民事訴訟制度<rt>みんじそしょうせいど(5)</rt></ruby>の</u> <u><ruby>全体<rt>ぜんたい(0)</rt></ruby>に</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>するところではあるが、</u> <u>スペースの<ruby>限界<rt>げんかい(0)</rt></ruby>もあるので、</u> <u><ruby>無関係<rt>むかんけい(2)</rt></ruby>の<ruby>人<rt>ひと(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>や</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>に</u> <u>なりすます<ruby>事例<rt>じれい(0)</rt></ruby>と、</u> <u>フェイクの<ruby>証拠<rt>しょうこ(0)</rt></ruby>が</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>された<ruby>場合<rt>ばあい(0)</rt></ruby>とを</u> <u><ruby>取<rt>と(0)</rt></ruby>り<ruby>上<rt>あ(0)</rt></ruby>げて、</u> <u>それぞれ<ruby>従来<rt>じゅうらい(0)</rt></ruby>の</u> <u><ruby>解決<rt>かいけつ(0)</rt></ruby>と</u> <u><ruby>現代<rt>げんだい(1)</rt></ruby>における</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>の</u> <u><ruby>展開<rt>てんかい(0)</rt></ruby>を</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>する。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -263,14 +199,55 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">1. 當事人本人與證人之身份確認：在一般社會交易中，通常會要求出示駕駛執照或個人編號卡（My Number Card）等身份證明文件以確認本人身份，建立了許多防止冒名頂替的機制。一般人可能會認為法院理應亦有類似嚴格機制。然而，現行民事訴訟法及民事訴訟規則中，均未設有要求當事人或證人出示身分確認文件之明文規定。針對證人，僅規定於到庭時由書記官要求填寫證人卡及於宣誓書上署名捺印，並於法庭上由審判長於證人訊問前訊問其姓名、住所、出生年月日，即所謂的「人定訊問」程序。</div>
+                <div class="text-slate-700 font-normal">面對此類假訊息帶來的危害，若能事先防範假訊息混入訴訟程序中，固為最佳方案。然而，生成式AI所製造的假訊息極為精巧，欲達到完全預防實屬困難。倘若如此，當重要裁判因假訊息而遭扭曲時，即有必要思考應如何加以救濟與更正。為此，本文將探討民事訴訟法針對假訊息設有何種防範機制，以及當裁判遭假訊息扭曲時過往如何因應處理。雖此議題關乎民事訴訟制度全貌，限於篇幅，本文將重點聚焦於「無關第三人冒充當事人或證人」及「提出假證據」兩種案例類型，分別檢視傳統解決方案與現代法學之問題展開。</div>
             </div>
         </article>
+        <section id="card-6" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 訴訟関係者へのなりすまし</h2>
+                <button onclick="playCardText(6)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 訴訟關係人之冒名頂替</div>
+        </section>
+        <section id="card-7" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．<ruby>当事者<rt>とうじしゃ(0)</rt></ruby><ruby>本人<rt>ほんにん(0)</rt></ruby>や<ruby>証人<rt>しょうにん(0)</rt></ruby>の<ruby>本人<rt>ほんにん(0)</rt></ruby><ruby>確認<rt>かくにん(0)</rt></ruby></h2>
+                <button onclick="playCardText(7)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．當事人本人與證人之身分確認</div>
+        </section>
         <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
                     <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>一般社会<rt>いっぱんしゃかい(4)</rt></ruby>であれば、</u> <u><ruby>何<rt>なに(1)</rt></ruby>らかの</u> <u><ruby>取引<rt>とりひき(0)</rt></ruby>を</u> <u><ruby>行<rt>おこな(0)</rt></ruby>うに<ruby>際<rt>さい(1)</rt></ruby>して、</u> <u><ruby>免許証<rt>めんきょしょう(0)</rt></ruby>や</u> <u>マイナンバーカードなどの</u> <u><ruby>提示<rt>ていじ(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(2)</rt></ruby>めて</u> <u><ruby>本人確認<rt>ほんにんかくにん(4)</rt></ruby>をすることで、</u> <u>なりすましを</u> <u><ruby>防止<rt>ぼうし(0)</rt></ruby>する<ruby>仕組<rt>しく(0)</rt></ruby>みが</u> <u><ruby>多<rt>おお(1)</rt></ruby>くとられている。</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>も</u> <u><ruby>当然<rt>とうぜん(0)</rt></ruby>それくらいはしているだろうと</u> <u><ruby>思<rt>おも(0)</rt></ruby>われるかもしれない。</u> <u>ところが、</u> <u><ruby>現在<rt>げんざい(1)</rt></ruby>の</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>も</u> <u><ruby>民事訴訟規則<rt>みんじそしょうきそく(5)</rt></ruby>も、</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>や</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>に</u> <u><ruby>本人確認書類<rt>ほんにんかくにんしょるい(6)</rt></ruby>の</u> <u><ruby>提示<rt>ていじ(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(2)</rt></ruby>めるという</u> <u><ruby>規定<rt>きてい(0)</rt></ruby>はおかれていない。</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>については、</u> <u><ruby>出廷<rt>しゅってい(0)</rt></ruby>した<ruby>際<rt>さい(1)</rt></ruby>に</u> <u><ruby>書記官<rt>しょきかん(2)</rt></ruby>が</u> <u><ruby>証人カード<rt>しょうにんかーど(4)</rt></ruby>への</u> <u><ruby>記入<rt>きにゅう(0)</rt></ruby>や</u> <u><ruby>宣誓書<rt>せんせいしょ(0)</rt></ruby>への</u> <u><ruby>署名捺印<rt>しょめいなついん(4)</rt></ruby>を<ruby>求<rt>もと(2)</rt></ruby>め、</u> <u><ruby>法廷<rt>ほうてい(0)</rt></ruby>では、</u> <u><ruby>裁判長<rt>さいばんちょう(2)</rt></ruby>が</u> <u><ruby>証人尋問<rt>しょうにんじんもん(4)</rt></ruby>に</u> <u><ruby>先立<rt>さきだ(2)</rt></ruby>って</u> <u><ruby>氏名<rt>しめい(1)</rt></ruby>、<ruby>住所<rt>じゅうしょ(1)</rt></ruby>、<ruby>生年月日<rt>せいねんがっぴ(3)</rt></ruby>を</u> <u><ruby>述<rt>のべ(1)</rt></ruby>させる</u> <u><ruby>人定尋問<rt>じんていじんもん(4)</rt></ruby>という</u> <u><ruby>手順<rt>てじゅん(0)</rt></ruby>がある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">在一般社會交易中，通常會要求出示駕駛執照或個人編號卡（My Number Card）等身份證明文件以確認本人身份，建立了許多防止冒名頂替的機制。一般人可能會認為法院理應亦有類似嚴格機制。然而，現行民事訴訟法及民事訴訟規則中，均未設有要求當事人或證人出示身分確認文件之明文規定。針對證人，僅規定於到庭時由書記官要求填寫證人卡及於宣誓書上署名捺印，並於法庭上由審判長於證人訊問前訊問其姓名、住所、出生年月日，即所謂的「人定訊問」程序。</div>
+            </div>
+        </article>
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -287,11 +264,11 @@
                 <div class="text-slate-700 font-normal">然而，只要雙方當事人未提出異議，且法院亦無特別懷疑，人定訊問程序往往流於形式。在當事人方面，起訴狀在遞交至法院受理時，既無嚴格的本人確認步驟，亦不強制要求檢附身份證明文件。法院受理訴狀後將對被告進行送達，通常係依民事訴訟法第101條以「特別送達」之郵務方式寄至訴狀載明之被告住所，交付予記載為被告之人（民事訴訟法第102條）。送達時雖要求簽名蓋章，但法律並未規定郵務人員得要求出示身分證明文件；且即令係送達予同居人（民事訴訟法第106條補充送達）或寄存送達（民事訴訟法第107條），亦均無需確認被告本人身份即可發生送達之效力。</div>
             </div>
         </article>
-        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -308,17 +285,27 @@
                 <div class="text-slate-700 font-normal">如此觀之，無論是當事人抑或證人，第三方欲實施冒名頂替行為似乎極為容易。當然，冒名行為會構成偽造私文書罪等刑事犯罪，刑罰對此具有嚇阻作用。再者，審判並非僅完結於法庭之內，而是以現實社會中之人際紛爭為對象，當事人或證人在現實生活中多半互相認識，一旦有冒名介入，敗露的可能性極高。此外，在委任律師作為代理人時，若委任人非律師直接熟識之人，律師通常亦會確認委任人之本人身分。正因如此，現實中冒名頂替行為極少發生，縱使萬一發生亦能早期發現並予以糾正，故傳統上認為即令不強制要求嚴格之本人確認，實務問題亦不大。</div>
             </div>
         </article>
-        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-11" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．なりすましの<ruby>弊害<rt>へいがい(0)</rt></ruby></h2>
+                <button onclick="playCardText(11)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．冒名行為之弊害</div>
+        </section>
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>2．なりすましの弊害</u> <u>しかし、</u> <u>なりすまし<ruby>行為<rt>こうい(1)</rt></ruby>が</u> <u><ruby>完全<rt>かんぜん(0)</rt></ruby>には</u> <u><ruby>防止<rt>ぼうし(0)</rt></ruby>されないとすると、</u> <u>そのまま<ruby>訴訟<rt>そしょう(0)</rt></ruby>が</u> <u><ruby>進行<rt>しんこう(0)</rt></ruby>してしまう<ruby>可能性<rt>かのうせい(0)</rt></ruby>はある。</u> <u>感情</u> <u>なりすまし<ruby>行為<rt>こうい(1)</rt></ruby>を</u> <u><ruby>見過<rt>みす(0)</rt></ruby>ごしたまま</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>が<ruby>出<rt>で(1)</rt></ruby>てしまうと、</u> <u><ruby>経済的被害<rt>けいざいてきひがい(5)</rt></ruby>が</u> <u><ruby>発生<rt>はっせい(0)</rt></ruby>することにもなりかねない。</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>・<ruby>丙川三郎<rt>ひらかわさぶろう(4)</rt></ruby>に</u> <u>なりすましてCが<ruby>証言<rt>しょうげん(0)</rt></ruby>したという<ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u><ruby>丙川三郎<rt>ひらかわさぶろう(4)</rt></ruby>の</u> <u><ruby>証言<rt>しょうげん(0)</rt></ruby>とは</u> <u><ruby>異<rt>こと(2)</rt></ruby>なるものであるから</u> <u><ruby>本来<rt>ほんらい(0)</rt></ruby>は</u> <u><ruby>証拠価値<rt>しょうこかち(3)</rt></ruby>がゼロであり、</u> <u>そのような<ruby>証言内容<rt>しょうげんないよう(4)</rt></ruby>を</u> <u><ruby>基礎<rt>きそ(1)</rt></ruby>として<ruby>出<rt>だ(0)</rt></ruby>された<ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>虚無<rt>きょむ(1)</rt></ruby>の<ruby>証拠<rt>しょうこ(0)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づく</u> <u><ruby>砂上<rt>さじょう(0)</rt></ruby>の<ruby>楼閣<rt>ろうかく(0)</rt></ruby>ともいうべきものとなる。</u> <u>また<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>の<ruby>一方<rt>いっぽう(3)</rt></ruby>が</u> <u>なりすまされたまま<ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>下<rt>くだ(0)</rt></ruby>されて</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>した場合、</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(1)</rt></ruby>は</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>にのみ<ruby>及<rt>およ(1)</rt></ruby>ぶのが<ruby>原則<rt>げんそく(0)</rt></ruby></u> <u>（<ruby>民訴<rt>みんそ(1)</rt></ruby>115<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>1<ruby>号<rt>ごう(1)</rt></ruby>）であるから、</u> <u>なりすまされた<ruby>人<rt>ひと(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>と<ruby>扱<rt>あつか(0)</rt></ruby>われる<ruby>限<rt>かぎ(2)</rt></ruby>り、</u> <u><ruby>自分<rt>じぶん(0)</rt></ruby>の<ruby>知<rt>し(0)</rt></ruby>らないところで</u> <u><ruby>他者<rt>たしゃ(1)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>った</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>の<ruby>結果<rt>けっか(0)</rt></ruby>を</u> <u><ruby>被<rt>こうむ(2)</rt></ruby>るということになる。</u>
+                    <u>しかし、</u> <u>なりすまし<ruby>行為<rt>こうい(1)</rt></ruby>が</u> <u><ruby>完全<rt>かんぜん(0)</rt></ruby>には</u> <u><ruby>防止<rt>ぼうし(0)</rt></ruby>されないとすると、</u> <u>そのまま<ruby>訴訟<rt>そしょう(0)</rt></ruby>が</u> <u><ruby>進行<rt>しんこう(0)</rt></ruby>してしまう<ruby>可能性<rt>かのうせい(0)</rt></ruby>はある。</u> <u>感情</u> <u>なりすまし<ruby>行為<rt>こうい(1)</rt></ruby>を</u> <u><ruby>見過<rt>みす(0)</rt></ruby>ごしたまま</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>が<ruby>出<rt>で(1)</rt></ruby>てしまうと、</u> <u><ruby>経済的被害<rt>けいざいてきひがい(5)</rt></ruby>が</u> <u><ruby>発生<rt>はっせい(0)</rt></ruby>することにもなりかねない。</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば</u> <u><ruby>証人<rt>しょうにん(0)</rt></ruby>・<ruby>丙川三郎<rt>ひらかわさぶろう(4)</rt></ruby>に</u> <u>なりすましてCが<ruby>証言<rt>しょうげん(0)</rt></ruby>したという<ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u><ruby>丙川三郎<rt>ひらかわさぶろう(4)</rt></ruby>の</u> <u><ruby>証言<rt>しょうげん(0)</rt></ruby>とは</u> <u><ruby>異<rt>こと(2)</rt></ruby>なるものであるから</u> <u><ruby>本来<rt>ほんらい(0)</rt></ruby>は</u> <u><ruby>証拠価値<rt>しょうこかち(3)</rt></ruby>がゼロであり、</u> <u>そのような<ruby>証言内容<rt>しょうげんないよう(4)</rt></ruby>を</u> <u><ruby>基礎<rt>きそ(1)</rt></ruby>として<ruby>出<rt>だ(0)</rt></ruby>された<ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>虚無<rt>きょむ(1)</rt></ruby>の<ruby>証拠<rt>しょうこ(0)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づく</u> <u><ruby>砂上<rt>さじょう(0)</rt></ruby>の<ruby>楼閣<rt>ろうかく(0)</rt></ruby>ともいうべきものとなる。</u> <u>また<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>の<ruby>一方<rt>いっぽう(3)</rt></ruby>が</u> <u>なりすまされたまま<ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>下<rt>くだ(0)</rt></ruby>されて</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>した場合、</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(1)</rt></ruby>は</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>にのみ<ruby>及<rt>およ(1)</rt></ruby>ぶのが<ruby>原則<rt>げんそく(0)</rt></ruby></u> <u>（<ruby>民訴<rt>みんそ(1)</rt></ruby>115<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>1<ruby>号<rt>ごう(1)</rt></ruby>）であるから、</u> <u>なりすまされた<ruby>人<rt>ひと(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>と<ruby>扱<rt>あつか(0)</rt></ruby>われる<ruby>限<rt>かぎ(2)</rt></ruby>り、</u> <u><ruby>自分<rt>じぶん(0)</rt></ruby>の<ruby>知<rt>し(0)</rt></ruby>らないところで</u> <u><ruby>他者<rt>たしゃ(1)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>った</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>の<ruby>結果<rt>けっか(0)</rt></ruby>を</u> <u><ruby>被<rt>こうむ(2)</rt></ruby>るということになる。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -326,14 +313,14 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">2. 冒名頂替之弊害：然而，一旦冒名頂替行為未能完全防止，訴訟便有繼續進行之虞。若法院在忽視冒名行為的情況下作成判決，恐將造成重大經濟損害。例如，若第三人C冒充證人丙川三郎作證，該證言實非丙川三郎本人之證言，本質上證據價值應為零，以該證言為基礎所作成的判決，無異於建構於虛無證據上的空中樓閣。又若當事人在遭冒名的狀態下受法院宣告判決並告確定，依民事訴訟法第115條第1項第1款原則，判決效力僅及於當事人，因此被冒名者只要被視為當事人，便必須承受一個自己在完全不知情狀態下由他人所為訴訟行為的不利益結果。</div>
+                <div class="text-slate-700 font-normal">然而，一旦冒名頂替行為未能完全防止，訴訟便有繼續進行之虞。若法院在忽視冒名行為的情況下作成判決，恐將造成重大經濟損害。例如，若第三人C冒充證人丙川三郎作證，該證言實非丙川三郎本人之證言，本質上證據價值應為零，以該證言為基礎所作成的判決，無異於建構於虛無證據上的空中樓閣。又若當事人在遭冒名的狀態下受法院宣告判決並告確定，依民事訴訟法第115條第1項第1款原則，判決效力僅及於當事人，因此被冒名者只要被視為當事人，便必須承受一個自己在完全不知情狀態下由他人所為訴訟行為的不利益結果。</div>
             </div>
         </article>
-        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -350,17 +337,27 @@
                 <div class="text-slate-700 font-normal">在上文範例中，若A冒用甲野太郎之名提起訴訟卻遭敗訴判決確定，甲野太郎將被認定不享有A於該訴訟中所主張的權利。此種拘束力即稱為「既判力」。反之，若B冒用乙山花子之名應訴亦遭敗訴，乙山花子不僅無法否認該判決所認定的債務，若該判決為給付金銭之裁判，乙山花子之財產或薪資更可能遭到強制執行，此種效力即稱為「執行力」。事實上，此類冒名訴訟在學說上被稱為「氏名冒用訴訟」，於實際司法實務中亦曾引發實質爭論。</div>
             </div>
         </article>
-        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-14" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">3．<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>のなりすましが<ruby>判明<rt>はんめい(0)</rt></ruby>した<ruby>場合<rt>ばあい(0)</rt></ruby>の<ruby>処理<rt>しょり(1)</rt></ruby></h2>
+                <button onclick="playCardText(14)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">3．發現當事人遭冒名時之處理</div>
+        </section>
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>3．当事者のなりすましが判明した場合の処理</u> <u>もちろん、</u> <u>なりすまし<ruby>事例<rt>じれい(0)</rt></ruby>では、</u> <u>なりすまされた<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>が</u> <u><ruby>自分<rt>じぶん(0)</rt></ruby>の<ruby>知<rt>し(0)</rt></ruby>らないところで</u> <u><ruby>下<rt>くだ(0)</rt></ruby>された<ruby>判決<rt>はんけつ(0)</rt></ruby>によって</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>けるということになると、</u> <u><ruby>不当<rt>ふとう(0)</rt></ruby>以外の何ものでもない。</u> <u>そこで、</u> <u><ruby>戦前<rt>せんぜん(0)</rt></ruby>から<ruby>戦後<rt>せんご(0)</rt></ruby>にかけて、</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>を<ruby>中心<rt>ちゅうしん(0)</rt></ruby>になりすましに<ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>救済<rt>きゅうさい(0)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>われ、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>でも</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>の<ruby>確定<rt>かくてい(0)</rt></ruby>という</u> <u><ruby>論点<rt>ろんてん(0)</rt></ruby>の<ruby>下<rt>もと(0)</rt></ruby>で</u> <u><ruby>論<rt>ろん(1)</rt></ruby>じられてきた。</u> <u><ruby>以下<rt>いか(1)</rt></ruby>、</u> <u>その<ruby>解決事例<rt>かいけつじれい(4)</rt></ruby>を</u> <u>いくつか<ruby>見<rt>み(1)</rt></ruby>てみよう。</u> <u>まず<ruby>上述<rt>じょうじゅつ(0)</rt></ruby>の<ruby>例<rt>たと(0)</rt></ruby>のうち、</u> <u><ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>の<ruby>名前<rt>なまえ(0)</rt></ruby>を<ruby>使<rt>つか(0)</rt></ruby>って</u> <u>Aが<ruby>訴<rt>うった(0)</rt></ruby>えを<ruby>提起<rt>ていき(1)</rt></ruby>したところ<ruby>敗訴<rt>はいそ(1)</rt></ruby>したという<ruby>事例<rt>じれい(0)</rt></ruby>で、</u> <u><ruby>戦前<rt>せんぜん(0)</rt></ruby>の<ruby>最高裁判所<rt>さいこうさいばんしょ(5)</rt></ruby>に<ruby>当<rt>あ(0)</rt></ruby>たる<ruby>大審院<rt>だいしんいん(0)</rt></ruby>は、</u> <u>なりすまされた<ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>ではなく</u> <u>Aが<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>だとして、</u> <u><ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>に<ruby>既判力<rt>きはんりょく(2)</rt></ruby>が<ruby>及<rt>およ(1)</rt></ruby>ばないと<ruby>判断<rt>はんだん(1)</rt></ruby>した。</u>
+                    <u>もちろん、</u> <u>なりすまし<ruby>事例<rt>じれい(0)</rt></ruby>では、</u> <u>なりすまされた<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>が</u> <u><ruby>自分<rt>じぶん(0)</rt></ruby>の<ruby>知<rt>し(0)</rt></ruby>らないところで</u> <u><ruby>下<rt>くだ(0)</rt></ruby>された<ruby>判決<rt>はんけつ(0)</rt></ruby>によって</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>けるということになると、</u> <u><ruby>不当<rt>ふとう(0)</rt></ruby>以外の何ものでもない。</u> <u>そこで、</u> <u><ruby>戦前<rt>せんぜん(0)</rt></ruby>から<ruby>戦後<rt>せんご(0)</rt></ruby>にかけて、</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>を<ruby>中心<rt>ちゅうしん(0)</rt></ruby>になりすましに<ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>救済<rt>きゅうさい(0)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>われ、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>でも</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>の<ruby>確定<rt>かくてい(0)</rt></ruby>という</u> <u><ruby>論点<rt>ろんてん(0)</rt></ruby>の<ruby>下<rt>もと(0)</rt></ruby>で</u> <u><ruby>論<rt>ろん(1)</rt></ruby>じられてきた。</u> <u><ruby>以下<rt>いか(1)</rt></ruby>、</u> <u>その<ruby>解決事例<rt>かいけつじれい(4)</rt></ruby>を</u> <u>いくつか<ruby>見<rt>み(1)</rt></ruby>てみよう。</u> <u>まず<ruby>上述<rt>じょうじゅつ(0)</rt></ruby>の<ruby>例<rt>たと(0)</rt></ruby>のうち、</u> <u><ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>の<ruby>名前<rt>なまえ(0)</rt></ruby>を<ruby>使<rt>つか(0)</rt></ruby>って</u> <u>Aが<ruby>訴<rt>うった(0)</rt></ruby>えを<ruby>提起<rt>ていき(1)</rt></ruby>したところ<ruby>敗訴<rt>はいそ(1)</rt></ruby>したという<ruby>事例<rt>じれい(0)</rt></ruby>で、</u> <u><ruby>戦前<rt>せんぜん(0)</rt></ruby>の<ruby>最高裁判所<rt>さいこうさいばんしょ(5)</rt></ruby>に<ruby>当<rt>あ(0)</rt></ruby>たる<ruby>大審院<rt>だいしんいん(0)</rt></ruby>は、</u> <u>なりすまされた<ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>ではなく</u> <u>Aが<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>だとして、</u> <u><ruby>甲野太郎<rt>こうのたろう(3)</rt></ruby>に<ruby>既判力<rt>きはんりょく(2)</rt></ruby>が<ruby>及<rt>およ(1)</rt></ruby>ばないと<ruby>判断<rt>はんだん(1)</rt></ruby>した。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -368,14 +365,14 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">3. 發現當事人冒名時之處理：當然，在冒名頂替的案件中，若被冒名之當事人因其完全不知情下作成的判決而受不利益，實極不合理。因此，自戰前至戰後，實務判例即針對冒名頂替事件建構救濟機制，學說亦於「當事人之確定」爭點下展開討論。以下探討數個具體判決處理審理模式。在前述範例中，針對A冒用甲野太郎名義起訴卻遭敗訴之情形，相當於戰前最高法院的大審院認定，訴訟當事人應為實際進行訴訟行為的A而非被冒名的甲野太郎，故判定該敗訴判決之既判力不及於甲野太郎。</div>
+                <div class="text-slate-700 font-normal">當然，在冒名頂替的案件中，若被冒名之當事人因其完全不知情下作成的判決而受不利益，實極不合理。因此，自戰前至戰後，實務判例即針對冒名頂替事件建構救濟機制，學說亦於「當事人之確定」爭點下展開討論。以下探討數個具體判決處理審理模式。在前述範例中，針對A冒用甲野太郎名義起訴卻遭敗訴之情形，相當於戰前最高法院的大審院認定，訴訟當事人應為實際進行訴訟行為的A而非被冒名的甲野太郎，故判定該敗訴判決之既判力不及於甲野太郎。</div>
             </div>
         </article>
-        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -392,11 +389,11 @@
                 <div class="text-slate-700 font-normal">換言之，真正的甲野太郎仍得自行於訴訟中主張其權利。另一方面，在無關第三人B瞞著乙山花子委任律師對訴訟進行應訴卻遭敗訴之案件中，乙山花子因該敗訴判決遭受強制執行，遂提起再審之訴請求撤銷該敗訴判決。對此，大審院則認定被冒名的乙山花子始為形式當事者，進而宣告乙山花子提起之再審之訴合法。上述兩判決乍看之下，於到底應將「被冒名者」或「冒名者」視為訴訟當事人一事上，似乎存在前後矛盾。</div>
             </div>
         </article>
-        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -413,21 +410,21 @@
                 <div class="text-slate-700 font-normal">然而，將「被冒名者」認定為當事人的判決，係因被告乙山花子遭不當宣告敗訴判決且已面臨強制執行，故有必要准許再審以撤銷強制執行；相對地，在原告甲野太郎遭冒名的案件中，只要認定冒名敗訴判決之既判力不及於甲野太郎，甲野太郎本人即得重新起訴，問題便獲解決。大審院實係出於具體救濟必要性與妥當解決爭端之考量，彈性認定是否將被冒名者視為訴訟當事人。雖然上述兩起裁判均為戰前判例，部分人可能認為現代不再發生，但冒名訴訟於現代實務中仍時有所聞，類似案例亦多次成為法科大學院成立後司法考試的考題。</div>
             </div>
         </article>
-        <section id="card-15" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-18" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><u>4．IT化による変化</u> <u><ruby>以上<rt>いじょう(1)</rt></ruby>のような<ruby>問題<rt>もんだい(0)</rt></ruby>は、</u> <u><ruby>民事訴訟<rt>みんじそしょう(0)</rt></ruby>のIT<ruby>化<rt>か(0)</rt></ruby>によって、</u> <u>すなわち<ruby>民事訴訟<rt>みんじそしょう(0)</rt></ruby>の<ruby>申立<rt>もうしたて(0)</rt></ruby>てが</u> <u>オンラインシステムによって<ruby>可能<rt>かのう(0)</rt></ruby>となる<ruby>場合<rt>ばあい(0)</rt></ruby>でも、</u> <u><ruby>基本的<rt>きほんてき(0)</rt></ruby>には<ruby>変<rt>か(0)</rt></ruby>わらない。</u> <u>むしろ、</u> <u>オンラインシステムの<ruby>利用登録<rt>りようとうろく(4)</rt></ruby>の<ruby>際<rt>さい(1)</rt></ruby>に</u> <u><ruby>本人確認<rt>ほんにんかくにん(4)</rt></ruby>が<ruby>行<rt>おこな(0)</rt></ruby>われるとすれば、</u> <u><ruby>少<rt>すく(0)</rt></ruby>なくともオンライン<ruby>申立<rt>もうしたて(0)</rt></ruby>てを<ruby>行<rt>おこな(0)</rt></ruby>う<ruby>場合<rt>ばあい(0)</rt></ruby>には</u> <u>なりすましが<ruby>生<rt>しょう(0)</rt></ruby>じにくくなることは<ruby>確<rt>たしか(1)</rt></ruby>である。</u> <u>しかし<ruby>逆<rt>ぎゃく(0)</rt></ruby>に、</u> <u><ruby>冒頭<rt>ぼうとう(0)</rt></ruby>に<ruby>述<rt>のべ(1)</rt></ruby>べたように、</u> <u><ruby>高度<rt>こうど(1)</rt></ruby>なフェイク<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>が</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby>にも<ruby>広<rt>ひろ(0)</rt></ruby>まれば、</u> <u>なりすましの<ruby>可能性<rt>かのうせい(0)</rt></ruby>がかえって<ruby>増大<rt>ぞうだい(0)</rt></ruby>することにもなりかねず、</u> <u>セキュリティとのいたちごっこともなるかもしれない。</u> <u><ruby>現実社会<rt>げんじつしゃかい(4)</rt></ruby>での<ruby>紛争<rt>ふんそう(0)</rt></ruby>に<ruby>際<rt>さい(1)</rt></ruby>して</u> <u><ruby>当事者<rt>とうじしゃ(1)</rt></ruby>が<ruby>互<rt>たが(0)</rt></ruby>いに<ruby>見知<rt>みし(0)</rt></ruby>っているとか、</u> <u><ruby>弁護士<rt>べんごし(0)</rt></ruby>による<ruby>本人確認<rt>ほんにんかくにん(4)</rt></ruby>がなされるなど、</u> <u>なりすましがしにくい<ruby>状況<rt>じょうきょう(0)</rt></ruby>も、</u> <u>オンライン<ruby>取引<rt>とりひき(0)</rt></ruby>に<ruby>伴<rt>ともな(2)</rt></ruby>うトラブルが<ruby>増加<rt>ぞうか(0)</rt></ruby>し、</u> <u><ruby>弁護士<rt>べんごし(0)</rt></ruby>・<ruby>依頼者<rt>いらいしゃ(0)</rt></ruby>の<ruby>関係<rt>かんけい(0)</rt></ruby>も</u> <u>オンラインで<ruby>築<rt>きず(0)</rt></ruby>かれるようになると、</u> <u><ruby>本人確認<rt>ほんにんかくにん(4)</rt></ruby>の<ruby>確実性<rt>かくじつせい(0)</rt></ruby>が<ruby>薄<rt>うす(0)</rt></ruby>くなる<ruby>可能性<rt>かのうせい(0)</rt></ruby>もある。</u></h2>
-                <button onclick="playCardText(15)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
             <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">4. IT化帶來之變化：即使民事訴訟邁向IT化、允許透過線上系統進行訴訟提出，上述基本問題架構仍未改變。當然，若線上系統於註冊時實行嚴格的本人確認，則線上起訴時冒名的機率確實會降低。然而反過來說，若高度深偽技術普遍化，冒用身份的可能性反而可能急遽增加，形成資安防護與攻擊間的「貓鼠博弈（いたちごっこ）」。過往在現實社會紛爭中，當事人互相熟識或由律師進行身份確認等不易發生冒名的環境，隨著網路交易糾紛增加及律師與委任人關係轉向線上建構，本人確認的真實性與確實性亦可能隨之降低。</div>
         </section>
-        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -444,27 +441,37 @@
                 <div class="text-slate-700 font-normal">考量上述疑慮，在訴訟程序中引進運用當事人本人之個人編號卡（My Number Card）或自然人憑證等高強度數位身份驗證機制，恐將成為未來民事訴訟法制的必要措施。</div>
             </div>
         </article>
-        <section id="card-17" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-20" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅱ フェイク証拠</h2>
-                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
             <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅱ 假證據（偽造證據）</div>
         </section>
-        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-21" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．<ruby>証拠<rt>しょうこ(1)</rt></ruby>の<ruby>真正性<rt>しんせいせい(0)</rt></ruby><ruby>確認<rt>かくにん(0)</rt></ruby>の<ruby>必要性<rt>ひつようせい(0)</rt></ruby>と<ruby>方法<rt>ほうほう(0)</rt></ruby></h2>
+                <button onclick="playCardText(21)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．確認證據真正性之必要性與方法</div>
+        </section>
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>1．証拠の真正性確認の必要性と方法</u> <u><ruby>次<rt>つぎ(2)</rt></ruby>に、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>に<ruby>提出<rt>ていしゅつ(0)</rt></ruby>された<ruby>証拠<rt>しょうこ(0)</rt></ruby>が</u> <u><ruby>高度<rt>こうど(1)</rt></ruby>なフェイク<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>により</u> <u><ruby>作出<rt>さくしゅつ(0)</rt></ruby>されたものという</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>について<ruby>検討<rt>けんとう(0)</rt></ruby>する。</u> <u>こちらの<ruby>問題<rt>もんだい(0)</rt></ruby>も<ruby>新<rt>あたら(4)</rt></ruby>しいことではなく、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の<ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>でも、</u> <u><ruby>特<rt>とく(0)</rt></ruby>に<ruby>文書<rt>ぶんしょ(1)</rt></ruby>を<ruby>証拠<rt>しょうこ(0)</rt></ruby>とする<ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u>まず<ruby>形式的証拠力<rt>けいしきてきしょうこりょく(5)</rt></ruby>のテストにより</u> <u><ruby>偽造証拠<rt>ぎぞうしょうこ(4)</rt></ruby>を<ruby>排除<rt>はいじょ(1)</rt></ruby>する<ruby>仕組<rt>しく(0)</rt></ruby>みが</u> <u>とられている。</u> <u><ruby>形式的証拠力<rt>けいしきてきしょうこりょく(5)</rt></ruby>とは、</u> <u><ruby>文書<rt>ぶんしょ(1)</rt></ruby>が<ruby>偽造<rt>ぎぞう(0)</rt></ruby>されたものではないこと、</u> <u>すなわち<ruby>作成名義人<rt>さくせいめいぎにん(4)</rt></ruby>の<ruby>意思<rt>いし(1)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいて</u> <u><ruby>作成<rt>さくせい(0)</rt></ruby>されたものと<ruby>認<rt>みと(0)</rt></ruby>められることを<ruby>意味<rt>いみ(1)</rt></ruby>する。</u> <u>これを<ruby>文書<rt>ぶんしょ(1)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>というが、</u> <u>その<ruby>点<rt>てん(0)</rt></ruby>に<ruby>争<rt>あらそ(0)</rt></ruby>いがあれば、</u> <u>その<ruby>文書<rt>ぶんしょ(1)</rt></ruby>を<ruby>証拠<rt>しょうこ(0)</rt></ruby>としたい<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>（<ruby>挙証者<rt>きょしょうしゃ(3)</rt></ruby>）が</u> <u>その<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>を<ruby>証明<rt>しょうめい(0)</rt></ruby>しなければならない</u> <u>（<ruby>民訴<rt>みんそ(1)</rt></ruby>228<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</u> <u>ただし<ruby>公文書<rt>こうぶんしょ(3)</rt></ruby>については、</u> <u><ruby>方式<rt>ほうしき(0)</rt></ruby>および<ruby>趣旨<rt>しゅじ(1)</rt></ruby>から</u> <u><ruby>公務員<rt>こうむいん(3)</rt></ruby>が<ruby>職務上<rt>しょくむじょう(0)</rt></ruby><ruby>作成<rt>さくせい(0)</rt></ruby>したものと<ruby>認<rt>みと(0)</rt></ruby>められるのであれば</u> <u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>が<ruby>推定<rt>すいてい(0)</rt></ruby>されるし</u> <u>（<ruby>同条<rt>どうじょう(0)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）、</u> <u><ruby>私文書<rt>しぶんしょ(1)</rt></ruby>も<ruby>署名<rt>しょめい(0)</rt></ruby>または<ruby>押印<rt>おういん(0)</rt></ruby>があれば</u> <u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>が<ruby>推定<rt>すいてい(0)</rt></ruby>される</u> <u>（<ruby>同条<rt>どうじょう(0)</rt></ruby>4<ruby>項<rt>こう(1)</rt></ruby>）。</u>
+                    <u><ruby>次<rt>つぎ(2)</rt></ruby>に、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>に<ruby>提出<rt>ていしゅつ(0)</rt></ruby>された<ruby>証拠<rt>しょうこ(0)</rt></ruby>が</u> <u><ruby>高度<rt>こうど(1)</rt></ruby>なフェイク<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>により</u> <u><ruby>作出<rt>さくしゅつ(0)</rt></ruby>されたものという</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>について<ruby>検討<rt>けんとう(0)</rt></ruby>する。</u> <u>こちらの<ruby>問題<rt>もんだい(0)</rt></ruby>も<ruby>新<rt>あたら(4)</rt></ruby>しいことではなく、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の<ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>でも、</u> <u><ruby>特<rt>とく(0)</rt></ruby>に<ruby>文書<rt>ぶんしょ(1)</rt></ruby>を<ruby>証拠<rt>しょうこ(0)</rt></ruby>とする<ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u>まず<ruby>形式的証拠力<rt>けいしきてきしょうこりょく(5)</rt></ruby>のテストにより</u> <u><ruby>偽造証拠<rt>ぎぞうしょうこ(4)</rt></ruby>を<ruby>排除<rt>はいじょ(1)</rt></ruby>する<ruby>仕組<rt>しく(0)</rt></ruby>みが</u> <u>とられている。</u> <u><ruby>形式的証拠力<rt>けいしきてきしょうこりょく(5)</rt></ruby>とは、</u> <u><ruby>文書<rt>ぶんしょ(1)</rt></ruby>が<ruby>偽造<rt>ぎぞう(0)</rt></ruby>されたものではないこと、</u> <u>すなわち<ruby>作成名義人<rt>さくせいめいぎにん(4)</rt></ruby>の<ruby>意思<rt>いし(1)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいて</u> <u><ruby>作成<rt>さくせい(0)</rt></ruby>されたものと<ruby>認<rt>みと(0)</rt></ruby>められることを<ruby>意味<rt>いみ(1)</rt></ruby>する。</u> <u>これを<ruby>文書<rt>ぶんしょ(1)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>というが、</u> <u>その<ruby>点<rt>てん(0)</rt></ruby>に<ruby>争<rt>あらそ(0)</rt></ruby>いがあれば、</u> <u>その<ruby>文書<rt>ぶんしょ(1)</rt></ruby>を<ruby>証拠<rt>しょうこ(0)</rt></ruby>としたい<ruby>当事者<rt>とうじしゃ(1)</rt></ruby>（<ruby>挙証者<rt>きょしょうしゃ(3)</rt></ruby>）が</u> <u>その<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>を<ruby>証明<rt>しょうめい(0)</rt></ruby>しなければならない</u> <u>（<ruby>民訴<rt>みんそ(1)</rt></ruby>228<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</u> <u>ただし<ruby>公文書<rt>こうぶんしょ(3)</rt></ruby>については、</u> <u><ruby>方式<rt>ほうしき(0)</rt></ruby>および<ruby>趣旨<rt>しゅじ(1)</rt></ruby>から</u> <u><ruby>公務員<rt>こうむいん(3)</rt></ruby>が<ruby>職務上<rt>しょくむじょう(0)</rt></ruby><ruby>作成<rt>さくせい(0)</rt></ruby>したものと<ruby>認<rt>みと(0)</rt></ruby>められるのであれば</u> <u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>が<ruby>推定<rt>すいてい(0)</rt></ruby>されるし</u> <u>（<ruby>同条<rt>どうじょう(0)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）、</u> <u><ruby>私文書<rt>しぶんしょ(1)</rt></ruby>も<ruby>署名<rt>しょめい(0)</rt></ruby>または<ruby>押印<rt>おういん(0)</rt></ruby>があれば</u> <u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>が<ruby>推定<rt>すいてい(0)</rt></ruby>される</u> <u>（<ruby>同条<rt>どうじょう(0)</rt></ruby>4<ruby>項<rt>こう(1)</rt></ruby>）。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -475,11 +482,11 @@
                 <div class="text-slate-700 font-normal">1. 證據真正性確認之必要性與方法：次查提出於法院之證據係運用高度深偽技術所製造之可能性。此問題亦非新穎現象，傳統民事訴訟法於以文書為證據時，即設有先透過「形式的證據力」審查以排除偽造證據之機制。所謂形式的證據力，係指文書非屬偽造，即認定係基於作成名義人之意思所作成。此稱為「文書之真正成立」，若對此有所爭執，欲使用該文書作為證據之當事人（舉證者）即負有證明其真正成立之舉證責任（民事訴訟法第228條第1項）。惟針對公文書，若依其格式與旨趣得認定係公務員職務上所作成，即推定其真正成立（同條第2項）；私文書若有簽名或押印，亦推定其真正成立（同條第4項）。</div>
             </div>
         </article>
-        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -496,11 +503,11 @@
                 <div class="text-slate-700 font-normal">即令無法透過簽名押印證明真正性，亦得藉由筆跡或印影對照進行證明（民事訴訟法第229條第1項），為此得命相對人（文書作成人）提出對照用之其他文書或命其現場筆記（同條第2項、第3項）。若不遵從該命令，法院得認定舉證者關於該文書成立之主張為真實（同條第4項）。關於電磁紀錄，2000年公布之電子簽章特別法亦承認透過電子簽章推定其真正成立。總之，是否具備形式的證據力，於自由心證主義下均委由法官心證判斷，得由證言予以認定，亦得透過專家鑑定予以判定。</div>
             </div>
         </article>
-        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -517,11 +524,11 @@
                 <div class="text-slate-700 font-normal">復查，縱經認定具備形式的證據力，記載內容是否真實仍屬另一層面問題（此稱為證據價值或「實質的證據力」）。惟針對遺囑等要式行為或記載意思表示之契約書，一旦取得形式的證據力，即具備直接證明要證事實之強大訴訟效果。上述規範並不限於紙本型態文書，亦準用於相片、錄音及錄影等（民事訴訟法第231條準文書）。因此，相片或影片等若遭爭執係由深偽技術所製造，舉證者即須證明其真正成立；由於其無法如普通私文書般藉由簽名蓋章獲得真正推定，故必須透過其他科學或實質手段加以舉證。</div>
             </div>
         </article>
-        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -538,17 +545,27 @@
                 <div class="text-slate-700 font-normal">過往合成相片多能透過專家鑑定加以辨別，然而科技進步使得真偽判定極度困難。在此情況下，要證明證據係屬偽造極難，但要證明其真正成立亦同樣困難，特別是僅列印出紙本的相片，未來恐難以作為決定性的訴訟證據。此外，若偽造證據未被察覺而成為法院採擇之裁判資料且判決已告確定，得透過提起再審之訴尋求撤銷（民事訴訟法第338條第1項第6款）。然僅證明證據係偽造尚不足夠，依同條第2項規定，基於偽造證據之再審「以可罰行為經有罪判決或罰鍰裁判確定者，或因缺乏證據以外之理由致無法取得確定有罪判決或確定罰鍰裁判者為限」，因以刑事訴追確定為前置要件，門檻極高。</div>
             </div>
         </article>
-        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-26" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．IT<ruby>化<rt>か(0)</rt></ruby>による<ruby>変化<rt>へんか(1)</rt></ruby></h2>
+                <button onclick="playCardText(26)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．IT化所帶來之變化</div>
+        </section>
+        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>2．IT化による変化</u> <u><ruby>民事訴訟<rt>みんじそしょう(0)</rt></ruby>のIT<ruby>化<rt>か(0)</rt></ruby>により、</u> <u>紙メディアの<ruby>文書<rt>ぶんしょ(1)</rt></ruby>や<ruby>準文書<rt>じゅんぶんしょ(1)</rt></ruby>に<ruby>加<rt>くわ(0)</rt></ruby>えて、</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>に<ruby>記録<rt>きろく(0)</rt></ruby>された</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>の<ruby>内容<rt>ないよう(0)</rt></ruby>に<ruby>係<rt>かかわ(0)</rt></ruby>る<ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べが<ruby>新<rt>あらた(0)</rt></ruby>たに<ruby>設<rt>もう(0)</rt></ruby>けられた。</u> <u>それ<ruby>以前<rt>いぜん(1)</rt></ruby>も、<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>情報<rt>じょうほう(0)</rt></ruby>が</u> <u><ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べの<ruby>対象<rt>たいしょう(0)</rt></ruby>とならなかったわけではないが、</u> <u><ruby>書証<rt>しょしょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>によるのか<ruby>検証<rt>けんしょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>によるのかなど、</u> <u><ruby>取調方法<rt>とりしらべほうほう(5)</rt></ruby>は<ruby>実務<rt>じつむ(1)</rt></ruby>に<ruby>委<rt>ゆだ(0)</rt></ruby>ねられていた。</u> <u><ruby>今後<rt>こんご(1)</rt></ruby>、<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>情報<rt>じょうほう(0)</rt></ruby>については、</u> <u><ruby>民訴法<rt>みんそほう(1)</rt></ruby>231<ruby>条<rt>じょう(0)</rt></ruby>の2および231<ruby>条<rt>じょう(0)</rt></ruby>の3の<ruby>規定<rt>きてい(0)</rt></ruby>、</u> <u>そして<ruby>民訴規則<rt>みんそきそく(3)</rt></ruby>149<ruby>条<rt>じょう(0)</rt></ruby>の2<ruby>以下<rt>いか(1)</rt></ruby>という<ruby>新設<rt>しんせつ(0)</rt></ruby>された<ruby>規定<rt>きてい(0)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいて、</u> <u><ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べが<ruby>行<rt>おこな(0)</rt></ruby>われる。</u> <u>ただし、本稿で<ruby>問題<rt>もんだい(0)</rt></ruby>としている<ruby>証拠偽造<rt>しょうこぎぞう(4)</rt></ruby>の<ruby>問題<rt>もんだい(0)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>しては、</u> <u><ruby>明確<rt>めいかく(0)</rt></ruby>な<ruby>規定<rt>きてい(0)</rt></ruby>はおかれていない。</u>
+                    <u>紙メディアの<ruby>文書<rt>ぶんしょ(1)</rt></ruby>や<ruby>準文書<rt>じゅんぶんしょ(1)</rt></ruby>に<ruby>加<rt>くわ(0)</rt></ruby>えて、</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>に<ruby>記録<rt>きろく(0)</rt></ruby>された</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>の<ruby>内容<rt>ないよう(0)</rt></ruby>に<ruby>係<rt>かかわ(0)</rt></ruby>る<ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べが<ruby>新<rt>あらた(0)</rt></ruby>たに<ruby>設<rt>もう(0)</rt></ruby>けられた。</u> <u>それ<ruby>以前<rt>いぜん(1)</rt></ruby>も、<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>情報<rt>じょうほう(0)</rt></ruby>が</u> <u><ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べの<ruby>対象<rt>たいしょう(0)</rt></ruby>とならなかったわけではないが、</u> <u><ruby>書証<rt>しょしょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>によるのか<ruby>検証<rt>けんしょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>によるのかなど、</u> <u><ruby>取調方法<rt>とりしらべほうほう(5)</rt></ruby>は<ruby>実務<rt>じつむ(1)</rt></ruby>に<ruby>委<rt>ゆだ(0)</rt></ruby>ねられていた。</u> <u><ruby>今後<rt>こんご(1)</rt></ruby>、<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>情報<rt>じょうほう(0)</rt></ruby>については、</u> <u><ruby>民訴法<rt>みんそほう(1)</rt></ruby>231<ruby>条<rt>じょう(0)</rt></ruby>の2および231<ruby>条<rt>じょう(0)</rt></ruby>の3の<ruby>規定<rt>きてい(0)</rt></ruby>、</u> <u>そして<ruby>民訴規則<rt>みんそきそく(3)</rt></ruby>149<ruby>条<rt>じょう(0)</rt></ruby>の2<ruby>以下<rt>いか(1)</rt></ruby>という<ruby>新設<rt>しんせつ(0)</rt></ruby>された<ruby>規定<rt>きてい(0)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいて、</u> <u><ruby>証拠調<rt>しょうこしら(0)</rt></ruby>べが<ruby>行<rt>おこな(0)</rt></ruby>われる。</u> <u>ただし、本稿で<ruby>問題<rt>もんだい(0)</rt></ruby>としている<ruby>証拠偽造<rt>しょうこぎぞう(4)</rt></ruby>の<ruby>問題<rt>もんだい(0)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>しては、</u> <u><ruby>明確<rt>めいかく(0)</rt></ruby>な<ruby>規定<rt>きてい(0)</rt></ruby>はおかれていない。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -556,24 +573,35 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">2. IT化帶來之變化：隨著民事訴訟IT化修正，除紙本型態文書與準文書外，新設了針對「記錄於電磁紀錄中資訊內容」之證據調查專章規定。此前，電磁紀錄資訊並非不能作為證據調查對象，惟到底適用書證抑或勘驗規定，其調查方法過往多委諸實務操作。未來針對電磁紀錄資訊，將依民事訴訟法增訂之第231條之2、第231條之3及民事訴訟規則第149條之2以下專條進行證據調查。然而，針對本文所聚焦之證據偽造防範問題，修法中尚未設立明確之直接防範規定。</div>
+                <div class="text-slate-700 font-normal">隨著民事訴訟IT化修正，除紙本型態文書與準文書外，新設了針對「記錄於電磁紀錄中資訊內容」之證據調查專章規定。此前，電磁紀錄資訊並非不能作為證據調查對象，惟到底適用書證抑或勘驗規定，其調查方法過往多委諸實務操作。未來針對電磁紀錄資訊，將依民事訴訟法增訂之第231條之2、第231條之3及民事訴訟規則第149條之2以下專條進行證據調查。然而，針對本文所聚焦之證據偽造防範問題，修法中尚未設立明確之直接防範規定。</div>
             </div>
         </article>
-        <section id="card-23" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>する<ruby>民訴法<rt>みんそほう(1)</rt></ruby>228<ruby>条<rt>じょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>は<ruby>準用<rt>じゅんよう(0)</rt></ruby>されているし、</u> <u><ruby>準用<rt>じゅんよう(0)</rt></ruby>から<ruby>除<rt>のぞ(1)</rt></ruby>かれた<ruby>私文書<rt>しぶんしょ(1)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>推定<rt>すいてい(0)</rt></ruby>（<ruby>同条<rt>どうじょう(0)</rt></ruby>4<ruby>項<rt>こう(1)</rt></ruby>）については</u> <u><ruby>従前<rt>じゅうぜん(0)</rt></ruby>から<ruby>電子署名法<rt>でんししょめいほう(4)</rt></ruby>3<ruby>条<rt>じょう(0)</rt></ruby>により、</u> <u><ruby>電子署名<rt>でんししょめい(4)</rt></ruby>が<ruby>施<rt>ほどこ(0)</rt></ruby>された<ruby>場合<rt>ばあい(0)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>の<ruby>推定<rt>すいてい(0)</rt></ruby>が<ruby>認<rt>みと(0)</rt></ruby>められる。</u> <u>そして<ruby>真正性<rt>しんせいせい(0)</rt></ruby>の<ruby>推定<rt>すいてい(0)</rt></ruby>が<ruby>認<rt>みと(0)</rt></ruby>められない<ruby>場合<rt>ばあい(0)</rt></ruby>は、</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>われれば<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>成立<rt>せいりつ(0)</rt></ruby>の<ruby>真正性<rt>しんせいせい(0)</rt></ruby></u> <u>（すなわち<ruby>作成者<rt>さくせいしゃ(0)</rt></ruby>の<ruby>意思<rt>いし(1)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいた<ruby>作成<rt>さくせい(0)</rt></ruby>）を、</u> <u><ruby>挙証者<rt>きょしょうしゃ(3)</rt></ruby>において<ruby>証明<rt>しょうめい(0)</rt></ruby>しなければならない。</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>して、</u> <u><ruby>偽造<rt>ぎぞう(0)</rt></ruby>されていないかどうかを<ruby>立証<rt>りっしょう(0)</rt></ruby>する<ruby>方法<rt>ほうほう(0)</rt></ruby>としては、</u> <u>デジタル・フォレンジック<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>の<ruby>活用<rt>かつよう(0)</rt></ruby>が<ruby>考<rt>かんが(0)</rt></ruby>えられるところである。</u></h2>
-                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-                    <span>朗讀標題</span>
-                </button>
-            </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">關於真正成立，民事訴訟法第228條之規定已予以準用；至於排除準用之私文書真正推定（同條第4項），先前即已依《電子簽章及認證業務法》第3條規定，承認施加電子簽章時真正成立之推定。若無法獲得真正性推定，一經相對人爭執，舉證者即須證明該電磁紀錄之成立真正（即基於作成名義人之意思所作成）。在舉證電磁紀錄未遭偽造之方法上，運用「數位鑑識技術（Digital Forensics）」乃現今最具可行性之途徑。</div>
-        </section>
-        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(28)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>する<ruby>民訴法<rt>みんそほう(1)</rt></ruby>228<ruby>条<rt>じょう(0)</rt></ruby>の<ruby>規定<rt>きてい(0)</rt></ruby>は<ruby>準用<rt>じゅんよう(0)</rt></ruby>されているし、</u> <u><ruby>準用<rt>じゅんよう(0)</rt></ruby>から<ruby>除<rt>のぞ(1)</rt></ruby>かれた<ruby>私文書<rt>しぶんしょ(1)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>推定<rt>すいてい(0)</rt></ruby>（<ruby>同条<rt>どうじょう(0)</rt></ruby>4<ruby>項<rt>こう(1)</rt></ruby>）については</u> <u><ruby>従前<rt>じゅうぜん(0)</rt></ruby>から<ruby>電子署名法<rt>でんししょめいほう(4)</rt></ruby>3<ruby>条<rt>じょう(0)</rt></ruby>により、</u> <u><ruby>電子署名<rt>でんししょめい(4)</rt></ruby>が<ruby>施<rt>ほどこ(0)</rt></ruby>された<ruby>場合<rt>ばあい(0)</rt></ruby>の<ruby>真正<rt>しんせい(0)</rt></ruby>な<ruby>成立<rt>せいりつ(0)</rt></ruby>の<ruby>推定<rt>すいてい(0)</rt></ruby>が<ruby>認<rt>みと(0)</rt></ruby>められる。</u> <u>そして<ruby>真正性<rt>しんせいせい(0)</rt></ruby>の<ruby>推定<rt>すいてい(0)</rt></ruby>が<ruby>認<rt>みと(0)</rt></ruby>められない<ruby>場合<rt>ばあい(0)</rt></ruby>は、</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>われれば<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の<ruby>成立<rt>せいりつ(0)</rt></ruby>の<ruby>真正性<rt>しんせいせい(0)</rt></ruby></u> <u>（すなわち<ruby>作成者<rt>さくせいしゃ(0)</rt></ruby>の<ruby>意思<rt>いし(1)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づいた<ruby>作成<rt>さくせい(0)</rt></ruby>）を、</u> <u><ruby>挙証者<rt>きょしょうしゃ(3)</rt></ruby>において<ruby>証明<rt>しょうめい(0)</rt></ruby>しなければならない。</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>に<ruby>関<rt>かん(0)</rt></ruby>して、</u> <u><ruby>偽造<rt>ぎぞう(0)</rt></ruby>されていないかどうかを<ruby>立証<rt>りっしょう(0)</rt></ruby>する<ruby>方法<rt>ほうほう(0)</rt></ruby>としては、</u> <u>デジタル・フォレンジック<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>の<ruby>活用<rt>かつよう(0)</rt></ruby>が<ruby>考<rt>かんが(0)</rt></ruby>えられるところである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">關於真正成立，民事訴訟法第228條之規定已予以準用；至於排除準用之私文書真正推定（同條第4項），先前即已依《電子簽章及認證業務法》第3條規定，承認施加電子簽章時真正成立之推定。若無法獲得真正性推定，一經相對人爭執，舉證者即須證明該電磁紀錄之成立真正（即基於作成名義人之意思所作成）。在舉證電磁紀錄未遭偽造之方法上，運用「數位鑑識技術（Digital Forensics）」乃現今最具可行性之途徑。</div>
+            </div>
+        </article>
+        <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(29)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -590,11 +618,11 @@
                 <div class="text-slate-700 font-normal">所謂「數位鑑識（Digital Forensics）」，有時亦譯為電子鑑識，通常定義為：「實施電磁紀錄之證據保全、調查與分析，並針對電磁紀錄之竄改或毀損進行分析與情報搜集之一連串科學調查手法與技術」。數位鑑識主被應用於警察刑事偵查，然此外亦廣泛應用於資安洩漏事件中追查洩漏路徑，或美國民事訴訟中電子發現程序（e-Discovery）之相關檔案檢視。於民事訴訟證據偽造調查中，得應用數位鑑識復原電子記憶媒體中已遭刪除之資料，並確認資料作成時間、修改時間等中繼資料（Metadata）歷程資訊。</div>
             </div>
         </article>
-        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-30" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(30)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -611,21 +639,21 @@
                 <div class="text-slate-700 font-normal">透過特定資料作成者及修改者，進而判定是否存在偽造情事。惟須注意者，縱能尋得遭偽造之痕跡，欲直接證明消極事實（即完全未遭偽造）實屬困難。因此實務運作上，得基於民事訴訟規則第145條「否認文書成立時，須明示其理由」之規則基礎，只要舉證者成功反駁否認方所提出之否認依據，即可認定已完成真正成立之舉證。</div>
             </div>
         </article>
-        <section id="card-26" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-31" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅲ 結び（おわりに）</h2>
-                <button onclick="playCardText(26)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(31)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
             <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅲ 結語（結論與展望）</div>
         </section>
-        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-32" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(32)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -642,18 +670,16 @@
                 <div class="text-slate-700 font-normal">一般而言，裁判制度乃釐清事實並適用法律之程序，追求符合客觀真實之審判被視為至高要求。從此裁判制度之理想觀之，假訊息無疑構成了重大威脅。然而，偽造證據或冒用姓名等假訊息危害，自古以來即客觀存在。民事訴訟程序本以假訊息不易混入為結構前提，然其目標並非追求事前的絕對零混入，而是備妥當假訊息混入程序並做成判決時應如何處理之事後救濟機制。儘管如此，隨著深偽技術等科技飛速演進，倘若假訊息混入之風險遠超以往，事前的預防機制亦不得不走向高度化與精準化。未來的民事訴訟制度，資訊安全防護無疑將成為核心戰略課題。</div>
             </div>
         </article>
-                </main>
+        </main>
 
-                <!-- Footer -->
-                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
-                    <p>フェイクと民事訴訟 — 左右對照朗讀與翻譯版</p>
-                </footer>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
+            <p>フェイクと民事訴訟 — 上下對照朗讀與翻譯版</p>
+        </footer>
     </div>
 
     <!-- Floating Audio Control Bar -->
-    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-2xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
         <div class="flex items-center space-x-3">
             <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
                 <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -664,7 +690,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -679,7 +705,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <!-- Speech Synthesis JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -688,49 +714,6 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
-        let currentPdfZoom = 1.0;
-        let pdfBaseSrc = '06フェイクと民事訴訟.pdf';
-
-        function setPdfZoom(scaleFactor) {
-            currentPdfZoom = scaleFactor;
-            applyPdfZoom();
-        }
-
-        function zoomPdf(ratio) {
-            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
-            applyPdfZoom();
-        }
-
-        function resetPdfZoom() {
-            currentPdfZoom = 1.0;
-            applyPdfZoom();
-        }
-
-        function applyPdfZoom() {
-            const zoomPercent = Math.round(currentPdfZoom * 100);
-            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
-            const iframe = document.getElementById('pdf-frame');
-            
-            // Apply PDF Open Parameters
-            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            
-            // Apply CSS Scaling for smooth visual enhancement
-            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-            iframe.style.width = (100 / currentPdfZoom) + '%';
-            iframe.style.height = (100 / currentPdfZoom) + '%';
-        }
-
-        function togglePdfPanel() {
-            const pdfPanel = document.getElementById('pdf-panel');
-            const contentPanel = document.getElementById('content-panel');
-            if (pdfPanel.classList.contains('hidden')) {
-                pdfPanel.classList.remove('hidden');
-                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            } else {
-                pdfPanel.classList.add('hidden');
-                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            }
-        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -749,10 +732,12 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
+            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
+            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }

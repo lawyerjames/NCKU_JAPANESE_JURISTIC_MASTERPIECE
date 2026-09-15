@@ -1,4 +1,5 @@
 import html
+import re
 
 def build_stacked_bilingual_html(
     japanese_blocks: list[str],
@@ -21,7 +22,16 @@ def build_stacked_bilingual_html(
         zh_text = chinese_translations[i] if i < len(chinese_translations) else ""
         zh_escaped = html.escape(zh_text).replace('\n', '<br>')
         
-        if i in heading_indices or jp_inner.startswith('▶') or jp_inner.startswith('Ⅰ') or jp_inner.startswith('Ⅱ') or jp_inner.startswith('Ⅲ') or jp_inner.startswith('★'):
+        jp_plain = re.sub(r'<rt>.*?</rt>', '', jp_inner)
+        jp_plain = re.sub(r'<[^>]+>', '', jp_plain)
+        jp_clean = re.sub(r'\s+', ' ', jp_plain).strip()
+        
+        is_heading_block = (
+            i in heading_indices or 
+            jp_clean.startswith('SPECIAL FEATURE') or
+            (jp_clean.startswith('▶') and len(jp_clean) < 60)
+        )
+        if is_heading_block:
             card = f'''
         <section id="card-{i}" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">

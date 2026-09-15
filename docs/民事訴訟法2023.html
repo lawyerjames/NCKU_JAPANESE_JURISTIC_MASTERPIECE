@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPECIAL FEATURE 民事訴訟法「手続保障」 - 左右對照朗讀與翻譯版</title>
+    <title>SPECIAL FEATURE 民事訴訟法「手続保障」 - 上下對照朗讀與翻譯版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0f172a;
+            background-color: #f8fafc;
             color: #1e293b;
         }
 
@@ -63,78 +63,34 @@
     </style>
 </head>
 
-<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
-    <!-- Top Fixed Header -->
-    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
-        <div class="flex items-center space-x-3 truncate">
-            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                <span>總覽</span>
-            </a>
-            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
-                SPECIAL FEATURE 民事訴訟法「手続保障」
-            </h1>
-        </div>
-        <div class="flex items-center space-x-2 shrink-0">
-            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Split View Container (Height = 100vh - 3.5rem) -->
-    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
-        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
-        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
-            <!-- PDF Zoom & Control Bar -->
-            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
-                <span class="text-slate-400 font-semibold flex items-center">
-                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    PDF 縮放控制
+<body class="py-8 px-4 sm:px-6 lg:px-8 pb-28">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
+        <!-- Document Header -->
+        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
+            <div class="max-w-3xl">
+                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
+                    法學日文上下對照朗讀版
                 </span>
-                <div class="flex items-center space-x-1.5">
-                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
-                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
-                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
-                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
-                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
-                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
-                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
+                    SPECIAL FEATURE 民事訴訟法「手続保障」
+                </h1>
+                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
+                    ——手続保障の多様な機能 <span class="text-indigo-300/80 text-sm font-normal">（程序保障之多樣功能）</span>
+                </p>
+                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
+                    <span class="font-semibold text-indigo-300">作者：</span>
+                    <span class="ml-1.5 text-slate-200"></span>
                 </div>
             </div>
-            <!-- PDF Iframe Container -->
-            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="民事訴訟法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
-            </div>
-        </div>
+        </header>
 
-        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
-        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
-            <div class="max-w-3xl mx-auto space-y-4">
-                <!-- Banner Card -->
-                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
-                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
-                        法學日文左右對照朗讀版
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
-                        SPECIAL FEATURE 民事訴訟法「手続保障」
-                    </h2>
-                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
-                        ——手続保障の多様な機能 <span class="text-indigo-300/80 text-xs font-normal">（程序保障之多樣功能）</span>
-                    </p>
-                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
-                        <span class="font-semibold text-indigo-300">作者：</span>長谷部由起子（学習院大学教授 / HASEBE Yukiko）
-                    </div>
-                </div>
-
-                <!-- Main Paragraphs -->
-                <main class="space-y-4">
+        <!-- Document Content -->
+        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
 
         <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>「<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」<ruby>学習院大学<rt>がくしゅういんだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>長谷部<rt>はせべ(0)</rt></ruby><ruby>由起子<rt>ゆきこ(0)</rt></ruby>HASEBE Yukikoはじめに「<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」については、<ruby>近年<rt>きんねん(0)</rt></ruby><ruby>多<rt>おお(0)</rt></ruby>くの<ruby>教科書<rt>きょうかしょ(3)</rt></ruby>で<ruby>触<rt>ふ(0)</rt></ruby>れられている。</h2>
-                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
@@ -246,17 +202,27 @@
                 <div class="text-slate-700 font-normal">然而，法院之裁量亦有其極限，有時不再開辯論亦會被認定為違法。關於此問題，最高裁判所昭和56年9月24日判決（民集35卷6號1088頁）［民事訴訟法判例百選第5版41事件］示有如下要旨。</div>
             </div>
         </article>
-        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-6" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2. <ruby>本件<rt>ほんけん(0)</rt></ruby>の<ruby>事実関係<rt>じじつかんけい(0)</rt></ruby>とそれに<ruby>対<rt>たい(0)</rt></ruby>する<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>判示<rt>はんじ(0)</rt></ruby></h2>
+                <button onclick="playCardText(6)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2. 本案事實關係與本判決之判示</div>
+        </section>
+        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>2.</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>の</u> <u><ruby>事実関係<rt>じじつかんけい(0)</rt></ruby>とそれに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>判示<rt>はんじ(0)</rt></ruby></u> <u>（ </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>の</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>の</u> <u><ruby>概要<rt>がいよう(0)</rt></ruby>は、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u>とおりである。</u> <u>A </u> <u>（</u> <u><ruby>原告<rt>げんこく(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>控訴人<rt>こうそにん(0)</rt></ruby>）</u> <u>は、</u> <u>Y</u> <u>（</u> <u><ruby>被告<rt>ひこく(0)</rt></ruby>・</u> <u><ruby>控訴人<rt>こうそにん(0)</rt></ruby>・</u> <u><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して、</u> <u>A<ruby>所有<rt>しょゆう(0)</rt></ruby>の</u> <u><ruby>不動産<rt>ふどうさん(0)</rt></ruby></u> <u>（</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>）</u> <u>に</u> <u>つきの</u> <u>ためにされた</u> <u><ruby>所有権<rt>しょゆうけん(3)</rt></ruby><ruby>移転<rt>いてん(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>、</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>はいずれも</u> <u><ruby>登記<rt>とうき(0)</rt></ruby><ruby>原因<rt>げんいん(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>き、</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>適合<rt>てきごう(0)</rt></ruby>しないと</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>して、</u> <u>これらの</u> <u><ruby>登記<rt>とうき(0)</rt></ruby>の</u> <u><ruby>抹消<rt>まっしょう(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>求<rt>もと(0)</rt></ruby>める</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えを</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した。</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yは、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>に</u> <u>より</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>符合<rt>ふごう(0)</rt></ruby>する</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>な</u> <u>ものであると</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>した。</u> <u>（</u> <u>i）</u> <u> </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は、</u> <u>A</u> <u>または</u> <u>Aより</u> <u><ruby>一切<rt>いっさい(0)</rt></ruby>の</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられていた</u> <u>X</u> <u>（</u> <u>Aの</u> <u><ruby>養子<rt>ようし(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>から</u> <u><ruby>代理権<rt>だいりけん(0)</rt></ruby>を</u> <u><ruby>授与<rt>じゅよ(1)</rt></ruby>された</u> <u>Bが、</u> <u>Yとの</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>で、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>につき</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>した</u> <u><ruby>譲渡<rt>じょうと(0)</rt></ruby><ruby>担保<rt>たんぽ(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>」</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>，</u> <u><ruby>代物<rt>しろもの(0)</rt></ruby><ruby>弁済<rt>べんさい(0)</rt></ruby><ruby>予約<rt>よやく(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>原因<rt>げんいん(0)</rt></ruby>とする</u> <u>ものである。</u>
+                    <u>（ </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>の</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>の</u> <u><ruby>概要<rt>がいよう(0)</rt></ruby>は、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u>とおりである。</u> <u>A </u> <u>（</u> <u><ruby>原告<rt>げんこく(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>控訴人<rt>こうそにん(0)</rt></ruby>）</u> <u>は、</u> <u>Y</u> <u>（</u> <u><ruby>被告<rt>ひこく(0)</rt></ruby>・</u> <u><ruby>控訴人<rt>こうそにん(0)</rt></ruby>・</u> <u><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して、</u> <u>A<ruby>所有<rt>しょゆう(0)</rt></ruby>の</u> <u><ruby>不動産<rt>ふどうさん(0)</rt></ruby></u> <u>（</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>）</u> <u>に</u> <u>つきの</u> <u>ためにされた</u> <u><ruby>所有権<rt>しょゆうけん(3)</rt></ruby><ruby>移転<rt>いてん(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>、</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>はいずれも</u> <u><ruby>登記<rt>とうき(0)</rt></ruby><ruby>原因<rt>げんいん(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>き、</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>適合<rt>てきごう(0)</rt></ruby>しないと</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>して、</u> <u>これらの</u> <u><ruby>登記<rt>とうき(0)</rt></ruby>の</u> <u><ruby>抹消<rt>まっしょう(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>求<rt>もと(0)</rt></ruby>める</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えを</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した。</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yは、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>に</u> <u>より</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>符合<rt>ふごう(0)</rt></ruby>する</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>な</u> <u>ものであると</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>した。</u> <u>（</u> <u>i）</u> <u> </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は、</u> <u>A</u> <u>または</u> <u>Aより</u> <u><ruby>一切<rt>いっさい(0)</rt></ruby>の</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられていた</u> <u>X</u> <u>（</u> <u>Aの</u> <u><ruby>養子<rt>ようし(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>から</u> <u><ruby>代理権<rt>だいりけん(0)</rt></ruby>を</u> <u><ruby>授与<rt>じゅよ(1)</rt></ruby>された</u> <u>Bが、</u> <u>Yとの</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>で、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>につき</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>した</u> <u><ruby>譲渡<rt>じょうと(0)</rt></ruby><ruby>担保<rt>たんぽ(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>」</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>，</u> <u><ruby>代物<rt>しろもの(0)</rt></ruby><ruby>弁済<rt>べんさい(0)</rt></ruby><ruby>予約<rt>よやく(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>原因<rt>げんいん(0)</rt></ruby>とする</u> <u>ものである。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -264,14 +230,14 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">2. 本案事實關係與本判決之判示：本案事實概要如下。A（原告・被控訴人）對Y（被告・控訴人・上告人）提起訴訟，請求塗銷A所有不動產（本案不動產）移轉登記……</div>
+                <div class="text-slate-700 font-normal">本案事實概要如下。A（原告・被控訴人）對Y（被告・控訴人・上告人）提起訴訟，請求塗銷A所有不動產（本案不動產）移轉登記……</div>
             </div>
         </article>
-        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -288,11 +254,11 @@
                 <div class="text-slate-700 font-normal">（ii）假定B就上述各契約之締結無代理權，A或A之代理人X交付A之實印及本案不動產權利書予B，亦已表示賦予B代理權之旨。（iii）……</div>
             </div>
         </article>
-        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -309,11 +275,11 @@
                 <div class="text-slate-700 font-normal">於原審口頭辯論終結前之昭和54年7月15日A死亡，但因有訴訟代理人故訴訟程序未中斷，亦未採取訴訟承繼程序。原審在仍以A為當事人的情況下，於同年10月30日終結辯論……</div>
             </div>
         </article>
-        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -330,11 +296,11 @@
                 <div class="text-slate-700 font-normal">然而原審並未再開口頭辯論，排斥了Y之（i）至（iii）所有抗辯，判決駁回Y之控訴。Y對此提起上告。（本判決認在本案中存有如下情事，原審應再開辯論……）</div>
             </div>
         </article>
-        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -351,17 +317,27 @@
                 <div class="text-slate-700 font-normal">② Y聲請再開辯論之理由，係因A死亡且由X繼承A，致使Y於原審所主張前述（i）表見代理中至少一部分授權之表示、以及前述（ii）表見代理中基本代理權之存在……</div>
             </div>
         </article>
-        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-12" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">3. <ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>考え方<rt>かんがえかた(0)</rt></ruby></h2>
+                <button onclick="playCardText(12)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">3. 本判決之考量方式</div>
+        </section>
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>3.<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>考え方<rt>かんがえかた(0)</rt></ruby></u> <u>（ <ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>には</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>する</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby>がある</u> <u>ことの</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>として</u> <u>「</u> <u><ruby>民事<rt>みんじ(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>手続的<rt>てつづきてき(0)</rt></ruby><ruby>正義<rt>せいぎ(1)</rt></ruby>の</u> <u><ruby>要求<rt>ようきゅう(0)</rt></ruby>」</u> <u>を<ruby>挙<rt>あ(0)</rt></ruby>げた。</u> <u>この</u> <u><ruby>点<rt>てん(1)</rt></ruby>に</u> <u>ついては、</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u><ruby>重視<rt>じゅうし(0)</rt></ruby>する</u> <u><ruby>当時<rt>とうじ(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>に</u> <u><ruby>照応<rt>しょうおう(0)</rt></ruby>した</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しい</u> <u><ruby>方向<rt>ほうこう(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>す</u> <u>ものだとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>？）</u> <u>と</u> <u>その</u> <u>ように</u> <u>いう</u> <u>ことは</u> <u><ruby>無理<rt>むり(1)</rt></ruby>だとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>とがある。</u> <u>しかし、</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>に</u> <u><ruby>配慮<rt>はいりょ(0)</rt></ruby>している</u> <u>ことに</u> <u>ついては、</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>いはない。</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>は、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>の</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>から、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>の</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>を</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby><ruby>付<rt>つ(0)</rt></ruby>けられる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>がある</u> <u>ことを</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかにし、</u> <u>その</u> <u><ruby>判断基準<rt>はんだんきじゅん(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>した</u> <u>ところにあると</u> <u>いうのが、</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>な</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>である。</u>
+                    <u>（ <ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>には</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>する</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby>がある</u> <u>ことの</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>として</u> <u>「</u> <u><ruby>民事<rt>みんじ(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>手続的<rt>てつづきてき(0)</rt></ruby><ruby>正義<rt>せいぎ(1)</rt></ruby>の</u> <u><ruby>要求<rt>ようきゅう(0)</rt></ruby>」</u> <u>を<ruby>挙<rt>あ(0)</rt></ruby>げた。</u> <u>この</u> <u><ruby>点<rt>てん(1)</rt></ruby>に</u> <u>ついては、</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u><ruby>重視<rt>じゅうし(0)</rt></ruby>する</u> <u><ruby>当時<rt>とうじ(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>に</u> <u><ruby>照応<rt>しょうおう(0)</rt></ruby>した</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しい</u> <u><ruby>方向<rt>ほうこう(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>す</u> <u>ものだとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>？）</u> <u>と</u> <u>その</u> <u>ように</u> <u>いう</u> <u>ことは</u> <u><ruby>無理<rt>むり(1)</rt></ruby>だとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>とがある。</u> <u>しかし、</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>に</u> <u><ruby>配慮<rt>はいりょ(0)</rt></ruby>している</u> <u>ことに</u> <u>ついては、</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>いはない。</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>は、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>の</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>から、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>の</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>を</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby><ruby>付<rt>つ(0)</rt></ruby>けられる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>がある</u> <u>ことを</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかにし、</u> <u>その</u> <u><ruby>判断基準<rt>はんだんきじゅん(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>した</u> <u>ところにあると</u> <u>いうのが、</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>な</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>である。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -369,14 +345,14 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">3. 本判決之考量方式：本判決舉出「民事訴訟中程序正義之要求」，作為原審負有再開辯論義務之根據。此點照應了當時重視程序保障之學説，展現了新的方向。</div>
+                <div class="text-slate-700 font-normal">本判決舉出「民事訴訟中程序正義之要求」，作為原審負有再開辯論義務之根據。此點照應了當時重視程序保障之學説，展現了新的方向。</div>
             </div>
         </article>
-        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -393,11 +369,11 @@
                 <div class="text-slate-700 font-normal">那麼，本判決認為應保障Y何種程序上的權利？從本判決所指摘前述2（②）的情事來看，Y應被保障提出可能影響判決結果之重要攻擊防禦方法的權利……</div>
             </div>
         </article>
-        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -414,11 +390,11 @@
                 <div class="text-slate-700 font-normal">於本判決當時，攻擊防禦方法雖得提出至口頭辯論終結為止（舊民訴法137條，隨時提出主義），但對於逾時提出之攻擊防禦方法的處理則與現行法相同（同法139條1項）。此外，本案中……</div>
             </div>
         </article>
-        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -435,11 +411,11 @@
                 <div class="text-slate-700 font-normal">然而最高裁判所認為，不應就這樣讓Y敗訴的原判決確定。本判決之評釋將Y於原審口頭辯論終結前未主張基於A死亡之防禦方法一事，視為導出此結論之重要因素……</div>
             </div>
         </article>
-        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -456,11 +432,11 @@
                 <div class="text-slate-700 font-normal">舊當事者變更為新當事者雖於舊當事者死亡之同時發生，但因無法期待新當事者自此時點起追行訴訟，故暫時中斷訴訟程序，依新當事者承受訴訟之聲請再開程序……</div>
             </div>
         </article>
-        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -477,21 +453,52 @@
                 <div class="text-slate-700 font-normal">於本案中，因A有訴訟代理人故訴訟程序未中斷。此外，若A之訴訟代理人將A死亡之事實立即通知控訴裁判所，法院本應將A之繼承人X作為新當事者處理，但本案中並未如此……</div>
             </div>
         </article>
-        <section id="card-17" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-19" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(0)</rt></ruby>と<ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に<ruby>対<rt>たい(0)</rt></ruby>する<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>関与<rt>かんよ(0)</rt></ruby>の<ruby>機会<rt>きかい(0)</rt></ruby>の<ruby>保障<rt>ほしょう(0)</rt></ruby>1． <ruby>訴状<rt>そじょう(0)</rt></ruby>・<ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>送達<rt>そうたつ(0)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>ける<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の<ruby>権利<rt>けんり(1)</rt></ruby><ruby>事<rt>じ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>が<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に<ruby>関与<rt>かんよ(0)</rt></ruby>し、<ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を<ruby>提出<rt>ていしゅつ(0)</rt></ruby>する<ruby>権利<rt>けんり(1)</rt></ruby>を<ruby>行使<rt>こうし(0)</rt></ruby>するためには、みずからを<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>とする<ruby>訴訟<rt>そしょう(0)</rt></ruby>が<ruby>係属<rt>けいぞく(0)</rt></ruby>していることを<ruby>知<rt>し(0)</rt></ruby>り、<ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>がいつ、どこで<ruby>開<rt>ひら(0)</rt></ruby>かれるのかを<ruby>知<rt>し(0)</rt></ruby>る<ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</h2>
-                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(0)</rt></ruby>と<ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>──<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に<ruby>対<rt>たい(0)</rt></ruby>する<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>関与<rt>かんよ(0)</rt></ruby>の<ruby>機会<rt>きかい(0)</rt></ruby>の<ruby>保障<rt>ほしょう(0)</rt></ruby></h2>
+                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">補充送達之效力與再審事由——當事人參與程序機會之保障：1． 接收訴狀・判決送達之當事人權利。當事人欲參與訴訟程序並行使提出攻擊防禦方法之權利，必須知悉以自己為當事人之訴訟正在繫屬，並知悉口頭辯論將於何時、何地開啟。</div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 補充送達之效力與再審事由——當事人參與程序機會之保障</div>
         </section>
-        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-20" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．<ruby>訴状<rt>そじょう(0)</rt></ruby>・<ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>送達<rt>そうたつ(0)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>ける<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の<ruby>権利<rt>けんり(1)</rt></ruby></h2>
+                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．接收訴狀・判決送達之當事人權利</div>
+        </section>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(0)</rt></ruby>と<ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に<ruby>対<rt>たい(0)</rt></ruby>する<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>関与<rt>かんよ(0)</rt></ruby>の<ruby>機会<rt>きかい(0)</rt></ruby>の<ruby>保障<rt>ほしょう(0)</rt></ruby>1． <ruby>訴状<rt>そじょう(0)</rt></ruby>・<ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>送達<rt>そうたつ(0)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>ける<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の<ruby>権利<rt>けんり(1)</rt></ruby><ruby>事<rt>じ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>が<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に<ruby>関与<rt>かんよ(0)</rt></ruby>し、<ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を<ruby>提出<rt>ていしゅつ(0)</rt></ruby>する<ruby>権利<rt>けんり(1)</rt></ruby>を<ruby>行使<rt>こうし(0)</rt></ruby>するためには、みずからを<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>とする<ruby>訴訟<rt>そしょう(0)</rt></ruby>が<ruby>係属<rt>けいぞく(0)</rt></ruby>していることを<ruby>知<rt>し(0)</rt></ruby>り、<ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>がいつ、どこで<ruby>開<rt>ひら(0)</rt></ruby>かれるのかを<ruby>知<rt>し(0)</rt></ruby>る<ruby>必要<rt>ひつよう(0)</rt></ruby>がある。
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">當事人欲參與訴訟程序並行使提出攻擊防禦方法之權利，必須知悉以自己為當事人之訴訟正在繫屬，並知悉口頭辯論將於何時、何地開啟。</div>
+            </div>
+        </article>
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -508,21 +515,42 @@
                 <div class="text-slate-700 font-normal">此外，受不利益判決之當事人欲對該判決提起上訴，亦必須知悉判決之內容。被告接收訴狀送達之權利（138條1項）獲得保障，且原告與被告經由送達或其他方式接收期日召喚……</div>
             </div>
         </article>
-        <section id="card-19" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+        <section id="card-23" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
             <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>・<ruby>効果<rt>こうか(1)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>は、<ruby>原則<rt>げんそく(0)</rt></ruby>として<ruby>交付<rt>こうふ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>で<ruby>行<rt>おこな(0)</rt></ruby>われる。</h2>
-                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>・<ruby>効果<rt>こうか(1)</rt></ruby></h2>
+                <button onclick="playCardText(23)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
                 </button>
             </div>
-            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．送達之方法・效果：送達原則上以交付送達之方法為之。</div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．送達之方法・效果</div>
         </section>
-        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <ruby>原則<rt>げんそく(0)</rt></ruby>として<ruby>交付<rt>こうふ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>で<ruby>行<rt>おこな(0)</rt></ruby>われる。
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">送達原則上以交付送達之方法為之。</div>
+            </div>
+        </article>
+        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -539,11 +567,11 @@
                 <div class="text-slate-700 font-normal">此乃將訴狀及其他應送達之文書現實交付予應受送達人（受送達人）之送達方法（102條）。送達場所原則上為受送達人之住所、居所、營業所或事務所（103條1項本文），但於該等場所不明、或於該等場所實施送達有支障時，得於受送達人之就業場所為之（同條2項）。於就業場所以外之送達場所，送達實施機關未會晤受送達人時，得將文書交付予使用人或其他從業者或同居人中對於接收文書有相當辨識能力者（106條1項前段）。</div>
             </div>
         </article>
-        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -560,11 +588,11 @@
                 <div class="text-slate-700 font-normal">於就業場所未會晤受送達人時，僱主或其法定代理人或使用人其他從業者中對於接收文書有相當辨識能力者不拒絕接收文書時，亦得將文書交付予該等人員（同條2項）。此種送達方法稱為補充送達。交付送達之效力於文書交付予受送達人時發生。於補充送達之情形，當文書交付予同居人等時，即對受送達人發生送達之效力。接收文書之同居人等因理解該文書對受送達人而言至為重要，故通常會將文書交付予受送達人。</div>
             </div>
         </article>
-        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -581,11 +609,11 @@
                 <div class="text-slate-700 font-normal">然而，有時亦會因同居人等與受送達人處於對立關係，致未將文書交付予受送達人。於此種情形下，補充送達是否依然有效？若屬有效，則對於因不知悉訴狀或判決已送達之事實致無法行使當事人權利、終致敗訴判決確定之受送達人，應給予何種救濟？處理上述問題者，即為最高裁決定平成19年3月20日（民集61巻2號586頁）［前揭百選第5版40事件］。3. 最高裁決定平成19年3月20日之案情：本案係關於X對Y提起之再審之訴（本訴）。</div>
             </div>
         </article>
-        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(28)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -602,11 +630,11 @@
                 <div class="text-slate-700 font-normal">成為再審之訴對象者，係Y以A為主債務人、以X為連帶保證人對兩人提起之消費借貸返還請求訴訟（前訴）中Y勝訴之確定判決。於該判決作成前有如下經過：A係X之岳父且與X同居，故對X之訴狀及第一次口頭辯論期日召喚狀之送達，係以將文書交付予A之補充送達方式為之。然而，A並未將文書交付予X。依X於本訴中之主張，X成為連帶保證人並非基於X之意思，而係A未經X同意擅自拿取X之印章締結連帶保證契約所致。</div>
             </div>
         </article>
-        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-29" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(29)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -623,11 +651,11 @@
                 <div class="text-slate-700 font-normal">亦即，A若將以X為受送達人之訴狀等交付予X，上述情事即會被X知悉，故A對於不將訴狀等交付予X具有利益。於此點上，得謂A與X之間存有事實上利害關係之對立。未獲交付訴狀等之X於第一次口頭辯論缺席，亦未提出答辯狀等，故法院宣示認容Y對X請求之判決（第一審判決）。關於該判決，代替判決書之筆錄（254條2項）經由掛號郵寄送達（107條）之方式送達予X並發生送達效力，但實際上因X不在故文書未交付予X。</div>
             </div>
         </article>
-        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-30" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(30)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -644,11 +672,11 @@
                 <div class="text-slate-700 font-normal">不知悉Y勝訴判決已作成之X未提起控訴，該判決遂告確定。X主張對X之訴狀等補充送達無效，前訴判決係於未給予X參與訴訟機會之情況下作成，故前訴判決存有民事訴訟法第338條1項3款之再審事由（以下簡稱「3款再審事由」）。4. 本決定之考量方式：本訴第一審及原審認為對X之訴狀等送達作為補充送達屬有效，不認定存有3款再審事由，應駁回X之再審請求。對此，本決定敘述如下，認為對X之訴狀等送達作為補充送達雖屬有效，但應認定存有3款再審事由。</div>
             </div>
         </article>
-        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-31" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(31)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -665,11 +693,11 @@
                 <div class="text-slate-700 font-normal">「不得因本案訴狀等之送達作為補充送達屬有效，即立即否定民事訴訟法第338條1項3款再審事由之存在。該事由之存否，應自是否已給予當事人應受保障之程序參與機會之觀點重新予以判斷。」「受領以受送達人為名義人之訴訟關係文書之同居人等與受送達人之間，就該訴訟存有事實上利害關係對立，致無法期待同居人等將訴訟關係文書迅速交付予受送達人時，若實際上亦未為交付，則應謂受送達人未獲給予參與該訴訟程序之機會。」</div>
             </div>
         </article>
-        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <article id="card-32" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(32)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
@@ -686,17 +714,27 @@
                 <div class="text-slate-700 font-normal">3款再審事由原係想定確定判決基於無權代理人之訴訟行為而作成之情形，但判例（大判昭和10年10月28日民集14卷1785頁［前揭百選第5版5事件］）於冒名訴訟中被他人冒用姓名之本人提起再審之訴時，亦認定存有3款再審事由。畫有下線之部分，更一般性地揭示：被列為當事者之人於未獲給予參與訴訟程序機會之情況下判決被宣示並確定時，該人即獲認定存有3款再審事由。得謂本決定明示了於判決成立過程中若欠缺對當事人之程序保障，則將該判決之既判力及於當事人即非屬正當。</div>
             </div>
         </article>
-        <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+        <section id="card-33" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><ruby>結<rt>むす(0)</rt></ruby>び</h2>
+                <button onclick="playCardText(33)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">★ 結語</div>
+        </section>
+        <article id="card-34" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
             <!-- Japanese Original Text (Top) -->
             <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
                 <div class="flex justify-end mb-2">
-                    <button onclick="playCardText(28)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                    <button onclick="playCardText(34)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                         <span>朗讀本段</span>
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u><ruby>結<rt>むす(0)</rt></ruby>び</u> <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>がない</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>を</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼしてはならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>は、</u> <u>いまでは</u> <u>「</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>は</u> <u><ruby>適正<rt>てきせい(0)</rt></ruby>・</u> <u><ruby>公平<rt>こうへい(0)</rt></ruby>でなければならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>と</u> <u><ruby>同様<rt>どうよう(0)</rt></ruby>に、</u> <u><ruby>疑<rt>うたが(0)</rt></ruby>う</u> <u><ruby>余地<rt>よち(1)</rt></ruby>のない</u> <u>ものであろう。</u> <u>しかし、</u> <u>たんに</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>があるとかないとか</u> <u>いうだけでは</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>がない。</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>は</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u>おいて</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されなければならないか、</u> <u><ruby>現行<rt>げんこう(0)</rt></ruby><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>の</u> <u><ruby>解釈<rt>かいしゃく(0)</rt></ruby>として、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>には</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されているのかを、</u> <u><ruby>具体的<rt>ぐたいてき(0)</rt></ruby>な</u> <u><ruby>事案<rt>じあん(0)</rt></ruby>に</u> <u><ruby>即<rt>そく(0)</rt></ruby>して</u> <u><ruby>論証<rt>ろんしょう(0)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>での</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>が</u> <u><ruby>読者<rt>どくしゃ(0)</rt></ruby>の</u> <u><ruby>参考<rt>さんこう(0)</rt></ruby>になれば</u> <u><ruby>幸<rt>さいわ(0)</rt></ruby>いである。</u> <u>（</u> <u>はせべ・</u> <u>ゆきこ）</u> <u> </u> <u><ruby>血<rt>ち(0)</rt></ruby></u>
+                    <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>がない</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>を</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼしてはならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>は、</u> <u>いまでは</u> <u>「</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>は</u> <u><ruby>適正<rt>てきせい(0)</rt></ruby>・</u> <u><ruby>公平<rt>こうへい(0)</rt></ruby>でなければならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>と</u> <u><ruby>同様<rt>どうよう(0)</rt></ruby>に、</u> <u><ruby>疑<rt>うたが(0)</rt></ruby>う</u> <u><ruby>余地<rt>よち(1)</rt></ruby>のない</u> <u>ものであろう。</u> <u>しかし、</u> <u>たんに</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>があるとかないとか</u> <u>いうだけでは</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>がない。</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>は</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u>おいて</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されなければならないか、</u> <u><ruby>現行<rt>げんこう(0)</rt></ruby><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>の</u> <u><ruby>解釈<rt>かいしゃく(0)</rt></ruby>として、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>には</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されているのかを、</u> <u><ruby>具体的<rt>ぐたいてき(0)</rt></ruby>な</u> <u><ruby>事案<rt>じあん(0)</rt></ruby>に</u> <u><ruby>即<rt>そく(0)</rt></ruby>して</u> <u><ruby>論証<rt>ろんしょう(0)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>での</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>が</u> <u><ruby>読者<rt>どくしゃ(0)</rt></ruby>の</u> <u><ruby>参考<rt>さんこう(0)</rt></ruby>になれば</u> <u><ruby>幸<rt>さいわ(0)</rt></ruby>いである。</u> <u>（</u> <u>はせべ・</u> <u>ゆきこ）</u> <u> </u> <u><ruby>血<rt>ち(0)</rt></ruby></u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -704,21 +742,19 @@
                 <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
                     譯文
                 </span>
-                <div class="text-slate-700 font-normal">★ 結語：「不得將判決效力及於未獲程序保障之當事人」此一命題，如今與「裁判必須適正・公平」之命題相同，屬無庸置疑者。然而，單純講述有或無程序保障並無意義。當事人在訴訟程序中應獲保障何種權利、作為現行民事訴訟法之解釋當事人獲保障何種權利，有必要結合具體案情予以論證。希望本篇論文之檢討能為讀者提供參考。（長谷部由起子）</div>
+                <div class="text-slate-700 font-normal">「不得將判決效力及於未獲程序保障之當事人」此一命題，如今與「裁判必須適正・公平」之命題相同，屬無庸置疑者。然而，單純講述有或無程序保障並無意義。當事人在訴訟程序中應獲保障何種權利、作為現行民事訴訟法之解釋當事人獲保障何種權利，有必要結合具體案情予以論證。希望本篇論文之檢討能為讀者提供參考。（長谷部由起子）</div>
             </div>
         </article>
-                </main>
+        </main>
 
-                <!-- Footer -->
-                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
-                    <p>SPECIAL FEATURE 民事訴訟法「手続保障」 — 左右對照朗讀與翻譯版</p>
-                </footer>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
+            <p>SPECIAL FEATURE 民事訴訟法「手続保障」 — 上下對照朗讀與翻譯版</p>
+        </footer>
     </div>
 
     <!-- Floating Audio Control Bar -->
-    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-2xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
         <div class="flex items-center space-x-3">
             <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
                 <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -729,7 +765,7 @@
             </button>
             <div class="text-xs sm:text-sm">
                 <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
-                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150sm:250px]">點擊按鈕開啟日文語音朗讀</div>
             </div>
         </div>
 
@@ -744,7 +780,7 @@
         </div>
     </div>
 
-    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <!-- Speech Synthesis JavaScript -->
     <script>
         let synth = window.speechSynthesis;
         let currentUtterance = null;
@@ -753,49 +789,6 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
-        let currentPdfZoom = 1.0;
-        let pdfBaseSrc = '民事訴訟法2023.pdf';
-
-        function setPdfZoom(scaleFactor) {
-            currentPdfZoom = scaleFactor;
-            applyPdfZoom();
-        }
-
-        function zoomPdf(ratio) {
-            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
-            applyPdfZoom();
-        }
-
-        function resetPdfZoom() {
-            currentPdfZoom = 1.0;
-            applyPdfZoom();
-        }
-
-        function applyPdfZoom() {
-            const zoomPercent = Math.round(currentPdfZoom * 100);
-            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
-            const iframe = document.getElementById('pdf-frame');
-            
-            // Apply PDF Open Parameters
-            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            
-            // Apply CSS Scaling for smooth visual enhancement
-            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-            iframe.style.width = (100 / currentPdfZoom) + '%';
-            iframe.style.height = (100 / currentPdfZoom) + '%';
-        }
-
-        function togglePdfPanel() {
-            const pdfPanel = document.getElementById('pdf-panel');
-            const contentPanel = document.getElementById('content-panel');
-            if (pdfPanel.classList.contains('hidden')) {
-                pdfPanel.classList.remove('hidden');
-                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            } else {
-                pdfPanel.classList.add('hidden');
-                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
-            }
-        }
 
         function loadVoices() {
             let voices = synth.getVoices();
@@ -814,10 +807,12 @@
             let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
             const clone = targetEl.cloneNode(true);
             
+            // Critical fix: Remove all rt elements so furigana and pitch accent numbers (0), (1) are NOT read out by speech engine
             const rts = clone.querySelectorAll('rt');
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
+            // Remove remaining pitch accent numbers or button text
             text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
             return text;
         }
