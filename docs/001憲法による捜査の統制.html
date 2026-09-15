@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>憲法による現代的捜査の統制 - 左右對照朗讀與翻譯版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f172a;
+            color: #1e293b;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif JP', "MS Mincho", serif;
+        }
+
+        .font-sans {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .jp-col {
+            font-size: 1.05rem;
+            line-height: 3.1;
+            letter-spacing: 0.02em;
+            word-break: break-word;
+            color: #0f172a;
+        }
+
+        ruby {
+            ruby-position: over;
+            display: inline-ruby;
+        }
+
+        rt {
+            font-size: 0.52em;
+            color: #475569;
+            letter-spacing: 0.01em;
+            font-weight: normal;
+            line-height: 1.0;
+            user-select: none;
+        }
+
+        u {
+            text-decoration: none;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 2px;
+        }
+
+        .zh-col {
+            font-size: 1.0rem;
+            line-height: 1.75;
+        }
+
+        .playing-card {
+            box-shadow: 0 0 0 3px #6366f1, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            background-color: #f5f3ff !important;
+        }
+    </style>
+</head>
+
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                憲法による現代的捜査の統制
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
+                </span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                </div>
+            </div>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="001憲法による捜査の統制.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
+
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        憲法による現代的捜査の統制
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——憲法による捜査の統制 <span class="text-indigo-300/80 text-xs font-normal">（憲法對現代偵查之統制）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>小西葉子（関西学院大学准教授 / KONISHI Yoko）
+                    </div>
+                </div>
+
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ 捜査と憲法</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 偵查與憲法</div>
+        </section>
+        <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(1)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>「<ruby>先生<rt>せんせい(3)</rt></ruby>は</u> <u>『<ruby>通信<rt>つうしん(0)</rt></ruby>の</u> <u><ruby>秘密<rt>ひみつ(0)</rt></ruby>や</u> <u>プライバシーの</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>の</u> <u><ruby>保護<rt>ほご(1)</rt></ruby>が</u> <u><ruby>大事<rt>だいじ(3)</rt></ruby>』と</u> <u><ruby>言<rt>い(1)</rt></ruby>いますが、</u> <u><ruby>国<rt>くに(0)</rt></ruby>が、</u> <u><ruby>私<rt>わたし(0)</rt></ruby>の</u> <u><ruby>通信<rt>つうしん(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>を</u> <u><ruby>見<rt>み(1)</rt></ruby>ることなんて、</u> <u>できないですよね？」</u> <u>——この<ruby>質問<rt>しつもん(0)</rt></ruby>は、</u> <u><ruby>筆者<rt>ひっしゃ(1)</rt></ruby>が</u> <u><ruby>大学<rt>だいがく(0)</rt></ruby>での</u> <u><ruby>教育活動<rt>きょういくかつどう(4)</rt></ruby>を</u> <u><ruby>通<rt>とお(2)</rt></ruby>じて、</u> <u><ruby>複数<rt>ふくすう(3)</rt></ruby>の</u> <u><ruby>学部生<rt>がくぶせい(3)</rt></ruby>から</u> <u><ruby>頂戴<rt>ちょうだい(0)</rt></ruby>したことがある</u> <u><ruby>質問<rt>しつもん(0)</rt></ruby>だ。</u> <u>まず</u> <u>「<ruby>見<rt>み(1)</rt></ruby>ることができない」という</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>の</u> <u><ruby>認識<rt>にんしき(0)</rt></ruby>は、</u> <u><ruby>誤<rt>あやま(2)</rt></ruby>っている。</u> <u>2025<ruby>年<rt>ねん(0)</rt></ruby>5<ruby>月<rt>がつ(0)</rt></ruby>に</u> <u><ruby>可決<rt>かけつ(0)</rt></ruby>された</u> <u><ruby>重要電子計算機<rt>じゅうようでんしけいさんき(8)</rt></ruby>に対する</u> <u><ruby>不正<rt>ふせい(0)</rt></ruby>な</u> <u><ruby>行為<rt>こうい(1)</rt></ruby>による</u> <u><ruby>被害<rt>ひがい(1)</rt></ruby>の</u> <u><ruby>防止に関する法律<rt>ぼうしにかんするほうりつ(0)</rt></ruby></u> <u>（<ruby>以下<rt>いか(1)</rt></ruby>、</u> <u>サイバー<ruby>対処能力強化法<rt>たい処のうりょくきょうかほう(0)</rt></ruby>という）</u> <u>及び</u> <u><ruby>同法律<rt>どうほうりつ(0)</rt></ruby>の</u> <u><ruby>施行<rt>しこう(0)</rt></ruby>に</u> <u><ruby>伴<rt>ともな(2)</rt></ruby>う</u> <u><ruby>関係法律<rt>かんけいほうりつ(0)</rt></ruby>の</u> <u><ruby>整備等に関する法律<rt>せいびとうにかんするほうりつ(0)</rt></ruby></u> <u>（<ruby>以下<rt>いか(1)</rt></ruby>、</u> <u>サイバー<ruby>対処能力整備法<rt>たい処のうりょくせいびほう(0)</rt></ruby>という）は、</u> <u><ruby>技術的<rt>ぎじゅつてき(0)</rt></ruby>には</u> <u><ruby>当然<rt>とうぜん(0)</rt></ruby>に、</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>が</u> <u><ruby>私<rt>わたし(0)</rt></ruby>たちの</u> <u><ruby>通信内容<rt>つうしんないよう(4)</rt></ruby>を</u> <u><ruby>取得<rt>しゅとく(0)</rt></ruby>することができることを</u> <u><ruby>前提<rt>ぜんてい(0)</rt></ruby>に</u> <u><ruby>作<rt>つく(2)</rt></ruby>られているし、</u> <u><ruby>犯罪捜査<rt>はんざいそうさ(4)</rt></ruby>のための</u> <u><ruby>通信傍受に関する法律<rt>つうしんぼうじゅにかんするほうりつ(0)</rt></ruby></u> <u>（<ruby>以下<rt>いか(1)</rt></ruby>、</u> <u><ruby>通信傍受法<rt>つうしんぼうじゅほう(0)</rt></ruby>という）は</u> <u>1999<ruby>年<rt>ねん(0)</rt></ruby>に</u> <u><ruby>制定<rt>せいてい(0)</rt></ruby>されて</u> <u><ruby>久<rt>ひさ(0)</rt></ruby>しい。</u> <u>しかし</u> <u><ruby>規範的<rt>きはんてき(0)</rt></ruby>には、</u> <u><ruby>最高法規<rt>さいこうほうき(4)</rt></ruby>たる</u> <u><ruby>日本国憲法<rt>にほんこくけんぽう(0)</rt></ruby></u> <u>（<ruby>以下<rt>いか(1)</rt></ruby>、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>という）の</u> <u><ruby>人権規定<rt>じんけんきてい(4)</rt></ruby>の</u> <u>もとで、</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>が</u> <u><ruby>私<rt>わたし(0)</rt></ruby>たちの</u> <u><ruby>通信<rt>つうしん(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>を</u> <u><ruby>見<rt>み(1)</rt></ruby>ることは</u> <u><ruby>許<rt>ゆる(2)</rt></ruby>されないし、</u> <u>プライベートな</u> <u><ruby>空間<rt>くうかん(0)</rt></ruby>に</u> <u><ruby>立<rt>た(1)</rt></ruby>ち<ruby>入<rt>い(1)</rt></ruby>ったり、</u> <u><ruby>行動<rt>こうどう(0)</rt></ruby>や</u> <u><ruby>通信<rt>つうしん(0)</rt></ruby>を</u> <u><ruby>追跡<rt>ついせき(0)</rt></ruby>したりすることも</u> <u><ruby>許<rt>ゆる(2)</rt></ruby>されないことが</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>である。</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>局面<rt>きょくめん(2)</rt></ruby>は、</u> <u>この<ruby>例外<rt>れいがい(0)</rt></ruby>の</u> <u><ruby>私<rt>ひと(0)</rt></ruby>つである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">「老師常常說『通信秘密與隱私利益的保護非常重要』，但國家應該不可能看得到我的通信內容吧？」——這個問題，是筆者在大學教學活動中，曾多次從多位學部學生那裡聽到的疑問。首先，認為「不可能看得見」這種對事實的認知是錯誤的。2025年5月通過的《關於防止針對重要電腦之不正當行為被害法》（以下簡稱「網路對應能力強化法」）以及隨同施行之《關係法律整備等法》（以下簡稱「網路對應能力整備法」），在技術上當然是以國家能夠取得我們的通信內容為前提所構建的；且用於犯罪偵查的《通信監察法》（以下簡稱「通信監察法」）早在1999年即已制定。然而在規範層面上，於最高法規日本國憲法（以下簡稱「憲法」）的人權規定之下，原則上國家既不得檢視我們的通信內容，亦不得侵入私人空間或追蹤個人行動與通信。而刑事偵查階段，正是此一原則的例外情形之一。</div>
+            </div>
+        </article>
+        <section id="card-2" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅰ 刑事捜査と技術的発展</h2>
+                <button onclick="playCardText(2)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅰ 刑事偵查與技術發展</div>
+        </section>
+        <section id="card-3" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．捜査を規律する憲法上の規定と刑事訴訟法の規定</h2>
+                <button onclick="playCardText(3)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．規範偵查之憲法規定與刑事訴訟法規定</div>
+        </section>
+        <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(4)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>捜査<rt>そうさ(1)</rt></ruby>において</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じ<ruby>得<rt>う(1)</rt></ruby>る</u> <u><ruby>国家活動<rt>こっかかつどう(4)</rt></ruby>を</u> <u><ruby>直接<rt>ちょくせつ(0)</rt></ruby></u> <u><ruby>規律<rt>きりつ(1)</rt></ruby>する</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>規定<rt>きてい(0)</rt></ruby>には、</u> <u>31<ruby>条<rt>じょう(0)</rt></ruby>の</u> <u><ruby>適正手続<rt>てきせいてつづき(4)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>、</u> <u>35<ruby>条<rt>じょう(0)</rt></ruby>の</u> <u><ruby>令状主義<rt>れいじょうしゅぎ(4)</rt></ruby>、</u> <u>36<ruby>条前段<rt>じょうぜんだん(3)</rt></ruby>の</u> <u><ruby>拷問<rt>ごうもん(1)</rt></ruby>の</u> <u><ruby>絶対的禁止<rt>ぜったいてききんし(5)</rt></ruby>、</u> <u>38<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>の</u> <u><ruby>黙秘権<rt>もくひけん(3)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>がある。</u> <u><ruby>法哲学者<rt>ほうてつがくしゃ(4)</rt></ruby>の</u> <u><ruby>松尾陽<rt>まつおよう(1)</rt></ruby>が</u> <u><ruby>示<rt>しめ(2)</rt></ruby>した</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>と</u> <u>その<ruby>統制<rt>とうせい(0)</rt></ruby>の</u> <u><ruby>観点<rt>かんてん(1)</rt></ruby>から、</u> <u>これらの<ruby>条文<rt>じょうぶん(0)</rt></ruby>を</u> <u><ruby>整理<rt>せいり(1)</rt></ruby>すると、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>31<ruby>条<rt>じょう(0)</rt></ruby>は</u> <u><ruby>幅広<rt>はばひろ(0)</rt></ruby>い</u> <u><ruby>範囲<rt>はんい(1)</rt></ruby>の</u> <u><ruby>捜査活動<rt>そうさかつどう(4)</rt></ruby>の</u> <u><ruby>制御<rt>せいぎょ(1)</rt></ruby>を</u> <u><ruby>射程<rt>しゃてい(0)</rt></ruby>とする<ruby>一方<rt>いっぽう(3)</rt></ruby>、</u> <u>35<ruby>条<rt>じょう(0)</rt></ruby>は</u> <u>ハードな</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>である</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」たる</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>統制<rt>とうせい(0)</rt></ruby>を</u> <u><ruby>担<rt>にな(2)</rt></ruby>い、</u> <u>36<ruby>条前段<rt>じょうぜんだん(3)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u>これと<ruby>結<rt>むす(2)</rt></ruby>びつく</u> <u>38<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>は</u> <u><ruby>拷問<rt>ごうもん(1)</rt></ruby>という</u> <u>超・ハードな</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>を</u> <u><ruby>絶対的<rt>ぜったいてき(0)</rt></ruby>に</u> <u><ruby>禁<rt>きん(0)</rt></ruby>ずるという</u> <u><ruby>形<rt>かたち(0)</rt></ruby>で、</u> <u><ruby>異<rt>こと(2)</rt></ruby>なる</u> <u><ruby>統制領域<rt>とうせいりょういき(4)</rt></ruby>において</u> <u><ruby>作用<rt>さよう(1)</rt></ruby>すると</u> <u><ruby>整理<rt>せいり(1)</rt></ruby>することができる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">在偵查中可能發生的國家行為，直接予以規範的憲法規定包括：第31條的正當法律程序保障、第35條的令狀主義、第36條前段對拷問之絕對禁止，以及第38條第1項的默秘權（拒絕自我證罪權）保障。若從法哲學家松尾陽所提出的「國家作用及其統制」觀點來整理這些條文，憲法第31條是以涵蓋廣泛範圍的偵查活動控制為射程；相對地，第35條則擔負起對屬於強硬國家作用之「強制處分」偵查行為的統制；而第36條前段以及與其相連結的第38條第1項，則是以絕對禁止拷問這一超強硬國家作用的形式，在不同的統制領域中發揮作用。</div>
+            </div>
+        </article>
+        <section id="card-5" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（1）令状主義</h2>
+                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（1）令狀主義</div>
+        </section>
+        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>近年<rt>きんねん(0)</rt></ruby>、</u> <u><ruby>捜査技術<rt>そうさぎじゅつ(4)</rt></ruby>の</u> <u><ruby>発達<rt>はったつ(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u>デジタル<ruby>化<rt>か(0)</rt></ruby>との</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>で、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>35<ruby>条<rt>じょう(0)</rt></ruby>の</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>が</u> <u><ruby>大<rt>おお(1)</rt></ruby>きな</u> <u><ruby>争点<rt>そうてん(3)</rt></ruby>となっている。</u> <u>「<ruby>何人<rt>なにびと(0)</rt></ruby>も、</u> <u>その<ruby>住居<rt>じゅうきょ(1)</rt></ruby>、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>所持品<rt>しょじひん(0)</rt></ruby>について、</u> <u><ruby>侵入<rt>しんにゅう(0)</rt></ruby>、</u> <u><ruby>捜索<rt>そうさく(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>押収<rt>おうしゅう(0)</rt></ruby>を</u> <u><ruby>受<rt>う(1)</rt></ruby>けることのない</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>は、</u> <u><ruby>第<rt>だい(1)</rt></ruby>33<ruby>条<rt>じょう(0)</rt></ruby>の</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>を</u> <u><ruby>除<rt>のぞ(1)</rt></ruby>いては、</u> <u><ruby>正当<rt>せいとう(0)</rt></ruby>な</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(2)</rt></ruby>いて</u> <u><ruby>発<rt>はっ(0)</rt></ruby>せられ、</u> <u><ruby>且<rt>かつ(1)</rt></ruby>つ</u> <u><ruby>捜索<rt>そうさく(0)</rt></ruby>する</u> <u><ruby>場所<rt>ばしょ(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>押収<rt>おうしゅう(0)</rt></ruby>する</u> <u><ruby>物<rt>もの(2)</rt></ruby>を</u> <u><ruby>明示<rt>めいじ(1)</rt></ruby>する</u> <u><ruby>令状<rt>れいじょう(0)</rt></ruby>しなければ、</u> <u><ruby>侵<rt>おか(2)</rt></ruby>されない。」</u> <u>として</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>手続的統制<rt>てつづきてきとうせい(5)</rt></ruby>を</u> <u><ruby>定<rt>さだ(2)</rt></ruby>めた</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>35<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>に</u> <u><ruby>基<rt>もと(2)</rt></ruby>づき、</u> <u><ruby>刑事訴訟法<rt>けいじそしょうほう(5)</rt></ruby>218<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>は</u> <u>「<ruby>検察官<rt>けんさつかん(0)</rt></ruby>、</u> <u><ruby>検察事務官<rt>けんさつじむかん(5)</rt></ruby></u> <u><ruby>又<rt>また(0)</rt></ruby>は</u> <u><ruby>司法警察職員<rt>しほうけいさつしょくいん(7)</rt></ruby>は、</u> <u><ruby>犯罪<rt>はんざい(0)</rt></ruby>の</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>をするについて</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>があるときは、</u> <u><ruby>裁判官<rt>さいばんかん(3)</rt></ruby>の</u> <u><ruby>発<rt>はっ(0)</rt></ruby>する</u> <u><ruby>令状<rt>れいじょう(0)</rt></ruby>により、</u> <u><ruby>差押<rt>さしおさ(0)</rt></ruby>え、</u> <u><ruby>捜索<rt>そうさく(0)</rt></ruby>、</u> <u><ruby>電磁的記録提供命令<rt>でんじてききろくていきょうめいれい(0)</rt></ruby></u> <u><ruby>又<rt>また(0)</rt></ruby>は</u> <u><ruby>検証<rt>けんしょう(0)</rt></ruby>を</u> <u>することができる。」</u> <u>と<ruby>定<rt>さだ(2)</rt></ruby>めて、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>35<ruby>条<rt>じょう(0)</rt></ruby>の</u> <u>「<ruby>令状<rt>れいじょう(0)</rt></ruby>」を</u> <u><ruby>具体化<rt>ぐたいか(0)</rt></ruby>する。</u> <u><ruby>刑事訴訟法<rt>けいじそしょうほう(5)</rt></ruby>218<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>における</u> <u>「<ruby>差押<rt>さしおさ(0)</rt></ruby>え、</u> <u><ruby>捜索<rt>そうさく(0)</rt></ruby>」と</u> <u><ruby>同義<rt>どうぎ(1)</rt></ruby>に</u> <u><ruby>解<rt>と(1)</rt></ruby>かされる</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u>「<ruby>捜索<rt>そうさく(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>押収<rt>おうしゅう(0)</rt></ruby>」を</u> <u><ruby>包摂<rt>ほうせつ(0)</rt></ruby>する</u> <u><ruby>上位概念<rt>じょういがいねん(4)</rt></ruby>が</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>」の</u> <u><ruby>語<rt>ご(1)</rt></ruby>であるが、</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>」という</u> <u><ruby>用語<rt>ようご(1)</rt></ruby>は、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>には</u> <u><ruby>登場<rt>とうじょう(0)</rt></ruby>しない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">近年，隨著偵查技術的發展與數位化，對憲法第35條的理解已成為重大爭點。憲法第35條第1項規定：「除第33條之情形外，任何人關於其住居、公文及所持物，不受侵入、搜索及扣押之權利，非有依正當理由簽發且明示搜索場所及扣押物品之令狀，不受侵害。」藉此建立了偵查程序上的統制。據此，刑事訴訟法第218條第1項規定：「檢察官、檢察事務官或司法警察職員，於為犯罪偵查而有必要時，得依裁判官簽發之令狀，實施扣押、搜索、電磁紀錄提供命令或勘驗。」將憲法第35條之「令狀」具體化（該刑事訴訟法條文為2025年修正後之版本）。雖然涵蓋與刑事訴訟法第218條第1項中「扣押、搜索」同義之憲法上「搜索及扣押」的上位概念即為「偵查（捜査）」一詞，但「偵查」這一用語在憲法本文中並未出現。</div>
+            </div>
+        </article>
+        <section id="card-7" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">（2）強制処分法定主義</h2>
+                <button onclick="playCardText(7)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">（2）強制處分法定主義</div>
+        </section>
+        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>さて、</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u>「<ruby>捜索<rt>そうさく(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>押収<rt>おうしゅう(0)</rt></ruby>」を</u> <u><ruby>包<rt>ふく(1)</rt></ruby>む</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>」は、</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」であるがゆえに</u> <u><ruby>法定<rt>ほうてい(0)</rt></ruby>を</u> <u><ruby>要求<rt>ようきゅう(0)</rt></ruby>されるという、</u> <u>もう<ruby>私<rt>ひと(0)</rt></ruby>つの</u> <u><ruby>異<rt>こと(2)</rt></ruby>なる</u> <u><ruby>枠組<rt>わくぐ(0)</rt></ruby>みに</u> <u><ruby>包摂<rt>ほうせつ(0)</rt></ruby>される</u> <u>（<ruby>強制処分法定主義<rt>きょうせいしょぶんほうていしゅぎ(6)</rt></ruby>）。</u> <u><ruby>刑事訴訟法<rt>けいじそしょうほう(5)</rt></ruby>197<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>は</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>については、</u> <u>その<ruby>目的<rt>もくてき(0)</rt></ruby>を</u> <u><ruby>達<rt>たっ(0)</rt></ruby>するため</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>な</u> <u><ruby>取調<rt>とりしら(0)</rt></ruby>べを</u> <u>することができる。</u> <u>ただし、</u> <u><ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>は、</u> <u>この<ruby>法律<rt>ほうりつ(0)</rt></ruby>に</u> <u><ruby>特別の定め<rt>とくべつのさだめ(5)</rt></ruby>のある</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>でなければ、</u> <u>これをすることができない。」</u> <u>と<ruby>規定<rt>きてい(0)</rt></ruby>することで、</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>」という</u> <u><ruby>上位概念<rt>じょういがいねん(4)</rt></ruby>の</u> <u><ruby>中<rt>なか(1)</rt></ruby>に、</u> <u><ruby>法律上<rt>ほうりつじょう(0)</rt></ruby></u> <u>「<ruby>特別の定め<rt>とくべつのさだめ(5)</rt></ruby>」を</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>とする</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」たる</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>と、</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」たる</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>ではない</u> <u><ruby>非強制捜査<rt>ひきょうせいそうさ(4)</rt></ruby></u> <u>（<ruby>任意捜査<rt>にんいそうさ(4)</rt></ruby>）の</u> <u><ruby>二種類<rt>にしゅるい(3)</rt></ruby>を</u> <u><ruby>区別<rt>くべつ(1)</rt></ruby>した。</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」の</u> <u><ruby>定義<rt>ていぎ(1)</rt></ruby>について、</u> <u><ruby>最決昭和<rt>さいけつしょうわ(4)</rt></ruby>51・3・16<ruby>刑集<rt>けいしゅう(0)</rt></ruby>30<ruby>巻<rt>かん(0)</rt></ruby>2<ruby>号<rt>ごう(1)</rt></ruby>187<ruby>頁<rt>ぺーじ(1)</rt></ruby>は</u> <u>「<ruby>強制手段<rt>きょうせいしゅだん(4)</rt></ruby>とは、</u> <u><ruby>有形力<rt>ゆうけいりょく(3)</rt></ruby>の</u> <u><ruby>行使<rt>こうし(1)</rt></ruby>を</u> <u><ruby>伴<rt>ともな(2)</rt></ruby>う</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>を</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>するものではなく、</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>の</u> <u><ruby>意思<rt>いし(1)</rt></ruby>を</u> <u><ruby>制圧<rt>せいあつ(0)</rt></ruby>し、</u> <u><ruby>身体<rt>しんたい(1)</rt></ruby>、</u> <u><ruby>住居<rt>じゅうきょ(1)</rt></ruby>、</u> <u><ruby>財産等<rt>ざいさんとう(0)</rt></ruby>に</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>を</u> <u><ruby>加<rt>くわ(0)</rt></ruby>えて</u> <u><ruby>強制的話<rt>きょうせいてき(0)</rt></ruby>に</u> <u><ruby>捜査目的<rt>そうしもくてき(4)</rt></ruby>を</u> <u><ruby>実現<rt>じつげん(0)</rt></ruby>する</u> <u><ruby>行為<rt>こうい(1)</rt></ruby>など、</u> <u><ruby>特別の根拠規定<rt>とくべつのこんきょきてい(6)</rt></ruby>がなければ</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>することが</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby>でない</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>を</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>するものであって、</u> <u><ruby>右<rt>みぎ(0)</rt></ruby>の</u> <u><ruby>程度<rt>ていど(1)</rt></ruby>に</u> <u><ruby>至<rt>いた(1)</rt></ruby>らない</u> <u><ruby>有形力<rt>ゆうけいりょく(3)</rt></ruby>の</u> <u><ruby>行使<rt>こうし(1)</rt></ruby>は、</u> <u><ruby>任意捜査<rt>にんいそうさ(4)</rt></ruby>においても</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>される</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>があると</u> <u><ruby>言<rt>い(1)</rt></ruby>わなければならない」</u> <u>と<ruby>判断<rt>はんだん(1)</rt></ruby>した。</u> <u>この<ruby>最高裁判所<rt>さいこうさいばんしょ(5)</rt></ruby>の</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u>リーディングケースとなり、</u> <u>その<ruby>後<rt>ご(1)</rt></ruby>の</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」の</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>の</u> <u><ruby>基礎<rt>きそ(1)</rt></ruby>が</u> <u><ruby>形成<rt>けいせい(0)</rt></ruby>された。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">包含憲法上「搜索與扣押」在內的「偵查」，因屬「強制處分」，故被納入要求必須由法律明文規定的另一框架（強制處分法定主義）。刑事訴訟法第197條第1項規定：「關於偵查，為達其目的，得實施必要之調查。但強制處分，非本法有特別規定者，不得為之。」藉由該條規定，在「偵查」這一上位概念中，區分出了法律上需要「特別規定」之「強制處分」偵查，以及不屬於強制處分之「非強制偵查（任意偵查）」兩種形式。關於「強制處分」之定義，最高法院昭和51年3月16日裁定（刑集30卷2號187頁）判定：「所謂強制手段，並非指伴隨有形力行使之手段，而是指壓制個人意思，對身體、住居、財產等施加限制而強制實現偵查目的之行為等，若無特別之根據規定即不適宜容許之手段；未達此一程度之有形力行使，於任意偵查中亦有許容之可能。」此一最高法院裁定成為引領先例（Leading Case），形成了日後理解「強制處分」之基礎。</div>
+            </div>
+        </article>
+        <section id="card-9" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．GPS捜査判決</h2>
+                <button onclick="playCardText(9)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．GPS偵查判決</div>
+        </section>
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>しかし</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>に</u> <u><ruby>役立<rt>やくだ(2)</rt></ruby>つ</u> <u><ruby>技術<rt>ぎじゅつ(1)</rt></ruby>は、</u> <u>このような<ruby>法律論<rt>ほうりつろん(3)</rt></ruby>とは</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>なく</u> <u><ruby>発展<rt>はってん(0)</rt></ruby>していく。</u> <u><ruby>特<rt>とく(0)</rt></ruby>に</u> <u><ruby>大<rt>おお(1)</rt></ruby>きな</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となったのは、</u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>である。</u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>は、</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>29<ruby>年<rt>ねん(0)</rt></ruby>の</u> <u><ruby>大法廷判決<rt>だいほうていはんけつ(5)</rt></ruby>に</u> <u><ruby>至<rt>いた(1)</rt></ruby>るまで、</u> <u><ruby>各都道府県警察<rt>かくとどうふけんけいさつ(7)</rt></ruby>において</u> <u><ruby>令状<rt>れいじょう(0)</rt></ruby>なく</u> <u><ruby>実施<rt>じっし(0)</rt></ruby>されていた。</u> <u><ruby>下級審<rt>かきゅうしん(2)</rt></ruby>では、</u> <u>①GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>は</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」</u> <u>（<ruby>刑訴<rt>けいそ(1)</rt></ruby>197<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>ただし<ruby>書<rt>がき(0)</rt></ruby>）に</u> <u>あたるか、</u> <u>②「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」であるとして</u> <u>「<ruby>検証<rt>けんしょう(0)</rt></ruby>」</u> <u>（<ruby>刑訴<rt>けいそ(1)</rt></ruby>218<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）として</u> <u><ruby>令状<rt>れいじょう(0)</rt></ruby>を</u> <u><ruby>取得<rt>しゅとく(0)</rt></ruby>することによって</u> <u><ruby>適法<rt>てきほう(0)</rt></ruby>に</u> <u><ruby>行<rt>おこな(0)</rt></ruby>い<ruby>得<rt>え(1)</rt></ruby>る</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>であるのか、</u> <u>あるいは</u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>に</u> <u><ruby>特化<rt>とっか(0)</rt></ruby>した</u> <u>「<ruby>特別の定め<rt>とくべつのさだめ(5)</rt></ruby>」</u> <u>（<ruby>刑訴<rt>けいそ(1)</rt></ruby>197<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>ただし<ruby>書<rt>がき(0)</rt></ruby>）を</u> <u><ruby>要<rt>よう(1)</rt></ruby>するのか、</u> <u>③<ruby>違法<rt>いほう(0)</rt></ruby>な</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>であるとして、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby></u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>により</u> <u><ruby>取得<rt>しゅとく(0)</rt></ruby>した</u> <u><ruby>証拠<rt>しょうこ(0)</rt></ruby>は</u> <u><ruby>排除<rt>はいじょ(1)</rt></ruby>されるのか、</u> <u>という<ruby>三点<rt>さんてん(3)</rt></ruby>において、</u> <u><ruby>複数<rt>ふくすう(3)</rt></ruby>の</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>で</u> <u><ruby>判断<rt>はんだん(1)</rt></ruby>が</u> <u><ruby>分<rt>わ(1)</rt></ruby>かれていた。</u> <u>これに対して、</u> <u><ruby>最大判平成<rt>さいだいはんへいせい(5)</rt></ruby>29・3・15<ruby>刑集<rt>けいしゅう(0)</rt></ruby>71<ruby>巻<rt>かん(0)</rt></ruby>3<ruby>号<rt>ごう(1)</rt></ruby>13<ruby>頁<rt>ぺーじ(1)</rt></ruby>は、</u> <u>「<ruby>個人<rt>こじん(1)</rt></ruby>の</u> <u>プライバシーの</u> <u><ruby>侵害<rt>しんがい(0)</rt></ruby>を</u> <u><ruby>可能<rt>かのう(0)</rt></ruby>とする</u> <u><ruby>機器<rt>きき(1)</rt></ruby>を</u> <u>その<ruby>所持品<rt>しょじひん(0)</rt></ruby>に</u> <u><ruby>秘<rt>ひそ(2)</rt></ruby>かに</u> <u><ruby>装着<rt>そうちゃく(0)</rt></ruby>することによって、</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>に</u> <u><ruby>推認<rt>すいにん(0)</rt></ruby>される</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>の</u> <u><ruby>意思<rt>いし(1)</rt></ruby>に</u> <u><ruby>反<rt>はん(1)</rt></ruby>して</u> <u>その<ruby>私的領域<rt>してきりょういき(4)</rt></ruby>に</u> <u><ruby>侵入<rt>しんにゅう(0)</rt></ruby>する</u> <u><ruby>捜査手法<rt>そうさしゅほう(4)</rt></ruby>である</u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>は、</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>の</u> <u><ruby>意思<rt>いし(1)</rt></ruby>を</u> <u><ruby>制圧<rt>せいあつ(0)</rt></ruby>して</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>する</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>法的利益<rt>ほうてきりえき(4)</rt></ruby>を</u> <u><ruby>侵害<rt>しんがい(0)</rt></ruby>するものとして、</u> <u><ruby>刑訴法上<rt>けいそほうじょう(0)</rt></ruby>、</u> <u><ruby>特別の根拠規定<rt>とくべつのこんきょきてい(6)</rt></ruby>がなければ</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>されない</u> <u><ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」であって、</u> <u>「<ruby>令状<rt>れいじょう(0)</rt></ruby>がなければ</u> <u><ruby>行<rt>おこな(0)</rt></ruby>うことの</u> <u>できない<ruby>処分<rt>しょぶん(1)</rt></ruby>と</u> <u><ruby>解<rt>かい(1)</rt></ruby>すべきである」</u> <u>と<ruby>判断<rt>はんだん(1)</rt></ruby>し、</u> <u>GPS<ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>が</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の</u> <u><ruby>令状<rt>れいじょう(0)</rt></ruby>と</u> <u><ruby>適合<rt>てきごう(0)</rt></ruby>しない</u> <u><ruby>側面<rt>そくめん(3)</rt></ruby>があることから、</u> <u>「<ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>実効性<rt>じっこうせい(0)</rt></ruby>にも</u> <u><ruby>配慮<rt>はいりょ(1)</rt></ruby>しつつ</u> <u>どのような<ruby>手段<rt>しゅだん(1)</rt></ruby>を</u> <u><ruby>選択<rt>せんたく(0)</rt></ruby>するかは、</u> <u><ruby>刑訴法<rt>けいそほう(3)</rt></ruby>197<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>ただし<ruby>書<rt>がき(0)</rt></ruby>の</u> <u><ruby>趣旨<rt>しゅし(1)</rt></ruby>に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らし、</u> <u><ruby>第一次的<rt>だいいちじてき(0)</rt></ruby>には</u> <u><ruby>立法府<rt>りっぽうふ(3)</rt></ruby>に</u> <u><ruby>委<rt>ゆだ<2></rt></ruby>ねられている」</u> <u>とした。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，有助於偵查的技術，並不會理會此類法律理論而持續發展。其中成為特別重大問題的，即為GPS偵查。GPS偵查直到平成29年（2017年）最高法院大法庭判決為止，在各都道府縣警察機關中均是在未取得令狀的情況下實施的。在下級法院中，主要圍繞三點產生爭議與紛歧：①GPS偵查是否屬於「強制處分」（刑訴法第197條第1項但書）；②若屬「強制處分」，其是否得以「勘驗（検証）」（刑訴法第218條第1項）為由取得令狀而合法實施，抑或需要專針對GPS偵查之「特別規定」；③若屬違法偵查，依該GPS偵查取得之證據是否應予排除。對此，最高法院平成29年3月15日大法庭判決（刑集71卷3號13頁）判定：「GPS偵查係藉由將得以侵害個人隱私之機器秘密裝設於個人隨身物品上，從而違反合理推認之個人意思侵入其私領域之偵查手法，屬壓制個人意思並侵害憲法所保障之重要法律利益者，依刑事訴訟法，若無特別根據規定即不許容之強制處分」，並認定「應解為非有令狀不得為之處分」。同時，由於GPS偵查之性質存在與傳統令狀不相適合之側面，判決亦指出「在兼顧偵查實效性之同時應選擇何種手段，參照刑訴法第197條第1項但書之意旨，第一次性地應委諸立法機關決定」。</div>
+            </div>
+        </article>
+        <section id="card-11" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">3．電磁的記録提供命令の創設</h2>
+                <button onclick="playCardText(11)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">3．電磁紀錄提供命令之創設</div>
+        </section>
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>このような<ruby>最高裁判所<rt>さいこうさいばんしょ(5)</rt></ruby>の</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>にもかかわらず、</u> <u>GPS<ruby>捜査手続<rt>そうさてつづき(4)</rt></ruby>の</u> <u><ruby>立法化<rt>りっぽうか(0)</rt></ruby>は</u> <u><ruby>実現<rt>じつげん(0)</rt></ruby>しないまま、</u> <u>2025<ruby>年<rt>ねん(0)</rt></ruby>、</u> <u>より<ruby>本質的<rt>ほんしつてき(0)</rt></ruby>な</u> <u>データへの</u> <u><ruby>介入<rt>かいにゅう(0)</rt></ruby>を</u> <u><ruby>可能<rt>かのう(0)</rt></ruby>とする</u> <u><ruby>強制処分<rt>きょうせいしょぶん(4)</rt></ruby>、</u> <u><ruby>電磁的記録提供命令<rt>でんじてききろくていきょうめいれい(0)</rt></ruby>が</u> <u><ruby>新設<rt>しんせつ(0)</rt></ruby>された。</u> <u>これは、</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>を</u> <u><ruby>保管<rt>ほかん(0)</rt></ruby>する<ruby>者<rt>もの(2)</rt></ruby></u> <u><ruby>又<rt>また(0)</rt></ruby>は</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>を</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>する</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(1)</rt></ruby>する<ruby>者<rt>もの(2)</rt></ruby>に対して、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(1)</rt></ruby>じて</u> <u><ruby>行<rt>おこな(0)</rt></ruby>うことができる</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>の</u> <u><ruby>提供命令<rt>ていきょうめいれい(4)</rt></ruby>であり、</u> <u>2011<ruby>年<rt>ねん(0)</rt></ruby>に</u> <u><ruby>創設<rt>そうせつ(0)</rt></ruby>された</u> <u><ruby>記録命令付差押<rt>きろくめいれいつきさしおさえ(0)</rt></ruby>え</u> <u>（<ruby>改正前刑訴<rt>かいせいぜんけいそ(0)</rt></ruby>99<ruby>条<rt>じょう(0)</rt></ruby>の2）を</u> <u><ruby>廃止<rt>はいじ(1)</rt></ruby>して</u> <u><ruby>新設<rt>しんせつ(0)</rt></ruby>された</u> <u>（<ruby>刑訴<rt>けいそ(1)</rt></ruby>102<ruby>条<rt>じょう(0)</rt></ruby>の2<ruby>第<rt>だい(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</u> <u>2026<ruby>年現在<rt>ねんげんざい(0)</rt></ruby>、</u> <u>その<ruby>多<rt>おお(1)</rt></ruby>くが</u> <u><ruby>位置情報機能<rt>いちじょうほうきのう(5)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(1)</rt></ruby>する</u> <u>スマートフォンの</u> <u><ruby>日本国内<rt>にほんこくない(4)</rt></ruby>の</u> <u><ruby>普及状況<rt>ふきゅうじょうきょう(4)</rt></ruby>を</u> <u><ruby>踏<rt>ふま(2)</rt></ruby>まえると、</u> <u><ruby>本命令<rt>ほんめいれい(3)</rt></ruby>の</u> <u><ruby>創設<rt>そうせつ(0)</rt></ruby>により、</u> <u>GPS<ruby>端末<rt>たんまつ(0)</rt></ruby>を</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>した</u> <u><ruby>捜査手法<rt>そうさしゅほう(4)</rt></ruby>の</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>は</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby></u> <u><ruby>低減<rt>ていげん(0)</rt></ruby>すると</u> <u><ruby>推定<rt>すいてい(0)</rt></ruby>される。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">儘管最高法院作出了此種判決，GPS偵查程序的立法化卻遲遲未實現；直到2025年，一種允許更為本質性地介入資料的強制處分——「電磁紀錄提供命令」才被新設。該制度係指法院於必要時，得對保管電磁紀錄者或具使用電磁紀錄權限者發出之電磁紀錄提供命令，此係廢除2011年創設之「附記錄命令扣押」（修正前刑訴法第99條之2）後所新設之制度（刑訴法第102條之2第1項）。考量至2026年當前日本國內多數智慧型手機皆具備定位功能之普及現狀，預估隨著本命令之創設，利用GPS終端設備之偵查手法之必要性將大幅降低。</div>
+            </div>
+        </article>
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>電磁的記録提供命令<rt>でんじてききろくていきょうめいれい(0)</rt></ruby>では、</u> <u>①<ruby>被疑者<rt>ひぎしゃ(1)</rt></ruby>・<ruby>被告人<rt>ひこくにん(0)</rt></ruby>が</u> <u>「<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>を</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>する</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(1)</rt></ruby>する<ruby>者<rt>もの(2)</rt></ruby>」に</u> <u><ruby>含<rt>ふく(2)</rt></ruby>まれ、</u> <u>かつ<ruby>命令違反<rt>めいれいいはん(4)</rt></ruby>には</u> <u><ruby>刑事罰<rt>けいじばつ(0)</rt></ruby>が</u> <u><ruby>科<rt>か(1)</rt></ruby>される</u> <u>（<ruby>刑訴<rt>けいそ(1)</rt></ruby>124<ruby>条<rt>じょう(0)</rt></ruby>の2<ruby>第<rt>だい(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）<ruby>点<rt>てん(0)</rt></ruby>で、</u> <u><ruby>黙秘権<rt>もくひけん(3)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>38<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）<ruby>侵害<rt>しんがい(0)</rt></ruby>の</u> <u>おそれがないか、</u> <u>②<ruby>記録媒体<rt>きろくばいたい(4)</rt></ruby>への</u> <u><ruby>保存<rt>ほぞん(0)</rt></ruby>のみならず、</u> <u><ruby>直接<rt>ちょくせつ(0)</rt></ruby>の</u> <u>データ<ruby>送信<rt>そうしん(0)</rt></ruby>を</u> <u>させることも</u> <u><ruby>可能<rt>かのう(0)</rt></ruby>であり、</u> <u>クラウドに</u> <u><ruby>保存<rt>ほぞん(0)</rt></ruby>された</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>の</u> <u>「<ruby>包括的<rt>ほうかつてき(0)</rt></ruby>な</u> <u><ruby>差押<rt>さしおさ(0)</rt></ruby>え」が</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われ<ruby>得<rt>う(1)</rt></ruby>る</u> <u><ruby>規定<rt>きてい(0)</rt></ruby>ぶりとなっていることが、</u> <u><ruby>令状主義<rt>れいじょうしゅぎ(4)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>35<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）の</u> <u><ruby>要請<rt>ようせい(0)</rt></ruby>との</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>で</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>ではないか、</u> <u>③<ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>に</u> <u>アクセスするために</u> <u>パスワードや</u> <u><ruby>顔認証<rt>かおにんしょう(4)</rt></ruby>を</u> <u><ruby>要<rt>よう(1)</rt></ruby>する<ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u><ruby>電磁的記録<rt>でんじてききろく(5)</rt></ruby>を</u> <u><ruby>記録<rt>きろく(0)</rt></ruby>・<ruby>移転<rt>いてん(0)</rt></ruby>させるための</u> <u><ruby>復号化<rt>ふくごうか(0)</rt></ruby>・ロック<ruby>解除等<rt>かいじょとう(0)</rt></ruby>が</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>となることが</u> <u><ruby>想定<rt>そうてい(0)</rt></ruby>されるが、</u> <u>このような<ruby>措置<rt>そち(1)</rt></ruby>を</u> <u><ruby>付随的<rt>ふずいてき(0)</rt></ruby>に</u> <u>（<ruby>個別<rt>こべつ(0)</rt></ruby>の</u> <u><ruby>手続的規定<rt>てつづきてききてい(5)</rt></ruby>なく）</u> <u><ruby>行<rt>おこな(0)</rt></ruby>うことが</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>31<ruby>条<rt>じょう(0)</rt></ruby>に</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>しないか、</u> <u>また<ruby>黙秘権<rt>もくひけん(3)</rt></ruby>との</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>でも</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>がないか、</u> <u>といった<ruby>複数<rt>ふくすう(3)</rt></ruby>の</u> <u><ruby>重大<rt>じゅうだい(0)</rt></ruby>な</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>課題<rt>かだい(0)</rt></ruby>を</u> <u><ruby>含<rt>ふく(2)</rt></ruby>んでいる。</u> <u><ruby>特<rt>とく(0)</rt></ruby>に③について、</u> <u><ruby>刑事訴訟法学者<rt>けいじそしょうほうがくしゃ(7)</rt></ruby>の</u> <u><ruby>緑大輔<rt>みどりだいすけ(1)</rt></ruby>は、</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>な</u> <u>データの</u> <u><ruby>提供<rt>ていきょう(0)</rt></ruby>が</u> <u>「<ruby>供述<rt>きょうじゅつ(0)</rt></ruby>に</u> <u><ruby>当<rt>あ<2></rt></ruby>たるかどうかということと、</u> <u><ruby>不利益性<rt>ふりえきせい(0)</rt></ruby>があるかないかということが</u> <u>それぞれ<ruby>問題<rt>もんだい(0)</rt></ruby>になる」</u> <u>と<ruby>指摘<rt>してき(0)</rt></ruby>しているが、</u> <u>とりわけ<ruby>前者<rt>ぜんしゃ(1)</rt></ruby>について、</u> <u>パスワードを</u> <u><ruby>供述<rt>きょうじゅつ(0)</rt></ruby>させることは</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>により</u> <u><ruby>禁止<rt>きんし(0)</rt></ruby>され、</u> <u><ruby>生体認証<rt>せいたいにんしょう(4)</rt></ruby>による</u> <u><ruby>非供述<rt>ひきょうじゅつ(2)</rt></ruby>の</u> <u>ロック<ruby>解除<rt>かいじょ(1)</rt></ruby>を</u> <u><ruby>強制<rt>きょうせい(0)</rt></ruby>することは</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>ない、</u> <u>と<ruby>取<rt>と(1)</rt></ruby>り<ruby>扱<rt>あつか(0)</rt></ruby>われることは、</u> <u><ruby>経験的<rt>けいけんてき(0)</rt></ruby>にも</u> <u><ruby>違和感<rt>いわかん(2)</rt></ruby>があるように</u> <u><ruby>思<rt>おも(2)</rt></ruby>われる。</u> <u><ruby>電磁的記録提供命令<rt>でんじてききろくていきょうめいれい(0)</rt></ruby>の</u> <u><ruby>憲法適合性<rt>けんぽうてきごうせい(5)</rt></ruby>については、</u> <u><ruby>民事事件<rt>みんじじけん(3)</rt></ruby>における</u> <u><ruby>良心<rt>りょうしん(1)</rt></ruby>の</u> <u><ruby>自由<rt>じゆう(1)</rt></ruby></u> <u>（19<ruby>条<rt>じょう(0)</rt></ruby>）の</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>において</u> <u>「<ruby>単<rt>たん(1)</rt></ruby>に</u> <u><ruby>事態<rt>じたい(1)</rt></ruby>の</u> <u><ruby>真相<rt>しんそう(0)</rt></ruby>を</u> <u><ruby>告白<rt>こくはく(0)</rt></ruby>」</u> <u>することと<ruby>評価<rt>ひょうか(1)</rt></ruby>される</u> <u><ruby>命令<rt>めいれい(1)</rt></ruby>・<ruby>処分<rt>しょぶん(1)</rt></ruby>であっても、</u> <u><ruby>黙秘権<rt>もくひけん(3)</rt></ruby>との</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>から、</u> <u><ruby>刑事手続<rt>けいじてつづき(4)</rt></ruby>では</u> <u><ruby>強制<rt>きょうせい(0)</rt></ruby>できないものが</u> <u>あることも</u> <u><ruby>踏<rt>ふま(2)</rt></ruby>まえて、</u> <u><ruby>今後<rt>こんご(1)</rt></ruby></u> <u><ruby>更<rt>さら(1)</rt></ruby>なる</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>を</u> <u><ruby>要<rt>よう(1)</rt></ruby>する。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於電磁紀錄提供命令中，包含多項重大憲法課題：①犯罪嫌疑人與被告是否亦屬於「具權限使用電磁紀錄者」，且違反命令即處以刑事罰（刑訴法第124條之2第1項），是否有侵害默秘權（憲法第38條第1項）之虞；②不僅得命令保存於紀錄媒體，亦得命令直接傳送數據資料，導致可能對雲端儲存資訊實施「包括性扣押」，此規範體例是否違反令狀主義（憲法第35條第1項）之要求；③存取電磁紀錄若需要密碼或人臉辨識，預計需要進行復原（解密）與解鎖等附隨措施，此種無個別程序規定之附隨措施是否違反憲法第31條，且與默秘權之關係有無問題。特別針對第③點，刑事訴訟法學者綠大輔指出，提供不利數據資料「究竟是否屬於『供述』，以及有無不利性，各自成為問題」；特別是前者，若認為強制供述密碼為憲法所禁止，但強制以生物辨識進行非供述之解鎖則無問題，此種區分處理在經驗上顯有違和感。關於電磁紀錄提供命令之憲法適合性，即使在民事事件中限制良心自由（第19條）時被評價為「僅係告白事態真相」之命令與處分，考量其與默秘權之關係，在刑事程序中仍有不得強制之情形，未來尚需進一步深入檢討。</div>
+            </div>
+        </article>
+        <section id="card-14" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">Ⅱ 国家による現代の情報収集と憲法上の権利</h2>
+                <button onclick="playCardText(14)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">Ⅱ 國家現代情報蒐集與憲法權利</div>
+        </section>
+        <section id="card-15" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">1．捜査により制約される憲法上の権利</h2>
+                <button onclick="playCardText(15)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">1．受偵查限制之憲法權利</div>
+        </section>
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>このような</u> <u>デジタル<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>を</u> <u><ruby>用<rt>もち(0)</rt></ruby>いた</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>は、</u> <u>「<ruby>有形力<rt>ゆうけいりょく(3)</rt></ruby>を</u> <u><ruby>用<rt>もち(0)</rt></ruby>いない<ruby>反面<rt>はんめん(0)</rt></ruby>、</u> <u><ruby>対象者<rt>たいしょうしゃ(3)</rt></ruby>の</u> <u>プライヴァシーを</u> <u><ruby>大<rt>おお(1)</rt></ruby>きく</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>する</u> <u><ruby>恐<rt>おそ(0)</rt></ruby>れが</u> <u><ruby>強<rt>つよ(2)</rt></ruby>い」ために、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の</u> <u><ruby>捜査手法<rt>そうさしゅほう(4)</rt></ruby>とは</u> <u><ruby>異<rt>こと(2)</rt></ruby>なる</u> <u><ruby>形<rt>かたち(0)</rt></ruby>での</u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby>による</u> <u><ruby>統制<rt>とうせい(0)</rt></ruby>を</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>とする。</u> <u>ここでいう</u> <u>「<ruby>対象者<rt>たいしょうしゃ(3)</rt></ruby>の</u> <u>プライヴァシー」として、</u> <u>まず<ruby>想定<rt>そうてい(0)</rt></ruby>すべきは、</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>により</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>される</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>、</u> <u>例えば</u> <u><ruby>私的領域<rt>してきりょういき(4)</rt></ruby>に対する</u> <u><ruby>権利<rt>けんり(1)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>35<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>・13<ruby>条後段<rt>じょうこうだん(3)</rt></ruby>）、</u> <u><ruby>通信<rt>つうしん(0)</rt></ruby>の</u> <u><ruby>秘密<rt>ひみつ(0)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>21<ruby>条<rt>じょう(0)</rt></ruby>2<ruby>項後段<rt>こうこうだん(3)</rt></ruby>）<ruby>等<rt>とう(1)</rt></ruby>である。</u> <u><ruby>事案<rt>じあん(0)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>によっては、</u> <u><ruby>表現の自由<rt>ひょうげんのじゆう(5)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>21<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）や</u> <u><ruby>信仰の自由<rt>しんこうのじゆう(5)</rt></ruby></u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>20<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）の</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる<ruby>場合<rt>ばあい(0)</rt></ruby>もある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">使用此類數位技術之偵查，「雖未使用有形力，但極有可能嚴重限制對象者之隱私」，因而需要不同於傳統偵查手法之法律統制。此處所謂「對象者之隱私」，首先應考量者為受偵查限制之憲法權利，例如對私領域之權利（憲法第35條第1項、第13條後段）、通信秘密（憲法第21條第2項後段）等。依案件性質不同，有時亦可能涉及表現自由（憲法第21條第1項）或信仰自由（憲法第20條第1項）之限制問題。</div>
+            </div>
+        </article>
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>捜査<rt>そうさ(1)</rt></ruby>により</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>される</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>と、</u> <u>その<ruby>性質<rt>せいしつ(0)</rt></ruby>から</u> <u><ruby>導<rt>みちび(3)</rt></ruby>かれる</u> <u><ruby>違憲審査<rt>いけんしんさ(4)</rt></ruby>の</u> <u><ruby>密度<rt>みつど(1)</rt></ruby>は、</u> <u><ruby>捜査活動<rt>そうさかつどう(4)</rt></ruby>の</u> <u><ruby>法令違憲<rt>ほうれいいけん(4)</rt></ruby>・<ruby>適用違憲<rt>てきよういけん(4)</rt></ruby>を</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>する<ruby>際<rt>さい(1)</rt></ruby>に、</u> <u>それぞれ<ruby>重要<rt>じゅうよう(0)</rt></ruby>である。</u> <u><ruby>法令違憲<rt>ほうれいいけん(4)</rt></ruby>の</u> <u><ruby>審査<rt>しんさ(1)</rt></ruby>においては、</u> <u>（ア）<ruby>犯罪<rt>はんざい(0)</rt></ruby>の</u> <u><ruby>嫌疑<rt>けんぎ(1)</rt></ruby>があっても</u> <u>なお、</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>からして</u> <u><ruby>認<rt>みと(0)</rt></ruby>められない</u> <u><ruby>捜査手法<rt>そうさしゅほう(4)</rt></ruby>に</u> <u>あたるか、</u> <u>（イ）（ア）にあたらなくても、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby></u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>法律上<rt>ほうりつじょう(0)</rt></ruby>の</u> <u><ruby>限定<rt>げんてい(0)</rt></ruby>や</u> <u><ruby>手続的統制<rt>てつづきてきとうせい(5)</rt></ruby>が、</u> <u>それぞれの<ruby>捜査<rt>そうさ(1)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>や、</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>が</u> <u><ruby>想定<rt>そうてい(0)</rt></ruby>される</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らして</u> <u><ruby>十分<rt>じゅうぶん(3)</rt></ruby>か、</u> <u>（ウ）<ruby>法律<rt>ほうりつ(0)</rt></ruby>の</u> <u><ruby>規律密度<rt>きりつみつど(4)</rt></ruby>は、</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>される</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利保障<rt>けんりほしょう(4)</rt></ruby>の</u> <u><ruby>重要性<rt>じゅうようせい(0)</rt></ruby>に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らして、</u> <u><ruby>比例性<rt>ひれいせい(0)</rt></ruby>を</u> <u><ruby>担保<rt>たんぽ(1)</rt></ruby>することが</u> <u><ruby>可能<rt>かのう(0)</rt></ruby>な</u> <u><ruby>程度<rt>ていど(1)</rt></ruby>に</u> <u><ruby>十分<rt>じゅうぶん(3)</rt></ruby>か、</u> <u>といったことが</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる。</u> <u><ruby>適用違憲<rt>てきよういけん(4)</rt></ruby>の</u> <u><ruby>審査<rt>しんさ(1)</rt></ruby>においては、</u> <u>「<ruby>強制の処分<rt>きょうせいのしょぶん(0)</rt></ruby>」たる</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>であるならば、</u> <u>（a-1）<ruby>法律<rt>ほうりつ(0)</rt></ruby>の</u> <u><ruby>根拠<rt>こんきょ(1)</rt></ruby>に</u> <u><ruby>基<rt>もと(2)</rt></ruby>づいているか、</u> <u>（a-2）<ruby>当該<rt>とうがい(0)</rt></ruby></u> <u><ruby>根拠条文<rt>こんきょじょうぶん(4)</rt></ruby>の</u> <u><ruby>枠内<rt>わくない(0)</rt></ruby>で</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>が</u> <u><ruby>実施<rt>じっし(0)</rt></ruby>されたと</u> <u>いえるか、</u> <u>（a-3）<ruby>当該<rt>とうがい(0)</rt></ruby></u> <u><ruby>根拠条文<rt>こんきょじょうぶん(4)</rt></ruby>の</u> <u><ruby>枠内<rt>わくない(0)</rt></ruby>であっても、</u> <u>なお<ruby>事案<rt>じあん(0)</rt></ruby>に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らして</u> <u><ruby>不必要<rt>ふひつよう(2)</rt></ruby>な</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>を</u> <u>していないか<ruby>等<rt>とう(1)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となり、</u> <u><ruby>非強制捜査<rt>ひきょうせいそうさ(4)</rt></ruby></u> <u>（<ruby>任意捜査<rt>にんいそうさ(4)</rt></ruby>）については、</u> <u>（b）<ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利保障<rt>けんりほしょう(4)</rt></ruby>の</u> <u><ruby>重要性<rt>じゅうようせい(0)</rt></ruby>に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らして</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>・<ruby>相当性<rt>そうとうせい(0)</rt></ruby>・<ruby>適切性<rt>てきせつせい(0)</rt></ruby>があると</u> <u>いえるか、</u> <u>といったことが</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">受偵查限制之憲法權利的性質，以及由該性質所導出的違憲審查密度，在檢討偵查活動之法令違憲或適用違憲時均至關重要。於法令違憲之審查中，爭點包括：（甲）即使有犯罪嫌疑，是否仍屬依憲法權利性質所不允許之偵查手法；（乙）即使不屬於（甲），該偵查之法律限定與程序統制，參照各該偵查性質及預定限制之憲法權利性質，是否已屬充分；（丙）法律之規範密度，參照受限制之憲法權利保障的重要性，是否已達足以及時擔保比例原則之程度。於適用違憲之審查中，若屬「強制處分」偵查，爭點包括：（a-1）是否基於法律依據；（a-2）是否於該依據條文之範圍內實施偵查；（a-3）即使於該依據條文範圍內，參照案情是否實施了不必要之偵查等；而關於非強制偵查（任意偵查），爭點則為：（b）參照憲法權利保障之重要性，是否具有必要性、相當性與適當性。</div>
+            </div>
+        </article>
+        <section id="card-18" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．捜査以外の国家の情報収集による憲法上の権利の制約</h2>
+                <button onclick="playCardText(18)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．偵查以外之國家情報蒐集對憲法權利之限制</div>
+        </section>
+        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>これらの</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>する</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>の</u> <u><ruby>情報収集<rt>じょうほうしゅうしゅう(4)</rt></ruby>は、</u> <u><ruby>実<rt>じつ(0)</rt></ruby>は、</u> <u><ruby>犯罪<rt>はんざい(0)</rt></ruby>の</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>に</u> <u><ruby>限<rt>かぎ(1)</rt></ruby>られるものでもない。</u> <u><ruby>犯罪<rt>はんざい(0)</rt></ruby>の</u> <u><ruby>捜査以外<rt>そうさいがい(3)</rt></ruby>の</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>の</u> <u><ruby>情報収集<rt>じょうほうしゅうしゅう(4)</rt></ruby>の</u> <u><ruby>形態<rt>けいたい(0)</rt></ruby>には、</u> <u>例えば、</u> <u><ruby>政策決定<rt>せいさくけってい(4)</rt></ruby>に</u> <u><ruby>役立<rt>やくだ(2)</rt></ruby>てることを</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>として</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>を</u> <u><ruby>秘密裡<rt>ひみつり(0)</rt></ruby>に</u> <u><ruby>収集<rt>しゅうしゅう(0)</rt></ruby>する</u> <u><ruby>諜報<rt>ちょうほう(0)</rt></ruby>がある。</u> <u>ただし<ruby>日本<rt>にほん(2)</rt></ruby>では、</u> <u><ruby>諜報法制<rt>ちょうほうほうせい(4)</rt></ruby>が</u> <u><ruby>十分<rt>じゅうぶん(3)</rt></ruby>に</u> <u><ruby>整備<rt>せいび(1)</rt></ruby>されておらず、</u> <u><ruby>警察<rt>けいさつ(0)</rt></ruby>が</u> <u><ruby>捜査活動<rt>そうさかつどう(4)</rt></ruby>と</u> <u><ruby>諜報活動<rt>ちょうほうかつどう(4)</rt></ruby>の</u> <u><ruby>両方<rt>りょうほう(0)</rt></ruby>を</u> <u><ruby>行<rt>おこな(0)</rt></ruby>っている</u> <u><ruby>側面<rt>そくめん(3)</rt></ruby>があることから、</u> <u>「わざわざ<ruby>行政警察活動<rt>ぎょうせいけいさつかつどう(7)</rt></ruby>の</u> <u><ruby>一環<rt>いっかん(0)</rt></ruby>としての</u> <u><ruby>予防的警察活動<rt>よぼうてきけいさつかつどう(9)</rt></ruby>と</u> <u><ruby>諜報活動<rt>ちょうほうかつどう(4)</rt></ruby>を</u> <u><ruby>区別<rt>くべつ(1)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>があるのか」</u> <u>という<ruby>問<rt>と(0)</rt></ruby>いが</u> <u><ruby>読者<rt>どくしゃ(1)</rt></ruby>の</u> <u><ruby>脳裏<rt>のうり(1)</rt></ruby>を</u> <u>よぎるかもしれない。</u> <u>この<ruby>問<rt>と(0)</rt></ruby>いに対しては、</u> <u>①<ruby>複数<rt>ふくすう(3)</rt></ruby>の</u> <u><ruby>機関<rt>きかん(1)</rt></ruby>の</u> <u><ruby>知見<rt>ちけん(0)</rt></ruby>を</u> <u><ruby>統合<rt>とうごう(0)</rt></ruby>して</u> <u><ruby>内閣官房<rt>ないかくかんぼう(4)</rt></ruby>の</u> <u>もとに<ruby>用<rt>もち(0)</rt></ruby>いる</u> <u><ruby>諜報機能<rt>ちょうほうきのう(4)</rt></ruby>が、</u> <u><ruby>既<rt>すで(1)</rt></ruby>に</u> <u><ruby>日本<rt>にほん(2)</rt></ruby>の</u> <u><ruby>行政<rt>ぎょうせい(0)</rt></ruby>に</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>すること、</u> <u>②<ruby>諜報<rt>ちょうほう(0)</rt></ruby>という</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>において</u> <u><ruby>警察<rt>けいさつ(0)</rt></ruby>が</u> <u><ruby>果<rt>はた(2)</rt></ruby>たす</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>役割<rt>やくわり(0)</rt></ruby>が、</u> <u><ruby>警察単独<rt>けいさつたんどく(4)</rt></ruby>の</u> <u><ruby>所掌事務<rt>しょしょうじむ(4)</rt></ruby>とは</u> <u><ruby>異<rt>こと(2)</rt></ruby>なる</u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(1)</rt></ruby>すること<ruby>等<rt>とう(1)</rt></ruby>から、</u> <u>その<ruby>区別<rt>くべつ(1)</rt></ruby>の</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>を</u> <u><ruby>説明<rt>せつめい(0)</rt></ruby>することができよう。</u> <u>②について、</u> <u>例えば<ruby>警察官職務執行法<rt>けいさつかんしょくむしっこうほう(9)</rt></ruby>を</u> <u><ruby>改正<rt>かいせい(0)</rt></ruby>する</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>を</u> <u><ruby>含<rt>ふく(2)</rt></ruby>む</u> <u>サイバー<ruby>対処能力整備法<rt>たい処のうりょくせいびほう(0)</rt></ruby>と、</u> <u><ruby>整備法<rt>せいびほう(0)</rt></ruby>の</u> <u><ruby>前提<rt>ぜんてい(0)</rt></ruby>である</u> <u><ruby>同強化法<rt>どうきょうかほう(0)</rt></ruby>は、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>から</u> <u><ruby>警察官職務執行法<rt>けいさつかんしょくむしっこうほう(9)</rt></ruby>を</u> <u><ruby>通<rt>とお(2)</rt></ruby>じて、</u> <u><ruby>警察<rt>けいさつ(0)</rt></ruby>の</u> <u><ruby>一般論<rt>いっぱんろん(3)</rt></ruby>な</u> <u><ruby>職務執行<rt>しょくむしっこう(4)</rt></ruby>に</u> <u>かけられてきた</u> <u><ruby>法的統制<rt>ほうてきとうせい(4)</rt></ruby>と、</u> <u><ruby>新法<rt>しんぽう(0)</rt></ruby>における</u> <u><ruby>横断的<rt>おうだんてき(0)</rt></ruby>な</u> <u>サイバー<ruby>防衛<rt>ぼうえい(0)</rt></ruby>に</u> <u><ruby>伴<rt>ともな(2)</rt></ruby>う</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>の</u> <u><ruby>法的統制<rt>ほうてきとうせい(4)</rt></ruby>とが、</u> <u><ruby>重複<rt>ちょうふく(0)</rt></ruby>して</u> <u><ruby>警察<rt>けいさつ(0)</rt></ruby>を</u> <u><ruby>制御<rt>せいぎょ(1)</rt></ruby>するという</u> <u><ruby>仕組み<rt>しく(0)</rt></ruby>を、</u> <u><ruby>構造的<rt>こうぞうてき(0)</rt></ruby>に</u> <u><ruby>明<rt>あき(3)</rt></ruby>らかにしている。</u> <u>なお<ruby>判例<rt>はんれい(0)</rt></ruby>・<ruby>実務<rt>じつむ(1)</rt></ruby>は、</u> <u><ruby>警察法<rt>けいさつほう(3)</rt></ruby>2<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>に</u> <u><ruby>基<rt>もと(2)</rt></ruby>づき、</u> <u><ruby>警察<rt>けいさつ(0)</rt></ruby>が</u> <u><ruby>幅広<rt>はばひろ(0)</rt></ruby>い</u> <u><ruby>情報収集活動<rt>じょうほうしゅうしゅうかつどう(7)</rt></ruby>を</u> <u><ruby>行<rt>おこな(0)</rt></ruby>い<ruby>得<rt>え(1)</rt></ruby>るものとするが、</u> <u>「<ruby>現行警察法<rt>げんこうけいさつほう(5)</rt></ruby>の</u> <u><ruby>組織法的性格<rt>そしきほうてきせいかく(7)</rt></ruby>」や</u> <u>「<ruby>当該規定<rt>とうがいきてい(4)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>の</u> <u><ruby>一般性<rt>いっぱんせい(0)</rt></ruby>・<ruby>概括性<rt>がいかつせい(0)</rt></ruby>」<ruby>等<rt>とう(1)</rt></ruby>の</u> <u><ruby>観点<rt>かんてん(1)</rt></ruby>から、</u> <u>この<ruby>理解<rt>りかい(1)</rt></ruby>に対しては</u> <u><ruby>極<rt>きわ(0)</rt></ruby>めて</u> <u><ruby>厳<rt>きび(2)</rt></ruby>しい</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>からの</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>がある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">限制此類憲法權利之國家情報蒐集，事實上並非僅限於犯罪偵查。犯罪偵查以外之國家情報蒐集型態，例如以有助於政策決定為目的而秘密蒐集情報之「諜報活動」。然而在日本，由於諜報法制尚未充分整備，且警察在實務上同時兼擔偵查活動與諜報活動，讀者腦海中或許會浮現「是否有必要特意將作為行政警察活動一環之預防性警察活動與諜報活動加以區分？」之疑問。對此疑問，得以下列理由說明其區分之必要性：①整合多個機關之專業知見並於內閣官房主導下運用之諜報功能，已存在於日本之行政體系中；②於諜報此一國家作用中警察所扮演之重要角色，具備不同於警察單獨主管事務之性質。關於第②點，例如包含修正《警察官職務執行法》內容之「網路對應能力整備法」及其前提之「強化法」，結構性地揭示了：傳統上透過《警察官職務執行法》對警察一般性職務執行所施加之法律統制，與新法中伴隨橫斷性網路防禦所生國家作用之法律統制，二者交疊控制警察之機制。此外，雖然判例與實務認為依據《警察法》第2條第1項，警察得進行廣泛之情報蒐集活動，但從「現行警察法之組織法性格」與「該規定內容之一般性與概括性」等觀點，學界對此種理解存在極為嚴厲之批判。</div>
+            </div>
+        </article>
+        <section id="card-20" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">3．秘密裡の情報収集と国家秘密保護、そして秘密に対抗する憲法訴訟</h2>
+                <button onclick="playCardText(20)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">3．秘密情報蒐集與國家秘密保護，以及對抗秘密之憲法訴訟</div>
+        </section>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>捜査<rt>そうさ(1)</rt></ruby>と</u> <u><ruby>諜報<rt>ちょうほう(0)</rt></ruby>に</u> <u><ruby>共通<rt>きょうつう(0)</rt></ruby>する</u> <u><ruby>特徴<rt>とくちょう(0)</rt></ruby>は、</u> <u><ruby>情報収集<rt>じょうほうしゅうしゅう(4)</rt></ruby>が</u> <u><ruby>秘密裡<rt>ひみつり(0)</rt></ruby>に</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われる<ruby>点<rt>てん(0)</rt></ruby>である。</u> <u>この<ruby>秘密裡性<rt>ひみつりせい(4)</rt></ruby>は、</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>や</u> <u><ruby>諜報<rt>ちょうほう(0)</rt></ruby>といった</u> <u><ruby>行政<rt>ぎょうせい(0)</rt></ruby>の</u> <u><ruby>所掌事務<rt>しょしょうじむ(4)</rt></ruby>の</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby></u> <u>（<ruby>犯罪捜査<rt>はんざいそうさ(4)</rt></ruby>／<ruby>安全保障等<rt>あんぜんほしょうとう(0)</rt></ruby>）に</u> <u><ruby>照<rt>てら(1)</rt></ruby>らして、</u> <u>どうしても<ruby>避<rt>さ(1)</rt></ruby>けることができない</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>がある。</u> <u><ruby>行政活動<rt>ぎょうせいかつどう(4)</rt></ruby>は</u> <u><ruby>本来<rt>ほんらい(0)</rt></ruby>、</u> <u><ruby>透明性<rt>とうめいせい(0)</rt></ruby>を</u> <u><ruby>確保<rt>かくほ(1)</rt></ruby>することが</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>である</u> <u>（<ruby>行手<rt>ぎょうて(0)</rt></ruby>1<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項参照<rt>こうさんしょう(4)</rt></ruby>）。</u> <u>しかし、</u> <u><ruby>透明性<rt>とうめいせい(0)</rt></ruby>の</u> <u><ruby>確保<rt>かくほ(1)</rt></ruby>は、</u> <u>それ<ruby>自体<rt>じたい(1)</rt></ruby>が</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>ではない。</u> <u>あくまで</u> <u>「<ruby>国民<rt>こくみん(0)</rt></ruby>の</u> <u><ruby>権利利益<rt>けんりりえき(4)</rt></ruby>の</u> <u><ruby>保護<rt>ほご(1)</rt></ruby>」という</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>に</u> <u><ruby>資<rt>し(1)</rt></ruby>する</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>である。</u> <u>そうだとすると、</u> <u><ruby>透明性<rt>とうめいせい(0)</rt></ruby>の</u> <u><ruby>欠如<rt>けつじょ(1)</rt></ruby>が、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby></u> <u><ruby>行政機関<rt>ぎょうせいきかん(4)</rt></ruby>の</u> <u><ruby>所掌事務<rt>しょしょうじむ(4)</rt></ruby>を</u> <u><ruby>全<rt>まった(3)</rt></ruby>うするために</u> <u>どうしても<ruby>避<rt>さ(1)</rt></ruby>けることができない<ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u><ruby>透明性<rt>とうめいせい(0)</rt></ruby>の</u> <u><ruby>欠如<rt>けつじょ(1)</rt></ruby>は</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>され<ruby>得<rt>う(1)</rt></ruby>るとしても、</u> <u>「<ruby>国民<rt>こくみん(0)</rt></ruby>の</u> <u><ruby>権利利益<rt>けんりりえき(4)</rt></ruby>」を</u> <u><ruby>守<rt>まも(2)</rt></ruby>るための</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>は</u> <u><ruby>確保<rt>かくほ(1)</rt></ruby>されなければならない。</u> <u><ruby>秘密裡<rt>ひみつり(0)</rt></ruby>の</u> <u><ruby>情報収集活動<rt>じょうほうしゅうしゅうかつどう(7)</rt></ruby>によって</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>不当<rt>ふとう(0)</rt></ruby>に</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>されているのではないか、</u> <u>と<ruby>考<rt>かんが(0)</rt></ruby>える</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>が</u> <u><ruby>泣<rt>な(1)</rt></ruby>き<ruby>寝入<rt>ねい(0)</rt></ruby>りするしかない</u> <u><ruby>状況<rt>じょうきょう(0)</rt></ruby>を</u> <u>つくる<ruby>立法<rt>りっぽう(0)</rt></ruby>は、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>が</u> <u><ruby>最高法規<rt>さいこうほうき(4)</rt></ruby>である<ruby>以上<rt>いじょう(1)</rt></ruby>、</u> <u><ruby>許<rt>ゆる(2)</rt></ruby>されない</u> <u>（<ruby>憲<rt>けん(1)</rt></ruby>98<ruby>条<rt>じょう(0)</rt></ruby>1<ruby>項参照<rt>こうさんしょう(4)</rt></ruby>）。</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>を、</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>の</u> <u><ruby>場<rt>ば(0)</rt></ruby>を</u> <u><ruby>含<rt>ふく(2)</rt></ruby>めて</u> <u><ruby>実質化<rt>じっしつか(0)</rt></ruby>する</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>の</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>は、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>が</u> <u><ruby>最高法規<rt>さいこうほうき(4)</rt></ruby>として</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>し<ruby>続<rt>つづ(0)</rt></ruby>け、</u> <u><ruby>私<rt>わたし(0)</rt></ruby>たちひとりひとりが</u> <u><ruby>自由<rt>じゆう(1)</rt></ruby>であり<ruby>続<rt>つづ(0)</rt></ruby>けるために、</u> <u><ruby>必要不可欠<rt>ひつようふかけつ(5)</rt></ruby>なものである。</u> <u><ruby>現実<rt>げんじつ(0)</rt></ruby>として、</u> <u><ruby>捜査活動<rt>そうさかつどう(4)</rt></ruby>や</u> <u><ruby>諜報活動<rt>ちょうほうかつどう(4)</rt></ruby>の</u> <u><ruby>中<rt>なか(1)</rt></ruby>で</u> <u><ruby>秘密裡<rt>ひみつり(0)</rt></ruby>に</u> <u><ruby>収集<rt>しゅうしゅう(0)</rt></ruby>された</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>を、</u> <u><ruby>開示<rt>かいじ(1)</rt></ruby>させて</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>で</u> <u><ruby>争<rt>あらそ(2)</rt></ruby>うことは</u> <u><ruby>極<rt>きわ(0)</rt></ruby>めて</u> <u><ruby>難<rt>むずか(2)</rt></ruby>しく、</u> <u>2013<ruby>年<rt>ねん(0)</rt></ruby>に</u> <u><ruby>制定<rt>せいてい(0)</rt></ruby>された</u> <u><ruby>特定秘密の保護に関する法律<rt>とくていひみつのほごにかんするほうりつ(0)</rt></ruby>により、</u> <u>その<ruby>困難<rt>こんなん(1)</rt></ruby>さは</u> <u><ruby>一層<rt>いっそう(0)</rt></ruby></u> <u><ruby>増<rt>ま(0)</rt></ruby>している。</u> <u>しかし、</u> <u><ruby>一度<rt>いちど(2)</rt></ruby></u> <u><ruby>何<rt>なに(1)</rt></ruby>らかの</u> <u><ruby>形<rt>かたち(0)</rt></ruby>で</u> <u><ruby>明<rt>あき(3)</rt></ruby>らかになった</u> <u><ruby>情報<rt>じょうほう(0)</rt></ruby>から、</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby></u> <u><ruby>又<rt>また(0)</rt></ruby>は</u> <u><ruby>諜報<rt>ちょうほう(0)</rt></ruby>の</u> <u><ruby>国家作用<rt>こっかさよう(4)</rt></ruby>によって</u> <u><ruby>自<rt>みずか(2)</rt></ruby>らの</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>されている</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>が</u> <u><ruby>高<rt>たか(2)</rt></ruby>い、</u> <u>と<ruby>認識<rt>にんしき(0)</rt></ruby>するに</u> <u><ruby>至<rt>いた(1)</rt></ruby>った</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>が、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>において</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby></u> <u><ruby>情報収集活動<rt>じょうほうしゅうしゅうかつどう(7)</rt></ruby>の</u> <u><ruby>違憲性<rt>いけんせい(0)</rt></ruby>を</u> <u><ruby>争<rt>あらそ(2)</rt></ruby>った</u> <u><ruby>事件<rt>じけん(1)</rt></ruby>は、</u> <u>これまで</u> <u><ruby>少<rt>すく(2)</rt></ruby>なくない</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>する。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">偵查與諜報共同之特徵，在於情報蒐集係以秘密方式進行。此種秘密性，參照偵查或諜報等行政主管事務之目的（犯罪偵查／安全保障等），有時屬於無論如何皆無法避免者。行政活動原本必須確保透明性（參照《行政程序法》第1條第1項）。然而，確保透明性本身並非目的，其終究僅係有助於「保護國民權利利益」此一目的之手段。若是如此，當欠缺透明性係為完成該行政機關主管事務而無論如何無法避免時，即使允許欠缺透明性，亦必須確保用以維護「國民權利利益」之手段。若立法造成認為憲法權利因秘密情報蒐集活動受不當限制之個人只能忍氣吞聲之狀況，在憲法作為最高法規之下乃絕不允許（參照憲法第98條第1項）。包含在訴訟法庭等場合使憲法權利保障實質化手段之存在，對於憲法持續發揮最高法規功能、使我們每個人能持續保持自由而言，實屬不可或缺。現實上，要將偵查或諜報活動中秘密蒐集之情報予以公開並於訴訟中爭執，極為困難，且隨著2013年制定之《特定秘密保護法》，該困難度更形增加。然而，從曾經以某種形式顯露之情報中，意識到自身憲法權利極可能正受偵查或諜報等國家作用限制之個人，在訴訟中爭執該情報蒐集活動違憲性之案件，迄今亦不在少數。</div>
+            </div>
+        </article>
+        <section id="card-22" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ むすびにかえて</h2>
+                <button onclick="playCardText(22)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 結語</div>
+        </section>
+        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>は、</u> <u><ruby>捜査技術<rt>そうさぎじゅつ(4)</rt></ruby>の</u> <u><ruby>発達<rt>はったつ(0)</rt></ruby>と</u> <u>デジタル<ruby>化<rt>か(0)</rt></ruby>が</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>に</u> <u>もたらす<ruby>影響<rt>えいきょう(0)</rt></ruby>について</u> <u><ruby>論<rt>ろん(1)</rt></ruby>じ、</u> <u>デジタル<ruby>化<rt>か(0)</rt></ruby>した</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>を</u> <u><ruby>含<rt>ふく(2)</rt></ruby>む</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>の</u> <u><ruby>情報収集活動<rt>じょうほうしゅうしゅうかつどう(7)</rt></ruby>は、</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>規定<rt>きてい(0)</rt></ruby></u> <u><ruby>及<rt>およ(1)</rt></ruby>び</u> <u><ruby>憲法適合的<rt>けんぽうてきごうてき(0)</rt></ruby>な</u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby>により、</u> <u><ruby>手段<rt>しゅだん(1)</rt></ruby>の</u> <u>ハードさに</u> <u><ruby>応<rt>おう(1)</rt></ruby>じて</u> <u><ruby>適切<rt>てきせつ(0)</rt></ruby>に</u> <u><ruby>統制<rt>とうせい(0)</rt></ruby>されなければならない</u> <u>ということを<ruby>示<rt>しめ(2)</rt></ruby>した。</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しい</u> <u><ruby>技術的手段<rt>ぎじゅつてきしゅだん(5)</rt></ruby>を</u> <u><ruby>用<rt>もち(0)</rt></ruby>いた</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>による</u> <u><ruby>情報収集<rt>じょうほうしゅうしゅう(4)</rt></ruby>が、</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利保障<rt>けんりほしょう(4)</rt></ruby>に対する</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しい</u> <u><ruby>脅威<rt>きょうい(1)</rt></ruby>を</u> <u><ruby>招<rt>まね(2)</rt></ruby>く<ruby>可能性<rt>かのうせい(0)</rt></ruby>があるからといって、</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>としての</u> <u><ruby>技術<rt>ぎじゅつ(1)</rt></ruby>の</u> <u><ruby>発達<rt>はったつ(0)</rt></ruby>や、</u> <u><ruby>当該技術<rt>とうがいぎじゅつ(4)</rt></ruby>の</u> <u><ruby>捜査<rt>そうさ(1)</rt></ruby>への</u> <u><ruby>使用<rt>しよう(0)</rt></ruby>を</u> <u>ただ<ruby>正面<rt>しょうめん(3)</rt></ruby>から</u> <u><ruby>否定<rt>ひてい(0)</rt></ruby>するのでは、</u> <u><ruby>建設的<rt>けんせつてき(0)</rt></ruby>な</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>はできない。</u> <u><ruby>技術<rt>ぎじゅつ(1)</rt></ruby>の</u> <u><ruby>進歩<rt>しんぽ(1)</rt></ruby>に対して</u> <u><ruby>関心<rt>かんしん(0)</rt></ruby>を</u> <u><ruby>持<rt>も(1)</rt></ruby>って</u> <u><ruby>学<rt>まな(2)</rt></ruby>び<ruby>続<rt>つづ(0)</rt></ruby>けた<ruby>上<rt>うえ(0)</rt></ruby>で、</u> <u>その<ruby>技術<rt>ぎじゅつ(1)</rt></ruby>を</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>が</u> <u><ruby>用<rt>もち(0)</rt></ruby>いる<ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u><ruby>市民<rt>しみん(1)</rt></ruby>の</u> <u><ruby>憲法上<rt>けんぽうじょう(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>するための</u> <u><ruby>実効的<rt>じっこうてき(0)</rt></ruby>な</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>考<rt>かんが(0)</rt></ruby>え<ruby>続<rt>つづ(0)</rt></ruby>けることが、</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>である。</u> <u>（こにし・ようこ）</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">本文論述了偵查技術發展與數位化對憲法權利保障所帶來之影響，並指出包含數位化偵查在內之國家情報蒐集活動，必須依據憲法規定及合憲性法律，視手段之強硬程度予以適當統制。不能僅因使用新技術手段之國家情報蒐集可能對憲法權利保障招致新脅威，便一概從正面否定作為客觀事實之技術發展或該技術於偵查中之使用，否則將無法進行建設性討論。重要者在於，對技術進步保持關注並持續學習，進而在國家運用該技術時，持續思考用以保障市民憲法權利之實效性方法。（小西葉子）</div>
+            </div>
+        </article>
+                </main>
+
+                <!-- Footer -->
+                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
+                    <p>憲法による現代的捜査の統制 — 左右對照朗讀與翻譯版</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Audio Control Bar -->
+    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+        <div class="flex items-center space-x-3">
+            <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
+                <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg id="icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <button onclick="stopSpeech()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold p-2.5 rounded-xl border border-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+            </button>
+            <div class="text-xs sm:text-sm">
+                <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <label class="text-xs text-slate-400 select-none hidden sm:inline">語速</label>
+            <select id="select-rate" onchange="changeRate()" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500">
+                <option value="0.75">0.75x</option>
+                <option value="1.0" selected>1.0x (標準)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <script>
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+        let playQueue = [];
+        let currentCardIndex = -1;
+        let isPlayingAll = false;
+        let speechRate = 1.0;
+        let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '001憲法による捜査の統制.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            
+            // Apply PDF Open Parameters
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            
+            // Apply CSS Scaling for smooth visual enhancement
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
+
+        function loadVoices() {
+            let voices = synth.getVoices();
+            japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja')) || null;
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+
+        function getCleanText(cardId) {
+            const cardEl = document.getElementById('card-' + cardId);
+            if (!cardEl) return '';
+            
+            let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
+            const clone = targetEl.cloneNode(true);
+            
+            const rts = clone.querySelectorAll('rt');
+            rts.forEach(rt => rt.remove());
+            
+            let text = clone.textContent || '';
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            return text;
+        }
+
+        function highlightCard(index) {
+            document.querySelectorAll('.playing-card').forEach(el => el.classList.remove('playing-card'));
+            if (index >= 0) {
+                const el = document.getElementById('card-' + index);
+                if (el) {
+                    el.classList.add('playing-card');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function updateUIState(playing) {
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const statusEl = document.getElementById('tts-status');
+            
+            if (playing) {
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                statusEl.textContent = '朗讀中...';
+            } else {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                statusEl.textContent = '已暫停 / 準備就緒';
+            }
+        }
+
+        function playCardText(index) {
+            stopSpeech();
+            isPlayingAll = false;
+            currentCardIndex = index;
+            const text = getCleanText(index);
+            if (!text) return;
+            
+            speakText(text, index, () => {
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '朗讀完成';
+            });
+        }
+
+        function speakText(text, cardIndex, onEndCallback) {
+            if (synth.speaking) synth.cancel();
+            
+            highlightCard(cardIndex);
+            updateUIState(true);
+            document.getElementById('tts-detail').textContent = text.substring(0, 30) + '...';
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'ja-JP';
+            if (japaneseVoice) currentUtterance.voice = japaneseVoice;
+            currentUtterance.rate = speechRate;
+            
+            currentUtterance.onend = function() {
+                if (onEndCallback) onEndCallback();
+            };
+            
+            currentUtterance.onerror = function(e) {
+                console.error('Speech synthesis error:', e);
+                highlightCard(-1);
+                updateUIState(false);
+            };
+            
+            synth.speak(currentUtterance);
+        }
+
+        function togglePlayAll() {
+            if (synth.speaking && isPlayingAll) {
+                if (synth.paused) {
+                    synth.resume();
+                    updateUIState(true);
+                } else {
+                    synth.pause();
+                    updateUIState(false);
+                }
+                return;
+            }
+            
+            stopSpeech();
+            isPlayingAll = true;
+            let totalCards = document.querySelectorAll('[id^="card-"]').length;
+            let queue = [];
+            for (let i = 0; i < totalCards; i++) {
+                queue.push(i);
+            }
+            
+            playNextInQueue(queue);
+        }
+
+        function playNextInQueue(queue) {
+            if (!isPlayingAll || queue.length === 0) {
+                isPlayingAll = false;
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '全文朗讀完畢';
+                return;
+            }
+            
+            let nextIndex = queue.shift();
+            currentCardIndex = nextIndex;
+            const text = getCleanText(nextIndex);
+            
+            if (!text) {
+                playNextInQueue(queue);
+                return;
+            }
+            
+            speakText(text, nextIndex, () => {
+                if (isPlayingAll) playNextInQueue(queue);
+            });
+        }
+
+        function stopSpeech() {
+            isPlayingAll = false;
+            if (synth.speaking || synth.paused) {
+                synth.cancel();
+            }
+            highlightCard(-1);
+            updateUIState(false);
+            document.getElementById('tts-detail').textContent = '已停止朗讀';
+        }
+
+        function changeRate() {
+            const select = document.getElementById('select-rate');
+            speechRate = parseFloat(select.value);
+            if (synth.speaking && currentCardIndex >= 0) {
+                let wasPlayingAll = isPlayingAll;
+                let cardToResume = currentCardIndex;
+                stopSpeech();
+                if (wasPlayingAll) {
+                    isPlayingAll = true;
+                    let totalCards = document.querySelectorAll('[id^="card-"]').length;
+                    let queue = [];
+                    for (let i = cardToResume; i < totalCards; i++) queue.push(i);
+                    playNextInQueue(queue);
+                } else {
+                    playCardText(cardToResume);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

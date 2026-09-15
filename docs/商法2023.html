@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPECIAL FEATURE 商法「株主平等の原則」 - 左右對照朗讀與翻譯版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f172a;
+            color: #1e293b;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif JP', "MS Mincho", serif;
+        }
+
+        .font-sans {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .jp-col {
+            font-size: 1.05rem;
+            line-height: 3.1;
+            letter-spacing: 0.02em;
+            word-break: break-word;
+            color: #0f172a;
+        }
+
+        ruby {
+            ruby-position: over;
+            display: inline-ruby;
+        }
+
+        rt {
+            font-size: 0.52em;
+            color: #475569;
+            letter-spacing: 0.01em;
+            font-weight: normal;
+            line-height: 1.0;
+            user-select: none;
+        }
+
+        u {
+            text-decoration: none;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 2px;
+        }
+
+        .zh-col {
+            font-size: 1.0rem;
+            line-height: 1.75;
+        }
+
+        .playing-card {
+            box-shadow: 0 0 0 3px #6366f1, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            background-color: #f5f3ff !important;
+        }
+    </style>
+</head>
+
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                SPECIAL FEATURE 商法「株主平等の原則」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
+                </span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                </div>
+            </div>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="商法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
+
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        SPECIAL FEATURE 商法「株主平等の原則」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——株主平等の原則の意義と機能 <span class="text-indigo-300/80 text-xs font-normal">（股東平等原則之意義與功能）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>山下徹哉（京都大学教授 / YAMASHITA Tetsuya）
+                    </div>
+                </div>
+
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>商法<rt>しょうほう(1)</rt></ruby>「<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>」<ruby>京都大学<rt>きょうとだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>山下<rt>やました(0)</rt></ruby><ruby>徹哉<rt>てつや(0)</rt></ruby>YAMASHITA Tetsuya・はじめに<ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>は、<ruby>株主<rt>かぶぬし(2)</rt></ruby>を、その<ruby>有<rt>ゆう(0)</rt></ruby>する<ruby>株式<rt>かぶしき(0)</rt></ruby>の<ruby>内容<rt>ないよう(0)</rt></ruby>および<ruby>数<rt>すう(1)</rt></ruby>に<ruby>応<rt>おう(0)</rt></ruby>じて、<ruby>平等<rt>びょうどう(0)</rt></ruby>に<ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>なければならない（<ruby>会社<rt>かいしゃ(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）。</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 專題論文 商法「股東平等原則」</div>
+        </section>
+        <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(1)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>これを</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby>に</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>、</u> <u>あるいは</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby><ruby>原則<rt>げんそく(0)</rt></ruby>と</u> <u><ruby>呼<rt>よ(0)</rt></ruby>んでいる。</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>では、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>と</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>に</u> <u>ついて、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>・</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>・</u> <u><ruby>立法<rt>りっぽう(0)</rt></ruby>の</u> <u><ruby>展開<rt>てんかい(0)</rt></ruby>を</u> <u><ruby>踏<rt>ふ(0)</rt></ruby>まえて</u> <u><ruby>解説<rt>かいせつ(0)</rt></ruby>する。</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby><ruby>前<rt>ぜん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby><ruby>時代<rt>じだい(0)</rt></ruby>の</u> <u><ruby>山<rt>やま(1)</rt></ruby><ruby>理解<rt>りかい(1)</rt></ruby>1. </u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>に</u> <u>よる</u> <u><ruby>理解<rt>りかい(1)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>は、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby>には、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>としての</u> <u><ruby>資格<rt>しかく(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づく</u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u>おいて、</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>として</u> <u>その</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>する</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>数<rt>かず(1)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて</u> <u><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>に</u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>な</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u>ことと</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられてきた。</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby><ruby>前<rt>ぜん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby>に</u> <u>おいて、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby><ruby>原則<rt>げんそく(0)</rt></ruby></u> <u>その</u> <u>ものが</u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby>の</u> <u><ruby>明文<rt>めいぶん(0)</rt></ruby>で</u> <u><ruby>定<rt>さだ(0)</rt></ruby>められていた</u> <u>わけではなかったが，</u> <u><ruby>正義<rt>せいぎ(1)</rt></ruby>・</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づき</u> <u><ruby>社団<rt>しゃだん(0)</rt></ruby><ruby>一般<rt>いっぱん(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>妥当<rt>だとう(0)</rt></ruby>すべき</u> <u><ruby>社員<rt>しゃいん(0)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が、</u> <u><ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>に</u> <u>おいても</u> <u><ruby>同様<rt>どうよう(0)</rt></ruby>に</u> <u><ruby>妥当<rt>だとう(0)</rt></ruby>すると</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられていた。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">前言：股份有限公司應依股東所持股份之內容及數量，予以平等對待（公司法第109條第1項）。此即所謂「股東平等原則」。</div>
+            </div>
+        </article>
+        <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(2)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>ただし、</u> <u><ruby>資本<rt>しほん(0)</rt></ruby><ruby>団体<rt>だんたい(0)</rt></ruby>としての</u> <u><ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>の</u> <u><ruby>特性<rt>とくせい(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じた</u> <u><ruby>変容<rt>へんよう(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>けるとされる。</u> <u><ruby>資本<rt>しほん(0)</rt></ruby><ruby>団体<rt>だんたい(0)</rt></ruby>としての</u> <u><ruby>特性<rt>とくせい(0)</rt></ruby>とは、</u> <u><ruby>大規模<rt>だいきぼ(0)</rt></ruby><ruby>上場会社<rt>じょうじょうがいしゃ(0)</rt></ruby>を</u> <u><ruby>典型例<rt>てんけいれい(0)</rt></ruby>として、</u> <u>①<ruby>株主<rt>かぶぬし(2)</rt></ruby>は</u> <u><ruby>出資<rt>しゅっし(1)</rt></ruby>を</u> <u><ruby>通<rt>つう(0)</rt></ruby>じてのみ</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u><ruby>関与<rt>かんよ(0)</rt></ruby>し、</u> <u>その</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>としての</u> <u><ruby>地位<rt>ちい(1)</rt></ruby>は</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>と</u> <u>いう</u> <u><ruby>均一<rt>きんいつ(0)</rt></ruby>な</u> <u><ruby>割合<rt>わりあい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>単位<rt>たんい(0)</rt></ruby>の</u> <u><ruby>形<rt>かたち(1)</rt></ruby>を</u> <u>とる</u> <u>こと、</u> <u>②<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>相互<rt>そうご(0)</rt></ruby>に</u> <u><ruby>人的<rt>じんてき(0)</rt></ruby></u> <u><ruby>着<rt>ちゃく(1)</rt></ruby><ruby>頼<rt>らい(1)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>がなく、</u> <u>かつ</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>事項<rt>じこう(0)</rt></ruby>は</u> <u><ruby>多<rt>おお(0)</rt></ruby>くの</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby><ruby>多数決<rt>たすうけつ(3)</rt></ruby>で</u> <u><ruby>決<rt>き(0)</rt></ruby>まる</u> <u>ことである。</u> <u>その</u> <u>ため、</u> <u><ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>では、</u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>の</u> <u><ruby>基準<rt>きじゅん(0)</rt></ruby>が、</u> <u><ruby>頭数<rt>とうすう(0)</rt></ruby>ではなく、</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じた</u> <u><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>とされる</u> <u>（</u> <u>①の</u> <u><ruby>要請<rt>ようせい(0)</rt></ruby>）</u> <u>と</u> <u>ともに、</u> <u><ruby>多数決<rt>たすうけつ(3)</rt></ruby>の</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>を</u> <u><ruby>保護<rt>ほご(1)</rt></ruby>する</u> <u><ruby>作用<rt>さよう(0)</rt></ruby>を</u> <u><ruby>営<rt>いとな(0)</rt></ruby>む</u> <u>（</u> <u>②の</u> <u><ruby>要請<rt>ようせい(0)</rt></ruby>）</u> <u>ことに</u> <u><ruby>特徴<rt>とくちょう(0)</rt></ruby>があるとされる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，作為資本團體的股份有限公司，其特性會受到相應的變容。所謂資本團體的特性，以大規模上市公司為典型代表，包括：①股東僅透過出資參與公司，其股東地位展現為股份此一均一化之細分化單位；②股份得自由轉讓等。依此特性，股東平等原則被解為具有「持股數比例平等（數額比例平等）」之意義。換言之，擁有100股的股東，相較於擁有1股的股東，得享有100倍的經濟利益（如股利分派）及議決權等權利。</div>
+            </div>
+        </article>
+        <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(3)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>として、</u> <u><ruby>第<rt>だい(1)</rt></ruby>1に、</u> <u><ruby>各<rt>かく(1)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>が</u> <u><ruby>同一<rt>どういつ(0)</rt></ruby>である</u> <u>こと、</u> <u><ruby>第<rt>だい(1)</rt></ruby>2に、</u> <u><ruby>各<rt>かく(1)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>が</u> <u><ruby>同一<rt>どういつ(0)</rt></ruby>である</u> <u><ruby>限<rt>かぎ(0)</rt></ruby>り</u> <u><ruby>同一<rt>どういつ(0)</rt></ruby>の</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u>ことが</u> <u><ruby>含<rt>ふく(0)</rt></ruby>まれる。</u> <u><ruby>第<rt>だい(1)</rt></ruby>1<ruby>点<rt>てん(1)</rt></ruby><ruby>日<rt>ひ(0)</rt></ruby>より、</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>は</u> <u><ruby>法<rt>ほう(1)</rt></ruby>が</u> <u><ruby>定<rt>さだ(0)</rt></ruby>める</u> <u><ruby>例外<rt>れいがい(0)</rt></ruby>であると</u> <u><ruby>位置<rt>いち(1)</rt></ruby><ruby>付<rt>つ(0)</rt></ruby>けられる。</u> <u><ruby>第<rt>だい(1)</rt></ruby>2<ruby>点<rt>てん(1)</rt></ruby><ruby>目<rt>め(0)</rt></ruby>より、</u> <u><ruby>定款<rt>ていかん(0)</rt></ruby>、</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby></u> <u>もしくは</u> <u><ruby>取締役会<rt>とりしまりやくかい(4)</rt></ruby>の</u> <u><ruby>決議<rt>けつぎ(0)</rt></ruby></u> <u>または</u> <u><ruby>取締役<rt>とりしまりやく(0)</rt></ruby>の</u> <u><ruby>業務<rt>ぎょうむ(0)</rt></ruby><ruby>執行<rt>しっこう(0)</rt></ruby><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>定<rt>さだ(0)</rt></ruby>めても</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>であるが、</u> <u><ruby>個々<rt>ここ(0)</rt></ruby>の</u> <u><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u>ついて</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>が</u> <u><ruby>任意<rt>にんい(0)</rt></ruby>にそれを</u> <u><ruby>承認<rt>しょうにん(0)</rt></ruby>すれば</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>ないとされる。</u> <u>2. </u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>との</u> <u><ruby>関係性<rt>かんけいせい(0)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>の</u> <u><ruby>変遷<rt>へんせん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>との</u> <u><ruby>関係性<rt>かんけいせい(0)</rt></ruby>が</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>われた</u> <u><ruby>事案<rt>じあん(0)</rt></ruby>は、</u> <u><ruby>時期<rt>じき(1)</rt></ruby>に</u> <u>より</u> <u><ruby>異<rt>こと(0)</rt></ruby>なる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">作為股東平等原則的內容，首先包含各股份之內容應屬同一；其次包含只要各股份內容同一，即應獲得同一之對待。自第一點而言，種類股份乃被定位為法律所規定的例外。</div>
+            </div>
+        </article>
+        <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(4)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>まず、</u> <u><ruby>第<rt>だい(1)</rt></ruby><ruby>二<rt>に(0)</rt></ruby><ruby>次<rt>じ(0)</rt></ruby></u> <u><ruby>世界<rt>せかい(1)</rt></ruby><ruby>大<rt>だい(1)</rt></ruby></u> <u><ruby>戦前<rt>せんぜん(0)</rt></ruby>は、</u> <u><ruby>資本<rt>しほん(0)</rt></ruby><ruby>減少<rt>げんしょう(0)</rt></ruby>に</u> <u><ruby>伴<rt>ともな(0)</rt></ruby>う</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>消却<rt>しょうきゃく(0)</rt></ruby>・</u> <u><ruby>併合<rt>へいごう(0)</rt></ruby>や</u> <u><ruby>株式分割<rt>かぶしきぶんかつ(0)</rt></ruby><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>に</u> <u>おける</u> <u><ruby>株<rt>かぶ(1)</rt></ruby><ruby>金<rt>きん(1)</rt></ruby>の</u> <u><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>催告<rt>さいこく(0)</rt></ruby>のが</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>とされた</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>がある。</u> <u><ruby>第<rt>だい(1)</rt></ruby><ruby>二<rt>に(0)</rt></ruby><ruby>次<rt>じ(0)</rt></ruby></u> <u><ruby>世界<rt>せかい(1)</rt></ruby><ruby>大戦<rt>たいせん(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>は、</u> <u><ruby>前者<rt>ぜんしゃ(0)</rt></ruby>が</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>と</u> <u><ruby>関連<rt>かんれん(0)</rt></ruby>して</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>で</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>われる</u> <u><ruby>例<rt>れい(1)</rt></ruby>は<ruby>見<rt>み(0)</rt></ruby>られなくなった。</u> <u>これは、</u> <u><ruby>減少<rt>げんしょう(0)</rt></ruby>の</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>で</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby>な</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>をする</u> <u><ruby>資本<rt>しほん(0)</rt></ruby><ruby>減少<rt>げんしょう(0)</rt></ruby>の</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby><ruby>決議<rt>けつぎ(0)</rt></ruby>は</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>である</u> <u><ruby>旨<rt>むね(1)</rt></ruby>が</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby></u> <u><ruby>確立<rt>かくりつ(0)</rt></ruby>した</u> <u>せいかも</u> <u>しれない。</u> <u><ruby>後者<rt>こうしゃ(0)</rt></ruby>は、</u> <u><ruby>昭和<rt>しょうわ(0)</rt></ruby>23<ruby>年<rt>ねん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby>に</u> <u>よる</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>全額<rt>ぜんがく(0)</rt></ruby><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>への</u> <u><ruby>移行<rt>いこう(0)</rt></ruby>で</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>とならなくなった。</u> <u>そこで、</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>・</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>で</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>われたのは、</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>から</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>給付<rt>きゅうふ(0)</rt></ruby>と</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>運営<rt>うんえい(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">首先，在第二次世界大戰前，曾有裁判例將伴隨減資之股份銷除、合併，以及股票分期繳納制度中股金繳納催告之適法性視為問題。第二次世界大戰後，前者是否違反股東平等原則在法院產生爭執之例已不復見，但後者於裁判中主張違反股東平等原則之例仍時有所聞。此外，第二次世界大戰後，關於違反股東平等原則之行為態樣，亦出現了過往所未曾見及的新類型。例如：給與股東私益之行為、股東優待制度、種類株式之設計等。</div>
+            </div>
+        </article>
+        <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(5)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>前者<rt>ぜんしゃ(0)</rt></ruby>の</u> <u><ruby>例<rt>れい(1)</rt></ruby>として、</u> <u><ruby>財務<rt>ざいむ(0)</rt></ruby><ruby>状況<rt>じょうきょう(0)</rt></ruby>の</u> <u><ruby>悪化<rt>あっか(1)</rt></ruby>で</u> <u><ruby>利益<rt>りえき(1)</rt></ruby><ruby>配当<rt>はいとう(0)</rt></ruby>ができなくなった</u> <u><ruby>代償<rt>だいしょう(0)</rt></ruby>として</u> <u><ruby>大株主<rt>おおかぶぬし(0)</rt></ruby>に</u> <u><ruby>金員<rt>きんいん(0)</rt></ruby>を</u> <u><ruby>贈与<rt>ぞうよ(0)</rt></ruby>する</u> <u><ruby>契約<rt>けいやく(0)</rt></ruby>は、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>し、</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby><ruby>前<rt>ぜん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby> </u> <u>293<ruby>条<rt>じょう(1)</rt></ruby><ruby>本文<rt>ほんぶん(0)</rt></ruby></u> <u>（</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>454<ruby>条<rt>じょう(1)</rt></ruby>3<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>の</u> <u><ruby>趣旨<rt>しゅし(1)</rt></ruby>に</u> <u><ruby>徴<rt>ちょう(0)</rt></ruby>して</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>であると</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>した</u> <u><ruby>最判<rt>さいはん(0)</rt></ruby><ruby>昭和<rt>しょうわ(0)</rt></ruby>45・</u> <u>11・</u> <u>24<ruby>民集<rt>みんしゅう(0)</rt></ruby>24<ruby>巻<rt>かん(1)</rt></ruby>12<ruby>号<rt>ごう(1)</rt></ruby>1963<ruby>頁<rt>ぺーじ(1)</rt></ruby>がある。</u> <u><ruby>後者<rt>こうしゃ(0)</rt></ruby>の</u> <u><ruby>例<rt>れい(1)</rt></ruby>としては、</u> <u><ruby>同<rt>おな(0)</rt></ruby>じ</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>に</u> <u><ruby>出席<rt>しゅっせき(0)</rt></ruby>する</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>は</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>のない</u> <u><ruby>限<rt>かぎ(0)</rt></ruby>り</u> <u><ruby>同一<rt>どういつ(0)</rt></ruby>の</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>をすべきであるとし、</u> <u><ruby>従業員<rt>じゅうぎょういん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>を</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>よりも</u> <u><ruby>先<rt>さき(1)</rt></ruby>に</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>会場<rt>かいじょう(0)</rt></ruby>に</u> <u><ruby>入場<rt>にゅうじょう(0)</rt></ruby>させた</u> <u>ことを</u> <u><ruby>不適切<rt>ふてきせつ(0)</rt></ruby>と</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>した</u> <u><ruby>最判<rt>さいはん(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby>8・</u> <u>11・</u> <u>12<ruby>判時<rt>はんじ(0)</rt></ruby>1598<ruby>号<rt>ごう(1)</rt></ruby>152<ruby>頁<rt>ぺーじ(1)</rt></ruby>がある”。</u> <u>その</u> <u>ほかに、</u> <u><ruby>第<rt>だい(1)</rt></ruby><ruby>二<rt>に(0)</rt></ruby><ruby>次<rt>じ(0)</rt></ruby></u> <u><ruby>世界<rt>せかい(1)</rt></ruby><ruby>大戦<rt>たいせん(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>が</u> <u><ruby>熱心<rt>ねっしん(0)</rt></ruby>に</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>したのは、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>優待<rt>ゆうたい(0)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">作為前者的例子，因財務狀況惡化而無法進行股利分派時，作為補償而向大股東贈與金錢之契約，違反了股東平等原則，參酌平成17年改正前商法第293條本文（現行公司法第454條第3項）之旨趣應屬無效。</div>
+            </div>
+        </article>
+        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>一定<rt>いってい(0)</rt></ruby><ruby>数<rt>すう(1)</rt></ruby><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>する</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>に</u> <u><ruby>一律<rt>いちりつ(0)</rt></ruby>に、</u> <u>または、</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby>が</u> <u><ruby>一定<rt>いってい(0)</rt></ruby><ruby>数<rt>すう(1)</rt></ruby>を</u> <u><ruby>超<rt>こ(0)</rt></ruby>えるごとに、</u> <u>しかし</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby>に</u> <u><ruby>厳密<rt>げんみつ(0)</rt></ruby>に</u> <u><ruby>比例<rt>ひれい(0)</rt></ruby>せず、</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>の</u> <u><ruby>営業<rt>えいぎょう(0)</rt></ruby>に</u> <u><ruby>関連<rt>かんれん(0)</rt></ruby>する</u> <u><ruby>便益<rt>べんえき(0)</rt></ruby>を</u> <u><ruby>付与<rt>ふよ(1)</rt></ruby>するのが</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>優待<rt>ゆうたい(0)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>である。</u> <u><ruby>日本<rt>にっぽん(0)</rt></ruby>の</u> <u><ruby>上場会社<rt>じょうじょうがいしゃ(0)</rt></ruby>は、</u> <u><ruby>個人<rt>こじん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>増加<rt>ぞうか(0)</rt></ruby>を</u> <u><ruby>奨励<rt>しょうれい(0)</rt></ruby>する</u> <u>ため、</u> <u>これを</u> <u><ruby>盛<rt>さか(0)</rt></ruby>んに</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>している。</u> <u><ruby>通説<rt>つうせつ(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>は、</u> <u><ruby>個人<rt>こじん(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>増加<rt>ぞうか(0)</rt></ruby>の</u> <u><ruby>奨励<rt>しょうれい(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>に</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>が</u> <u><ruby>認<rt>みと(0)</rt></ruby>められる</u> <u>ことを</u> <u><ruby>前提<rt>ぜんてい(0)</rt></ruby>に、</u> <u><ruby>優待<rt>ゆうたい(0)</rt></ruby>の</u> <u><ruby>程度<rt>ていど(0)</rt></ruby>が</u> <u><ruby>軽<rt>けい(1)</rt></ruby><ruby>徴<rt>しるし(1)</rt></ruby>であれば</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>しないとする</u> <u>8。</u> <u><ruby>株式分割<rt>かぶしきぶんかつ(0)</rt></ruby><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>とは、</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>発行<rt>はっこう(0)</rt></ruby><ruby>時点<rt>じてん(0)</rt></ruby>では</u> <u><ruby>出資者<rt>しゅっししゃ(0)</rt></ruby>に</u> <u><ruby>株<rt>かぶ(1)</rt></ruby><ruby>金<rt>きん(1)</rt></ruby>の</u> <u><ruby>一部<rt>いちぶ(0)</rt></ruby>のみ</u> <u><ruby>払い込ま<rt>はらいこま(0)</rt></ruby>せ、</u> <u><ruby>残額<rt>ざんがく(0)</rt></ruby>は、</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>が</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>に</u> <u><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>催告<rt>さいこく(0)</rt></ruby>を</u> <u><ruby>行<rt>おこな(0)</rt></ruby>って、</u> <u><ruby>払い込ま<rt>はらいこま(0)</rt></ruby>せる</u> <u>ものである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">向持有一定數量以上股份的股東一律發放、或每當持股數超過一定數量時發放，但未嚴格與持股數成比例地給與公司營業相關便益的制度，即為「股東優待制度」。日本的上市公司為了鼓勵個人股東增加，積極引進了股東優待制度。學說與實務一般認為，只要優待內容在合理的範圍內，且未顯著損害持股數比例平等，即不違反股東平等原則。</div>
+            </div>
+        </article>
+        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>現行<rt>げんこう(0)</rt></ruby><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>は、</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>全額<rt>ぜんがく(0)</rt></ruby><ruby>払込<rt>はらいこみ(1)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>を</u> <u><ruby>採用<rt>さいよう(0)</rt></ruby>し、</u> <u><ruby>出資者<rt>しゅっししゃ(0)</rt></ruby>は</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>発行<rt>はっこう(0)</rt></ruby><ruby>時点<rt>じてん(0)</rt></ruby>で</u> <u><ruby>払込金額<rt>はらいこみきんがく(0)</rt></ruby>の</u> <u><ruby>全額<rt>ぜんがく(0)</rt></ruby>を</u> <u><ruby>払い込ま<rt>はらいこま(0)</rt></ruby>なければならないとす</u> <u>3.</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby><ruby>学説<rt>がくせつ(0)</rt></ruby>では、</u> <u><ruby>昭和<rt>しょうわ(0)</rt></ruby>50<ruby>年<rt>ねん(1)</rt></ruby><ruby>代<rt>だい(1)</rt></ruby><ruby>以降<rt>いこう(0)</rt></ruby>、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>を</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>する</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>が</u> <u><ruby>有力<rt>ゆうりょく(0)</rt></ruby>に</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>される</u> <u>ようになったり。</u> <u>これらの</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>は</u> <u><ruby>論<rt>ろん(1)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>ごとに</u> <u>バリエーションがあるが、</u> <u>その</u> <u>ポイントは</u> <u>おおよそ</u> <u><ruby>次<rt>つぎ(1)</rt></ruby>の</u> <u>2<ruby>点<rt>てん(1)</rt></ruby>に</u> <u><ruby>集約<rt>しゅうやく(0)</rt></ruby>できる。</u> <u><ruby>第<rt>だい(1)</rt></ruby>1に、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>が</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>正義<rt>せいぎ(1)</rt></ruby>・</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>から</u> <u><ruby>導<rt>みちび(0)</rt></ruby>く</u> <u><ruby>点<rt>てん(1)</rt></ruby>を</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>する。</u> <u><ruby>有<rt>ゆう(1)</rt></ruby><ruby>力説<rt>りきせつ(0)</rt></ruby>は、</u> <u><ruby>正義<rt>せいぎ(1)</rt></ruby>・</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>と</u> <u>いうだけでは</u> <u><ruby>抽象的<rt>ちゅうしょうてき(0)</rt></ruby>に<ruby>過<rt>す(0)</rt></ruby>ぎて<ruby>無<rt>む(0)</rt></ruby><ruby>内容<rt>ないよう(0)</rt></ruby>である</u> <u>ことを</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>し、</u> <u><ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby></u> <u><ruby>特有<rt>とくゆう(0)</rt></ruby>の</u> <u><ruby>事情<rt>じじょう(0)</rt></ruby>に</u> <u><ruby>着目<rt>ちゃくもく(0)</rt></ruby>して、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>があると</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>する。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">現行公司法採用股份全額繳納制度，出資者於股份發行時點必須繳納全額發行金額。3. 對傳統見解之批判：學說自昭和50年代以降，傳統見解遭受有力批判。</div>
+            </div>
+        </article>
+        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>第<rt>だい(1)</rt></ruby>2に、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>に</u> <u>よる</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>厳格<rt>げんかく(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>・</u> <u><ruby>硬直<rt>こうちょく(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>を</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>する。</u> <u>まず、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>に</u> <u>よれば</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>内容<rt>ないよう(0)</rt></ruby>の</u> <u><ruby>同一性<rt>どういつせい(0)</rt></ruby>が</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>であり、</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>は</u> <u><ruby>法定<rt>ほうてい(0)</rt></ruby>の</u> <u><ruby>例外<rt>れいがい(0)</rt></ruby>である。</u> <u>すると、</u> <u><ruby>例外<rt>れいがい(0)</rt></ruby>は</u> <u><ruby>限定的<rt>げんていてき(0)</rt></ruby>であるべきだと</u> <u>いう</u> <u><ruby>意識<rt>いしき(0)</rt></ruby>から、</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>に</u> <u><ruby>萎縮<rt>いしゅく(0)</rt></ruby><ruby>効果<rt>こうか(1)</rt></ruby>が</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じ<ruby>得<rt>う(0)</rt></ruby>る。</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>内容<rt>ないよう(0)</rt></ruby>の</u> <u><ruby>差別化<rt>さべつか(0)</rt></ruby>を</u> <u><ruby>厳<rt>きび(0)</rt></ruby>しく</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>する</u> <u><ruby>解釈<rt>かいしゃく(0)</rt></ruby>が</u> <u><ruby>各会社<rt>かくかいしゃ(0)</rt></ruby>の</u> <u><ruby>資金調達<rt>しきんちょうたつ(0)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>創意<rt>そうい(0)</rt></ruby>・</u> <u><ruby>工夫<rt>くふう(0)</rt></ruby>を</u> <u><ruby>妨<rt>さまた(0)</rt></ruby>げていないかが</u> <u><ruby>懸念<rt>けねん(0)</rt></ruby>された</u> <u>わけである。</u> <u><ruby>次<rt>つぎ(1)</rt></ruby>に、</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>運営<rt>うんえい(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>や</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>優待<rt>ゆうたい(0)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>から</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかな</u> <u>ように、</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>要請<rt>ようせい(0)</rt></ruby>を</u> <u>あらゆる</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>で</u> <u><ruby>一律<rt>いちりつ(0)</rt></ruby>に</u> <u><ruby>厳格<rt>げんかく(0)</rt></ruby></u> <u>かつ</u> <u><ruby>硬直<rt>こうちょく(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>に</u> <u><ruby>適用<rt>てきよう(0)</rt></ruby>する</u> <u>ことは、</u> <u>ナンセンスである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">其次，學者批判傳統見解對股東平等原則過於嚴格與硬直。首先，依據傳統見解，股份內容之同一性為原則，種類株式為法定之例外。於是，出自「例外應予限定」的意識，種類株式之種類與設計被認為應受到嚴格限制。</div>
+            </div>
+        </article>
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>他方<rt>たほう(0)</rt></ruby>で、</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>として</u> <u><ruby>厳格<rt>げんかく(0)</rt></ruby>な</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(0)</rt></ruby>めるべき</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>もあるから</u> <u>（</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u><ruby>議決権<rt>ぎけつけん(3)</rt></ruby>・</u> <u><ruby>剰余金<rt>じょうよきん(0)</rt></ruby><ruby>配当<rt>はいとう(0)</rt></ruby>・</u> <u><ruby>残余<rt>ざんよ(0)</rt></ruby><ruby>財産<rt>ざいさん(0)</rt></ruby><ruby>分配<rt>ぶんぱい(0)</rt></ruby>など）</u> <u>，</u> <u>その</u> <u>ような</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>と、</u> <u><ruby>頭数<rt>とうすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>を</u> <u><ruby>含<rt>ふく(0)</rt></ruby>む</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>，</u> <u>あるいは</u> <u><ruby>恣意性<rt>しいせい(0)</rt></ruby>の</u> <u><ruby>排除<rt>はいじょ(0)</rt></ruby>をすれば</u> <u><ruby>足<rt>た(0)</rt></ruby>りる</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby></u> <u>（</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>優待<rt>ゆうたい(0)</rt></ruby><ruby>制度<rt>せいど(1)</rt></ruby>や</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>運営<rt>うんえい(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>など）</u> <u>とを</u> <u><ruby>区別<rt>くべつ(1)</rt></ruby>すべき</u> <u>ことになる。</u> <u><ruby>地位<rt>ちい(1)</rt></ruby>が</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>と</u> <u>いう</u> <u><ruby>均一<rt>きんいつ(0)</rt></ruby>の</u> <u><ruby>割合<rt>わりあい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>単位<rt>たんい(0)</rt></ruby>と</u> <u>いう</u> <u><ruby>形<rt>かたち(1)</rt></ruby>を</u> <u>とる</u> <u>ことを</u> <u><ruby>裏<rt>うら(1)</rt></ruby>から</u> <u><ruby>表現<rt>ひょうげん(0)</rt></ruby>した</u> <u>ものであり、</u> <u>これに</u> <u>より</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>・</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>法律<rt>ほうりつ(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>や</u> <u><ruby>株式譲渡<rt>かぶしきじょうと(0)</rt></ruby>などを</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>に</u> <u><ruby>処理<rt>しょり(1)</rt></ruby>できる</u> <u>ようにして，</u> <u><ruby>人々<rt>ひとびと(0)</rt></ruby>が</u> <u><ruby>安心<rt>あんしん(0)</rt></ruby>して</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u><ruby>出資<rt>しゅっし(1)</rt></ruby>できる</u> <u>ようにすると</u> <u>いう</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>を</u> <u><ruby>重視<rt>じゅうし(0)</rt></ruby>する</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby></u> <u>（</u> <u><ruby>神田<rt>かんだ(0)</rt></ruby><ruby>秀<rt>しゅう(1)</rt></ruby></u> <u>『</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>』</u> <u>〔</u> <u><ruby>弘文<rt>こうぶん(0)</rt></ruby><ruby>堂<rt>どう(1)</rt></ruby>，</u> <u>2001<ruby>年<rt>ねん(1)</rt></ruby>）</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>に</u> <u>よる・</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>明文化<rt>めいぶんか(0)</rt></ruby>と</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>の</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>1.</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>の</u> <u><ruby>規定<rt>きてい(0)</rt></ruby><ruby>内容<rt>ないよう(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby>に</u> <u><ruby>制定<rt>せいてい(0)</rt></ruby>された</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>は、</u> <u><ruby>同法<rt>どうほう(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>として、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby><ruby>原則<rt>げんそく(0)</rt></ruby>に<ruby>係<rt>かか(0)</rt></ruby>る</u> <u><ruby>明文<rt>めいぶん(0)</rt></ruby><ruby>規定<rt>きてい(0)</rt></ruby>を<ruby>置<rt>お(0)</rt></ruby>いたが、</u> <u><ruby>同項<rt>どうこう(0)</rt></ruby>の</u> <u><ruby>規定<rt>きてい(0)</rt></ruby><ruby>文言<rt>もんごん(0)</rt></ruby>は、</u> <u><ruby>同<rt>どう(1)</rt></ruby><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>妥当<rt>だとう(0)</rt></ruby><ruby>範囲<rt>はんい(0)</rt></ruby>を</u> <u><ruby>限定<rt>げんてい(0)</rt></ruby>する</u> <u>ような</u> <u>ものとされた。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">另一方面，由於在某些場面原則上應要求嚴格的持股數比例平等（例如議決權、盈餘分派、剩餘財產分派等），因此若能將該等場面與包含人頭比例平等在內的合理對待、或是排除恣意性即為已足的場面加以區別，即可實現更具彈性的公司管理與資金籌措。</div>
+            </div>
+        </article>
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>まず、</u> <u><ruby>同項<rt>どうこう(0)</rt></ruby>は、</u> <u>「</u> <u>その</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>する</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>・・・・・・に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて」</u> <u>とし、</u> <u><ruby>同<rt>おな(0)</rt></ruby>じ</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>の</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>する</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>定<rt>さだ(0)</rt></ruby>めており、</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>は</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>例外<rt>れいがい(0)</rt></ruby>ではない</u> <u>ことになる。</u> <u>この</u> <u>ことから、</u> <u><ruby>立案<rt>りつあん(0)</rt></ruby><ruby>担当者<rt>たんとうしゃ(0)</rt></ruby>は、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>設計<rt>せっけい(0)</rt></ruby>を</u> <u><ruby>硬直<rt>こうちょく(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>な</u> <u>ものにしてきた</u> <u><ruby>従前<rt>じゅうぜん(0)</rt></ruby>の</u> <u><ruby>状況<rt>じょうきょう(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby><ruby>意識<rt>いしき(0)</rt></ruby>を</u> <u><ruby>持<rt>も(0)</rt></ruby>ち、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>過剰<rt>かじょう(0)</rt></ruby><ruby>規制<rt>きせい(0)</rt></ruby>を</u> <u><ruby>緩和<rt>かんわ(0)</rt></ruby>しようとする</u> <u><ruby>意図<rt>いと(1)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>していた</u> <u>ものと</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>する</u> <u>ことができる。</u> <u>また、</u> <u><ruby>同項<rt>どうこう(0)</rt></ruby>は、</u> <u>「</u> <u>その</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>する</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>の・・・・・</u> <u><ruby>数<rt>すう(1)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて」</u> <u>とし、</u> <u><ruby>持株数<rt>もちかぶすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>を</u> <u><ruby>定<rt>さだ(0)</rt></ruby>めており、</u> <u><ruby>頭数<rt>とうすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>を</u> <u><ruby>一<rt>いち(1)</rt></ruby></u> <u><ruby>少<rt>すく(0)</rt></ruby>なくとも</u> <u><ruby>明示<rt>めいじ(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>には</u> <u><ruby>一<rt>いち(1)</rt></ruby></u> <u><ruby>含<rt>ふく(0)</rt></ruby>めていない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">首先，同項規定「依其所持股份之內容……」，係規定持有相同內容股份之股東間的平等對待，是以種類株式並非股東平等原則的例外。由此，立法擔當者認為股東平等原則已獲明文化。</div>
+            </div>
+        </article>
+        <section id="card-11" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>学説<rt>がくせつ(0)</rt></ruby>の<ruby>議論<rt>ぎろん(0)</rt></ruby>しかし、<ruby>会社法<rt>かいしゃほう(0)</rt></ruby>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>による<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>明文化<rt>めいぶんか(0)</rt></ruby>は、<ruby>法務省<rt>ほうむしょう(0)</rt></ruby><ruby>民事<rt>みんじ(0)</rt></ruby><ruby>局<rt>きょく(1)</rt></ruby>による<ruby>法<rt>ほう(1)</rt></ruby><ruby>案<rt>あん(1)</rt></ruby><ruby>作成<rt>さくせい(0)</rt></ruby><ruby>過程<rt>かてい(0)</rt></ruby>において<ruby>密室<rt>みっしつ(0)</rt></ruby>で<ruby>決<rt>き(0)</rt></ruby>められ、<ruby>法制<rt>ほうせい(0)</rt></ruby><ruby>審議会<rt>しんぎかい(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>の<ruby>公<rt>おおやけ(1)</rt></ruby>の<ruby>場<rt>ば(0)</rt></ruby>で<ruby>検討<rt>けんとう(0)</rt></ruby>されたわけではない！</h2>
+                <button onclick="playCardText(11)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．學説之討論：然而，公司法第109條第1項將股東平等原則明文化，係由法務省民事局於法案作成過程中在密室決定的，並未在法制審議會等公開場合進行實質檢討！</div>
+        </section>
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>。</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby>に</u> <u><ruby>不文<rt>ふぶん(0)</rt></ruby>の</u> <u><ruby>法理<rt>ほうり(0)</rt></ruby>として</u> <u><ruby>認<rt>みと(0)</rt></ruby>められてきた</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>と</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby> </u> <u>109<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>が</u> <u><ruby>定<rt>さだ(0)</rt></ruby>める</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>とが</u> <u>いかなる</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>立<rt>た(0)</rt></ruby>つのかに</u> <u>ついて</u> <u>きちんと</u> <u><ruby>整理<rt>せいり(0)</rt></ruby>した</u> <u><ruby>上<rt>うえ(1)</rt></ruby>で</u> <u><ruby>立法<rt>りっぽう(0)</rt></ruby>された</u> <u>わけではなく、</u> <u>その</u> <u>ため、</u> <u><ruby>同項<rt>どうこう(0)</rt></ruby>の</u> <u><ruby>立法<rt>りっぽう(0)</rt></ruby>は、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>を</u> <u><ruby>喚起<rt>かんき(0)</rt></ruby>した。</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>の</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>は、</u> <u>まさに</u> <u><ruby>百花<rt>ひゃっか(1)</rt></ruby><ruby>線<rt>せん(1)</rt></ruby><ruby>乱<rt>らん(1)</rt></ruby>の</u> <u><ruby>様相<rt>ようそう(0)</rt></ruby>と</u> <u><ruby>評価<rt>ひょうか(0)</rt></ruby>し<ruby>得<rt>え(0)</rt></ruby>る</u> <u>ものの、</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>は</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>例外<rt>れいがい(0)</rt></ruby>だと</u> <u><ruby>考<rt>かんが(0)</rt></ruby>える、</u> <u>あるいは</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>設計<rt>せっけい(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>として</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>すると</u> <u>いう</u> <u><ruby>方向性<rt>ほうこうせい(0)</rt></ruby>を</u> <u><ruby>志向<rt>しこう(0)</rt></ruby>する</u> <u><ruby>点<rt>てん(1)</rt></ruby>では</u> <u><ruby>概<rt>おおむ(0)</rt></ruby>ね<ruby>一致<rt>いっち(1)</rt></ruby>がある</u> <u>18。</u> <u>また、</u> <u><ruby>頭数<rt>とうすう(0)</rt></ruby><ruby>比例<rt>ひれい(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>平等<rt>びょうどう(0)</rt></ruby>も</u> <u><ruby>含<rt>ふく(0)</rt></ruby>めるのが</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>である。</u> <u><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u>ように</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>は、</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>立案<rt>りつあん(0)</rt></ruby><ruby>担当者<rt>たんとうしゃ(0)</rt></ruby>の</u> <u><ruby>意図<rt>いと(1)</rt></ruby></u> <u>（</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>妥当<rt>だとう(0)</rt></ruby><ruby>範囲<rt>はんい(0)</rt></ruby>を</u> <u><ruby>限定<rt>げんてい(0)</rt></ruby>する）</u> <u>とは</u> <u><ruby>異<rt>こと(0)</rt></ruby>なる</u> <u><ruby>帰結<rt>きけつ(0)</rt></ruby>を</u> <u><ruby>導<rt>みちび(0)</rt></ruby>こうとしているが、</u> <u>その</u> <u><ruby>最大<rt>さいだい(0)</rt></ruby>の</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>は、</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>13<ruby>年<rt>ねん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby>から</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>制定<rt>せいてい(0)</rt></ruby>に</u> <u><ruby>至<rt>いた(0)</rt></ruby>る</u> <u><ruby>一連<rt>いちれん(0)</rt></ruby>の</u> <u><ruby>法改正<rt>ほうかいせい(0)</rt></ruby>で</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>規制<rt>きせい(0)</rt></ruby>が</u> <u><ruby>大幅<rt>おおはば(0)</rt></ruby>に</u> <u><ruby>緩和<rt>かんわ(0)</rt></ruby>された</u> <u>ことにある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">對於傳統上作為不文法理而被認可的股東平等原則，與公司法第109條第1項所規定的股東平等原則究竟處於何種關係，立法時並未予以清晰整理。因此，該項之立法引發了新的法律爭議。</div>
+            </div>
+        </article>
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>多様化<rt>たようか(0)</rt></ruby>・</u> <u><ruby>柔軟<rt>じゅうなん(0)</rt></ruby><ruby>化<rt>か(0)</rt></ruby>が</u> <u><ruby>実現<rt>じつげん(0)</rt></ruby>した</u> <u><ruby>反面<rt>はんめん(0)</rt></ruby>、</u> <u><ruby>制度<rt>せいど(1)</rt></ruby>が</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby>される</u> <u><ruby>懸念<rt>けねん(0)</rt></ruby>が</u> <u><ruby>大<rt>おお(0)</rt></ruby>きくなった。</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby>への</u> <u><ruby>歯止<rt>はど(0)</rt></ruby>めになると</u> <u><ruby>期待<rt>きたい(0)</rt></ruby>された</u> <u>わけである。</u> <u>その</u> <u><ruby>一方<rt>いっぽう(0)</rt></ruby>で、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>設計<rt>せっけい(0)</rt></ruby>を</u> <u><ruby>硬直<rt>こうちょく(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>な</u> <u>ものにする</u> <u>ことへの</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby><ruby>意識<rt>いしき(0)</rt></ruby>は、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>でも</u> <u>かなりの</u> <u><ruby>程度<rt>ていど(0)</rt></ruby><ruby>共有<rt>きょうゆう(0)</rt></ruby>されている。</u> <u>その</u> <u>ため、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>は、</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>が</u> <u><ruby>承認<rt>しょうにん(0)</rt></ruby>する</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby><ruby>以外<rt>いがい(0)</rt></ruby>に</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>が</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>される</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>を</u> <u>なかなか</u> <u><ruby>認<rt>みと(0)</rt></ruby>めない</u> <u><ruby>傾向<rt>けいこう(0)</rt></ruby>にあったのに</u> <u><ruby>対<rt>たい(0)</rt></ruby>し。</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby><ruby>制定<rt>せいてい(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>の</u> <u><ruby>多<rt>おお(0)</rt></ruby>くは、</u> <u><ruby>合理性<rt>ごうりせい(0)</rt></ruby>や</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>・</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>と</u> <u>いった</u> <u><ruby>基準<rt>きじゅん(0)</rt></ruby>に</u> <u>より</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>の</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>を</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>する</u> <u>ことを</u> <u><ruby>認<rt>みと(0)</rt></ruby>めている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">種類株式多樣化與柔軟化實現的相反面，係制度遭到濫用的疑慮顯著增大。股東平等原則因而被期待成為防止濫用的煞車機制。另一方面，亦有人擔憂股東平等原則若運用不當，恐使種類株式之設計陷入硬直化。</div>
+            </div>
+        </article>
+        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>この</u> <u><ruby>点<rt>てん(1)</rt></ruby>で、</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>は、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby>を</u> <u><ruby>単純<rt>たんじゅん(0)</rt></ruby>に</u> <u><ruby>墨守<rt>ぼくしゅ(0)</rt></ruby>している</u> <u>わけではない。</u> <u><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>の</u> <u><ruby>方向性<rt>ほうこうせい(0)</rt></ruby>は、</u> <u>ブルドックソース<ruby>事件<rt>じけん(0)</rt></ruby><ruby>決定<rt>けってい(0)</rt></ruby></u> <u>（</u> <u><ruby>最決<rt>さいけつ(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby>19・</u> <u>8・</u> <u>7<ruby>民集<rt>みんしゅう(0)</rt></ruby>61<ruby>巻<rt>かん(1)</rt></ruby>5<ruby>号<rt>ごう(1)</rt></ruby> </u> <u>2215<ruby>頁<rt>ぺーじ(1)</rt></ruby>）</u> <u>の</u> <u><ruby>後<rt>あと(1)</rt></ruby>に、</u> <u>より</u> <u><ruby>一層<rt>いっそう(0)</rt></ruby></u> <u><ruby>広<rt>ひろ(0)</rt></ruby>く</u> <u><ruby>受け入れ<rt>うけいれ(0)</rt></ruby>られるに</u> <u><ruby>至<rt>いた(0)</rt></ruby>った。</u> <u><ruby>最高裁<rt>さいこうさい(0)</rt></ruby>は、</u> <u><ruby>買収<rt>ばいしゅう(0)</rt></ruby><ruby>防衛<rt>ぼうえい(0)</rt></ruby><ruby>策<rt>さく(1)</rt></ruby>である</u> <u><ruby>差別的<rt>さべつてき(0)</rt></ruby><ruby>行使<rt>こうし(0)</rt></ruby><ruby>条項<rt>じょうこう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>が</u> <u><ruby>付<rt>ふ(0)</rt></ruby>された</u> <u><ruby>新株<rt>しんかぶ(0)</rt></ruby><ruby>予約権<rt>よやくけん(0)</rt></ruby>の</u> <u><ruby>無償<rt>むしょう(0)</rt></ruby><ruby>割当<rt>わりあ(0)</rt></ruby>てに</u> <u>ついて、</u> <u>「</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>趣旨<rt>しゅし(1)</rt></ruby>」</u> <u>が</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぶとした</u> <u><ruby>上<rt>うえ(1)</rt></ruby>で，</u> <u><ruby>特定<rt>とくてい(0)</rt></ruby>の</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>を</u> <u><ruby>差別的<rt>さべつてき(0)</rt></ruby>に</u> <u><ruby>取り扱う<rt>とりあつかう(0)</rt></ruby></u> <u>ものであっても、</u> <u>それが</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>の</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>・</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>共同<rt>きょうどう(0)</rt></ruby>の</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>の</u> <u><ruby>毀損<rt>きそん(0)</rt></ruby>を</u> <u><ruby>防<rt>ふせ(0)</rt></ruby>ぐ</u> <u>ための</u> <u>ものであり</u> <u>（</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>の</u> <u><ruby>要件<rt>ようけん(3)</rt></ruby>）</u> <u>，</u> <u>その</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>が</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>し、</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>く</u> <u>ものでなければ</u> <u>（</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>の</u> <u><ruby>要件<rt>ようけん(3)</rt></ruby>）</u> <u>，</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>趣旨<rt>しゅし(1)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>しないと</u> <u><ruby>判示<rt>はんじ(0)</rt></ruby>した。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">在此點上，學説並非單純墨守傳統見解。上述學説的方向性，在鬥牛犬醬汁（Bulldog Sauce）事件決定（最高裁決定平成19年8月7日民集61卷5號2215頁）之後，得到了更為廣泛的接受與支持。</div>
+            </div>
+        </article>
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>現状<rt>げんじょう(0)</rt></ruby>と</u> <u><ruby>北<rt>きた(1)</rt></ruby><ruby>鐘<rt>しょう(1)</rt></ruby><ruby>輪<rt>りん(1)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>課題<rt>かだい(0)</rt></ruby>1. </u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>との</u> <u><ruby>関係性<rt>かんけいせい(0)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>の</u> <u><ruby>拡大<rt>かくだい(0)</rt></ruby><ruby>前記<rt>ぜんき(0)</rt></ruby><ruby>皿<rt>さら(1)</rt></ruby>2で<ruby>見<rt>み(0)</rt></ruby>た</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>の</u> <u><ruby>動<rt>うご(0)</rt></ruby>きと</u> <u><ruby>軌<rt>き(0)</rt></ruby>を</u> <u><ruby>一<rt>いち(1)</rt></ruby>にして、</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>制定<rt>せいてい(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>との</u> <u><ruby>関係性<rt>かんけいせい(0)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>は、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby></u> <u>（</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby>I </u> <u>から</u> <u><ruby>拡大<rt>かくだい(0)</rt></ruby>を<ruby>見<rt>み(0)</rt></ruby>せている。</u> <u><ruby>第<rt>だい(1)</rt></ruby>1に、</u> <u><ruby>買収<rt>ばいしゅう(0)</rt></ruby><ruby>防衛<rt>ぼうえい(0)</rt></ruby><ruby>策<rt>さく(1)</rt></ruby>であり、</u> <u><ruby>代表<rt>だいひょう(0)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>として</u> <u><ruby>前掲<rt>ぜんけい(0)</rt></ruby><ruby>最決<rt>さいけつ(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby> </u> <u>19・</u> <u>8・</u> <u>7がある。</u> <u><ruby>買収<rt>ばいしゅう(0)</rt></ruby><ruby>防衛<rt>ぼうえい(0)</rt></ruby><ruby>策<rt>さく(1)</rt></ruby>は、</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby><ruby>頃<rt>ころ(1)</rt></ruby>から</u> <u><ruby>実務<rt>じつむ(0)</rt></ruby>・</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>盛<rt>さか(0)</rt></ruby>んに</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>される</u> <u>ようになったが、</u> <u><ruby>買収<rt>ばいしゅう(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>とそれ</u> <u><ruby>以外<rt>いがい(0)</rt></ruby>の</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>とで</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>異<rt>い(0)</rt></ruby>にしなければ</u> <u><ruby>対抗<rt>たいこう(0)</rt></ruby><ruby>措置<rt>そち(1)</rt></ruby>として</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>しない</u> <u>ため、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>との</u> <u><ruby>関係性<rt>かんけいせい(0)</rt></ruby>が</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>となる。</u> <u><ruby>第<rt>だい(1)</rt></ruby>2に、</u> <u>キャッシュ・</u> <u>アウトである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">股東平等原則之現狀與課題：1. 與股東平等原則相關情境之擴大。與前述學説動向一致，公司法制定後，與股東平等原則相關的爭議情境，較以往顯著擴大。</div>
+            </div>
+        </article>
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>は、</u> <u><ruby>全部<rt>ぜんぶ(0)</rt></ruby><ruby>取得<rt>しゅとく(0)</rt></ruby><ruby>条項<rt>じょうこう(0)</rt></ruby><ruby>付<rt>つけ(1)</rt></ruby></u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>導入<rt>どうにゅう(0)</rt></ruby></u> <u>および</u> <u><ruby>現金<rt>げんきん(0)</rt></ruby>を</u> <u><ruby>対価<rt>たいか(0)</rt></ruby>とする</u> <u><ruby>組織<rt>そしき(0)</rt></ruby><ruby>再編<rt>さいへん(0)</rt></ruby>の</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>に</u> <u>より、</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>多数決<rt>たすうけつ(3)</rt></ruby>で、</u> <u><ruby>少数<rt>しょうすう(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>たる</u> <u><ruby>地位<rt>ちい(1)</rt></ruby>を</u> <u><ruby>対象<rt>たいしょう(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>同意<rt>どうい(0)</rt></ruby>なく</u> <u><ruby>奪<rt>うば(0)</rt></ruby>う</u> <u>こと</u> <u>（</u> <u>キャッシュ・</u> <u>アウト）</u> <u>を</u> <u><ruby>認<rt>みと(0)</rt></ruby>める</u> <u>ものと</u> <u><ruby>解<rt>かい(0)</rt></ruby>され、</u> <u><ruby>実務<rt>じつむ(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>も</u> <u><ruby>盛<rt>さか(0)</rt></ruby>んに</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>される</u> <u>ようになった。</u> <u>もっとも，</u> <u><ruby>平成<rt>へいせい(0)</rt></ruby>17<ruby>年<rt>ねん(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby><ruby>前<rt>ぜん(1)</rt></ruby><ruby>商法<rt>しょうほう(1)</rt></ruby><ruby>下<rt>か(0)</rt></ruby>では、</u> <u>キャッシュ・</u> <u>アウト<ruby>目的<rt>もくてき(0)</rt></ruby>の</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>の</u> <u><ruby>併合<rt>へいごう(0)</rt></ruby>は</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>すると</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられていた</u> <u>ため20，</u> <u><ruby>少数<rt>しょうすう(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>が</u> <u>キャッシュ・</u> <u>アウトは</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>すると</u> <u>いって</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>う</u> <u><ruby>例<rt>れい(1)</rt></ruby>が<ruby>見<rt>み(0)</rt></ruby>られる。</u> <u><ruby>第<rt>だい(1)</rt></ruby>3に、</u> <u><ruby>閉鎖<rt>へいさ(0)</rt></ruby><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>利害<rt>りがい(0)</rt></ruby><ruby>対立<rt>たいりつ(0)</rt></ruby><ruby>場面<rt>ばめん(0)</rt></ruby></u> <u>（</u> <u>キャッシュ・</u> <u>アウトを</u> <u><ruby>除<rt>のぞ(0)</rt></ruby>く</u> <u>もの）</u> <u>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">公司法經由引進附全部取得條項種類株式以及許可以現金為對價之組織再編，被解為允許透過股東總會之多數決，未經對象股東同意即剝奪少數股東之股東地位（現金退場 / Cash-Out），且在實務上也獲廣泛利用。然而，在平成17年改正前商法下，以 Cash-Out 為目的之股份合併被認為違反股東平等原則，故可見少數股東主張 Cash-Out 違反股東平等原則而展開爭訟之例。第三，則是閉鎖公司中股東間利害對立的情境（排除 Cash-Out 者）。</div>
+            </div>
+        </article>
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>非公開<rt>ひこうかい(0)</rt></ruby><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>特定<rt>とくてい(0)</rt></ruby>の</u> <u><ruby>株式譲渡<rt>かぶしきじょうと(0)</rt></ruby>のみを</u> <u><ruby>対象<rt>たいしょう(0)</rt></ruby>に</u> <u><ruby>取締役会<rt>とりしまりやくかい(4)</rt></ruby>の</u> <u><ruby>譲渡<rt>じょうと(0)</rt></ruby><ruby>承認<rt>しょうにん(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>けた</u> <u>ものと</u> <u>みなす</u> <u><ruby>旨<rt>むね(1)</rt></ruby>の</u> <u><ruby>規定<rt>きてい(0)</rt></ruby>を</u> <u><ruby>設<rt>もう(0)</rt></ruby>ける</u> <u><ruby>定款<rt>ていかん(0)</rt></ruby><ruby>変更<rt>へんこう(0)</rt></ruby>の</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby><ruby>決議<rt>けつぎ(0)</rt></ruby>は、</u> <u><ruby>特定<rt>とくてい(0)</rt></ruby>の</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>とそれ</u> <u><ruby>以外<rt>いがい(0)</rt></ruby>の</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby>との</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>で</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>なく</u> <u><ruby>異<rt>こと(0)</rt></ruby>なる</u> <u><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>をする</u> <u>ものであり、</u> <u>その</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>が</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>し、</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>であるとする</u> <u><ruby>東京<rt>とうきょう(0)</rt></ruby><ruby>地判<rt>ちはん(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby>25・</u> <u>7・</u> <u>17</u> <u>（</u> <u><ruby>平<rt>たいら(1)</rt></ruby> </u> <u>24</u> <u>（</u> <u>14943<ruby>号<rt>ごう(1)</rt></ruby>・</u> <u><ruby>同<rt>どう(1)</rt></ruby>25477<ruby>号<rt>ごう(1)</rt></ruby>・</u> <u><ruby>同<rt>どう(1)</rt></ruby>35678<ruby>号<rt>ごう(1)</rt></ruby>）</u> <u>，</u> <u><ruby>非公開<rt>ひこうかい(0)</rt></ruby><ruby>会社<rt>かいしゃ(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>経営<rt>けいえい(0)</rt></ruby><ruby>陣<rt>じん(1)</rt></ruby>に</u> <u><ruby>敵対<rt>てきたい(0)</rt></ruby>する</u> <u><ruby>特定<rt>とくてい(0)</rt></ruby>の</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>に</u> <u>ついてのみ</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>議決権<rt>ぎけつけん(3)</rt></ruby>・</u> <u><ruby>剰余金<rt>じょうよきん(0)</rt></ruby><ruby>配当<rt>はいとう(0)</rt></ruby><ruby>請求権<rt>せいきゅうけん(0)</rt></ruby>を</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の<ruby>約<rt>やく(1)</rt></ruby>100<ruby>分<rt>ぶん(1)</rt></ruby>の</u> <u>1に</u> <u><ruby>縮減<rt>しゅくげん(0)</rt></ruby>する</u> <u><ruby>属人的<rt>ぞくじんてき(0)</rt></ruby><ruby>定<rt>さだ(0)</rt></ruby>め</u> <u>（</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby> </u> <u>109<ruby>条<rt>じょう(1)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>を</u> <u><ruby>設<rt>もう(0)</rt></ruby>ける</u> <u><ruby>定款<rt>ていかん(0)</rt></ruby><ruby>変更<rt>へんこう(0)</rt></ruby>の</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby><ruby>決議<rt>けつぎ(0)</rt></ruby>は、</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>が</u> <u><ruby>正当性<rt>せいとうせい(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>き、</u> <u><ruby>手段<rt>しゅだん(0)</rt></ruby>としても</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>くから、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>趣旨<rt>しゅし(1)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>し、</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>であるとする</u> <u><ruby>東京<rt>とうきょう(0)</rt></ruby><ruby>地<rt>ち(0)</rt></ruby><ruby>立川<rt>たちかわ(0)</rt></ruby><ruby>支判<rt>しはん(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby> </u> <u>25・</u> <u>9・</u> <u>25<ruby>金判<rt>きんはん(0)</rt></ruby>1518<ruby>号<rt>ごう(1)</rt></ruby>54<ruby>頁<rt>ぺーじ(1)</rt></ruby>などがある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">在非公開公司中，僅以特定股份轉讓為對象、增設「視為已獲得董事會轉讓承認」規範之定款變更股東總會決議，係在特定股份與其他股份之間無合理理由而為不同對待，其內容違反股東平等原則而應屬無效（東京地判平成25年7月17日）；此外，在非公開公司中，僅針對與經營陣營敵對之特定股東，將其股東總會議決權及盈餘分派請求權縮減為過往約百份之一的屬人規定（公司法第109條第2項）之定款變更決議，因目的欠缺正當性且手段欠缺相當性，違反股東平等原則之旨趣而無效（東京地立川支判平成25年9月25日）。</div>
+            </div>
+        </article>
+        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>2. </u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>柔軟<rt>じゅうなん(0)</rt></ruby><ruby>化<rt>か(0)</rt></ruby></u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby>1で<ruby>見<rt>み(0)</rt></ruby>た</u> <u><ruby>例<rt>れい(1)</rt></ruby>の</u> <u><ruby>多<rt>おお(0)</rt></ruby>くは、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>は</u> <u><ruby>許<rt>ゆる(0)</rt></ruby>されないと</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられてきた</u> <u><ruby>行為<rt>こうい(0)</rt></ruby>が、</u> <u><ruby>規制緩和<rt>きせいかんわ(0)</rt></ruby>に</u> <u>より</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby>の</u> <u><ruby>多数決<rt>たすうけつ(3)</rt></ruby>で</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われる</u> <u>ようになった</u> <u>ことで、</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>が</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>持ち出し<rt>もちだし(0)</rt></ruby>て</u> <u><ruby>対抗<rt>たいこう(0)</rt></ruby>すると</u> <u>いう</u> <u>ものである。</u> <u><ruby>結論<rt>けつろん(0)</rt></ruby>として</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>反<rt>はん(0)</rt></ruby>すると</u> <u><ruby>認<rt>みと(0)</rt></ruby>められた</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>もあり，</u> <u><ruby>実際<rt>じっさい(0)</rt></ruby>に</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>役割<rt>やくわり(0)</rt></ruby>を<ruby>果<rt>は(0)</rt></ruby>たしている。</u> <u>この</u> <u>ように、</u> <u><ruby>規制緩和<rt>きせいかんわ(0)</rt></ruby>に</u> <u><ruby>伴<rt>ともな(0)</rt></ruby>い</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じ<ruby>得<rt>え(0)</rt></ruby>る、</u> <u><ruby>法制度<rt>ほうせいど(0)</rt></ruby>の</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>利用<rt>りよう(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>対抗<rt>たいこう(0)</rt></ruby><ruby>法理<rt>ほうり(0)</rt></ruby>として</u> <u><ruby>幅広<rt>はばひろ(0)</rt></ruby>く</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>用<rt>もち(0)</rt></ruby>いるならば、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>一切<rt>いっさい(0)</rt></ruby></u> <u><ruby>認<rt>みと(0)</rt></ruby>めないとするのは</u> <u><ruby>妥当<rt>だとう(0)</rt></ruby>ではない。</u> <u><ruby>当然<rt>とうぜん(0)</rt></ruby>の</u> <u>ことながら、</u> <u><ruby>制度<rt>せいど(1)</rt></ruby><ruby>目的<rt>もくてき(0)</rt></ruby>に</u> <u><ruby>沿<rt>そ(0)</rt></ruby>った</u> <u><ruby>正当<rt>せいとう(0)</rt></ruby>な</u> <u><ruby>行為<rt>こうい(0)</rt></ruby>である</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>もあるからである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">2. 股東平等原則之柔軟化：前述第1點所見的許多例子，係過往被認為不被允許的行為，因法規鬆綁而得以透過股東總會多數決進行，致使遭受不利益的股東主張股東平等原則予以對抗。在結論上亦有裁判例認定違反股東平等原則，實際上發揮了重要功能。如此，若將股東平等原則廣泛用作對抗伴隨法規鬆綁可能產生之法制度濫用行為的對抗法理，則一概不承認股東間的不平等對待實非妥當。因為理所當然地，該行為亦有可能屬於符合制度目的之正當行為。</div>
+            </div>
+        </article>
+        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>その</u> <u>ため、</u> <u><ruby>既<rt>すで(0)</rt></ruby>に</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>で</u> <u><ruby>広<rt>ひろ(0)</rt></ruby>く</u> <u><ruby>認<rt>みと(0)</rt></ruby>められている</u> <u>ように</u> <u>（</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby><ruby>皿<rt>さら(1)</rt></ruby>I ，</u> <u><ruby>必要性<rt>ひつようせい(0)</rt></ruby>の</u> <u><ruby>要件<rt>ようけん(3)</rt></ruby>と</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>の</u> <u><ruby>要件<rt>ようけん(3)</rt></ruby>に</u> <u>より</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby><ruby>理由<rt>りゆう(0)</rt></ruby>のある</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>か</u> <u><ruby>否<rt>いな(1)</rt></ruby>かを</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>すべきである。</u> <u>また、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby><ruby>違反<rt>いはん(0)</rt></ruby>の</u> <u><ruby>効果<rt>こうか(1)</rt></ruby>は、</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby>には</u> <u><ruby>一律<rt>いちりつ(0)</rt></ruby>に</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>と</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられてきたし</u> <u>（</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby> ，</u> <u><ruby>今<rt>いま(1)</rt></ruby>でもそれが</u> <u><ruby>通説<rt>つうせつ(0)</rt></ruby>である。</u> <u>しかし、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を、</u> <u><ruby>法制度<rt>ほうせいど(0)</rt></ruby>の</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>対抗<rt>たいこう(0)</rt></ruby><ruby>法理<rt>ほうり(0)</rt></ruby>として</u> <u><ruby>幅広<rt>はばひろ(0)</rt></ruby>く</u> <u><ruby>利用<rt>りよう(0)</rt></ruby>するなら、</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby><ruby>行為<rt>こうい(0)</rt></ruby>の</u> <u><ruby>法的<rt>ほうてき(0)</rt></ruby></u> <u><ruby>性質<rt>せいしつ(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて、</u> <u><ruby>違反<rt>いはん(0)</rt></ruby><ruby>時<rt>じ(0)</rt></ruby>の</u> <u><ruby>効果<rt>こうか(1)</rt></ruby>を</u> <u><ruby>異<rt>こと(0)</rt></ruby>ならせるべきである。</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>の</u> <u><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u><ruby>瑕疵<rt>かし(1)</rt></ruby>がある</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>が</u> <u><ruby>用意<rt>ようい(0)</rt></ruby>する</u> <u><ruby>法的<rt>ほうてき(0)</rt></ruby></u> <u><ruby>救済<rt>きゅうさい(0)</rt></ruby>の</u> <u><ruby>態様<rt>たいよう(0)</rt></ruby>は</u> <u><ruby>様々<rt>さまざま(0)</rt></ruby>であり、</u> <u><ruby>類似<rt>るいじ(0)</rt></ruby>する</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>との</u> <u>バランスを</u> <u><ruby>図<rt>はか(0)</rt></ruby>る</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>があるからである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">因此，正如學説已廣為認可者，應依據必要性要件與相當性要件，判斷是否屬於具有合理理由的不平等對待。此外，關於違反股東平等原則之效果，傳統上雖然一律視為無效，至今亦為通説；然而，若將股東平等原則廣泛用作對抗法制度濫用的對抗法理，則應依據濫用行為之法律性質，使違反時的效果有所差異。因為在公司行為存有瑕疵時，公司法所準備的法律救濟態樣多種多樣，有必要與類似的其他情境保持平衡。</div>
+            </div>
+        </article>
+        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby><ruby>決議<rt>けつぎ(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>が</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>に</u> <u><ruby>違反<rt>いはん(0)</rt></ruby>すると</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>される</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>に、</u> <u>その</u> <u><ruby>瑕疵<rt>かし(1)</rt></ruby>が</u> <u><ruby>特別<rt>とくべつ(0)</rt></ruby></u> <u><ruby>利害関係<rt>りがいかんけい(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>議決権<rt>ぎけつけん(3)</rt></ruby><ruby>行使<rt>こうし(0)</rt></ruby>に</u> <u>よる</u> <u><ruby>著<rt>いちじる(0)</rt></ruby>しく</u> <u><ruby>不当<rt>ふとう(0)</rt></ruby>な</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>の</u> <u><ruby>決議<rt>けつぎ(0)</rt></ruby>と</u> <u><ruby>同等<rt>どうとう(0)</rt></ruby>の</u> <u>ものと</u> <u><ruby>評価<rt>ひょうか(0)</rt></ruby>されるなら、</u> <u><ruby>株主総会<rt>かぶぬしそうかい(4)</rt></ruby><ruby>決議<rt>けつぎ(0)</rt></ruby>の</u> <u><ruby>無効<rt>むこう(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>ではなく、</u> <u><ruby>取消<rt>とりけし(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>と</u> <u><ruby>解<rt>かい(0)</rt></ruby>すべきである 。</u> <u>3<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>理論的<rt>りろんてき(0)</rt></ruby><ruby>根拠<rt>こんきょ(0)</rt></ruby>・</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>の</u> <u><ruby>再検討<rt>さいけんとう(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u>ように</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>する</u> <u>とき、</u> <u><ruby>改<rt>あらた(0)</rt></ruby>めて</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>すべきは、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>理論的<rt>りろんてき(0)</rt></ruby><ruby>根拠<rt>こんきょ(0)</rt></ruby>である。</u> <u><ruby>伝統的<rt>でんとうてき(0)</rt></ruby><ruby>見解<rt>けんかい(0)</rt></ruby></u> <u>および</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby></u> <u>（</u> <u><ruby>前掲<rt>ぜんけい(0)</rt></ruby><ruby>最決<rt>さいけつ(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby> </u> <u>19・</u> <u>8・は、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>を</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>に</u> <u><ruby>求<rt>もと(0)</rt></ruby>め、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>であっても、</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>に</u> <u><ruby>合致<rt>がっち(1)</rt></ruby>する</u> <u><ruby>範囲<rt>はんい(0)</rt></ruby><ruby>内<rt>ない(1)</rt></ruby>であれば</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>されると</u> <u><ruby>考<rt>かんが(0)</rt></ruby>える。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">例如，在判斷股東總會決議內容違反股東平等原則時，若該瑕疵被評價為等同於因特別利害關係股東行使議決權致決議內容顯著不當者，則應解為屬於股東總會決議之撤銷事由，而非無效事由。3. 股東平等原則理論根基與功能之再檢討：當以上述方式理解股東平等原則時，應重新討論者乃股東平等原則的理論根基。傳統見解及判例（前揭最高裁決定平成19年8月7日）將股東平等原則之根基歸於衡平理念，認為即便屬於股東間之不平等對待，只要在符合衡平理念之範圍內即屬許容。</div>
+            </div>
+        </article>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>そうだとすれば、</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>か</u> <u><ruby>否<rt>いな(1)</rt></ruby>かが</u> <u><ruby>本質的<rt>ほんしつてき(0)</rt></ruby><ruby>問題<rt>もんだい(0)</rt></ruby>である。</u> <u>「</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>」</u> <u>と</u> <u>いう</u> <u><ruby>中間<rt>ちゅうかん(0)</rt></ruby><ruby>概念<rt>がいねん(1)</rt></ruby>を</u> <u><ruby>介在<rt>かいざい(0)</rt></ruby>させる</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>は、</u> <u>どこにあるのだろうか。</u> <u><ruby>正義<rt>せいぎ(1)</rt></ruby>・</u> <u><ruby>衡平<rt>こうへい(0)</rt></ruby>の</u> <u><ruby>理念<rt>りねん(0)</rt></ruby>の</u> <u><ruby>抽象<rt>ちゅうしょう(0)</rt></ruby><ruby>性<rt>せい(1)</rt></ruby>を</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>する<ruby>有<rt>ゆう(1)</rt></ruby><ruby>力説<rt>りきせつ(0)</rt></ruby></u> <u>（</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby>I も、</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>経済的利益<rt>けいざいてきりえき(0)</rt></ruby>の</u> <u><ruby>保護<rt>ほご(1)</rt></ruby>と</u> <u>いう</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>を</u> <u><ruby>重視<rt>じゅうし(0)</rt></ruby>するとしても ，</u> <u>「</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>」</u> <u>と</u> <u>いう</u> <u><ruby>形態<rt>けいたい(0)</rt></ruby>で</u> <u><ruby>経済的利益<rt>けいざいてきりえき(0)</rt></ruby>の</u> <u><ruby>侵害<rt>しんがい(0)</rt></ruby>が</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われる</u> <u>ときに</u> <u><ruby>限<rt>かぎ(0)</rt></ruby>って</u> <u><ruby>特<rt>とく(0)</rt></ruby>に</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>を</u> <u><ruby>保護<rt>ほご(1)</rt></ruby>すべき</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>は</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかではない。</u> <u>この</u> <u>ほか、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>を、</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>投資<rt>とうし(0)</rt></ruby>の</u> <u><ruby>収益<rt>しゅうえき(0)</rt></ruby>の</u> <u><ruby>予測<rt>よそく(0)</rt></ruby><ruby>可能性<rt>かのうせい(0)</rt></ruby>を</u> <u><ruby>高<rt>たか(0)</rt></ruby>め、</u> <u><ruby>株式<rt>かぶしき(0)</rt></ruby><ruby>投資<rt>とうし(0)</rt></ruby>を</u> <u><ruby>促<rt>うなが(0)</rt></ruby>す</u> <u>ことに</u> <u><ruby>求<rt>もと(0)</rt></ruby>める</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>もある。</u> <u>もし、</u> <u>その</u> <u><ruby>予測<rt>よそく(0)</rt></ruby><ruby>可能性<rt>かのうせい(0)</rt></ruby>を</u> <u><ruby>最大限<rt>さいだいげん(0)</rt></ruby>に</u> <u><ruby>高<rt>たか(0)</rt></ruby>めるなら、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>一切<rt>いっさい(0)</rt></ruby></u> <u><ruby>禁<rt>きん(0)</rt></ruby>じた</u> <u><ruby>方<rt>ほう(1)</rt></ruby>がよいだろう。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">若然，是否符合衡平即為本質問題。介入「不平等對待」此一中間概念的理由究竟何在？批判正義與衡平理念過於抽象的有力説，即便重視例如保護股東經濟利益之觀點，僅在以「不平等對待」之形態進行經濟利益侵害時特別保護股東的理由亦不彰顯。此外，亦有見解將股東平等原則之根基求諸於提高股票投資收益之預測可能性、進而促進股票投資。若要將該預測可能性提高至最大限度，則一概禁止股東間之不平等對待反而較佳。</div>
+            </div>
+        </article>
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>しかし、</u> <u>この</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>は、</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby><ruby>理由<rt>りゆう(0)</rt></ruby>のある</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>は</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>されるとし、</u> <u>その</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>を</u> <u>「</u> <u><ruby>実際<rt>じっさい(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>不都合<rt>ふつごう(0)</rt></ruby>」</u> <u>に</u> <u><ruby>求<rt>もと(0)</rt></ruby>める。</u> <u>この</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>に</u> <u>よれば、</u> <u>どのような</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>なら</u> <u><ruby>許容<rt>きょよう(0)</rt></ruby>し<ruby>得<rt>え(0)</rt></ruby>るのかは、</u> <u><ruby>具体的<rt>ぐたいてき(0)</rt></ruby>な</u> <u>「</u> <u><ruby>不都合<rt>ふつごう(0)</rt></ruby>」</u> <u>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じて、</u> <u>アドホックに</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>する</u> <u>ほかないと</u> <u>いう</u> <u>ことになり</u> <u>そうである。</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>の</u> <u><ruby>筆者<rt>ひっしゃ(1)</rt></ruby>は、</u> <u><ruby>次<rt>つぎ(1)</rt></ruby>の</u> <u>ように</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えている。</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>は、</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby><ruby>機関<rt>きかん(0)</rt></ruby>の</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby><ruby>裁量<rt>さいりょう(0)</rt></ruby>を</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>として</u> <u><ruby>尊重<rt>そんちょう(0)</rt></ruby>すべきであるが、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>利害<rt>りがい(0)</rt></ruby><ruby>対立<rt>たいりつ(0)</rt></ruby>の</u> <u><ruby>結果<rt>けっか(1)</rt></ruby>、</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby>の</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>を</u> <u><ruby>増進<rt>ぞうしん(0)</rt></ruby>させず、</u> <u>むしろ</u> <u><ruby>差別的<rt>さべつてき(0)</rt></ruby>に</u> <u><ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>れる</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>に</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を</u> <u>もたらすに<ruby>過<rt>す(0)</rt></ruby>ぎない</u> <u>ものである</u> <u><ruby>恐<rt>おそ(0)</rt></ruby>れが</u> <u><ruby>構造的<rt>こうぞうてき(0)</rt></ruby>に</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>する</u> <u><ruby>決定<rt>けってい(0)</rt></ruby>に</u> <u>ついては、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby><ruby>機関<rt>きかん(0)</rt></ruby>の</u> <u><ruby>決定<rt>けってい(0)</rt></ruby>に</u> <u><ruby>積極的<rt>せっきょくてき(0)</rt></ruby>に</u> <u><ruby>介入<rt>かいにゅう(0)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，該見解亦承認具有合理理由之不平等對待係屬許容，並將其理由求諸於「實務上之不便」。依此見解，究竟何種不平等對待始屬許容，似乎只能依據具體的「不便」進行 Ad-Hoc 之個別判斷。本篇論文作者之考量如下：法院原則上應尊重公司機關之判斷裁量；然而，因股東間利害對立之結果，結構上存有「無法增進公司利益、反倒僅為遭差別對待之股東帶來不利益」之虞的決定，法院即有必要積極介入公司機關之決定。</div>
+            </div>
+        </article>
+        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>間<rt>かん(1)</rt></ruby>の</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>を</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>とする</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby><ruby>機関<rt>きかん(0)</rt></ruby>の</u> <u><ruby>決定<rt>けってい(0)</rt></ruby>は、</u> <u><ruby>有利<rt>ゆうり(0)</rt></ruby>に</u> <u><ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>れる</u> <u><ruby>多数派<rt>たすうは(0)</rt></ruby><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>私的<rt>してき(0)</rt></ruby></u> <u><ruby>利益<rt>りえき(1)</rt></ruby>を</u> <u><ruby>増進<rt>ぞうしん(0)</rt></ruby>させる</u> <u><ruby>一方<rt>いっぽう(0)</rt></ruby>で、</u> <u><ruby>不利<rt>ふり(1)</rt></ruby>に</u> <u><ruby>取り扱わ<rt>とりあつかわ(0)</rt></ruby>れる</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby>の</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>を</u> <u><ruby>十分<rt>じゅうぶん(0)</rt></ruby>に</u> <u><ruby>顧慮<rt>こりょ(1)</rt></ruby>しなかった</u> <u><ruby>危険性<rt>きけんせい(0)</rt></ruby>がある。</u> <u>その</u> <u>ため、</u> <u>「</u> <u><ruby>不平等<rt>ふびょうどう(2)</rt></ruby><ruby>取扱い<rt>とりあつかい(0)</rt></ruby>」</u> <u>は、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>会社<rt>かいしゃ(0)</rt></ruby><ruby>機関<rt>きかん(0)</rt></ruby>の</u> <u><ruby>決定<rt>けってい(0)</rt></ruby>の</u> <u><ruby>合理性<rt>ごうりせい(0)</rt></ruby>を</u> <u><ruby>積極的<rt>せっきょくてき(0)</rt></ruby>に</u> <u><ruby>審査<rt>しんさ(0)</rt></ruby>すべき</u> <u><ruby>場面<rt>ばめん(0)</rt></ruby>を</u> <u><ruby>取捨<rt>しゅしゃ(1)</rt></ruby><ruby>選択<rt>せんたく(0)</rt></ruby>する</u> <u>メルクマールとなる。</u> <u><ruby>一般<rt>いっぱん(0)</rt></ruby><ruby>原則<rt>げんそく(0)</rt></ruby>としての</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>は、</u> <u><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u>ような</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>で、</u> <u><ruby>法制度<rt>ほうせいど(0)</rt></ruby>の</u> <u><ruby>濫用<rt>らんよう(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>利用<rt>りよう(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>対抗<rt>たいこう(0)</rt></ruby><ruby>法理<rt>ほうり(0)</rt></ruby>として</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>する、</u> <u>と。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">以股東間不平等對待為內容之公司機關決定，在增進獲得有利對待之多數派股東私益的同時，存有未充分顧及遭受不利對待股東不利益之危險。因此，「不平等對待」成為法院取捨是否應積極審查公司機關決定合理性情境之基準（Merkmal）。作為一般原則之股東平等原則，在此種意義下發揮著對抗法制度濫用性利用之對抗法理功能。</div>
+            </div>
+        </article>
+        <section id="card-24" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">★おわりに<ruby>本稿<rt>ほんこう(0)</rt></ruby>では，<ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の<ruby>原則<rt>げんそく(0)</rt></ruby>の<ruby>意義<rt>いぎ(1)</rt></ruby>と<ruby>機能<rt>きのう(1)</rt></ruby>について、<ruby>学説<rt>がくせつ(0)</rt></ruby>・<ruby>裁判<rt>さいばん(2)</rt></ruby><ruby>例<rt>れい(1)</rt></ruby>・<ruby>立法<rt>りっぽう(0)</rt></ruby>の<ruby>展開<rt>てんかい(0)</rt></ruby>を<ruby>踏<rt>ふ(0)</rt></ruby>まえて<ruby>解説<rt>かいせつ(0)</rt></ruby>した。</h2>
+                <button onclick="playCardText(24)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">★ 結語：在本篇論文中，基於學説、裁判例與立法之展開，對股東平等原則之意義與功能進行了講解。</div>
+        </section>
+        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>なお、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>が</u> <u>かかわる</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>制度<rt>せいど(1)</rt></ruby>は</u> <u><ruby>多種<rt>たしゅ(1)</rt></ruby></u> <u><ruby>多様<rt>たよう(0)</rt></ruby>であるが</u> <u>（</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば，</u> <u><ruby>種類<rt>しゅるい(0)</rt></ruby><ruby>株式<rt>かぶしき(0)</rt></ruby>キャッシュ・</u> <u>アウト、</u> <u>・・・などなど）</u> <u>、</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>では、</u> <u><ruby>字数<rt>じすう(0)</rt></ruby>の</u> <u><ruby>制約<rt>せいやく(0)</rt></ruby>がある</u> <u>ため、</u> <u>その</u> <u><ruby>説明<rt>せつめい(0)</rt></ruby>を</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>な</u> <u><ruby>教科書<rt>きょうかしょ(3)</rt></ruby>に</u> <u><ruby>委<rt>ゆだ(0)</rt></ruby>ねる</u> <u>こととした。</u> <u>これは、</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>では、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby></u> <u>その</u> <u>ものの</u> <u><ruby>解説<rt>かいせつ(0)</rt></ruby>に</u> <u><ruby>専念<rt>せんねん(0)</rt></ruby>した</u> <u><ruby>方<rt>ほう(1)</rt></ruby>が</u> <u><ruby>有益<rt>ゆうえき(0)</rt></ruby>であると</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えた</u> <u>ことに</u> <u>よる。</u> <u><ruby>教科書<rt>きょうかしょ(3)</rt></ruby>で</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>を</u> <u><ruby>深<rt>こし(1)</rt></ruby></u> <u><ruby>掘<rt>ほ(0)</rt></ruby>りする</u> <u>ことは</u> <u><ruby>少<rt>すく(0)</rt></ruby>ないし、</u> <u><ruby>教科書<rt>きょうかしょ(3)</rt></ruby><ruby>以外<rt>いがい(0)</rt></ruby>を</u> <u><ruby>見渡<rt>みわた(0)</rt></ruby>しても、</u> <u><ruby>株主<rt>かぶぬし(2)</rt></ruby><ruby>平等<rt>びょうどう(0)</rt></ruby>の</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>の</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>と</u> <u><ruby>機能<rt>きのう(1)</rt></ruby>に</u> <u>ついて、</u> <u><ruby>過去<rt>かこ(1)</rt></ruby>から</u> <u><ruby>現在<rt>げんざい(0)</rt></ruby>に</u> <u><ruby>至<rt>いた(0)</rt></ruby>るまでの</u> <u><ruby>展開<rt>てんかい(0)</rt></ruby>を</u> <u><ruby>簡潔<rt>かんけつ(0)</rt></ruby>に</u> <u><ruby>解説<rt>かいせつ(0)</rt></ruby>した</u> <u><ruby>文献<rt>ぶんけん(0)</rt></ruby>は</u> <u><ruby>少<rt>すく(0)</rt></ruby>ないからである。</u> <u>その</u> <u>ため、</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>は、</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>初学<rt>しょがく(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>には</u> <u><ruby>分<rt>わ(0)</rt></ruby>かりにくく、</u> <u><ruby>難解<rt>なんかい(0)</rt></ruby>である</u> <u>ように</u> <u><ruby>思<rt>おも(0)</rt></ruby>う。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">再者，涉及股東平等原則之公司法上制度多種多樣（例如種類株式、Cash-Out等），但本篇論文因篇幅限制，將該等說明委由一般教科書處理。此乃因筆者認為在本篇論文中專注於股東平等原則本身之講解更具效益。因為在教科書中深掘股東平等原則者甚少，且即便放眼教科書之外，簡潔講解股東平等原則之意義與功能自過去至現在展開之文獻亦屬罕見。因此，本篇論文對於公司法初學者而言或許較難理解且顯得難解。</div>
+            </div>
+        </article>
+        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>をお<ruby>読<rt>よ(0)</rt></ruby>みいただいた</u> <u><ruby>初学<rt>しょがく(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>の</u> <u><ruby>皆<rt>みな(1)</rt></ruby>さんには、</u> <u><ruby>現時点<rt>げんじてん(0)</rt></ruby>で</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>が</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>できなくても、</u> <u>めげる</u> <u>ことなく</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>学習<rt>がくしゅう(0)</rt></ruby>を</u> <u><ruby>進<rt>すす(0)</rt></ruby>めて<ruby>欲<rt>ほ(0)</rt></ruby>しい。</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>を</u> <u><ruby>一通<rt>ひととお(0)</rt></ruby>り<ruby>学習<rt>がくしゅう(0)</rt></ruby>した</u> <u><ruby>上<rt>うえ(1)</rt></ruby>で、</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>を</u> <u><ruby>読み返し<rt>よみかえし(0)</rt></ruby>てもらえば、</u> <u><ruby>会社法<rt>かいしゃほう(0)</rt></ruby>の</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>が</u> <u><ruby>深<rt>ふか(0)</rt></ruby>まる</u> <u>はずである。</u> <u>（やました・</u> <u>てつや）</u> <u><ruby>血<rt>ち(0)</rt></ruby></u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">希望閱讀本篇論文的初學者們，即便現階段無法完全理解本篇論文之內容，亦切勿氣餒，請繼續推進公司法之學習。在對公司法進行一輪學習後，若重新閱讀本篇論文，必定能加深對公司法之理解。（山下徹哉）</div>
+            </div>
+        </article>
+                </main>
+
+                <!-- Footer -->
+                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
+                    <p>SPECIAL FEATURE 商法「株主平等の原則」 — 左右對照朗讀與翻譯版</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Audio Control Bar -->
+    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+        <div class="flex items-center space-x-3">
+            <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
+                <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg id="icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <button onclick="stopSpeech()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold p-2.5 rounded-xl border border-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+            </button>
+            <div class="text-xs sm:text-sm">
+                <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <label class="text-xs text-slate-400 select-none hidden sm:inline">語速</label>
+            <select id="select-rate" onchange="changeRate()" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500">
+                <option value="0.75">0.75x</option>
+                <option value="1.0" selected>1.0x (標準)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <script>
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+        let playQueue = [];
+        let currentCardIndex = -1;
+        let isPlayingAll = false;
+        let speechRate = 1.0;
+        let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '商法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            
+            // Apply PDF Open Parameters
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            
+            // Apply CSS Scaling for smooth visual enhancement
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
+
+        function loadVoices() {
+            let voices = synth.getVoices();
+            japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja')) || null;
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+
+        function getCleanText(cardId) {
+            const cardEl = document.getElementById('card-' + cardId);
+            if (!cardEl) return '';
+            
+            let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
+            const clone = targetEl.cloneNode(true);
+            
+            const rts = clone.querySelectorAll('rt');
+            rts.forEach(rt => rt.remove());
+            
+            let text = clone.textContent || '';
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            return text;
+        }
+
+        function highlightCard(index) {
+            document.querySelectorAll('.playing-card').forEach(el => el.classList.remove('playing-card'));
+            if (index >= 0) {
+                const el = document.getElementById('card-' + index);
+                if (el) {
+                    el.classList.add('playing-card');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function updateUIState(playing) {
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const statusEl = document.getElementById('tts-status');
+            
+            if (playing) {
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                statusEl.textContent = '朗讀中...';
+            } else {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                statusEl.textContent = '已暫停 / 準備就緒';
+            }
+        }
+
+        function playCardText(index) {
+            stopSpeech();
+            isPlayingAll = false;
+            currentCardIndex = index;
+            const text = getCleanText(index);
+            if (!text) return;
+            
+            speakText(text, index, () => {
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '朗讀完成';
+            });
+        }
+
+        function speakText(text, cardIndex, onEndCallback) {
+            if (synth.speaking) synth.cancel();
+            
+            highlightCard(cardIndex);
+            updateUIState(true);
+            document.getElementById('tts-detail').textContent = text.substring(0, 30) + '...';
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'ja-JP';
+            if (japaneseVoice) currentUtterance.voice = japaneseVoice;
+            currentUtterance.rate = speechRate;
+            
+            currentUtterance.onend = function() {
+                if (onEndCallback) onEndCallback();
+            };
+            
+            currentUtterance.onerror = function(e) {
+                console.error('Speech synthesis error:', e);
+                highlightCard(-1);
+                updateUIState(false);
+            };
+            
+            synth.speak(currentUtterance);
+        }
+
+        function togglePlayAll() {
+            if (synth.speaking && isPlayingAll) {
+                if (synth.paused) {
+                    synth.resume();
+                    updateUIState(true);
+                } else {
+                    synth.pause();
+                    updateUIState(false);
+                }
+                return;
+            }
+            
+            stopSpeech();
+            isPlayingAll = true;
+            let totalCards = document.querySelectorAll('[id^="card-"]').length;
+            let queue = [];
+            for (let i = 0; i < totalCards; i++) {
+                queue.push(i);
+            }
+            
+            playNextInQueue(queue);
+        }
+
+        function playNextInQueue(queue) {
+            if (!isPlayingAll || queue.length === 0) {
+                isPlayingAll = false;
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '全文朗讀完畢';
+                return;
+            }
+            
+            let nextIndex = queue.shift();
+            currentCardIndex = nextIndex;
+            const text = getCleanText(nextIndex);
+            
+            if (!text) {
+                playNextInQueue(queue);
+                return;
+            }
+            
+            speakText(text, nextIndex, () => {
+                if (isPlayingAll) playNextInQueue(queue);
+            });
+        }
+
+        function stopSpeech() {
+            isPlayingAll = false;
+            if (synth.speaking || synth.paused) {
+                synth.cancel();
+            }
+            highlightCard(-1);
+            updateUIState(false);
+            document.getElementById('tts-detail').textContent = '已停止朗讀';
+        }
+
+        function changeRate() {
+            const select = document.getElementById('select-rate');
+            speechRate = parseFloat(select.value);
+            if (synth.speaking && currentCardIndex >= 0) {
+                let wasPlayingAll = isPlayingAll;
+                let cardToResume = currentCardIndex;
+                stopSpeech();
+                if (wasPlayingAll) {
+                    isPlayingAll = true;
+                    let totalCards = document.querySelectorAll('[id^="card-"]').length;
+                    let queue = [];
+                    for (let i = cardToResume; i < totalCards; i++) queue.push(i);
+                    playNextInQueue(queue);
+                } else {
+                    playCardText(cardToResume);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

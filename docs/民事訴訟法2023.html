@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPECIAL FEATURE 民事訴訟法「手続保障」 - 左右對照朗讀與翻譯版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f172a;
+            color: #1e293b;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif JP', "MS Mincho", serif;
+        }
+
+        .font-sans {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .jp-col {
+            font-size: 1.05rem;
+            line-height: 3.1;
+            letter-spacing: 0.02em;
+            word-break: break-word;
+            color: #0f172a;
+        }
+
+        ruby {
+            ruby-position: over;
+            display: inline-ruby;
+        }
+
+        rt {
+            font-size: 0.52em;
+            color: #475569;
+            letter-spacing: 0.01em;
+            font-weight: normal;
+            line-height: 1.0;
+            user-select: none;
+        }
+
+        u {
+            text-decoration: none;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 2px;
+        }
+
+        .zh-col {
+            font-size: 1.0rem;
+            line-height: 1.75;
+        }
+
+        .playing-card {
+            box-shadow: 0 0 0 3px #6366f1, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            background-color: #f5f3ff !important;
+        }
+    </style>
+</head>
+
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                SPECIAL FEATURE 民事訴訟法「手続保障」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
+                </span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                </div>
+            </div>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="民事訴訟法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
+
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        SPECIAL FEATURE 民事訴訟法「手続保障」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——手続保障の多様な機能 <span class="text-indigo-300/80 text-xs font-normal">（程序保障之多樣功能）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>長谷部由起子（学習院大学教授 / HASEBE Yukiko）
+                    </div>
+                </div>
+
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">SPECIAL FEATURE<ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>「<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」<ruby>学習院大学<rt>がくしゅういんだいがく(0)</rt></ruby><ruby>教授<rt>きょうじゅ(0)</rt></ruby><ruby>長谷部<rt>はせべ(0)</rt></ruby><ruby>由起子<rt>ゆきこ(0)</rt></ruby>HASEBE Yukikoはじめに「<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」については、<ruby>近年<rt>きんねん(0)</rt></ruby><ruby>多<rt>おお(0)</rt></ruby>くの<ruby>教科書<rt>きょうかしょ(3)</rt></ruby>で<ruby>触<rt>ふ(0)</rt></ruby>れられている。</h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 專題論文 民事訴訟法「程序保障」</div>
+        </section>
+        <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(1)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>法学部<rt>ほうがくぶ(0)</rt></ruby>で</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>を</u> <u><ruby>勉強<rt>べんきょう(0)</rt></ruby>した</u> <u>ことがある</u> <u><ruby>人<rt>ひと(0)</rt></ruby>には、</u> <u>なじみのある</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>であろう。</u> <u>そうであるだけに、</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>を</u> <u><ruby>深<rt>ふか(0)</rt></ruby>く</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>せず、</u> <u>に</u> <u><ruby>使<rt>つか(0)</rt></ruby>っている</u> <u>ことはないだろう</u> <u>かり。</u> <u>たしかに、</u> <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」</u> <u>は</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>に</u> <u>おける</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>の</u> <u>1つではある。</u> <u>しかし、</u> <u>「</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>」</u> <u>，</u> <u>「</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えの</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>」</u> <u>、</u> <u>「</u> <u><ruby>既判力<rt>きはんりょく(2)</rt></ruby>」</u> <u>などの</u> <u>ドイツ<ruby>法<rt>ほう(1)</rt></ruby>に</u> <u><ruby>淵源<rt>えんげん(0)</rt></ruby>のある</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>に</u> <u><ruby>比<rt>くら(0)</rt></ruby>べれば、</u> <u><ruby>歴史<rt>れきし(0)</rt></ruby>は</u> <u><ruby>浅<rt>あさ(0)</rt></ruby>い。</u> <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」</u> <u>と</u> <u>いう</u> <u><ruby>言葉<rt>ことば(0)</rt></ruby>が</u> <u><ruby>教科書<rt>きょうかしょ(3)</rt></ruby>で</u> <u><ruby>用<rt>もち(0)</rt></ruby>いられたのは、</u> <u>1974<ruby>年<rt>ねん(1)</rt></ruby>に</u> <u><ruby>刊行<rt>かんこう(0)</rt></ruby>された</u> <u><ruby>新堂<rt>しんどう(0)</rt></ruby><ruby>幸司<rt>こうじ(0)</rt></ruby></u> <u>『</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>』</u> <u>が</u> <u><ruby>最初<rt>さいしょ(0)</rt></ruby>だと</u> <u>いわれている？）</u> <u>。</u> <u><ruby>相対的<rt>そうたいてき(0)</rt></ruby>に</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しく、</u> <u>かつ、</u> <u><ruby>外国法<rt>がいこくほう(0)</rt></ruby>の</u> <u><ruby>直接的<rt>ちょくせつてき(0)</rt></ruby>な</u> <u><ruby>影響<rt>えいきょう(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u>ことなく</u> <u>わが</u> <u><ruby>国<rt>くに(1)</rt></ruby></u> <u><ruby>独自<rt>どくじ(0)</rt></ruby>の</u> <u><ruby>発展<rt>はってん(0)</rt></ruby>を</u> <u><ruby>遂<rt>と(0)</rt></ruby>げた</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>であるけれども、</u> <u>だからと</u> <u>いって、</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>よりも</u> <u><ruby>平明<rt>へいめい(0)</rt></ruby>で</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>しやすい</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>が</u> <u><ruby>展開<rt>てんかい(0)</rt></ruby>されてきたと</u> <u>いう</u> <u>わけではない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">前言：對於在法學部學習過民事訴訟法的人而言，「程序保障」想必是一個極為熟悉的概念。正因如此，若欲深入理解其內容，便需要相當程度的考量與研究。</div>
+            </div>
+        </article>
+        <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(2)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>むしろ、</u> <u><ruby>短<rt>みじか(0)</rt></ruby>い</u> <u><ruby>期間<rt>きかん(0)</rt></ruby>に</u> <u><ruby>多様<rt>たよう(0)</rt></ruby>な</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>が</u> <u><ruby>提唱<rt>ていしょう(0)</rt></ruby>された</u> <u><ruby>結果<rt>けっか(1)</rt></ruby>、</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>は</u> <u><ruby>複雑<rt>ふくざつ(0)</rt></ruby>になり、</u> <u><ruby>全体像<rt>ぜんたいぞう(0)</rt></ruby>が</u> <u><ruby>見<rt>み(0)</rt></ruby>えにくくなっている</u> <u>ように</u> <u><ruby>思<rt>おも(0)</rt></ruby>われる。</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u>めぐるこれまでの</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>を</u> <u><ruby>振り返れ<rt>ふりかえれ(0)</rt></ruby>ば、</u> <u><ruby>人<rt>ひと(0)</rt></ruby>が</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby>の</u> <u><ruby>主体<rt>しゅたい(1)</rt></ruby></u> <u>（</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>）</u> <u>たる</u> <u><ruby>地位<rt>ちい(1)</rt></ruby>につく</u> <u>ことに</u> <u>よって</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されるべき</u> <u><ruby>権利<rt>けんり(1)</rt></ruby></u> <u>（</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby><ruby>権<rt>けん(1)</rt></ruby>）</u> <u>に</u> <u><ruby>着眼<rt>ちゃくがん(0)</rt></ruby>する</u> <u>ことから</u> <u><ruby>始<rt>はじ(0)</rt></ruby>まり3，</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>十分<rt>じゅうぶん(0)</rt></ruby>な</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>が</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられた</u> <u>ことが、</u> <u><ruby>不利<rt>ふり(1)</rt></ruby>な</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>にも</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>は</u> <u><ruby>従<rt>したが(0)</rt></ruby>わなければならない</u> <u>ことを</u> <u><ruby>正当化<rt>せいとうか(0)</rt></ruby>すると</u> <u>いう</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>へと</u> <u><ruby>進<rt>すす(0)</rt></ruby>んできた。</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby><ruby>以外<rt>いがい(0)</rt></ruby>の</u> <u><ruby>者<rt>もの(1)</rt></ruby></u> <u>（</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>担当<rt>たんとう(0)</rt></ruby>に</u> <u>おける<ruby>被<rt>ひ(0)</rt></ruby><ruby>担当者<rt>たんとうしゃ(0)</rt></ruby>、</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>の</u> <u><ruby>承継人<rt>しょうけいにん(0)</rt></ruby>）</u> <u>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>既判力<rt>きはんりょく(2)</rt></ruby>の</u> <u><ruby>拡張<rt>かくちょう(0)</rt></ruby>の</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>としても、</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>の</u> <u><ruby>概念<rt>がいねん(1)</rt></ruby>が</u> <u><ruby>用<rt>もち(0)</rt></ruby>いられる</u> <u>ようになっている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">反倒係因在短時間內多種見解被提出，致使討論變得複雜，整體全貌似乎變得難以看清。在此情況下，重新整理程序保障之功能乃屬必要。</div>
+            </div>
+        </article>
+        <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(3)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>こうして</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>の</u> <u>ルートが</u> <u><ruby>開拓<rt>かいたく(0)</rt></ruby>されてきたならば、</u> <u>それに</u> <u><ruby>沿<rt>そ(0)</rt></ruby>って</u> <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>」</u> <u>を</u> <u><ruby>論<rt>ろん(0)</rt></ruby>じていく</u> <u>ことが、</u> <u><ruby>堅実<rt>けんじつ(0)</rt></ruby>で</u> <u><ruby>生産的<rt>せいさんてき(0)</rt></ruby>な</u> <u><ruby>議論<rt>ぎろん(0)</rt></ruby>を</u> <u><ruby>可能<rt>かのう(0)</rt></ruby>にする</u> <u>ように</u> <u><ruby>思<rt>おも(0)</rt></ruby>われる。</u> <u>すなわち、</u> <u><ruby>個別<rt>こべつ(0)</rt></ruby>の</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>して</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>があったか</u> <u><ruby>否<rt>いな(1)</rt></ruby>かを</u> <u><ruby>論<rt>ろん(0)</rt></ruby>ずるに</u> <u>あたっては、</u> <u>まず、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby><ruby>事案<rt>じあん(0)</rt></ruby>では</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u>どのような</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されるべき</u> <u>かっ</u> <u>そうした</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>がなかったのは</u> <u>どのような</u> <u><ruby>要因<rt>よういん(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づく</u> <u>ものかを</u> <u><ruby>分析<rt>ぶんせき(0)</rt></ruby>する</u> <u>ことから<ruby>始<rt>はじ(0)</rt></ruby>める。</u> <u>そして、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>いた</u> <u>まま、</u> <u>その</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>不利<rt>ふり(1)</rt></ruby>な</u> <u><ruby>扱<rt>あつか(0)</rt></ruby>いをする</u> <u>ことが</u> <u>はたして</u> <u><ruby>正当化<rt>せいとうか(0)</rt></ruby>されるのかを</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>していく</u> <u>ことになる。</u> <u>この</u> <u>ような</u> <u><ruby>考え方<rt>かんがえかた(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づいて、</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>に</u> <u>あらわれた</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>に</u> <u>アプローチしてみよう。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">若討論的路線已獲開拓，順著該路線來論述「程序保障」，便是一種堅實且具生產性的做法。以下將基於此種立場進行檢討。</div>
+            </div>
+        </article>
+        <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(4)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>なお、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>で</u> <u><ruby>引用<rt>いんよう(0)</rt></ruby>する</u> <u><ruby>条文<rt>じょうぶん(0)</rt></ruby>は、</u> <u><ruby>断<rt>ことわ(0)</rt></ruby>りのない</u> <u><ruby>限<rt>かぎ(0)</rt></ruby>り、</u> <u><ruby>令和<rt>れいわ(0)</rt></ruby>4<ruby>年<rt>ねん(1)</rt></ruby><ruby>改正<rt>かいせい(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>の</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>の</u> <u><ruby>条文<rt>じょうぶん(0)</rt></ruby>である。</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>の</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防御<rt>ぼうぎょ(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>の</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>1.</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>せずに</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>をする</u> <u>ことが</u> <u><ruby>違法<rt>いほう(0)</rt></ruby>とされる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>は、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>が</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>をするのに</u> <u><ruby>熱<rt>ねっ(0)</rt></ruby>した</u> <u>ときは、</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>終結<rt>しゅうけつ(0)</rt></ruby>して</u> <u><ruby>終局<rt>しゅうきょく(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>をする</u> <u>ことができる</u> <u>（</u> <u>213<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u> <u>いったん</u> <u><ruby>終結<rt>しゅうけつ(0)</rt></ruby>した</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>する</u> <u>こともできるが</u> <u>（</u> <u>153<ruby>条<rt>じょう(1)</rt></ruby>）</u> <u>，</u> <u>その</u> <u><ruby>要件<rt>ようけん(3)</rt></ruby>は</u> <u><ruby>法定<rt>ほうてい(0)</rt></ruby>されていない。</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby>・</u> <u><ruby>通説<rt>つうせつ(0)</rt></ruby>に</u> <u>よれば、</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>するか</u> <u><ruby>否<rt>いな(1)</rt></ruby>かは</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>の</u> <u><ruby>裁量<rt>さいりょう(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby></u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>に</u> <u><ruby>委<rt>ゆだ(0)</rt></ruby>ねられており、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>の</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>を</u> <u><ruby>申し立てる<rt>もうしたてる(0)</rt></ruby></u> <u><ruby>権利<rt>けんり(1)</rt></ruby>はないとされている</u> <u>5。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">再者，以下引用之條文若無特別說明，均為令和4年改正後之民事訴訟法條文。口頭辯論之再開——提出攻擊防禦方法機會之保障：1. 未再開辯論即為判決被視為違法之情形。法院於訴訟達於適於裁判之程度時，應終結口頭辯論（152條1項）。辯論終結後，若當事人提出再開辯論之聲請，是否再開辯論原則上屬於法院之裁量（153條）。</div>
+            </div>
+        </article>
+        <article id="card-5" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(5)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>もっとも、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>の</u> <u><ruby>裁量<rt>さいりょう(0)</rt></ruby>にも</u> <u><ruby>限界<rt>げんかい(0)</rt></ruby>はあり、</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>しない</u> <u>ことが</u> <u><ruby>違法<rt>いほう(0)</rt></ruby>とされる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>もある。</u> <u>この</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>に</u> <u>ついて、</u> <u><ruby>最判<rt>さいはん(0)</rt></ruby><ruby>昭和<rt>しょうわ(0)</rt></ruby>56・</u> <u>9・</u> <u>24</u> <u>（</u> <u><ruby>民集<rt>みんしゅう(0)</rt></ruby>35<ruby>巻<rt>かん(1)</rt></ruby>6<ruby>号<rt>ごう(1)</rt></ruby>1088<ruby>頁<rt>ぺーじ(1)</rt></ruby>）</u> <u>［</u> <u><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby><ruby>判例<rt>はんれい(0)</rt></ruby><ruby>百<rt>ひゃく(1)</rt></ruby><ruby>選<rt>せん(1)</rt></ruby>〔<ruby>第<rt>だい(1)</rt></ruby>5<ruby>版<rt>ばん(1)</rt></ruby>）</u> <u>41<ruby>事件<rt>じけん(0)</rt></ruby>］</u> <u>は</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u>ように</u> <u><ruby>述<rt>の(0)</rt></ruby>べて、</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>しなかった</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>措置<rt>そち(1)</rt></ruby>を</u> <u><ruby>違法<rt>いほう(0)</rt></ruby>であるとした。</u> <u>「〔</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>するか</u> <u><ruby>否<rt>いな(1)</rt></ruby>かに</u> <u>ついての</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>の）</u> <u><ruby>裁量権<rt>さいりょうけん(0)</rt></ruby>も</u> <u><ruby>絶対<rt>ぜったい(0)</rt></ruby><ruby>無制限<rt>むせいげん(0)</rt></ruby>の</u> <u>ものではなく、</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>して</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>更<rt>さら(0)</rt></ruby>に</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防禦<rt>ぼうぎょ(0)</rt></ruby>の</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>える</u> <u>ことが</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかに</u> <u><ruby>民事<rt>みんじ(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>手続的<rt>てつづきてき(0)</rt></ruby><ruby>正義<rt>せいぎ(1)</rt></ruby>の</u> <u><ruby>要求<rt>ようきゅう(0)</rt></ruby>する</u> <u>ところであると</u> <u><ruby>認<rt>みと(0)</rt></ruby>められる</u> <u>ような</u> <u><ruby>特段<rt>とくだん(0)</rt></ruby>の</u> <u><ruby>事由<rt>じゆう(0)</rt></ruby>がある</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>は</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>すべき</u> <u>ものであり、</u> <u>これをしないで</u> <u>そのまま<ruby>判決<rt>はんけつ(0)</rt></ruby>をするのは</u> <u><ruby>違法<rt>いほう(0)</rt></ruby>である</u> <u>ことを</u> <u><ruby>免<rt>まぬが(0)</rt></ruby>れない」</u> <u>。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，法院之裁量亦有其極限，有時不再開辯論亦會被認定為違法。關於此問題，最高裁判所昭和56年9月24日判決（民集35卷6號1088頁）［民事訴訟法判例百選第5版41事件］示有如下要旨。</div>
+            </div>
+        </article>
+        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>2.</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>の</u> <u><ruby>事実関係<rt>じじつかんけい(0)</rt></ruby>とそれに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>判示<rt>はんじ(0)</rt></ruby></u> <u>（ </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>の</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>の</u> <u><ruby>概要<rt>がいよう(0)</rt></ruby>は、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u>とおりである。</u> <u>A </u> <u>（</u> <u><ruby>原告<rt>げんこく(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>控訴人<rt>こうそにん(0)</rt></ruby>）</u> <u>は、</u> <u>Y</u> <u>（</u> <u><ruby>被告<rt>ひこく(0)</rt></ruby>・</u> <u><ruby>控訴人<rt>こうそにん(0)</rt></ruby>・</u> <u><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して、</u> <u>A<ruby>所有<rt>しょゆう(0)</rt></ruby>の</u> <u><ruby>不動産<rt>ふどうさん(0)</rt></ruby></u> <u>（</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>）</u> <u>に</u> <u>つきの</u> <u>ためにされた</u> <u><ruby>所有権<rt>しょゆうけん(3)</rt></ruby><ruby>移転<rt>いてん(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>、</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>はいずれも</u> <u><ruby>登記<rt>とうき(0)</rt></ruby><ruby>原因<rt>げんいん(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>き、</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>適合<rt>てきごう(0)</rt></ruby>しないと</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>して、</u> <u>これらの</u> <u><ruby>登記<rt>とうき(0)</rt></ruby>の</u> <u><ruby>抹消<rt>まっしょう(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>求<rt>もと(0)</rt></ruby>める</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えを</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した。</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yは、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>に</u> <u>より</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は</u> <u><ruby>実体<rt>じったい(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>に</u> <u><ruby>符合<rt>ふごう(0)</rt></ruby>する</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>な</u> <u>ものであると</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>した。</u> <u>（</u> <u>i）</u> <u> </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby>は、</u> <u>A</u> <u>または</u> <u>Aより</u> <u><ruby>一切<rt>いっさい(0)</rt></ruby>の</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられていた</u> <u>X</u> <u>（</u> <u>Aの</u> <u><ruby>養子<rt>ようし(0)</rt></ruby>・<ruby>被<rt>ひ(0)</rt></ruby><ruby>上告<rt>じょうこく(0)</rt></ruby><ruby>人<rt>ひと(0)</rt></ruby>）</u> <u>から</u> <u><ruby>代理権<rt>だいりけん(0)</rt></ruby>を</u> <u><ruby>授与<rt>じゅよ(1)</rt></ruby>された</u> <u>Bが、</u> <u>Yとの</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>で、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>につき</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>した</u> <u><ruby>譲渡<rt>じょうと(0)</rt></ruby><ruby>担保<rt>たんぽ(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>」</u> <u><ruby>抵当権<rt>ていとうけん(0)</rt></ruby><ruby>設定<rt>せってい(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>，</u> <u><ruby>代物<rt>しろもの(0)</rt></ruby><ruby>弁済<rt>べんさい(0)</rt></ruby><ruby>予約<rt>よやく(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>原因<rt>げんいん(0)</rt></ruby>とする</u> <u>ものである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">2. 本案事實關係與本判決之判示：本案事實概要如下。A（原告・被控訴人）對Y（被告・控訴人・上告人）提起訴訟，請求塗銷A所有不動產（本案不動產）移轉登記……</div>
+            </div>
+        </article>
+        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>（</u> <u><ruby>日<rt>にち(1)</rt></ruby>）</u> <u> </u> <u>かりに、</u> <u>Bが</u> <u><ruby>上記<rt>じょうき(0)</rt></ruby><ruby>各<rt>かく(1)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>の</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>に</u> <u>ついて</u> <u><ruby>代理権<rt>だいりけん(0)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>しなかったとしても、</u> <u>A</u> <u>または</u> <u>Aの</u> <u><ruby>代理人<rt>だいりにん(0)</rt></ruby>である</u> <u>Xは、</u> <u>Bに</u> <u>Aの</u> <u><ruby>実印<rt>じついん(0)</rt></ruby></u> <u>および</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>不動産<rt>ふどうさん(0)</rt></ruby>の</u> <u><ruby>権利証<rt>けんりしょう(0)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する</u> <u>ことに</u> <u>より、</u> <u>Bに</u> <u><ruby>代理権<rt>だいりけん(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えた</u> <u><ruby>旨<rt>むね(1)</rt></ruby>を</u> <u><ruby>表示<rt>ひょうじ(0)</rt></ruby>した。</u> <u>（</u> <u>m）</u> <u> </u> <u>かりに、</u> <u>（</u> <u>i）</u> <u>（</u> <u>i）</u> <u>の</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>が</u> <u><ruby>認<rt>みと(0)</rt></ruby>められないとしても、</u> <u>Aの</u> <u><ruby>代理人<rt>だいりにん(0)</rt></ruby>である</u> <u>Xは、</u> <u>Bに</u> <u><ruby>対<rt>たい(0)</rt></ruby>し、</u> <u>A<ruby>所有<rt>しょゆう(0)</rt></ruby>の</u> <u><ruby>土地<rt>とち(1)</rt></ruby>を</u> <u>C<ruby>株式会社<rt>かぶしきがいしゃ(0)</rt></ruby>に</u> <u><ruby>売り渡す<rt>うりわたす(0)</rt></ruby></u> <u><ruby>契約<rt>けいやく(0)</rt></ruby>の</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby></u> <u>および</u> <u>その</u> <u><ruby>所有権<rt>しょゆうけん(3)</rt></ruby><ruby>移転<rt>いてん(0)</rt></ruby><ruby>登記<rt>とうき(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>委任<rt>いにん(0)</rt></ruby>していた</u> <u>ところ、</u> <u>Bが</u> <u>その</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>を</u> <u><ruby>超<rt>こ(0)</rt></ruby>えて</u> <u>（</u> <u>i）</u> <u>の<ruby>各<rt>かく(1)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>した</u> <u>ものであるが、</u> <u>Yには</u> <u>Bに</u> <u><ruby>権限<rt>けんげん(0)</rt></ruby>があると</u> <u><ruby>言<rt>げん(1)</rt></ruby></u> <u>ずる</u> <u><ruby>正当<rt>せいとう(0)</rt></ruby>な</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>があった。</u> <u><ruby>第<rt>だい(1)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>審<rt>しん(1)</rt></ruby>は</u> <u>Aの</u> <u><ruby>請求<rt>せいきゅう(0)</rt></ruby>を</u> <u><ruby>認容<rt>にんよう(0)</rt></ruby>し、</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yが</u> <u><ruby>控訴<rt>こうそ(0)</rt></ruby>した。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">（ii）假定B就上述各契約之締結無代理權，A或A之代理人X交付A之實印及本案不動產權利書予B，亦已表示賦予B代理權之旨。（iii）……</div>
+            </div>
+        </article>
+        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>前<rt>まえ(1)</rt></ruby>の</u> <u><ruby>昭和<rt>しょうわ(0)</rt></ruby>54<ruby>年<rt>ねん(1)</rt></ruby>7<ruby>月<rt>がつ(1)</rt></ruby>15<ruby>日<rt>か(0)</rt></ruby>に、</u> <u>Aが</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>したが、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>がいた</u> <u>ため<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>は</u> <u><ruby>中断<rt>ちゅうだん(0)</rt></ruby>せず、</u> <u>かつ、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>承継<rt>しょうけい(0)</rt></ruby>の</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby>も</u> <u>とられなかったの。</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>は、</u> <u>Aを</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>とした</u> <u>まま、</u> <u><ruby>同年<rt>どうねん(0)</rt></ruby>10<ruby>月<rt>がつ(1)</rt></ruby>30<ruby>日<rt>にち(1)</rt></ruby>に</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>終結<rt>しゅうけつ(0)</rt></ruby>し、</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby><ruby>言渡<rt>いいわたし(1)</rt></ruby><ruby>期日<rt>きじつ(0)</rt></ruby>を</u> <u><ruby>同年<rt>どうねん(0)</rt></ruby>12<ruby>月<rt>がつ(1)</rt></ruby>25<ruby>日<rt>か(0)</rt></ruby>と</u> <u><ruby>指定<rt>してい(0)</rt></ruby>した。</u> <u>ところが</u> <u>Yは、</u> <u><ruby>同年<rt>どうねん(0)</rt></ruby>11<ruby>月<rt>がつ(1)</rt></ruby>7<ruby>日<rt>か(0)</rt></ruby>に、</u> <u>Aの</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>を</u> <u><ruby>知<rt>し(0)</rt></ruby>ったとして、</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>再開<rt>さいかい(0)</rt></ruby><ruby>申請書<rt>しんせいしょ(0)</rt></ruby>と</u> <u><ruby>題<rt>だい(0)</rt></ruby>する</u> <u><ruby>書面<rt>しょめん(0)</rt></ruby>を</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>に</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>し、</u> <u><ruby>同月<rt>どうげつ(0)</rt></ruby>14<ruby>日<rt>か(0)</rt></ruby>には、</u> <u>Aが</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>した</u> <u>ことを</u> <u><ruby>証<rt>しょう(0)</rt></ruby>する</u> <u><ruby>戸籍謄本<rt>こせきとうほん(0)</rt></ruby>を</u> <u><ruby>添付<rt>てんぷ(0)</rt></ruby>した</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>再<rt>さい(1)</rt></ruby><ruby>開申<rt>かいしん(0)</rt></ruby><ruby>立<rt>りつ(1)</rt></ruby><ruby>書<rt>しょ(0)</rt></ruby></u> <u>および</u> <u>Xは</u> <u>Aの</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>に</u> <u>より</u> <u><ruby>同人<rt>どうにん(0)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>義務<rt>ぎむ(1)</rt></ruby><ruby>一切<rt>いっさい(0)</rt></ruby>を</u> <u><ruby>承継<rt>しょうけい(0)</rt></ruby>したから</u> <u><ruby>自己<rt>じこ(1)</rt></ruby></u> <u>ないし</u> <u>Bの</u> <u><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u>つき</u> <u><ruby>責任<rt>せきにん(0)</rt></ruby>を</u> <u><ruby>負<rt>お(0)</rt></ruby>うべきである</u> <u><ruby>旨<rt>むね(1)</rt></ruby>を</u> <u><ruby>記載<rt>きさい(0)</rt></ruby>した</u> <u><ruby>準備<rt>じゅんび(0)</rt></ruby><ruby>書面<rt>しょめん(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>した。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於原審口頭辯論終結前之昭和54年7月15日A死亡，但因有訴訟代理人故訴訟程序未中斷，亦未採取訴訟承繼程序。原審在仍以A為當事人的情況下，於同年10月30日終結辯論……</div>
+            </div>
+        </article>
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>しかし</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>は、</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>せず、</u> <u>Yの</u> <u>（</u> <u>i）</u> <u>から</u> <u>（</u> <u>mi）</u> <u>の</u> <u><ruby>抗弁<rt>こうべん(0)</rt></ruby>を</u> <u>すべて<ruby>排斥<rt>はいせき(0)</rt></ruby>して、</u> <u>Yの</u> <u><ruby>控訴<rt>こうそ(0)</rt></ruby>を</u> <u><ruby>棄却<rt>ききゃく(0)</rt></ruby>した。</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yが</u> <u><ruby>上告<rt>じょうこく(0)</rt></ruby>した。</u> <u>（<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>に</u> <u>おいては</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u><ruby>事情<rt>じじょう(0)</rt></ruby>が</u> <u><ruby>認<rt>みと(0)</rt></ruby>められるとして、</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>としては、</u> <u>いったん</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>終結<rt>しゅうけつ(0)</rt></ruby>した</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>であっても</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>して、</u> <u>Yに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u>Yが</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>前<rt>まえ(1)</rt></ruby>に</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>する</u> <u>ことができなかった</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>を</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>え、</u> <u>これに</u> <u>ついて</u> <u><ruby>審理<rt>しんり(0)</rt></ruby>を</u> <u><ruby>遂<rt>と(0)</rt></ruby>げる</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby>がある、</u> <u>とした。</u> <u>① </u> <u>Yは、</u> <u>A が</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>前<rt>まえ(1)</rt></ruby>に</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>した</u> <u>ことを</u> <u><ruby>知<rt>し(0)</rt></ruby>らず、</u> <u>かつ、</u> <u><ruby>知<rt>し(0)</rt></ruby>らなかった</u> <u>ことにつき</u> <u><ruby>責<rt>せ(0)</rt></ruby>めに</u> <u><ruby>帰<rt>かえ(0)</rt></ruby>すべき</u> <u><ruby>事由<rt>じゆう(0)</rt></ruby>がない</u> <u>ことが</u> <u>うかがわれる</u> <u>こと。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而原審並未再開口頭辯論，排斥了Y之（i）至（iii）所有抗辯，判決駁回Y之控訴。Y對此提起上告。（本判決認在本案中存有如下情事，原審應再開辯論……）</div>
+            </div>
+        </article>
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>② </u> <u>Yが</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>再開<rt>さいかい(0)</rt></ruby>を</u> <u><ruby>申請<rt>しんせい(0)</rt></ruby>した</u> <u><ruby>理由<rt>りゆう(0)</rt></ruby>は、</u> <u>Aが</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>し</u> <u>Xが</u> <u>Aを</u> <u><ruby>相続<rt>そうぞく(0)</rt></ruby>した</u> <u>ことに</u> <u>より、</u> <u>Yが</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>した</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby></u> <u>（</u> <u>i）</u> <u>の</u> <u><ruby>表見<rt>ひょうけん(0)</rt></ruby><ruby>代理<rt>だいり(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>少<rt>すく(0)</rt></ruby>なくとも</u> <u><ruby>一部<rt>いちぶ(0)</rt></ruby>に</u> <u>ついての</u> <u><ruby>授権<rt>じゅけん(0)</rt></ruby>の</u> <u><ruby>表示<rt>ひょうじ(0)</rt></ruby></u> <u>および</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby></u> <u>（</u> <u>I）</u> <u>の</u> <u><ruby>表見<rt>ひょうけん(0)</rt></ruby><ruby>代理<rt>だいり(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>基本<rt>きほん(0)</rt></ruby><ruby>代理権<rt>だいりけん(0)</rt></ruby>が</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>する</u> <u>ことになると</u> <u>いうべきであるから、</u> <u>Yは</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>し、</u> <u><ruby>上記<rt>じょうき(0)</rt></ruby><ruby>事実<rt>じじつ(1)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づいて</u> <u>Bの</u> <u><ruby>無権<rt>むけん(0)</rt></ruby><ruby>代理<rt>だいり(0)</rt></ruby><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>する</u> <u><ruby>民法<rt>みんぽう(1)</rt></ruby> </u> <u>109<ruby>条<rt>じょう(1)</rt></ruby>ないし </u> <u>110<ruby>条<rt>じょう(1)</rt></ruby>の</u> <u><ruby>表見<rt>ひょうけん(0)</rt></ruby><ruby>代理<rt>だいり(0)</rt></ruby>の</u> <u><ruby>成否<rt>せいひ(0)</rt></ruby>に</u> <u>ついて</u> <u><ruby>更<rt>さら(0)</rt></ruby>に</u> <u><ruby>審理<rt>しんり(0)</rt></ruby><ruby>判断<rt>はんだん(0)</rt></ruby>を</u> <u><ruby>求<rt>もと(0)</rt></ruby>める</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>があると</u> <u>いう</u> <u>ものであり、</u> <u>この</u> <u>Yの</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>は、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>結果<rt>けっか(1)</rt></ruby>に</u> <u><ruby>影響<rt>えいきょう(0)</rt></ruby>を</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼす</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>のある</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防禦<rt>ぼうぎょ(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>である</u> <u>こと。</u> <u>③ </u> <u>Yが</u> <u>②の</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられない</u> <u>まま、</u> <u>Y<ruby>敗訴<rt>はいそ(0)</rt></ruby>の</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>がされ、</u> <u>それが</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>した</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u>その</u> <u><ruby>既判力<rt>きはんりょく(2)</rt></ruby>に</u> <u>より、</u> <u>Yは、</u> <u><ruby>後<rt>あと(1)</rt></ruby></u> <u><ruby>訴<rt>うったえ(1)</rt></ruby>に</u> <u>おいて</u> <u><ruby>上記<rt>じょうき(0)</rt></ruby><ruby>事実<rt>じじつ(1)</rt></ruby>を</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>して</u> <u>その</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>を</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>う</u> <u>ことができなくなる</u> <u>こと。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">② Y聲請再開辯論之理由，係因A死亡且由X繼承A，致使Y於原審所主張前述（i）表見代理中至少一部分授權之表示、以及前述（ii）表見代理中基本代理權之存在……</div>
+            </div>
+        </article>
+        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>3.<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>考え方<rt>かんがえかた(0)</rt></ruby></u> <u>（ <ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>には</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>する</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby>がある</u> <u>ことの</u> <u><ruby>根拠<rt>こんきょ(0)</rt></ruby>として</u> <u>「</u> <u><ruby>民事<rt>みんじ(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u>おける</u> <u><ruby>手続的<rt>てつづきてき(0)</rt></ruby><ruby>正義<rt>せいぎ(1)</rt></ruby>の</u> <u><ruby>要求<rt>ようきゅう(0)</rt></ruby>」</u> <u>を<ruby>挙<rt>あ(0)</rt></ruby>げた。</u> <u>この</u> <u><ruby>点<rt>てん(1)</rt></ruby>に</u> <u>ついては、</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u><ruby>重視<rt>じゅうし(0)</rt></ruby>する</u> <u><ruby>当時<rt>とうじ(0)</rt></ruby>の</u> <u><ruby>学説<rt>がくせつ(0)</rt></ruby>に</u> <u><ruby>照応<rt>しょうおう(0)</rt></ruby>した</u> <u><ruby>新<rt>あたら(0)</rt></ruby>しい</u> <u><ruby>方向<rt>ほうこう(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>す</u> <u>ものだとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>？）</u> <u>と</u> <u>その</u> <u>ように</u> <u>いう</u> <u>ことは</u> <u><ruby>無理<rt>むり(1)</rt></ruby>だとする</u> <u><ruby>見解<rt>けんかい(0)</rt></ruby>とがある。</u> <u>しかし、</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>に</u> <u><ruby>配慮<rt>はいりょ(0)</rt></ruby>している</u> <u>ことに</u> <u>ついては、</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>いはない。</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>は、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>の</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>から、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>が</u> <u><ruby>弁論<rt>べんろん(0)</rt></ruby>の</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>を</u> <u><ruby>義務<rt>ぎむ(1)</rt></ruby><ruby>付<rt>つ(0)</rt></ruby>けられる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>がある</u> <u>ことを</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかにし、</u> <u>その</u> <u><ruby>判断基準<rt>はんだんきじゅん(0)</rt></ruby>を</u> <u><ruby>示<rt>しめ(0)</rt></ruby>した</u> <u>ところにあると</u> <u>いうのが、</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>な</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">3. 本判決之考量方式：本判決舉出「民事訴訟中程序正義之要求」，作為原審負有再開辯論義務之根據。此點照應了當時重視程序保障之學説，展現了新的方向。</div>
+            </div>
+        </article>
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>それでは<ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>は、</u> <u>Yには</u> <u>どのような</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>上<rt>じょう(1)</rt></ruby>の</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されるべきだと</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えていたのだろうか。</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>指摘<rt>してき(0)</rt></ruby>する</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby>2</u> <u>（</u> <u>②の</u> <u><ruby>事情<rt>じじょう(0)</rt></ruby>からは、</u> <u>Yには、</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>結果<rt>けっか(1)</rt></ruby>に</u> <u><ruby>影響<rt>えいきょう(0)</rt></ruby>を</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼす</u> <u><ruby>可能性<rt>かのうせい(0)</rt></ruby>のある</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby></u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>があると</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えていた</u> <u>ことが</u> <u>うかがわれる。</u> <u>しかし</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>は、</u> <u>いつまででも</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby></u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u>ことができる</u> <u>わけではない。</u> <u><ruby>現行<rt>げんこう(0)</rt></ruby><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>の</u> <u><ruby>下<rt>もと(1)</rt></ruby>では、</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby></u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>は、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>の</u> <u><ruby>進行状況<rt>しんこうじょうきょう(0)</rt></ruby>に</u> <u><ruby>応<rt>おう(0)</rt></ruby>じ</u> <u><ruby>適切<rt>てきせつ(0)</rt></ruby>な</u> <u><ruby>時期<rt>じき(1)</rt></ruby>に</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>しなければならず</u> <u>（</u> <u>156<ruby>条<rt>じょう(1)</rt></ruby>。</u> <u><ruby>適時<rt>てきじ(0)</rt></ruby><ruby>提出<rt>ていしゅつ(0)</rt></ruby><ruby>主義<rt>しゅぎ(1)</rt></ruby>）</u> <u>，</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>が</u> <u><ruby>故意<rt>こい(1)</rt></ruby></u> <u>または</u> <u><ruby>重大<rt>じゅうだい(0)</rt></ruby>な</u> <u><ruby>過失<rt>かしつ(0)</rt></ruby>に</u> <u>よって</u> <u><ruby>時機<rt>じき(1)</rt></ruby>に<ruby>後<rt>おく(0)</rt></ruby>れて</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>した</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防御<rt>ぼうぎょ(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>は、</u> <u>その</u> <u>ために</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>の</u> <u><ruby>完結<rt>かんけつ(0)</rt></ruby>が</u> <u><ruby>遅延<rt>ちえん(0)</rt></ruby>すると</u> <u><ruby>認<rt>みと(0)</rt></ruby>められれば、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>に</u> <u>より</u> <u><ruby>却下<rt>きゃっか(1)</rt></ruby>される</u> <u>（</u> <u>157<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">那麼，本判決認為應保障Y何種程序上的權利？從本判決所指摘前述2（②）的情事來看，Y應被保障提出可能影響判決結果之重要攻擊防禦方法的權利……</div>
+            </div>
+        </article>
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby><ruby>当時<rt>とうじ(0)</rt></ruby>は、</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby></u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>は</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby>に</u> <u><ruby>至<rt>いた(0)</rt></ruby>るまで</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>できるとされていたが</u> <u>（</u> <u><ruby>旧<rt>きゅう(1)</rt></ruby><ruby>民訴<rt>みんそ(0)</rt></ruby> </u> <u>137<ruby>条<rt>じょう(1)</rt></ruby>。</u> <u><ruby>随時<rt>ずいじ(0)</rt></ruby><ruby>提出<rt>ていしゅつ(0)</rt></ruby><ruby>主義<rt>しゅぎ(1)</rt></ruby>）</u> <u>，</u> <u><ruby>時機<rt>じき(1)</rt></ruby>に<ruby>後<rt>おく(0)</rt></ruby>れた</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防御<rt>ぼうぎょ(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>に</u> <u>ついての</u> <u><ruby>扱<rt>あつか(0)</rt></ruby>いは、</u> <u><ruby>現行法<rt>げんこうほう(0)</rt></ruby>と</u> <u><ruby>同様<rt>どうよう(0)</rt></ruby>であった</u> <u>（</u> <u><ruby>同法<rt>どうほう(0)</rt></ruby>139<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u> <u>また、</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby>2</u> <u>（</u> <u>③に</u> <u>おいて</u> <u><ruby>指摘<rt>してき(0)</rt></ruby>している</u> <u>ように、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>の</u> <u><ruby>基準<rt>きじゅん(0)</rt></ruby><ruby>時<rt>じ(0)</rt></ruby></u> <u>（</u> <u><ruby>事実審<rt>じじつしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>時<rt>じ(0)</rt></ruby>）</u> <u>までに</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u>ことができた</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防御<rt>ぼうぎょ(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>基準<rt>きじゅん(0)</rt></ruby><ruby>時<rt>じ(0)</rt></ruby><ruby>後<rt>ご(0)</rt></ruby>に</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>して</u> <u><ruby>前訴<rt>ぜんそ(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>既判力<rt>きはんりょく(2)</rt></ruby>ある</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>を</u> <u><ruby>争<rt>あらそ(0)</rt></ruby>う</u> <u>ことはできない。</u> <u>この</u> <u>ことは、</u> <u><ruby>基準<rt>きじゅん(0)</rt></ruby><ruby>時<rt>じ(0)</rt></ruby>までに</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>しなかった</u> <u>ことに</u> <u>ついての</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>過失<rt>かしつ(0)</rt></ruby>の</u> <u><ruby>有無<rt>うむ(1)</rt></ruby>を</u> <u><ruby>問<rt>と(0)</rt></ruby>わないとされている。</u> <u>（ </u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>では、</u> <u><ruby>控訴審<rt>こうそしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>が</u> <u>すでに</u> <u><ruby>終結<rt>しゅうけつ(0)</rt></ruby>されており、</u> <u>Yは</u> <u><ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby></u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>する</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>行使<rt>こうし(0)</rt></ruby>する</u> <u>ことができない</u> <u><ruby>状態<rt>じょうたい(0)</rt></ruby>であった。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於本判決當時，攻擊防禦方法雖得提出至口頭辯論終結為止（舊民訴法137條，隨時提出主義），但對於逾時提出之攻擊防禦方法的處理則與現行法相同（同法139條1項）。此外，本案中……</div>
+            </div>
+        </article>
+        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>しかし</u> <u><ruby>最高裁<rt>さいこうさい(0)</rt></ruby>は、</u> <u>この</u> <u>ままY<ruby>敗訴<rt>はいそ(0)</rt></ruby>の<ruby>原<rt>げん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>を</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>させるべきではない。</u> <u>と</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えた。</u> <u><ruby>本<rt>ほん(1)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>評釈<rt>ひょうしゃく(0)</rt></ruby>は、</u> <u>この</u> <u><ruby>結論<rt>けつろん(0)</rt></ruby>を</u> <u><ruby>導<rt>みちび(0)</rt></ruby>く</u> <u>うえで</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>要因<rt>よういん(0)</rt></ruby>として、</u> <u>Yが</u> <u>Aの</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づく</u> <u><ruby>防御<rt>ぼうぎょ(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>前<rt>まえ(1)</rt></ruby>に</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>しなかった</u> <u>ことにつき</u> <u>Yの</u> <u><ruby>責<rt>せ(0)</rt></ruby>めに</u> <u><ruby>帰<rt>かえ(0)</rt></ruby>すべき</u> <u><ruby>事由<rt>じゆう(0)</rt></ruby>がなかった</u> <u>こと</u> <u>（</u> <u><ruby>前記<rt>ぜんき(0)</rt></ruby> </u> <u>2</u> <u>（</u> <u>2①）</u> <u>を</u> <u><ruby>指摘<rt>してき(0)</rt></ruby>している”。</u> <u>Yに</u> <u><ruby>帰責<rt>きせき(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>がないと</u> <u>いえるのは</u> <u>なぜか、</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えてみよう。</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>係属<rt>けいぞく(0)</rt></ruby><ruby>中<rt>ちゅう(1)</rt></ruby>に</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>が</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>した</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>物<rt>ぶつ(1)</rt></ruby>たる</u> <u><ruby>権利<rt>けんり(1)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>が</u> <u><ruby>一身<rt>いっしん(0)</rt></ruby><ruby>専属<rt>せんぞく(0)</rt></ruby><ruby>的<rt>てき(1)</rt></ruby>な</u> <u>ものでない</u> <u><ruby>限<rt>かぎ(0)</rt></ruby>り<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>は</u> <u><ruby>中断<rt>ちゅうだん(0)</rt></ruby>し、</u> <u><ruby>相続人<rt>そうぞくにん(0)</rt></ruby>がいれば、</u> <u>この</u> <u><ruby>者<rt>もの(1)</rt></ruby>が</u> <u><ruby>新<rt>あら(0)</rt></ruby>たな</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>として</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>受継<rt>じゅけい(0)</rt></ruby>する</u> <u>（</u> <u>124<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>1<ruby>号<rt>ごう(1)</rt></ruby>）</u> <u>。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而最高裁判所認為，不應就這樣讓Y敗訴的原判決確定。本判決之評釋將Y於原審口頭辯論終結前未主張基於A死亡之防禦方法一事，視為導出此結論之重要因素……</div>
+            </div>
+        </article>
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>旧<rt>きゅう(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>から<ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>への</u> <u><ruby>変更<rt>へんこう(0)</rt></ruby>は</u> <u><ruby>旧日<rt>きゅうじつ(0)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>と</u> <u><ruby>同時<rt>どうじ(0)</rt></ruby>に</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われているが、</u> <u>この</u> <u><ruby>時点<rt>じてん(0)</rt></ruby>から<ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>が</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>を</u> <u><ruby>追行<rt>ついこう(0)</rt></ruby>する</u> <u>ことは</u> <u><ruby>期待<rt>きたい(0)</rt></ruby>できないので、</u> <u>いったん</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>中断<rt>ちゅうだん(0)</rt></ruby>し、</u> <u><ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>受継<rt>じゅけい(0)</rt></ruby>の</u> <u><ruby>申立<rt>もうした(0)</rt></ruby>てに</u> <u>より、</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>再開<rt>さいかい(0)</rt></ruby>する</u> <u>ことになっている。</u> <u>しかし、</u> <u><ruby>旧<rt>きゅう(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>がいる</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>は</u> <u><ruby>中断<rt>ちゅうだん(0)</rt></ruby>しない</u> <u>（</u> <u><ruby>同条<rt>どうじょう(0)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>の</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理権<rt>だいりけん(0)</rt></ruby>は、</u> <u><ruby>旧<rt>きゅう(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>に</u> <u>よっても</u> <u><ruby>消滅<rt>しょうめつ(0)</rt></ruby>せず </u> <u>（</u> <u>58<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>1<ruby>号<rt>ごう(1)</rt></ruby>）</u> <u>，</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>は<ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>代理人<rt>だいりにん(0)</rt></ruby>として</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>を</u> <u><ruby>追行<rt>ついこう(0)</rt></ruby>すると</u> <u><ruby>解<rt>かい(0)</rt></ruby>されている</u> <u>ため！！）</u> <u>，</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>を</u> <u><ruby>続行<rt>ぞっこう(0)</rt></ruby>しても<ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>は<ruby>損<rt>そこ(0)</rt></ruby>なわれないからである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">舊當事者變更為新當事者雖於舊當事者死亡之同時發生，但因無法期待新當事者自此時點起追行訴訟，故暫時中斷訴訟程序，依新當事者承受訴訟之聲請再開程序……</div>
+            </div>
+        </article>
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>本件<rt>ほんけん(0)</rt></ruby>でも、</u> <u>Aには</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>がいた</u> <u>ため<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>は</u> <u><ruby>中断<rt>ちゅうだん(0)</rt></ruby>しなかった。</u> <u>また、</u> <u>Aの</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>が</u> <u>A<ruby>死亡<rt>しぼう(0)</rt></ruby>の</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>を</u> <u><ruby>直<rt>ただ(0)</rt></ruby>ちに</u> <u><ruby>控訴<rt>こうそ(0)</rt></ruby><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>に</u> <u><ruby>届け出<rt>とどけで(0)</rt></ruby>ていれば、</u> <u><ruby>裁判所<rt>さいばんしょ(2)</rt></ruby>は、</u> <u>Aの</u> <u><ruby>相続人<rt>そうぞくにん(0)</rt></ruby>✕を<ruby>新<rt>しん(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>として</u> <u><ruby>扱<rt>あつか(0)</rt></ruby>ったであろうが、</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby>では</u> <u>そうした</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby></u> <u>（</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>承継<rt>しょうけい(0)</rt></ruby>）</u> <u>も</u> <u>とられていなかった。</u> <u>その</u> <u>ために</u> <u>Yは、</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>の</u> <u><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>終結<rt>しゅうけつ(0)</rt></ruby><ruby>前<rt>まえ(1)</rt></ruby>には</u> <u>Aの</u> <u><ruby>死亡<rt>しぼう(0)</rt></ruby>を</u> <u><ruby>知<rt>し(0)</rt></ruby>らなかったのであり、</u> <u><ruby>知<rt>し(0)</rt></ruby>らなかった</u> <u>ことに</u> <u>Yの</u> <u><ruby>責<rt>せ(0)</rt></ruby>めに</u> <u><ruby>帰<rt>かえ(0)</rt></ruby>すべき</u> <u><ruby>事由<rt>じゆう(0)</rt></ruby>もなかったと</u> <u><ruby>考<rt>かんが(0)</rt></ruby>えられる</u> <u>12。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於本案中，因A有訴訟代理人故訴訟程序未中斷。此外，若A之訴訟代理人將A死亡之事實立即通知控訴裁判所，法院本應將A之繼承人X作為新當事者處理，但本案中並未如此……</div>
+            </div>
+        </article>
+        <section id="card-17" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>効力<rt>こうりょく(0)</rt></ruby>と<ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に<ruby>対<rt>たい(0)</rt></ruby>する<ruby>手続<rt>てつづき(2)</rt></ruby><ruby>関与<rt>かんよ(0)</rt></ruby>の<ruby>機会<rt>きかい(0)</rt></ruby>の<ruby>保障<rt>ほしょう(0)</rt></ruby>1． <ruby>訴状<rt>そじょう(0)</rt></ruby>・<ruby>判決<rt>はんけつ(0)</rt></ruby>の<ruby>送達<rt>そうたつ(0)</rt></ruby>を<ruby>受<rt>う(0)</rt></ruby>ける<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の<ruby>権利<rt>けんり(1)</rt></ruby><ruby>事<rt>じ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>が<ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に<ruby>関与<rt>かんよ(0)</rt></ruby>し、<ruby>攻撃<rt>こうげき(0)</rt></ruby><ruby>防<rt>ぼう(1)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>を<ruby>提出<rt>ていしゅつ(0)</rt></ruby>する<ruby>権利<rt>けんり(1)</rt></ruby>を<ruby>行使<rt>こうし(0)</rt></ruby>するためには、みずからを<ruby>当事者<rt>とうじしゃ(0)</rt></ruby>とする<ruby>訴訟<rt>そしょう(0)</rt></ruby>が<ruby>係属<rt>けいぞく(0)</rt></ruby>していることを<ruby>知<rt>し(0)</rt></ruby>り、<ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>がいつ、どこで<ruby>開<rt>ひら(0)</rt></ruby>かれるのかを<ruby>知<rt>し(0)</rt></ruby>る<ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</h2>
+                <button onclick="playCardText(17)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">補充送達之效力與再審事由——當事人參與程序機會之保障：1． 接收訴狀・判決送達之當事人權利。當事人欲參與訴訟程序並行使提出攻擊防禦方法之權利，必須知悉以自己為當事人之訴訟正在繫屬，並知悉口頭辯論將於何時、何地開啟。</div>
+        </section>
+        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>また、</u> <u><ruby>不利益<rt>ふりえき(2)</rt></ruby>な</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>けた</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>が</u> <u>その</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>上訴<rt>じょうそ(0)</rt></ruby>する</u> <u>ためには、</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>内容<rt>ないよう(0)</rt></ruby>を</u> <u><ruby>知<rt>し(0)</rt></ruby>る</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u><ruby>被告<rt>ひこく(0)</rt></ruby>が、</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>権利<rt>けんり(1)</rt></ruby></u> <u>（</u> <u>138<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>され、</u> <u><ruby>原告<rt>げんこく(0)</rt></ruby></u> <u>および</u> <u><ruby>被告<rt>ひこく(0)</rt></ruby>が、</u> <u><ruby>期日<rt>きじつ(0)</rt></ruby>の</u> <u><ruby>呼出<rt>よびだ(0)</rt></ruby>しを</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby></u> <u>その</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>で</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>権利<rt>けんり(1)</rt></ruby></u> <u>（</u> <u>94<ruby>条<rt>じょう(1)</rt></ruby>）</u> <u>および</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u><ruby>権利<rt>けんり(1)</rt></ruby></u> <u>（</u> <u>255<ruby>条<rt>じょう(1)</rt></ruby>）</u> <u>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されているのは、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u><ruby>関与<rt>かんよ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある</u> <u>ためである。</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>が</u> <u>どのような</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>で</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われ、</u> <u>どのような</u> <u><ruby>効果<rt>こうか(1)</rt></ruby>を</u> <u><ruby>持<rt>も(0)</rt></ruby>つかは、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>の</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>との</u> <u><ruby>関係<rt>かんけい(0)</rt></ruby>で</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u><ruby>意義<rt>いぎ(1)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>している</u> <u>ことになる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">此外，受不利益判決之當事人欲對該判決提起上訴，亦必須知悉判決之內容。被告接收訴狀送達之權利（138條1項）獲得保障，且原告與被告經由送達或其他方式接收期日召喚……</div>
+            </div>
+        </article>
+        <section id="card-19" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">2．<ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>・<ruby>効果<rt>こうか(1)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>は、<ruby>原則<rt>げんそく(0)</rt></ruby>として<ruby>交付<rt>こうふ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の<ruby>方法<rt>ほうほう(0)</rt></ruby>で<ruby>行<rt>おこな(0)</rt></ruby>われる。</h2>
+                <button onclick="playCardText(19)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">2．送達之方法・效果：送達原則上以交付送達之方法為之。</div>
+        </section>
+        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>これは、</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby></u> <u>その</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>すべき</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>けるべき</u> <u><ruby>者<rt>もの(1)</rt></ruby></u> <u>（</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>）</u> <u>に</u> <u><ruby>現実<rt>げんじつ(0)</rt></ruby>に</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>である</u> <u>（</u> <u>102<ruby>条<rt>じょう(1)</rt></ruby>の。</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>場所<rt>ばしょ(1)</rt></ruby>は、</u> <u><ruby>原則<rt>げんそく(0)</rt></ruby>として</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>の</u> <u><ruby>住所<rt>じゅうしょ(1)</rt></ruby>、</u> <u><ruby>居所<rt>きょしょ(0)</rt></ruby>、</u> <u><ruby>営業所<rt>えいぎょうしょ(0)</rt></ruby></u> <u>または</u> <u><ruby>事務所<rt>じむしょ(2)</rt></ruby>であるが</u> <u>（</u> <u>103<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby><ruby>本文<rt>ほんぶん(0)</rt></ruby>）</u> <u>，これらの</u> <u><ruby>場所<rt>ばしょ(1)</rt></ruby>が</u> <u><ruby>知<rt>し(0)</rt></ruby>れない</u> <u>とき、</u> <u>またはこれらの</u> <u><ruby>場所<rt>ばしょ(1)</rt></ruby>に</u> <u>おいて</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>をするのに</u> <u><ruby>支障<rt>ししょう(0)</rt></ruby>がある</u> <u>ときは、</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>の</u> <u><ruby>就業場所<rt>しゅうぎょうばしょ(0)</rt></ruby>に</u> <u>おいてする</u> <u>ことができる</u> <u>（</u> <u><ruby>同条<rt>どうじょう(0)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u> <u><ruby>就業場所<rt>しゅうぎょうばしょ(0)</rt></ruby><ruby>以外<rt>いがい(0)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>場所<rt>ばしょ(1)</rt></ruby>に</u> <u>おいて</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>実施<rt>じっし(1)</rt></ruby><ruby>機関<rt>きかん(0)</rt></ruby>が</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>出会<rt>であ(0)</rt></ruby>わない</u> <u>ときは、</u> <u><ruby>使用人<rt>しようにん(0)</rt></ruby></u> <u>その</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>従業者<rt>じゅうぎょうしゃ(0)</rt></ruby></u> <u>または</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby>であって、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>の</u> <u><ruby>受領<rt>じゅりょう(0)</rt></ruby>に</u> <u>ついて</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby>の</u> <u>わきまえのある</u> <u>ものに</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する</u> <u>ことができる</u> <u>（</u> <u>106<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby><ruby>前段<rt>ぜんだん(0)</rt></ruby>）</u> <u>。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">此乃將訴狀及其他應送達之文書現實交付予應受送達人（受送達人）之送達方法（102條）。送達場所原則上為受送達人之住所、居所、營業所或事務所（103條1項本文），但於該等場所不明、或於該等場所實施送達有支障時，得於受送達人之就業場所為之（同條2項）。於就業場所以外之送達場所，送達實施機關未會晤受送達人時，得將文書交付予使用人或其他從業者或同居人中對於接收文書有相當辨識能力者（106條1項前段）。</div>
+            </div>
+        </article>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>就業場所<rt>しゅうぎょうばしょ(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>出会<rt>であ(0)</rt></ruby>わない</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>に</u> <u>おいて、</u> <u><ruby>雇用主<rt>こようぬし(0)</rt></ruby></u> <u>または</u> <u>その</u> <u><ruby>法定代理人<rt>ほうていだいりにん(0)</rt></ruby></u> <u>もしくは</u> <u><ruby>使用人<rt>しようにん(0)</rt></ruby></u> <u>その</u> <u><ruby>他<rt>た(0)</rt></ruby>の</u> <u><ruby>従業者<rt>じゅうぎょうしゃ(0)</rt></ruby>で、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>の</u> <u><ruby>受領<rt>じゅりょう(0)</rt></ruby>に</u> <u>ついて</u> <u><ruby>相当<rt>そうとう(0)</rt></ruby>の</u> <u>わきまえのある</u> <u>ものが</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>の</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>ける</u> <u>ことを</u> <u><ruby>拒<rt>こば(0)</rt></ruby>まない</u> <u>ときにも、</u> <u>これらの</u> <u><ruby>者<rt>もの(1)</rt></ruby>に</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する</u> <u>ことができる</u> <u>（</u> <u><ruby>同条<rt>どうじょう(0)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>。</u> <u>この</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>方法<rt>ほうほう(0)</rt></ruby>は、</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>と</u> <u><ruby>呼<rt>よ(0)</rt></ruby>ばれている。</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>は、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>が</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>された</u> <u>ときに</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じる。</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>は、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>が</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>に</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>された</u> <u>ときに、</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>が</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じる。</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>受領<rt>じゅりょう(0)</rt></ruby>した</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>は、</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>が</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u>とって</u> <u><ruby>重要<rt>じゅうよう(0)</rt></ruby>な</u> <u>ものである</u> <u>ことを</u> <u><ruby>理解<rt>りかい(1)</rt></ruby>しているので、</u> <u><ruby>通常<rt>つうじょう(0)</rt></ruby>は</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於就業場所未會晤受送達人時，僱主或其法定代理人或使用人其他從業者中對於接收文書有相當辨識能力者不拒絕接收文書時，亦得將文書交付予該等人員（同條2項）。此種送達方法稱為補充送達。交付送達之效力於文書交付予受送達人時發生。於補充送達之情形，當文書交付予同居人等時，即對受送達人發生送達之效力。接收文書之同居人等因理解該文書對受送達人而言至為重要，故通常會將文書交付予受送達人。</div>
+            </div>
+        </article>
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>しかし、</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>が</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>と</u> <u><ruby>対立<rt>たいりつ(0)</rt></ruby><ruby>関係<rt>かんけい(0)</rt></ruby>にある</u> <u>ために、</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>しない</u> <u>こともある。</u> <u>この</u> <u>ような</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>にも、</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>は</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>だろうか。</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>だとすると、</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby>や</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>された</u> <u><ruby>事実<rt>じじつ(1)</rt></ruby>を</u> <u><ruby>知<rt>し(0)</rt></ruby>らなかった</u> <u>ために、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>としての</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>行使<rt>こうし(0)</rt></ruby>する</u> <u>ことができず、</u> <u><ruby>敗訴<rt>はいそ(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>してしまった</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>しては、</u> <u>どのような</u> <u><ruby>救済<rt>きゅうさい(0)</rt></ruby>が</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられるのだろうか。</u> <u><ruby>以上<rt>いじょう(0)</rt></ruby>の</u> <u><ruby>問題<rt>もんだい(0)</rt></ruby>を</u> <u><ruby>扱<rt>あつか(0)</rt></ruby>ったのが、</u> <u><ruby>最決<rt>さいけつ(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby> </u> <u>19・</u> <u>3・</u> <u>20</u> <u>（</u> <u><ruby>民集<rt>みんしゅう(0)</rt></ruby>61<ruby>巻<rt>かん(1)</rt></ruby>2<ruby>号<rt>ごう(1)</rt></ruby>586<ruby>頁<rt>ぺーじ(1)</rt></ruby>）</u> <u>［</u> <u><ruby>前掲<rt>ぜんけい(0)</rt></ruby><ruby>百<rt>ひゃく(1)</rt></ruby><ruby>選<rt>せん(1)</rt></ruby></u> <u>5<ruby>版<rt>ばん(1)</rt></ruby>40<ruby>事件<rt>じけん(0)</rt></ruby>］</u> <u>である。</u> <u>3.</u> <u><ruby>最決<rt>さいけつ(0)</rt></ruby><ruby>平成<rt>へいせい(0)</rt></ruby>19・</u> <u>3・</u> <u>20の</u> <u><ruby>事案<rt>じあん(0)</rt></ruby><ruby>本件<rt>ほんけん(0)</rt></ruby>は、</u> <u>Xが</u> <u>Yに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した</u> <u><ruby>再審<rt>さいしん(0)</rt></ruby>の</u> <u><ruby>訴<rt>うった(0)</rt></ruby>え</u> <u>（</u> <u><ruby>本訴<rt>ほんそ(0)</rt></ruby>）</u> <u>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>する</u> <u>ものである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，有時亦會因同居人等與受送達人處於對立關係，致未將文書交付予受送達人。於此種情形下，補充送達是否依然有效？若屬有效，則對於因不知悉訴狀或判決已送達之事實致無法行使當事人權利、終致敗訴判決確定之受送達人，應給予何種救濟？處理上述問題者，即為最高裁決定平成19年3月20日（民集61巻2號586頁）［前揭百選第5版40事件］。3. 最高裁決定平成19年3月20日之案情：本案係關於X對Y提起之再審之訴（本訴）。</div>
+            </div>
+        </article>
+        <article id="card-23" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(23)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>再審<rt>さいしん(0)</rt></ruby>の</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えの</u> <u><ruby>対象<rt>たいしょう(0)</rt></ruby>となったのは、</u> <u>Yが、</u> <u>Aを</u> <u><ruby>主<rt>しゅ(0)</rt></ruby><ruby>債務者<rt>さいむしゃ(0)</rt></ruby>とし、</u> <u>Xを</u> <u><ruby>連帯保証人<rt>れんたいほしょうにん(5)</rt></ruby>として</u> <u><ruby>両名<rt>りょうめい(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した</u> <u><ruby>貸金<rt>かしきん(0)</rt></ruby><ruby>返還<rt>へんかん(0)</rt></ruby><ruby>請求<rt>せいきゅう(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby></u> <u>（</u> <u><ruby>前訴<rt>ぜんそ(0)</rt></ruby>）</u> <u>に</u> <u>おける</u> <u>Y<ruby>勝訴<rt>しょうそ(0)</rt></ruby>の</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>であり、</u> <u>この</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>がされるまでには、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u><ruby>経緯<rt>けいい(0)</rt></ruby>があった。</u> <u>Aは</u> <u>Xの</u> <u><ruby>義父<rt>ぎふ(1)</rt></ruby>であり、</u> <u>Xと</u> <u><ruby>同居<rt>どうきょ(0)</rt></ruby>していた</u> <u>ため、</u> <u>Xに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby></u> <u>および<ruby>第<rt>だい(1)</rt></ruby><ruby>一回<rt>いちかい(0)</rt></ruby><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby><ruby>期日<rt>きじつ(0)</rt></ruby>への</u> <u><ruby>呼出状<rt>よびだしじょう(0)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>は、</u> <u>Aに</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>する</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>の</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>で</u> <u><ruby>行<rt>おこな(0)</rt></ruby>われた。</u> <u>しかし、</u> <u>Aは</u> <u><ruby>書類<rt>しょるい(0)</rt></ruby>を</u> <u>✕に</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>しなかった。</u> <u>それは、</u> <u><ruby>本訴<rt>ほんそ(0)</rt></ruby>に</u> <u>おける</u> <u>メの</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>に</u> <u>よれば、</u> <u>Xが</u> <u><ruby>連帯保証人<rt>れんたいほしょうにん(5)</rt></ruby>になったのは、</u> <u>Xの</u> <u><ruby>意思<rt>いし(1)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づく</u> <u>ものではなく、</u> <u>Aが</u> <u>Xに</u> <u><ruby>無断<rt>むだん(0)</rt></ruby>で</u> <u>Xの</u> <u><ruby>印章<rt>いんしょう(0)</rt></ruby>を</u> <u><ruby>持ち出し<rt>もちだし(0)</rt></ruby>て</u> <u><ruby>連帯<rt>れんたい(0)</rt></ruby><ruby>保証<rt>ほしょう(0)</rt></ruby><ruby>契約<rt>けいやく(0)</rt></ruby>を</u> <u><ruby>締結<rt>ていけつ(0)</rt></ruby>した</u> <u>ことに</u> <u>よる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">成為再審之訴對象者，係Y以A為主債務人、以X為連帶保證人對兩人提起之消費借貸返還請求訴訟（前訴）中Y勝訴之確定判決。於該判決作成前有如下經過：A係X之岳父且與X同居，故對X之訴狀及第一次口頭辯論期日召喚狀之送達，係以將文書交付予A之補充送達方式為之。然而，A並未將文書交付予X。依X於本訴中之主張，X成為連帶保證人並非基於X之意思，而係A未經X同意擅自拿取X之印章締結連帶保證契約所致。</div>
+            </div>
+        </article>
+        <article id="card-24" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(24)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>すなわち</u> <u>Aは、</u> <u>Xを</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>とする</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>を</u> <u>Xに</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>すれば</u> <u><ruby>上記<rt>じょうき(0)</rt></ruby>の</u> <u><ruby>事情<rt>じじょう(0)</rt></ruby>を</u> <u>Xに</u> <u><ruby>知<rt>し(0)</rt></ruby>られてしまうので、</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>を</u> <u>Xに</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>しない</u> <u>ことに</u> <u><ruby>利益<rt>りえき(1)</rt></ruby>を</u> <u><ruby>有<rt>ゆう(0)</rt></ruby>していた。</u> <u>この</u> <u><ruby>点<rt>てん(1)</rt></ruby>に</u> <u>おいて、</u> <u>Aと</u> <u>Xの</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>には</u> <u><ruby>事実上<rt>じじつじょう(0)</rt></ruby>の</u> <u><ruby>利害関係<rt>りがいかんけい(0)</rt></ruby>の</u> <u><ruby>対立<rt>たいりつ(0)</rt></ruby>があったと</u> <u>いえる。</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>を</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>されていない</u> <u>Xは、</u> <u><ruby>第<rt>だい(1)</rt></ruby><ruby>一回<rt>いちかい(0)</rt></ruby><ruby>口頭<rt>こうとう(0)</rt></ruby><ruby>弁論<rt>べんろん(0)</rt></ruby>に</u> <u><ruby>欠席<rt>けっせき(0)</rt></ruby>し、</u> <u><ruby>答弁書<rt>とうべんしょ(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>も</u> <u><ruby>提出<rt>ていしゅつ(0)</rt></ruby>しなかった</u> <u>ため、</u> <u>Yの</u> <u>Xに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>請求<rt>せいきゅう(0)</rt></ruby>を</u> <u><ruby>認容<rt>にんよう(0)</rt></ruby>する</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby></u> <u>（<ruby>第<rt>だい(1)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>審<rt>しん(1)</rt></ruby></u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>）</u> <u>が</u> <u><ruby>言い渡さ<rt>いいわたさ(0)</rt></ruby>れた。</u> <u>この</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>に</u> <u>ついては、</u> <u><ruby>判決書<rt>はんけつしょ(0)</rt></ruby>に</u> <u><ruby>代<rt>か(0)</rt></ruby>わる</u> <u><ruby>調書<rt>ちょうしょ(0)</rt></ruby></u> <u>（</u> <u>254<ruby>条<rt>じょう(1)</rt></ruby>2<ruby>項<rt>こう(1)</rt></ruby>）</u> <u>が</u> <u><ruby>書留郵便<rt>かきとめゆうびん(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>に</u> <u><ruby>付<rt>ふ(0)</rt></ruby>する</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby></u> <u>（</u> <u>107<ruby>条<rt>じょう(1)</rt></ruby>）</u> <u>の</u> <u><ruby>方法<rt>ほうほう(0)</rt></ruby>で</u> <u>Xに</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>され、</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>が</u> <u><ruby>生<rt>しょう(0)</rt></ruby>じているが，</u> <u><ruby>実際<rt>じっさい(0)</rt></ruby>には</u> <u>X<ruby>不在<rt>ふざい(0)</rt></ruby>の</u> <u>ため<ruby>書類<rt>しょるい(0)</rt></ruby>は</u> <u>Xに</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>されなかった。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">亦即，A若將以X為受送達人之訴狀等交付予X，上述情事即會被X知悉，故A對於不將訴狀等交付予X具有利益。於此點上，得謂A與X之間存有事實上利害關係之對立。未獲交付訴狀等之X於第一次口頭辯論缺席，亦未提出答辯狀等，故法院宣示認容Y對X請求之判決（第一審判決）。關於該判決，代替判決書之筆錄（254條2項）經由掛號郵寄送達（107條）之方式送達予X並發生送達效力，但實際上因X不在故文書未交付予X。</div>
+            </div>
+        </article>
+        <article id="card-25" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(25)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>Y<ruby>勝訴<rt>しょうそ(0)</rt></ruby>の</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>がされた</u> <u>ことを</u> <u><ruby>知<rt>し(0)</rt></ruby>らない</u> <u>Xからの</u> <u><ruby>控訴<rt>こうそ(0)</rt></ruby>はなく、</u> <u>この</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>した。</u> <u>Xは、</u> <u>Xに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>の</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>は</u> <u><ruby>無効<rt>むこう(0)</rt></ruby>であり、</u> <u>Xに</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u><ruby>関与<rt>かんよ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>が</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられない</u> <u>まま<ruby>前訴<rt>ぜんそ(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>がされたのであるから、</u> <u><ruby>前訴<rt>ぜんそ(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>には</u> <u>338<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>3<ruby>号<rt>ごう(1)</rt></ruby>の</u> <u><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby></u> <u>（</u> <u><ruby>以下<rt>いか(1)</rt></ruby></u> <u>「</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>」</u> <u>と</u> <u>いう）</u> <u>があると</u> <u><ruby>主張<rt>しゅちょう(0)</rt></ruby>した。</u> <u>4.<ruby>本<rt>ほん(1)</rt></ruby><ruby>決定<rt>けってい(0)</rt></ruby>の</u> <u><ruby>考え方<rt>かんがえかた(0)</rt></ruby><ruby>本訴<rt>ほんそ(0)</rt></ruby>の<ruby>第<rt>だい(1)</rt></ruby><ruby>一<rt>いち(1)</rt></ruby><ruby>審<rt>しん(1)</rt></ruby></u> <u>および</u> <u><ruby>原審<rt>げんしん(0)</rt></ruby>は、</u> <u>Xに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>は</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>として</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>であり、</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>は</u> <u><ruby>認<rt>みと(0)</rt></ruby>められないとして、</u> <u>Xの</u> <u><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>請求<rt>せいきゅう(0)</rt></ruby>を</u> <u><ruby>棄却<rt>ききゃく(0)</rt></ruby>すべきであるとした。</u> <u>これに</u> <u><ruby>対<rt>たい(0)</rt></ruby>して<ruby>本<rt>ほん(1)</rt></ruby><ruby>決定<rt>けってい(0)</rt></ruby>は、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>の</u> <u>ように</u> <u><ruby>述<rt>の(0)</rt></ruby>べて、</u> <u>Xに</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>は</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>として</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>であるけれども、</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>が</u> <u><ruby>認<rt>みと(0)</rt></ruby>められるとした。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">不知悉Y勝訴判決已作成之X未提起控訴，該判決遂告確定。X主張對X之訴狀等補充送達無效，前訴判決係於未給予X參與訴訟機會之情況下作成，故前訴判決存有民事訴訟法第338條1項3款之再審事由（以下簡稱「3款再審事由」）。4. 本決定之考量方式：本訴第一審及原審認為對X之訴狀等送達作為補充送達屬有效，不認定存有3款再審事由，應駁回X之再審請求。對此，本決定敘述如下，認為對X之訴狀等送達作為補充送達雖屬有效，但應認定存有3款再審事由。</div>
+            </div>
+        </article>
+        <article id="card-26" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(26)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>「</u> <u><ruby>本件<rt>ほんけん(0)</rt></ruby><ruby>訴状<rt>そじょう(0)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>の</u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby>が</u> <u><ruby>補充<rt>ほじゅう(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby>として</u> <u><ruby>有効<rt>ゆうこう(0)</rt></ruby>であるからと</u> <u>いって、</u> <u><ruby>直<rt>ただ(0)</rt></ruby>ちに</u> <u><ruby>民訴<rt>みんそ(0)</rt></ruby><ruby>法<rt>ほう(1)</rt></ruby> </u> <u>338<ruby>条<rt>じょう(1)</rt></ruby>1<ruby>項<rt>こう(1)</rt></ruby>3<ruby>号<rt>ごう(1)</rt></ruby>の</u> <u><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>の</u> <u><ruby>存在<rt>そんざい(0)</rt></ruby>が</u> <u><ruby>否定<rt>ひてい(0)</rt></ruby>される</u> <u>ことにはならない。</u> <u><ruby>同<rt>どう(1)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>の</u> <u><ruby>存否<rt>そんぴ(0)</rt></ruby>は、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されるべき</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>関与<rt>かんよ(0)</rt></ruby>の</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>が</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられていたか</u> <u><ruby>否<rt>いな(1)</rt></ruby>かの</u> <u><ruby>観点<rt>かんてん(0)</rt></ruby>から</u> <u><ruby>改<rt>あらた(0)</rt></ruby>めて</u> <u><ruby>判断<rt>はんだん(0)</rt></ruby>されなければならない。</u> <u>」</u> <u>「</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>あての</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>関係書類<rt>かんけいしょるい(0)</rt></ruby>の</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>を</u> <u><ruby>受<rt>う(0)</rt></ruby>けた</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>と</u> <u><ruby>受<rt>うけ(1)</rt></ruby></u> <u><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>との</u> <u><ruby>間<rt>あいだ(1)</rt></ruby>に、</u> <u>その</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u><ruby>関<rt>かん(0)</rt></ruby>して</u> <u><ruby>事実上<rt>じじつじょう(0)</rt></ruby>の</u> <u><ruby>利害関係<rt>りがいかんけい(0)</rt></ruby>の</u> <u><ruby>対立<rt>たいりつ(0)</rt></ruby>がある</u> <u>ため、</u> <u><ruby>同居者<rt>どうきょしゃ(3)</rt></ruby><ruby>等<rt>とう(1)</rt></ruby>から</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>して</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>関係書類<rt>かんけいしょるい(0)</rt></ruby>が</u> <u><ruby>速<rt>すみ(0)</rt></ruby>やかに</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>される</u> <u>ことを</u> <u><ruby>期待<rt>きたい(0)</rt></ruby>する</u> <u>ことができない</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>に</u> <u>おいて、</u> <u><ruby>実際<rt>じっさい(0)</rt></ruby>にも</u> <u>その</u> <u><ruby>交付<rt>こうふ(0)</rt></ruby>がされなかった</u> <u>ときは、</u> <u><ruby>受<rt>じゅ(0)</rt></ruby><ruby>送達<rt>そうたつ(0)</rt></ruby><ruby>者<rt>しゃ(0)</rt></ruby>は、</u> <u>その</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u><ruby>関与<rt>かんよ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられた</u> <u>ことにならないと</u> <u>いうべきである。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">「不得因本案訴狀等之送達作為補充送達屬有效，即立即否定民事訴訟法第338條1項3款再審事由之存在。該事由之存否，應自是否已給予當事人應受保障之程序參與機會之觀點重新予以判斷。」「受領以受送達人為名義人之訴訟關係文書之同居人等與受送達人之間，就該訴訟存有事實上利害關係對立，致無法期待同居人等將訴訟關係文書迅速交付予受送達人時，若實際上亦未為交付，則應謂受送達人未獲給予參與該訴訟程序之機會。」</div>
+            </div>
+        </article>
+        <article id="card-27" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(27)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>」</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>は、</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>無権<rt>むけん(0)</rt></ruby><ruby>代理人<rt>だいりにん(0)</rt></ruby>の</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>行為<rt>こうい(0)</rt></ruby>に</u> <u><ruby>基<rt>もと(0)</rt></ruby>づいて</u> <u>なされた</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>を</u> <u><ruby>想定<rt>そうてい(0)</rt></ruby>した</u> <u>ものであるが、</u> <u><ruby>判例<rt>はんれい(0)</rt></ruby></u> <u>（</u> <u><ruby>大判<rt>おおばん(0)</rt></ruby><ruby>昭和<rt>しょうわ(0)</rt></ruby>10・</u> <u>10・</u> <u>28 </u> <u><ruby>民集<rt>みんしゅう(0)</rt></ruby>14<ruby>巻<rt>かん(1)</rt></ruby>1785<ruby>頁<rt>ぺーじ(1)</rt></ruby></u> <u>［</u> <u><ruby>前掲<rt>ぜんけい(0)</rt></ruby><ruby>百<rt>ひゃく(1)</rt></ruby><ruby>選<rt>せん(1)</rt></ruby></u> <u>5<ruby>版<rt>ばん(1)</rt></ruby>5<ruby>事件<rt>じけん(0)</rt></ruby>］</u> <u>）</u> <u>は、</u> <u><ruby>氏名<rt>しめい(0)</rt></ruby><ruby>冒用<rt>ぼうよう(0)</rt></ruby><ruby>訴訟<rt>そしょう(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>他人<rt>たにん(0)</rt></ruby>に</u> <u><ruby>名前<rt>なまえ(0)</rt></ruby>を</u> <u><ruby>使<rt>つか(0)</rt></ruby>われた</u> <u><ruby>本人<rt>ほんにん(0)</rt></ruby>が</u> <u><ruby>再審<rt>さいしん(0)</rt></ruby>の</u> <u><ruby>訴<rt>うった(0)</rt></ruby>えを</u> <u><ruby>提起<rt>ていき(0)</rt></ruby>した</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>にも</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>を</u> <u><ruby>認<rt>みと(0)</rt></ruby>めている。</u> <u><ruby>下線<rt>かせん(0)</rt></ruby>を</u> <u><ruby>付<rt>ふ(0)</rt></ruby>した</u> <u><ruby>部分<rt>ぶぶん(0)</rt></ruby>は、</u> <u>より</u> <u><ruby>一般的<rt>いっぱんてき(0)</rt></ruby>に、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>とされた</u> <u><ruby>者<rt>もの(1)</rt></ruby>が</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u><ruby>関与<rt>かんよ(0)</rt></ruby>する</u> <u><ruby>機会<rt>きかい(0)</rt></ruby>を</u> <u><ruby>与<rt>あた(0)</rt></ruby>えられない</u> <u>まま<ruby>判決<rt>はんけつ(0)</rt></ruby>が</u> <u><ruby>言い渡さ<rt>いいわたさ(0)</rt></ruby>れ</u> <u><ruby>確定<rt>かくてい(0)</rt></ruby>した</u> <u><ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u>その</u> <u><ruby>者<rt>もの(1)</rt></ruby>に</u> <u>3<ruby>号<rt>ごう(1)</rt></ruby><ruby>再審<rt>さいしん(0)</rt></ruby><ruby>事由<rt>じゆう(0)</rt></ruby>が</u> <u><ruby>認<rt>みと(0)</rt></ruby>められる</u> <u>ことを</u> <u><ruby>明<rt>あき(0)</rt></ruby>らかにした</u> <u>ものである。</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>成立<rt>せいりつ(0)</rt></ruby><ruby>過程<rt>かてい(0)</rt></ruby>に</u> <u>おいて</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>対<rt>たい(0)</rt></ruby>する</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>を</u> <u><ruby>欠<rt>か(0)</rt></ruby>いたならば、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>既判力<rt>きはんりょく(2)</rt></ruby>を</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼす</u> <u>ことは</u> <u><ruby>正当化<rt>せいとうか(0)</rt></ruby>されない</u> <u>ことを</u> <u><ruby>言明<rt>げんめい(0)</rt></ruby>した</u> <u>ものと</u> <u>いえよう。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">3款再審事由原係想定確定判決基於無權代理人之訴訟行為而作成之情形，但判例（大判昭和10年10月28日民集14卷1785頁［前揭百選第5版5事件］）於冒名訴訟中被他人冒用姓名之本人提起再審之訴時，亦認定存有3款再審事由。畫有下線之部分，更一般性地揭示：被列為當事者之人於未獲給予參與訴訟程序機會之情況下判決被宣示並確定時，該人即獲認定存有3款再審事由。得謂本決定明示了於判決成立過程中若欠缺對當事人之程序保障，則將該判決之既判力及於當事人即非屬正當。</div>
+            </div>
+        </article>
+        <article id="card-28" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(28)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>結<rt>むす(0)</rt></ruby>び</u> <u>「</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>がない</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>に</u> <u><ruby>判決<rt>はんけつ(0)</rt></ruby>の</u> <u><ruby>効力<rt>こうりょく(0)</rt></ruby>を</u> <u><ruby>及<rt>およ(0)</rt></ruby>ぼしてはならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>は、</u> <u>いまでは</u> <u>「</u> <u><ruby>裁判<rt>さいばん(2)</rt></ruby>は</u> <u><ruby>適正<rt>てきせい(0)</rt></ruby>・</u> <u><ruby>公平<rt>こうへい(0)</rt></ruby>でなければならない」</u> <u>と</u> <u>いう</u> <u><ruby>命題<rt>めいだい(0)</rt></ruby>と</u> <u><ruby>同様<rt>どうよう(0)</rt></ruby>に、</u> <u><ruby>疑<rt>うたが(0)</rt></ruby>う</u> <u><ruby>余地<rt>よち(1)</rt></ruby>のない</u> <u>ものであろう。</u> <u>しかし、</u> <u>たんに</u> <u><ruby>手続<rt>てつづき(2)</rt></ruby><ruby>保障<rt>ほしょう(0)</rt></ruby>があるとかないとか</u> <u>いうだけでは</u> <u><ruby>意味<rt>いみ(1)</rt></ruby>がない。</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>は</u> <u><ruby>訴訟<rt>そしょう(0)</rt></ruby><ruby>手続<rt>てつづき(2)</rt></ruby>に</u> <u>おいて</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>を</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されなければならないか、</u> <u><ruby>現行<rt>げんこう(0)</rt></ruby><ruby>民事訴訟法<rt>みんじそしょうほう(5)</rt></ruby>の</u> <u><ruby>解釈<rt>かいしゃく(0)</rt></ruby>として、</u> <u><ruby>当事者<rt>とうじしゃ(0)</rt></ruby>には</u> <u>どのような</u> <u><ruby>権利<rt>けんり(1)</rt></ruby>が</u> <u><ruby>保障<rt>ほしょう(0)</rt></ruby>されているのかを、</u> <u><ruby>具体的<rt>ぐたいてき(0)</rt></ruby>な</u> <u><ruby>事案<rt>じあん(0)</rt></ruby>に</u> <u><ruby>即<rt>そく(0)</rt></ruby>して</u> <u><ruby>論証<rt>ろんしょう(0)</rt></ruby>する</u> <u><ruby>必要<rt>ひつよう(0)</rt></ruby>がある。</u> <u><ruby>本稿<rt>ほんこう(0)</rt></ruby>での</u> <u><ruby>検討<rt>けんとう(0)</rt></ruby>が</u> <u><ruby>読者<rt>どくしゃ(0)</rt></ruby>の</u> <u><ruby>参考<rt>さんこう(0)</rt></ruby>になれば</u> <u><ruby>幸<rt>さいわ(0)</rt></ruby>いである。</u> <u>（</u> <u>はせべ・</u> <u>ゆきこ）</u> <u> </u> <u><ruby>血<rt>ち(0)</rt></ruby></u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">★ 結語：「不得將判決效力及於未獲程序保障之當事人」此一命題，如今與「裁判必須適正・公平」之命題相同，屬無庸置疑者。然而，單純講述有或無程序保障並無意義。當事人在訴訟程序中應獲保障何種權利、作為現行民事訴訟法之解釋當事人獲保障何種權利，有必要結合具體案情予以論證。希望本篇論文之檢討能為讀者提供參考。（長谷部由起子）</div>
+            </div>
+        </article>
+                </main>
+
+                <!-- Footer -->
+                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
+                    <p>SPECIAL FEATURE 民事訴訟法「手続保障」 — 左右對照朗讀與翻譯版</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Audio Control Bar -->
+    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+        <div class="flex items-center space-x-3">
+            <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
+                <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg id="icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <button onclick="stopSpeech()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold p-2.5 rounded-xl border border-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+            </button>
+            <div class="text-xs sm:text-sm">
+                <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <label class="text-xs text-slate-400 select-none hidden sm:inline">語速</label>
+            <select id="select-rate" onchange="changeRate()" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500">
+                <option value="0.75">0.75x</option>
+                <option value="1.0" selected>1.0x (標準)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <script>
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+        let playQueue = [];
+        let currentCardIndex = -1;
+        let isPlayingAll = false;
+        let speechRate = 1.0;
+        let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '民事訴訟法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            
+            // Apply PDF Open Parameters
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            
+            // Apply CSS Scaling for smooth visual enhancement
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
+
+        function loadVoices() {
+            let voices = synth.getVoices();
+            japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja')) || null;
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+
+        function getCleanText(cardId) {
+            const cardEl = document.getElementById('card-' + cardId);
+            if (!cardEl) return '';
+            
+            let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
+            const clone = targetEl.cloneNode(true);
+            
+            const rts = clone.querySelectorAll('rt');
+            rts.forEach(rt => rt.remove());
+            
+            let text = clone.textContent || '';
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            return text;
+        }
+
+        function highlightCard(index) {
+            document.querySelectorAll('.playing-card').forEach(el => el.classList.remove('playing-card'));
+            if (index >= 0) {
+                const el = document.getElementById('card-' + index);
+                if (el) {
+                    el.classList.add('playing-card');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function updateUIState(playing) {
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const statusEl = document.getElementById('tts-status');
+            
+            if (playing) {
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                statusEl.textContent = '朗讀中...';
+            } else {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                statusEl.textContent = '已暫停 / 準備就緒';
+            }
+        }
+
+        function playCardText(index) {
+            stopSpeech();
+            isPlayingAll = false;
+            currentCardIndex = index;
+            const text = getCleanText(index);
+            if (!text) return;
+            
+            speakText(text, index, () => {
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '朗讀完成';
+            });
+        }
+
+        function speakText(text, cardIndex, onEndCallback) {
+            if (synth.speaking) synth.cancel();
+            
+            highlightCard(cardIndex);
+            updateUIState(true);
+            document.getElementById('tts-detail').textContent = text.substring(0, 30) + '...';
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'ja-JP';
+            if (japaneseVoice) currentUtterance.voice = japaneseVoice;
+            currentUtterance.rate = speechRate;
+            
+            currentUtterance.onend = function() {
+                if (onEndCallback) onEndCallback();
+            };
+            
+            currentUtterance.onerror = function(e) {
+                console.error('Speech synthesis error:', e);
+                highlightCard(-1);
+                updateUIState(false);
+            };
+            
+            synth.speak(currentUtterance);
+        }
+
+        function togglePlayAll() {
+            if (synth.speaking && isPlayingAll) {
+                if (synth.paused) {
+                    synth.resume();
+                    updateUIState(true);
+                } else {
+                    synth.pause();
+                    updateUIState(false);
+                }
+                return;
+            }
+            
+            stopSpeech();
+            isPlayingAll = true;
+            let totalCards = document.querySelectorAll('[id^="card-"]').length;
+            let queue = [];
+            for (let i = 0; i < totalCards; i++) {
+                queue.push(i);
+            }
+            
+            playNextInQueue(queue);
+        }
+
+        function playNextInQueue(queue) {
+            if (!isPlayingAll || queue.length === 0) {
+                isPlayingAll = false;
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '全文朗讀完畢';
+                return;
+            }
+            
+            let nextIndex = queue.shift();
+            currentCardIndex = nextIndex;
+            const text = getCleanText(nextIndex);
+            
+            if (!text) {
+                playNextInQueue(queue);
+                return;
+            }
+            
+            speakText(text, nextIndex, () => {
+                if (isPlayingAll) playNextInQueue(queue);
+            });
+        }
+
+        function stopSpeech() {
+            isPlayingAll = false;
+            if (synth.speaking || synth.paused) {
+                synth.cancel();
+            }
+            highlightCard(-1);
+            updateUIState(false);
+            document.getElementById('tts-detail').textContent = '已停止朗讀';
+        }
+
+        function changeRate() {
+            const select = document.getElementById('select-rate');
+            speechRate = parseFloat(select.value);
+            if (synth.speaking && currentCardIndex >= 0) {
+                let wasPlayingAll = isPlayingAll;
+                let cardToResume = currentCardIndex;
+                stopSpeech();
+                if (wasPlayingAll) {
+                    isPlayingAll = true;
+                    let totalCards = document.querySelectorAll('[id^="card-"]').length;
+                    let queue = [];
+                    for (let i = cardToResume; i < totalCards; i++) queue.push(i);
+                    playNextInQueue(queue);
+                } else {
+                    playCardText(cardToResume);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

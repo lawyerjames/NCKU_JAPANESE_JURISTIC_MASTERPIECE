@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刑法「法益保護」 - 左右對照朗讀與翻譯版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f172a;
+            color: #1e293b;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif JP', "MS Mincho", serif;
+        }
+
+        .font-sans {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .jp-col {
+            font-size: 1.05rem;
+            line-height: 3.1;
+            letter-spacing: 0.02em;
+            word-break: break-word;
+            color: #0f172a;
+        }
+
+        ruby {
+            ruby-position: over;
+            display: inline-ruby;
+        }
+
+        rt {
+            font-size: 0.52em;
+            color: #475569;
+            letter-spacing: 0.01em;
+            font-weight: normal;
+            line-height: 1.0;
+            user-select: none;
+        }
+
+        u {
+            text-decoration: none;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 2px;
+        }
+
+        .zh-col {
+            font-size: 1.0rem;
+            line-height: 1.75;
+        }
+
+        .playing-card {
+            box-shadow: 0 0 0 3px #6366f1, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            background-color: #f5f3ff !important;
+        }
+    </style>
+</head>
+
+<body class="h-screen overflow-hidden flex flex-col bg-slate-950">
+    <!-- Top Fixed Header -->
+    <header class="h-14 bg-slate-950 text-white px-4 sm:px-6 border-b border-slate-800 shrink-0 flex items-center justify-between shadow-md z-40">
+        <div class="flex items-center space-x-3 truncate">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition-colors flex items-center space-x-1 shrink-0 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span>總覽</span>
+            </a>
+            <h1 class="text-sm sm:text-base font-bold truncate font-serif text-slate-100">
+                刑法「法益保護」
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="togglePdfPanel()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 select-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span id="toggle-pdf-text">隱藏/顯示 原文PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Split View Container (Height = 100vh - 3.5rem) -->
+    <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
+        <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+        <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- PDF Zoom & Control Bar -->
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
+                <span class="text-slate-400 font-semibold flex items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    PDF 縮放控制
+                </span>
+                <div class="flex items-center space-x-1.5">
+                    <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
+                    <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
+                    <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
+                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                </div>
+            </div>
+            <!-- PDF Iframe Container -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
+                <iframe id="pdf-frame" src="刑法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            </div>
+        </div>
+
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
+        <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文左右對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        刑法「法益保護」
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——刑法の任務と保護法益 <span class="text-indigo-300/80 text-xs font-normal">（刑法之任務與保護法益）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>髙橋直哉（中央大学教授 / TAKAHASHI Naoya）
+                    </div>
+                </div>
+
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
+
+        <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300">▶ <ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>任務<rt>にんむ(1)</rt></ruby></h2>
+                <button onclick="playCardText(0)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">▶ 刑法之任務</div>
+        </section>
+        <article id="card-1" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(1)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>1．<ruby>刑法総論<rt>けいほうそうろん(3)</rt></ruby>における</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>の<ruby>機能<rt>きのう(1)</rt></ruby></u> <u><ruby>刑法総論<rt>けいほうそうろん(3)</rt></ruby>の</u> <u><ruby>教科書<rt>きょうかしょ(3)</rt></ruby>を</u> <u><ruby>読<rt>よ(1)</rt></ruby>むと、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>任務<rt>にんむ(1)</rt></ruby>は</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>の<ruby>保護<rt>ほご(1)</rt></ruby>にある、と</u> <u><ruby>書<rt>か(1)</rt></ruby>かれている。</u> <u>このような<ruby>考<rt>かんが(2)</rt></ruby>え<ruby>方<rt>かた(0)</rt></ruby>が</u> <u><ruby>具体的<rt>ぐたいてき(0)</rt></ruby>に</u> <u><ruby>顕在化<rt>けんざいか(0)</rt></ruby>してくる<ruby>場面<rt>ばめん(1)</rt></ruby>は、</u> <u>2つに<ruby>大別<rt>たいべつ(0)</rt></ruby>することができる。</u> <u>1つは、</u> <u><ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>の<ruby>意味<rt>いみ(1)</rt></ruby>を</u> <u><ruby>明<rt>あきら(3)</rt></ruby>らかにする<ruby>場面<rt>ばめん(1)</rt></ruby>である。</u> <u>ここでは、</u> <u><ruby>当該<rt>とうがい(0)</rt></ruby><ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>の</u> <u><ruby>保護法益<rt>ほごほうえき(4)</rt></ruby>を</u> <u><ruby>明<rt>あきら(3)</rt></ruby>らかにした<ruby>上<rt>うえ(0)</rt></ruby>で、</u> <u>その<ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>保護<rt>ほご(1)</rt></ruby>するという</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>に<ruby>照<rt>てら(1)</rt></ruby>して</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な<ruby>解釈<rt>かいしゃく(1)</rt></ruby>がなされなければならない。</u> <u>ここでは、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u><ruby>目的論的解釈<rt>もくてきろんてきかいしゃく(0)</rt></ruby>の</u> <u><ruby>要<rt>かなめ(0)</rt></ruby>としての<ruby>役割<rt>やくわり(0)</rt></ruby>を</u> <u><ruby>担<rt>にな(2)</rt></ruby>っている。</u> <u>ところで、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>とは</u> <u>「<ruby>法<rt>ほう(1)</rt></ruby>によって<ruby>保護<rt>ほご(1)</rt></ruby>される（べき）<ruby>利益<rt>りえき(1)</rt></ruby>」などと</u> <u><ruby>表現<rt>ひょうげん(0)</rt></ruby>されるが、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>には<ruby>必<rt>かなら(0)</rt></ruby>ず<ruby>立法目的<rt>りっぽうもくてき(4)</rt></ruby>があり、</u> <u>その<ruby>目的<rt>もくてき(0)</rt></ruby>の<ruby>追求<rt>ついきゅう(0)</rt></ruby>によって</u> <u><ruby>実現<rt>じつげん(0)</rt></ruby>されるべき<ruby>利益<rt>りえき(1)</rt></ruby></u> <u>（あるいは<ruby>状態<rt>じょうたい(0)</rt></ruby>）を</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>と<ruby>理解<rt>りかい(1)</rt></ruby>するならば、</u> <u><ruby>保護法益<rt>ほごほうえき(4)</rt></ruby>のない<ruby>刑法<rt>けいほう(0)</rt></ruby>などおよそあり<ruby>得<rt>え(1)</rt></ruby>ない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">1．刑法總論中法益概念之功能。閱讀刑法總論之教科書，通常寫道「刑法之任務在於保護法益」。此種思維方式具體顯現之場合，大致可分為兩類。其一係闡明刑罰法規文義與含義之場合。於此，必須在闡明該刑罰法規保護法益之基礎上，對照保護該法益之目的進行合理之解釋。於此，法益概念擔負著目的論解釋核心樞紐之角色。順帶一提，法益雖被表述為「應受法律保護之利益」，但刑法必然具備立法目的，若將藉由追求該目的所應實現之利益（或狀態）理解為法益，則完全不存在不具備保護法益之刑法。</div>
+            </div>
+        </article>
+        <article id="card-2" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(2)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>その<ruby>限<rt>かぎ(1)</rt></ruby>りでは、</u> <u>いかなる<ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>であっても、</u> <u>その<ruby>保護法益<rt>ほごほうえき(4)</rt></ruby>を<ruby>明<rt>あきら(3)</rt></ruby>らかにし、</u> <u>その<ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>保護<rt>ほご(1)</rt></ruby>するという</u> <u><ruby>目的<rt>もくてき(0)</rt></ruby>に<ruby>照<rt>てら(1)</rt></ruby>して</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>な<ruby>解釈<rt>かいしゃく(1)</rt></ruby>をすることは<ruby>可能<rt>かのう(0)</rt></ruby>である。</u> <u>もう1つは、</u> <u><ruby>解釈<rt>かいしゃく(1)</rt></ruby>の<ruby>枠組<rt>わくぐ(0)</rt></ruby>みを<ruby>越<rt>こ(0)</rt></ruby>えて、</u> <u>なにが<ruby>犯罪<rt>はんざい(0)</rt></ruby>として<ruby>処罰<rt>しょばつ(0)</rt></ruby>され<ruby>得<rt>う(1)</rt></ruby>るか、</u> <u><ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>の<ruby>立法理由<rt>りっぽうりゆう(4)</rt></ruby>を<ruby>吟味<rt>ぎんみ(1)</rt></ruby>する<ruby>場面<rt>ばめん(1)</rt></ruby>である。</u> <u>ここでは<ruby>立法目的<rt>りっぽうもくてき(4)</rt></ruby>それ<ruby>自体<rt>じたい(1)</rt></ruby>が、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>に<ruby>照<rt>てら(1)</rt></ruby>して<ruby>批判的<rt>ひはんてき(0)</rt></ruby>に<ruby>吟味<rt>ぎんみ(1)</rt></ruby>されることになる。</u> <u>したがって、</u> <u>このような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u><ruby>既存<rt>きそん(0)</rt></ruby>の<ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>の<ruby>解釈<rt>かいしゃく(1)</rt></ruby>のみならず、</u> <u><ruby>将来<rt>しょうらい(1)</rt></ruby>の<ruby>刑罰法規<rt>けいばつほうき(4)</rt></ruby>の<ruby>立法<rt>りっぽう(1)</rt></ruby>を<ruby>方向<rt>ほうこう(0)</rt></ruby>づけ、</u> <u><ruby>無制限<rt>むせいげん(0)</rt></ruby>な<ruby>犯罪化<rt>はんざいか(0)</rt></ruby>を<ruby>抑制<rt>よくせい(0)</rt></ruby>する</u> <u>「<ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>」を<ruby>担<rt>にな(2)</rt></ruby>うことになる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">就此而言，無論何種刑罰法規，皆得以闡明其保護法益、並對照保護該法益之目的進行合理之解釋。另一場合則係超越解釋之框架，審查何種行為得被作為犯罪加以處罰，亦即審查刑罰法規之立法理由。於此，立法目的本身將對照法益概念受到批判性之審查。因此，此種法益概念不僅用於解釋既存之刑罰法規，更能導引未來刑罰法規之立法，發揮抑制無限制犯罪化之「立法規制功能」。</div>
+            </div>
+        </article>
+        <article id="card-3" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(3)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>歴史的<rt>れきしてき(0)</rt></ruby>にみると、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u>キリスト<ruby>教的<rt>きょうてき(0)</rt></ruby>な<ruby>道徳<rt>どうとく(0)</rt></ruby>・<ruby>宗教規範<rt>しゅうきょうきはん(3)</rt></ruby>の<ruby>違反<rt>いはん(0)</rt></ruby>を<ruby>処罰<rt>しょばつ(0)</rt></ruby>の<ruby>対象<rt>たいしょう(0)</rt></ruby>とし、</u> <u><ruby>国家<rt>こっか(1)</rt></ruby>の<ruby>恣意的<rt>しいてき(0)</rt></ruby>な<ruby>刑罰権<rt>けいばつけん(0)</rt></ruby>の<ruby>行使<rt>こうし(1)</rt></ruby>を<ruby>許<rt>ゆる(2)</rt></ruby>していた</u> <u><ruby>啓蒙主義以前<rt>けいもうしゅぎいぜん(0)</rt></ruby>の<ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>批判<rt>ひはん(0)</rt></ruby>し、</u> <u><ruby>世俗的<rt>せぞくてき(0)</rt></ruby>な<ruby>侵害原理<rt>しんがいげんり(4)</rt></ruby>に<ruby>基<rt>もと(2)</rt></ruby>づく<ruby>刑法<rt>けいほう(0)</rt></ruby>へと脱皮させるために</u> <u><ruby>用<rt>もち(1)</rt></ruby>いられてきた。</u> <u>この<ruby>思想<rt>しそう(1)</rt></ruby>は、</u> <u>19<ruby>世紀<rt>せいき(1)</rt></ruby>の<ruby>法学者<rt>ほうがくしゃ(4)</rt></ruby>ビルンバウムによって<ruby>体系化<rt>たいけいか(0)</rt></ruby>され、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>（Rechtsgut）という<ruby>概念<rt>がいねん(1)</rt></ruby>が<ruby>創唱<rt>そうしょう(0)</rt></ruby>されることとなった。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">從歷史發展觀察，法益概念被用以批判啟蒙主義以前將基督教道德與宗教規範之違反列為處罰對象、允許國家恣意行使刑罰權之刑法，並促使其轉型為基於世俗侵害原則之刑法。此一思想於19世紀由法學者畢恩鮑姆（Birnbaum）予以體系化，從而創唱了「法益」（Rechtsgut）這一概念。</div>
+            </div>
+        </article>
+        <article id="card-4" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(4)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>もっとも、</u> <u>このビルンバウムの<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>が、</u> <u><ruby>当初<rt>とうしょ(1)</rt></ruby>から<ruby>可罰性<rt>かばつせい(0)</rt></ruby>を<ruby>制限<rt>せいげん(0)</rt></ruby>する<ruby>自由主義的<rt>じゆうしゅぎてき(0)</rt></ruby>な<ruby>性格<rt>せいかく(0)</rt></ruby>のものであったのかについては</u> <u><ruby>議論<rt>ぎろん(1)</rt></ruby>がある。</u> <u>その後、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u>ナチス<ruby>時代<rt>じだい(0)</rt></ruby>の「<ruby>義務違反論<rt>ぎむいはんろん(4)</rt></ruby>」などの<ruby>全体主義的<rt>ぜんたいしゅぎてき(0)</rt></ruby>な<ruby>攻撃<rt>こうげき(0)</rt></ruby>を<ruby>乗<rt>の(0)</rt></ruby>り<ruby>越<rt>こ(0)</rt></ruby>え、</u> <u><ruby>戦後<rt>せんご(1)</rt></ruby>の<ruby>西<rt>にし(0)</rt></ruby>ドイツにおいて、</u> <u><ruby>憲法<rt>けんぽう(1)</rt></ruby>（<ruby>基本法<rt>きほんほう(0)</rt></ruby>）の<ruby>精神<rt>せいしん(0)</rt></ruby>に<ruby>合致<rt>がっち(0)</rt></ruby>した<ruby>刑法理論<rt>けいほうりろん(4)</rt></ruby>として<ruby>再構築<rt>さいこうちく(3)</rt></ruby>される<ruby>過程<rt>かてい(0)</rt></ruby>で、</u> <u>その<ruby>自由主義的<rt>じゆうしゅぎてき(0)</rt></ruby>な<ruby>性格<rt>せいかく(0)</rt></ruby></u> <u>（<ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>）を<ruby>強<rt>つよ(2)</rt></ruby>めていくこととなった。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">然而，畢恩鮑姆最初之法益概念是否從一開始即具備限制可罰性之自由主義性格，學説上尚有爭議。其後，法益概念克服了納粹時代「義務違反論」等全體主義式之攻擊，於戰後西德符合憲法（基本法）精神之刑法理論重構過程中，逐步強化了其自由主義性格（即立法規制功能）。</div>
+            </div>
+        </article>
+        <section id="card-5" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300"><u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>が</u> <u>わが<ruby>国<rt>くに(0)</rt></ruby>に<ruby>紹介<rt>しょうかい(0)</rt></ruby>されるようになったのは</u> <u>20<ruby>世紀初頭<rt>せいきしょとう(3)</rt></ruby>であるが、</u> <u><ruby>当初<rt>とうしょ(1)</rt></ruby>は<ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>限界<rt>げんかい(0)</rt></ruby>づけるという<ruby>意識<rt>いしき(1)</rt></ruby>は<ruby>希薄<rt>きはく(0)</rt></ruby>であった。</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>の<ruby>自由主義的<rt>じゆうしゅぎてき(0)</rt></ruby>な<ruby>機能<rt>きのう(1)</rt></ruby>が<ruby>意識<rt>いしき(1)</rt></ruby>されるようになったのは、</u> <u>1970<ruby>年代以降<rt>ねんだいいこう(1)</rt></ruby>、</u> <u>ドイツの<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>展開<rt>てんかい(0)</rt></ruby>が<ruby>精力的高<rt>せいりょくてき(0)</rt></ruby>に<ruby>導入<rt>どうにゅう(0)</rt></ruby>されるようになってからである。</u> <u><ruby>特<rt>とく(0)</rt></ruby>に、</u> <u><ruby>当時<rt>とうじ(1)</rt></ruby>の「<ruby>改正刑法草案<rt>かいせいけいほうそうあん(5)</rt></ruby>」</u> <u>（1974<ruby>年<rt>ねん(0)</rt></ruby>）における<ruby>保安処分<rt>ほあんしょぶん(4)</rt></ruby>や<ruby>道徳的規律<rt>どうとくてききりつ(0)</rt></ruby>の<ruby>導入<rt>どうにゅう(0)</rt></ruby>に対する</u> <u><ruby>批判<rt>ひはん(0)</rt></ruby>の<ruby>根拠<rt>こんきょ(1)</rt></ruby>として、</u> <u><ruby>法益論<rt>ほうえきろん(3)</rt></ruby>が<ruby>積極的<rt>せっきょくてき(0)</rt></ruby>に<ruby>活用<rt>かつよう(0)</rt></ruby>された。</u></h2>
+                <button onclick="playCardText(5)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    <span>朗讀標題</span>
+                </button>
+            </div>
+            <div class="text-base sm:text-lg font-medium text-indigo-200 font-sans">法益概念被引進日本始於20世紀初，但最初對於「以此劃定刑法界限」之意識相當稀薄。自由主義式法益概念功能受到重視，係自1970年代以後積極引進德國法益論最新發展始。特別係作為批判當時「改正刑法草案」（1974年）中引進保安處分與道德規範依據時，法益論被積極加以運用。</div>
+        </section>
+        <article id="card-6" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(6)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>ここにおいて、</u> <u><ruby>法益論<rt>ほうえきろん(3)</rt></ruby>が、</u> <u><ruby>自由主義的<rt>じゆうしゅぎてき(0)</rt></ruby>な<ruby>観点<rt>かんてん(1)</rt></ruby>から</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>限界<rt>げんかい(0)</rt></ruby>づける<ruby>理論<rt>りろん(1)</rt></ruby>として<ruby>語<rt>かた(0)</rt></ruby>られる<ruby>文脈<rt>ぶんみゃく(0)</rt></ruby>が<ruby>形成<rt>けいせい(0)</rt></ruby>されることとなった。</u> <u>2．<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>現在<rt>げんざい(1)</rt></ruby></u> <u>このような<ruby>歴史<rt>れきし(0)</rt></ruby>を<ruby>経<rt>へ(1)</rt></ruby>て<ruby>定着<rt>ていちゃく(0)</rt></ruby>した<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>であるが、</u> <u><ruby>現代社会<rt>げんだいしゃかい(4)</rt></ruby>における<ruby>刑法<rt>けいほう(0)</rt></ruby>のあり<ruby>方<rt>かた(0)</rt></ruby>を<ruby>考<rt>かんが(2)</rt></ruby>える<ruby>上<rt>うえ(0)</rt></ruby>で、</u> <u><ruby>実効的<rt>じっこうてき(0)</rt></ruby>な<ruby>機能<rt>きのう(1)</rt></ruby>を<ruby>果<rt>はた(2)</rt></ruby>せているかについては<ruby>疑問<rt>ぎもん(0)</rt></ruby>が<ruby>呈<rt>てい(0)</rt></ruby>されている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">至此，從自由主義觀點出發將法益論作為限制刑法權界限理論之脈絡遂告形成。2．法益論之現狀。雖然法益論歷經此種歷史而告定著，但於思考現代社會中刑法應有面貌時，其能否發揮實質實効功能，則面臨諸多質疑。</div>
+            </div>
+        </article>
+        <article id="card-7" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(7)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>実務上<rt>じつむじょう(0)</rt></ruby>の<ruby>解釈論<rt>かいしゃくろん(3)</rt></ruby>においては、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は<ruby>依然<rt>いぜん(0)</rt></ruby>として<ruby>重要<rt>じゅうよう(0)</rt></ruby>な<ruby>役割<rt>やくわり(0)</rt></ruby>を<ruby>果<rt>はた(2)</rt></ruby>している。</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u><ruby>錯誤論<rt>さくごろん(3)</rt></ruby>においては、</u> <u><ruby>構成要件<rt>こうせいようけん(3)</rt></ruby>の<ruby>実質的重<rt>じっしつてきじゅう(0)</rt></ruby>なり<ruby>合<rt>あ(0)</rt></ruby>いを<ruby>認<rt>みと(2)</rt></ruby>めるために<ruby>保護法益<rt>ほごほうえき(4)</rt></ruby>の<ruby>共通性<rt>きょうつうせい(0)</rt></ruby>が<ruby>必要<rt>ひつよう(0)</rt></ruby>であるとされる。</u> <u><ruby>未遂犯<rt>みすいはん(0)</rt></ruby>や<ruby>危険犯<rt>きけんはん(0)</rt></ruby>の<ruby>成否<rt>せいひ(1)</rt></ruby>を<ruby>判断<rt>はんだん(1)</rt></ruby>する<ruby>際<rt>さい(1)</rt></ruby>には、</u> <u><ruby>法益侵害<rt>ほうえきしんがい(4)</rt></ruby>の<ruby>危険性<rt>きけんせい(0)</rt></ruby>という<ruby>観点<rt>かんてん(1)</rt></ruby>が<ruby>不可欠<rt>ふかけつ(2)</rt></ruby>である。</u> <u>しかし、</u> <u><ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>という<ruby>観点<rt>かんてん(1)</rt></ruby>からみると、</u> <u><ruby>現代<rt>げんだい(1)</rt></ruby>の<ruby>複雑化<rt>ふくざつか(0)</rt></ruby>した<ruby>社会状況<rt>しゃかいじょうきょう(4)</rt></ruby>のなかで、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>はその<ruby>威力<rt>いりょく(1)</rt></ruby>を<ruby>発揮<rt>はっき(0)</rt></ruby>しにくくなっている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於實務解釋論中，法益概念依然發揮著極為重要之角色。例如於錯誤論中，為認定構成要件實質重疊，必須具備保護法益之共通性；於判斷未遂犯或危險犯是否成立時，法益侵害之危險性觀點亦屬不可或缺。然而若自「立法規制功能」之角度觀察，於現代複雜化之社會狀況下，法益概念已難以展現其規制威力。</div>
+            </div>
+        </article>
+        <article id="card-8" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(8)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>特<rt>とく(0)</rt></ruby>に、</u> <u><ruby>刑事立法<rt>けいじりっぽう(3)</rt></ruby>を<ruby>規制<rt>きせい(0)</rt></ruby>するという<ruby>局面<rt>きょくめん(2)</rt></ruby>では、</u> <u><ruby>法益論<rt>ほうえきろん(3)</rt></ruby>はかなりの<ruby>苦戦<rt>くせん(0)</rt></ruby>を<ruby>強<rt>しい(0)</rt></ruby>られている。</u> <u><ruby>以下<rt>いか(1)</rt></ruby>では、</u> <u>そのような<ruby>問題<rt>もんだい(0)</rt></ruby>を2つ<ruby>取<rt>と(1)</rt></ruby>り<ruby>上<rt>あ(0)</rt></ruby>げてみよう。</u> <u>1つ<ruby>目<rt>め(0)</rt></ruby>は、</u> <u><ruby>処罰<rt>しょばつ(0)</rt></ruby>の<ruby>早期化<rt>そうきか(0)</rt></ruby>・<ruby>抽象化<rt>ちゅうしょうか(0)</rt></ruby>という<ruby>現象<rt>げんしょう(0)</rt></ruby>である。</u> <u><ruby>現代社会<rt>げんだいしゃかい(4)</rt></ruby>におけるリスクの<ruby>増大<rt>ぞうだい(0)</rt></ruby>に<ruby>伴<rt>ともな(2)</rt></ruby>い、</u> <u><ruby>法益侵害<rt>ほうえきしんがい(4)</rt></ruby>の<ruby>危険<rt>きけん(0)</rt></ruby>が<ruby>現実化<rt>げんじつか(0)</rt></ruby>する<ruby>前<rt>まえ(1)</rt></ruby>の<ruby>準備段階<rt>じゅんびだんかい(4)</rt></ruby>や、</u> <u><ruby>個人<rt>こじん(1)</rt></ruby>の<ruby>生命<rt>せいめい(1)</rt></ruby>・<ruby>身体<rt>しんたい(1)</rt></ruby>・<ruby>財産<rt>ざいさん(1)</rt></ruby>といった<ruby>具体的法益<rt>ぐたいてきほうえき(0)</rt></ruby>からは<ruby>離<rt>はな(2)</rt></ruby>れた</u> <u><ruby>制度的<rt>せいどてき(0)</rt></ruby>・<ruby>機能的法益<rt>きのうてきほうえき(0)</rt></ruby>を<ruby>保護対象<rt>ほごたいしょう(3)</rt></ruby>とする<ruby>立法<rt>りっぽう(1)</rt></ruby>が<ruby>増加<rt>ぞうか(0)</rt></ruby>している。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">特別係於限制刑事立法之階段，法益論面臨相當嚴峻之困境。以下提出兩項此類問題進行探討。其一係「處罰早期化與抽象化」現象。隨著現代社會風險之增大，在法益侵害危險現實化之前之預備階段，或脫離個人生命、身體、財產等具體法益，而將制度性、功能性法益列為保護對象之立法日益增加。</div>
+            </div>
+        </article>
+        <article id="card-9" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(9)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u>クレジットカードの<ruby>電磁的記録不正作出罪<rt>でんじてききろくふせいさくしゅざい(0)</rt></ruby></u> <u>（<ruby>刑法<rt>けいほう(0)</rt></ruby>163<ruby>条<rt>じょう(0)</rt></ruby>の2）の<ruby>予備行為<rt>よびこうい(2)</rt></ruby>として、</u> <u>スキミング<ruby>装置<rt>そうち(1)</rt></ruby>の<ruby>所持<rt>しょじ(1)</rt></ruby>・<ruby>設置等<rt>せっちとう(0)</rt></ruby>を<ruby>処罰<rt>しょばつ(0)</rt></ruby>する<ruby>規定<rt>きてい(0)</rt></ruby></u> <u>（<ruby>刑法<rt>けいほう(0)</rt></ruby>163<ruby>条<rt>じょう(0)</rt></ruby>の4）が<ruby>新設<rt>しんせつ(0)</rt></ruby>された。</u> <u>したがって、</u> <u><ruby>加盟店<rt>かめいてん(0)</rt></ruby>の<ruby>信用照会端末<rt>しんようしょうかいたんまつ(0)</rt></ruby>（CAT）に</u> <u>スキミング<ruby>装置<rt>そうち(1)</rt></ruby>を<ruby>取<rt>と(1)</rt></ruby>り<ruby>付<rt>つ(0)</rt></ruby>けた<ruby>段階<rt>だんかい(0)</rt></ruby>で</u> <u>すでに<ruby>可罰的<rt>かばつてき(0)</rt></ruby>になる。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">例如，作為不正作出信用卡電磁紀錄罪（刑法第163條之2）之預備行為，新設了對持有或設置側錄器（Skimming 裝置）等行為予以處罰之規定（刑法第163條之4）。因此，於加盟店信用照會終端機（CAT）上安裝側錄裝置之階段，即已構成可罰。</div>
+            </div>
+        </article>
+        <article id="card-10" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(10)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>ここでは、</u> <u><ruby>諸要素<rt>しょようそ(1)</rt></ruby>の<ruby>機能的<rt>きのうてき(0)</rt></ruby>な<ruby>関係複合体<rt>かんけいふくごうたい(0)</rt></ruby>であるシステム、</u> <u><ruby>抽象的<rt>ちゅうしょうてき(0)</rt></ruby>・<ruby>観念的<rt>かんねんてき(0)</rt></ruby>な<ruby>法益<rt>ほうえき(0)</rt></ruby>の<ruby>担<rt>にな(2)</rt></ruby>い<ruby>手<rt>て(0)</rt></ruby>としての<ruby>社会<rt>しゃかい(1)</rt></ruby>、</u> <u><ruby>非物質的<rt>ひぶっしつてき(0)</rt></ruby>な<ruby>要素<rt>ようそ(1)</rt></ruby>である<ruby>信頼<rt>しんらい(0)</rt></ruby>が<ruby>結<rt>むす(2)</rt></ruby>び<ruby>付<rt>つ(0)</rt></ruby>くことによって、</u> <u><ruby>保護法益<rt>ほごほうえき(4)</rt></ruby>が<ruby>構成<rt>こうせい(0)</rt></ruby>されている。</u> <u>このような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u>きわめて<ruby>抽象的<rt>ちゅうしょうてき(0)</rt></ruby>・<ruby>機能的<rt>きのうてき(0)</rt></ruby>であり、</u> <u>なにが<ruby>法益侵害<rt>ほうえきしんがい(4)</rt></ruby>なのか、</u> <u>どこまでが<ruby>過剰<rt>かじょう(0)</rt></ruby>な<ruby>規制<rt>きせい(0)</rt></ruby>なのかを<ruby>劃定<rt>かくてい(0)</rt></ruby>することがきわめて<ruby>困難<rt>こんなん(1)</rt></ruby>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於此，保護法益係由作為各要素功能性關係複合體之系統、作為抽象與觀念性法益擔當主體之社會，以及作為非物質要素之信任彼此結合而構成。此種法益概念極具抽象性與功能性，欲界定何者構成法益侵害、界限何處屬於過當管制，變得極為困難。</div>
+            </div>
+        </article>
+        <article id="card-11" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(11)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>むしろ、</u> <u>このような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u><ruby>積極的<rt>せっきょくてき(0)</rt></ruby>に<ruby>立法理由<rt>りっぽうりゆう(4)</rt></ruby>を<ruby>付与<rt>ふよ(1)</rt></ruby>する<ruby>役割<rt>やくわり(0)</rt></ruby>を<ruby>担<rt>にな(2)</rt></ruby>うことになりそうである。</u> <u>このような<ruby>処罰<rt>しょばつ(0)</rt></ruby>の<ruby>早期化<rt>そうきか(0)</rt></ruby>が<ruby>生<rt>しょう(0)</rt></ruby>ずる<ruby>背景<rt>はいけい(0)</rt></ruby>には、</u> <u><ruby>国民<rt>こくみん(0)</rt></ruby>による<ruby>安全<rt>あんぜん(0)</rt></ruby>・<ruby>安心<rt>あんしん(0)</rt></ruby>の<ruby>確保<rt>かくほ(1)</rt></ruby>という<ruby>強<rt>つよ(2)</rt></ruby>い<ruby>要請<rt>ようせい(0)</rt></ruby>が<ruby>存在<rt>そんざい(0)</rt></ruby>するが、</u> <u>それに<ruby>応<rt>こた(2)</rt></ruby>えようとする<ruby>刑事立法<rt>けいじりっぽう(3)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>して、</u> <u><ruby>法益論<rt>ほうえきろん(3)</rt></ruby>が<ruby>十分<rt>じゅうぶん(3)</rt></ruby>な<ruby>批判的機能<rt>ひはんてききのう(0)</rt></ruby>を<ruby>果<rt>はた(2)</rt></ruby>せていないことが<ruby>指摘<rt>してき(0)</rt></ruby>されている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">反之，此種法益概念反而可能轉而擔負起積極為立法提供合法理由之角色。在此種處罰早期化現象之背景下，存在著國民對確保安全與安心之強烈訴求；然而學者亦指摘，面對試圖回應此訴求之刑事立法，法益論並未發揮充足之批判機能。</div>
+            </div>
+        </article>
+        <article id="card-12" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(12)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>2つ<ruby>目<rt>め(0)</rt></ruby>は、</u> <u><ruby>科学技術<rt>かがくぎじゅつ(1)</rt></ruby>の<ruby>発達<rt>はったつ(0)</rt></ruby>により、</u> <u>これまで<ruby>経験<rt>けいけん(0)</rt></ruby>したことのない<ruby>新<rt>あらた(0)</rt></ruby>たな<ruby>倫理問題<rt>りんりもんだい(0)</rt></ruby>が<ruby>出現<rt>しゅつげん(0)</rt></ruby>してきたことである。</u> <u><ruby>代表的<rt>だいひょうてき(0)</rt></ruby>なのは<ruby>生命倫理<rt>せいめいりんり(0)</rt></ruby>と<ruby>環境倫理<rt>かんきょうりんり(0)</rt></ruby>である。</u> <u><ruby>生命倫理<rt>せいめいりんり(0)</rt></ruby>の<ruby>分野<rt>ぶんや(1)</rt></ruby>では、</u> <u><ruby>受精卵<rt>じゅせいらん(0)</rt></ruby>やES<ruby>細胞<rt>さいぼう(0)</rt></ruby>、ゲノム<ruby>編集技術<rt>へんしゅうぎじゅつ(4)</rt></ruby>の<ruby>利用<rt>りよう(0)</rt></ruby>などが<ruby>問題<rt>もんだい(0)</rt></ruby>となり、</u> <u><ruby>人命<rt>じんめい(0)</rt></ruby>や<ruby>身体<rt>しんたい(1)</rt></ruby>という<ruby>具体的法益<rt>ぐたいてきほうえき(0)</rt></ruby>とは<ruby>異<rt>こと(2)</rt></ruby>なる、</u> <u><ruby>人間<rt>にんげん(0)</rt></ruby>の<ruby>尊厳<rt>そんげん(0)</rt></ruby>や<ruby>生命的秩序<rt>せいめいてきちつじょ(0)</rt></ruby>といった<ruby>保護対象<rt>ほごたいしょう(3)</rt></ruby>が<ruby>議論<rt>ぎろん(1)</rt></ruby>されている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">第二項問題係由於科學技術發展，導致前所未有之新型態倫理問題顯現。其中代表者為生命倫理與環境倫理。於生命倫理領域，受精卵、ES細胞（胚胎幹細胞）以及基因編輯技術之利用等成為爭點，討論著與人命及身體等具體法益不同之「人類尊嚴」或「生命秩序」等保護對象。</div>
+            </div>
+        </article>
+        <article id="card-13" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(13)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>環境倫理<rt>かんきょうりんり(0)</rt></ruby>においては、</u> <u><ruby>動植物<rt>どうしょくぶつ(3)</rt></ruby>など<ruby>自然環境<rt>しぜんかんきょう(4)</rt></ruby>それ<ruby>自体<rt>じたい(1)</rt></ruby>を<ruby>保護対象<rt>ほごたいしょう(3)</rt></ruby>とすべきか、</u> <u>それとも<ruby>将来<rt>しょうらい(1)</rt></ruby>の<ruby>世代<rt>せだい(0)</rt></ruby>を<ruby>含<rt>ふく(2)</rt></ruby>む<ruby>人類<rt>じんるい(1)</rt></ruby>の<ruby>生存基盤<rt>せいぞんきばん(3)</rt></ruby>としての<ruby>環境<rt>かんきょう(0)</rt></ruby>を<ruby>保護<rt>ほご(1)</rt></ruby>すべきかが<ruby>論<rt>ろん(1)</rt></ruby>じられている。</u> <u>この<ruby>関係<rt>かんけい(0)</rt></ruby>では、</u> <u>「<ruby>普遍的法益<rt>ふへんてきほうえき(0)</rt></ruby>」という<ruby>概念<rt>がいねん(1)</rt></ruby>が<ruby>重要<rt>じゅうよう(0)</rt></ruby>である</u> <u>（<ruby>金尚均<rt>きんしょうきん(0)</rt></ruby>『<ruby>危険社会<rt>きけんしゃかい(4)</rt></ruby>と<ruby>刑法<rt>けいほう(0)</rt></ruby>』〔<ruby>成文堂<rt>せいぶんどう(0)</rt></ruby>、2001<ruby>年<rt>ねん(0)</rt></ruby>〕17<ruby>頁参照<rt>ぺーじさんしょう(0)</rt></ruby>）。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於環境倫理中，討論著究竟應將動植物等自然環境本身作為保護對象，抑或應保護包含未來世代在內作為人類生存基盤之環境。於此關係中，「普遍性法益」之概念極為重要（參照金尚均《危險社會與刑法》，成文堂2001年，第17頁）。</div>
+            </div>
+        </article>
+        <article id="card-14" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(14)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>むしろ、</u> <u>ここでは、</u> <u>すでにか<ruby>存在<rt>そんざい(0)</rt></ruby>している<ruby>法益<rt>ほうえき(0)</rt></ruby>の<ruby>保護<rt>ほご(1)</rt></ruby>というよりは、</u> <u><ruby>新<rt>あらた(0)</rt></ruby>たな<ruby>規範<rt>きはん(0)</rt></ruby>の<ruby>形成<rt>けいせい(0)</rt></ruby>のために<ruby>刑法<rt>けいほう(0)</rt></ruby>が<ruby>用<rt>もち(1)</rt></ruby>いられているようにも<ruby>見<rt>み(1)</rt></ruby>える。</u> <u>そのような<ruby>観点<rt>かんてん(1)</rt></ruby>から、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>が<ruby>道徳<rt>どうとく(0)</rt></ruby>や<ruby>倫理<rt>りんり(1)</rt></ruby>の<ruby>維持<rt>いじ(1)</rt></ruby>のために<ruby>利用<rt>りよう(0)</rt></ruby>されるリスクが<ruby>懸念<rt>けねん(0)</rt></ruby>されている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">相反地，於此與其說是保護既有之法益，毋寧更像是將刑法用於建構全新之規範。自此觀點出發，學者擔憂刑法恐面臨被濫用於維持道德或倫理之風險。</div>
+            </div>
+        </article>
+        <article id="card-15" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(15)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>他方<rt>たほう(1)</rt></ruby>で、</u> <u>このような<ruby>刑事立法<rt>けいじりっぽう(3)</rt></ruby>を<ruby>説明<rt>せつめい(0)</rt></ruby>できるような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u>その<ruby>内実<rt>ないじつ(0)</rt></ruby>が<ruby>希薄化<rt>きはくか(0)</rt></ruby>し、</u> <u><ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>を<ruby>十分<rt>じゅうぶん(3)</rt></ruby>に<ruby>果<rt>はた(2)</rt></ruby>たすことは<ruby>困難<rt>こんなん(1)</rt></ruby>となる。</u> <u>ここに<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>の<ruby>大<rt>おお(1)</rt></ruby>きなジレンマがある。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">另一方面，若欲以此種法益概念解釋該類刑事立法，法益概念之實質內容將變得稀薄，進而難以充分發揮其立法規制功能。此即法益概念所面臨之巨大困境。</div>
+            </div>
+        </article>
+        <article id="card-16" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(16)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>第<rt>だい(1)</rt></ruby>1に、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>任務<rt>にんむ(1)</rt></ruby>は<ruby>法益保護<rt>ほうえきほご(4)</rt></ruby>にある、という<ruby>考<rt>かんが(2)</rt></ruby>え<ruby>方<rt>かた(0)</rt></ruby>は、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>保護<rt>ほご(1)</rt></ruby>するために<ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>用<rt>もち(1)</rt></ruby>いるべきであるという<ruby>積極面<rt>せっきょくめん(3)</rt></ruby>と、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>の<ruby>保護<rt>ほご(1)</rt></ruby>に<ruby>役立<rt>やくだ(2)</rt></ruby>たない<ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>用<rt>もち(1)</rt></ruby>いるべきではないという<ruby>消極面<rt>しょうきょくめん(3)</rt></ruby>を<ruby>併<rt>あわ(2)</rt></ruby>せ<ruby>持<rt>も(1)</rt></ruby>っている。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">第一，「刑法之任務在於保護法益」此一主張，兼具「為保護法益應動用刑法」之積極面，與「不助於法益保護之刑法不應動用」之消極面。</div>
+            </div>
+        </article>
+        <article id="card-17" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(17)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>そのように<ruby>考<rt>かんが(2)</rt></ruby>えた<ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u>この<ruby>積極面<rt>せっきょくめん(3)</rt></ruby>と<ruby>消極面<rt>しょうきょくめん(3)</rt></ruby>を</u> <u><ruby>共通<rt>きょうつう(0)</rt></ruby>の<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>で<ruby>統一<rt>とういつ(0)</rt></ruby>しながら、</u> <u><ruby>同時<rt>どうじ(0)</rt></ruby>にそのような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>に</u> <u>どの<ruby>程度<rt>ていど(1)</rt></ruby><ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>を<ruby>担<rt>にな(2)</rt></ruby>わせることができるのかが</u> <u><ruby>問<rt>と(1)</rt></ruby>われなければならない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">若如此思考，則必須在以同一法益概念統一此積極面與消極面之同時，探討究竟能讓該法益概念擔負何等程度之立法規制功能。</div>
+            </div>
+        </article>
+        <article id="card-18" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(18)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>前述<rt>ぜんじゅつ(0)</rt></ruby>した<ruby>処罰<rt>しょばつ(0)</rt></ruby>の<ruby>早期化<rt>そうきか(0)</rt></ruby>という<ruby>現象<rt>げんしょう(0)</rt></ruby>からもうかがわれるように、</u> <u>それ<ruby>自体<rt>じたい(1)</rt></ruby>は<ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>しない<ruby>行為<rt>こうい(1)</rt></ruby>であっても、</u> <u>それを<ruby>規制<rt>きせい(0)</rt></ruby>することによって<ruby>法益保護<rt>ほうえきほご(4)</rt></ruby>に<ruby>資<rt>し(1)</rt></ruby>するケースは<ruby>多々<rt>たた(1)</rt></ruby><ruby>考<rt>かんが(2)</rt></ruby>えられる。</u> <u><ruby>法益保護<rt>ほうえきほご(4)</rt></ruby>に<ruby>役立<rt>やくだ(2)</rt></ruby>つか<ruby>否<rt>いな(1)</rt></ruby>かという<ruby>観点<rt>かんてん(1)</rt></ruby>からだけでは、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>しない<ruby>行為<rt>こうい(1)</rt></ruby>を<ruby>犯罪<rt>はんざい(0)</rt></ruby>としてはならないという<ruby>結論<rt>けつろん(0)</rt></ruby>を<ruby>直<rt>ただ(1)</rt></ruby>ちに<ruby>導<rt>みちび(3)</rt></ruby>くことはできない。</u> <u>それでもなお<ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>しない<ruby>行為<rt>こうい(1)</rt></ruby>を<ruby>犯罪<rt>はんざい(0)</rt></ruby>としてはならないという<ruby>主張<rt>しゅちょう(0)</rt></ruby>を<ruby>維持<rt>いじ(1)</rt></ruby>しようとするのであれば、</u> <u>それを<ruby>支<rt>ささ(2)</rt></ruby>える<ruby>実質的<rt>じっしつてき(0)</rt></ruby>な<ruby>根拠<rt>こんきょ(1)</rt></ruby>をさらに<ruby>探求<rt>たんきゅう(0)</rt></ruby>しなければならないだろう。</u> <u><ruby>第<rt>だい(1)</rt></ruby>3に、</u> <u><ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>しない<ruby>行為<rt>こうい(1)</rt></ruby>を<ruby>犯罪<rt>はんざい(0)</rt></ruby>としてはならないということが<ruby>例外<rt>れいがい(0)</rt></ruby>を<ruby>認<rt>みと(2)</rt></ruby>めない<ruby>一元的<rt>いちげんてき(0)</rt></ruby>な<ruby>主張<rt>しゅちょう(0)</rt></ruby>なのだとすれば、</u> <u><ruby>犯罪化<rt>はんざいか(0)</rt></ruby>が<ruby>許容<rt>きょよう(0)</rt></ruby>されるすべての<ruby>場合<rt>ばあい(0)</rt></ruby>について、</u> <u>なにが<ruby>法益<rt>ほうえき(0)</rt></ruby>であり、</u> <u>その<ruby>法益<rt>ほうえき(0)</rt></ruby>を<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>する<ruby>行為<rt>こうい(1)</rt></ruby>とはどのようなものなのかを<ruby>説明<rt>せつめい(0)</rt></ruby>できなければならない。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">如前述處罰早期化現象所展現，即便行為本身並未直接侵害或危殆化法益，但藉由管制該行為而有助於法益保護之情形屢見不鮮。僅單純自「是否助於法益保護」之觀點，並無法直接推導出「不得將未侵害或危殆化法益之行為立為犯罪」之結論。倘若仍欲維持「不得將未侵害或危殆化法益之行為立為犯罪」之主張，則必須進一步探求支持該主張之實質根據。第三，若「不得將未侵害或危殆化法益之行為立為犯罪」係一不容許例外之一元化主張，則就所有允許犯罪化之情形，皆必須能夠說明何者係法益、以及侵害或危殆化該法益之行為究竟為何。</div>
+            </div>
+        </article>
+        <article id="card-19" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(19)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>ここで、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>を、</u> <u>その<ruby>実質的<rt>じっしつてき(0)</rt></ruby>な<ruby>内容<rt>ないよう(0)</rt></ruby>が<ruby>明<rt>あきら(3)</rt></ruby>らかで、</u> <u>その<ruby>侵害<rt>しんがい(0)</rt></ruby>・<ruby>危殆化<rt>きたいか(0)</rt></ruby>の<ruby>機序<rt>きじょ(1)</rt></ruby>を<ruby>合理的<rt>ごうりてき(0)</rt></ruby>に<ruby>把握<rt>はあく(0)</rt></ruby>することができるように<ruby>具体的<rt>ぐたいてき(0)</rt></ruby>に<ruby>記述<rt>きじゅつ(1)</rt></ruby>すれば、</u> <u>そのような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>は、</u> <u><ruby>強<rt>つよ(2)</rt></ruby>い<ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>をもつ、</u> <u>ことになるであろう。</u> <u>しかし、</u> <u>そのような<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>によって<ruby>正当化<rt>せいとうか(0)</rt></ruby>できる<ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>範囲<rt>はんい(1)</rt></ruby>は<ruby>狭<rt>せま(1)</rt></ruby>くならざるを<ruby>得<rt>え(1)</rt></ruby>ないため、</u> <u><ruby>合理性<rt>ごうりせい(0)</rt></ruby>を<ruby>否定<rt>ひてい(0)</rt></ruby>できない<ruby>刑法<rt>けいほう(0)</rt></ruby>を<ruby>説明<rt>せつめい(0)</rt></ruby>することが<ruby>難<rt>むずか(2)</rt></ruby>しくなる<ruby>場合<rt>ばあい(0)</rt></ruby>が<ruby>生<rt>しょう(0)</rt></ruby>じ<ruby>得<rt>う(1)</rt></ruby>る。</u> <u><ruby>他方<rt>たほう(1)</rt></ruby>で、</u> <u><ruby>合理的<rt>ごうりてき(0)</rt></ruby>であると<ruby>考<rt>かんが(2)</rt></ruby>えられる<ruby>刑法<rt>けいほう(0)</rt></ruby>をカバーできるように<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>を<ruby>拡張<rt>かくちょう(0)</rt></ruby>しようとすれば、</u> <u>それは<ruby>抽象的<rt>ちゅうしょうてき(0)</rt></ruby>で<ruby>記述的内容<rt>きじゅつてきないよう(0)</rt></ruby>の<ruby>乏<rt>とぼ(2)</rt></ruby>しいものとなり、</u> <u><ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>が<ruby>削<rt>そ(0)</rt></ruby>がれることになるであろう。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">於此，若將法益概念予以具體記述，使其實質內容明確且得以合理掌握其侵害與危殆化之機制，則此種法益概念固將具備強大之立法規制功能。然而，由於能以此種法益概念予以正當化之刑法範圍必然縮減，恐導致難以說明合理性無法被否定之刑法規定。反之，若欲擴張法益概念以涵蓋所有被認為具合理性之刑法，則該概念將變得抽象且缺乏具體記述內容，進而削弱其立法規制功能。</div>
+            </div>
+        </article>
+        <article id="card-20" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(20)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>前述<rt>ぜんじゅつ(0)</rt></ruby>した<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>のジレンマが<ruby>関係<rt>かんけい(0)</rt></ruby>するのは、この<ruby>点<rt>てん(0)</rt></ruby>である。</u> <u><ruby>倫理学<rt>りんりがく(2)</rt></ruby>では、</u> <u><ruby>記述的内容<rt>きじゅつてきないよう(0)</rt></ruby>が<ruby>豊富<rt>ほうふ(3)</rt></ruby>かつ<ruby>具体的<rt>ぐたいてき(0)</rt></ruby>で、</u> <u>その<ruby>意味<rt>いみ(1)</rt></ruby>を<ruby>確定<rt>かくてい(0)</rt></ruby>する<ruby>上<rt>うえ(0)</rt></ruby>で<ruby>規範的<rt>きはんてき(0)</rt></ruby>な<ruby>判断<rt>はんだん(1)</rt></ruby>を<ruby>必要<rt>ひつよう(0)</rt></ruby>とする<ruby>程度<rt>ていど(1)</rt></ruby>が<ruby>小<rt>ちい(1)</rt></ruby>さい<ruby>概念<rt>がいねん(1)</rt></ruby>を</u> <u>「<ruby>厚<rt>あつ(1)</rt></ruby>い thick」<ruby>概念<rt>がいねん(1)</rt></ruby>と<ruby>呼<rt>よ(1)</rt></ruby>び、</u> <u><ruby>記述的内容<rt>きじゅつてきないよう(0)</rt></ruby>が<ruby>乏<rt>とぼ(2)</rt></ruby>しく<ruby>抽象的<rt>ちゅうしょうてき(0)</rt></ruby>で、</u> <u>その<ruby>意味内容<rt>いみないよう(3)</rt></ruby>を<ruby>確定<rt>かくてい(0)</rt></ruby>するためにさらなる<ruby>規範的<rt>きはんてき(0)</rt></ruby>な<ruby>判断<rt>はんだん(1)</rt></ruby>を<ruby>必要<rt>ひつよう(0)</rt></ruby>とする<ruby>程度<rt>ていど(1)</rt></ruby>が<ruby>大<rt>おお(1)</rt></ruby>きい<ruby>概念<rt>がいねん(1)</rt></ruby>を</u> <u>「<ruby>薄<rt>うす(0)</rt></ruby>い thin」<ruby>概念<rt>がいねん(1)</rt></ruby>と<ruby>呼<rt>よ(1)</rt></ruby>ぶことがある</u> <u>（バーナード・ウィリアムズ〔<ruby>森際康友<rt>もりぎわやすとも(0)</rt></ruby>＝<ruby>下川潔訳<rt>しもかわきよしやく(0)</rt></ruby>〕『<ruby>生<rt>い(1)</rt></ruby>き<ruby>方<rt>かた(0)</rt></ruby>について<ruby>哲学<rt>てつがく(2)</rt></ruby>は<ruby>何<rt>なに(1)</rt></ruby>が<ruby>言<rt>い(1)</rt></ruby>えるか』〔ちくま<ruby>学芸文庫<rt>がくげいぶんこ(0)</rt></ruby>〕<ruby>参照<rt>さんしょう(0)</rt></ruby>）。</u> <u>ここで、</u> <u><ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>の<ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>を<ruby>重視<rt>じゅうし(1)</rt></ruby>し、</u> <u>その<ruby>実質的<rt>じっしつてき(0)</rt></ruby>な<ruby>内容<rt>ないよう(0)</rt></ruby>を<ruby>具体化<rt>ぐたいか(0)</rt></ruby>・<ruby>精緻化<rt>せいちか(0)</rt></ruby>する<ruby>方向<rt>ほうこう(0)</rt></ruby>に<ruby>進<rt>すす(0)</rt></ruby>むのも1つの<ruby>選択<rt>せんたく(0)</rt></ruby>である。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">前述法益概念之困境所涉者即係此點。於倫理學中，將記述內容豐富且具體、確定其含義時需要規範性判斷程度較小之概念稱為「厚（thick）」概念；反之將記述內容匱乏且抽象、確定其含義需要更大程度規範性判斷者稱為「薄（thin）」概念（參照伯納德·威廉斯著，森際康友＝下川潔譯《關於生活哲學能說什麼》，築摩學藝文庫）。於此，重視法益概念之立法規制功能，朝向將其實質內容具體化與精緻化之方向發展，乃一種選擇。</div>
+            </div>
+        </article>
+        <article id="card-21" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(21)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u>それは、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>の<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>立場<rt>たちば(3)</rt></ruby>を<ruby>堅持<rt>けんじ(1)</rt></ruby>しようとするものであるが、</u> <u>その<ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u><ruby>現代社会<rt>げんだいしゃかい(4)</rt></ruby>の<ruby>様相<rt>ようそう(0)</rt></ruby>に<ruby>合<rt>あ(0)</rt></ruby>わせて</u> <u>より<ruby>洗練<rt>せんれん(0)</rt></ruby>された<ruby>法益概念<rt>ほうえきがいねん(4)</rt></ruby>を<ruby>提示<rt>ていじ(0)</rt></ruby>できるかが<ruby>課題<rt>かだい(0)</rt></ruby>となるであろう。</u> <u><ruby>他方<rt>たほう(1)</rt></ruby>で、</u> <u>そのような<ruby>選択<rt>せんたく(0)</rt></ruby>をしない<ruby>場合<rt>ばあい(0)</rt></ruby>には、</u> <u><ruby>従来<rt>じゅうらい(0)</rt></ruby>に<ruby>比<rt>くら(0)</rt></ruby>べて<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>役割<rt>やくわり(0)</rt></ruby>を<ruby>縮小<rt>しゅくしょう(0)</rt></ruby>することになるであろう。</u> <u>しかし、</u> <u>そのような<ruby>方向<rt>ほうこう(0)</rt></ruby>に<ruby>進<rt>すす(0)</rt></ruby>んでも、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>適切<rt>てきせつ(0)</rt></ruby>な<ruby>射程<rt>しゃてい(0)</rt></ruby>を<ruby>画<rt>かく(1)</rt></ruby>するという<ruby>問題<rt>もんだい(0)</rt></ruby>がなくなるわけではない。</u> <u>この<ruby>問題<rt>もんだい(0)</rt></ruby>に<ruby>答<rt>こた(2)</rt></ruby>えるためには、</u> <u><ruby>私<rt>わたし(0)</rt></ruby>たちが<ruby>生<rt>い(1)</rt></ruby>きる<ruby>社会<rt>しゃかい(1)</rt></ruby>においてなにが<ruby>法的<rt>ほうてき(0)</rt></ruby>に<ruby>保護<rt>ほご(1)</rt></ruby>すべき<ruby>価値<rt>かち(1)</rt></ruby>あるものなのか、という</u> <u><ruby>政治的<rt>せいじてき(0)</rt></ruby>な<ruby>問い<rt>とい(0)</rt></ruby>を<ruby>避<rt>さ(1)</rt></ruby>けて<ruby>通<rt>とお(1)</rt></ruby>ることはできない。</u> <u>「なにが<ruby>法的<rt>ほうてき(0)</rt></ruby>に『<ruby>保護<rt>ほご(1)</rt></ruby>すべき』<ruby>利益<rt>りえき(1)</rt></ruby>か」を<ruby>問題<rt>もんだい(0)</rt></ruby>とする<ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>思考枠組<rt>しこうわくぐ(4)</rt></ruby>みは、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>のあり<ruby>方<rt>かた(0)</rt></ruby>を<ruby>考<rt>かんが(2)</rt></ruby>える<ruby>上<rt>うえ(0)</rt></ruby>で、</u> <u>このような<ruby>価値判断<rt>かちはんだん(3)</rt></ruby>を<ruby>伴<rt>ともな(2)</rt></ruby>う<ruby>規範的<rt>きはんてき(0)</rt></ruby>な<ruby>問い<rt>とい(0)</rt></ruby>に<ruby>取<rt>と(1)</rt></ruby>り<ruby>組<rt>く(0)</rt></ruby>むことが<ruby>重要<rt>じゅうよう(0)</rt></ruby>である、ということを<ruby>意識<rt>いしき(1)</rt></ruby>させ、</u> <u><ruby>議論<rt>ぎろん(1)</rt></ruby>のフォーラムを<ruby>創<rt>つく(2)</rt></ruby>り<ruby>出<rt>だ(1)</rt></ruby>すという意味において、</u> <u><ruby>法益論<rt>ほうえきろん(3)</rt></ruby>の<ruby>立法規制機能<rt>りっぽうきせいきのう(5)</rt></ruby>に<ruby>懐疑的<rt>かいぎてき(0)</rt></ruby>な<ruby>者<rt>もの(2)</rt></ruby>にとっても、</u> <u><ruby>依然<rt>いぜん(0)</rt></ruby>として<ruby>訴求力<rt>そきゅうりょく(3)</rt></ruby>をもち<ruby>得<rt>う(1)</rt></ruby>るであろう。</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">此舉係試圖堅持傳統法益論之立場，惟於此情形下，能否順應現代社會之樣貌提出更為精緻洗練之法益概念，將成為重大課題。反之，若不採取此種選擇，則法益論相較以往角色將有所萎縮。然而，縱朝此方向發展，劃定刑法適當射程之問題亦非隨之消失。欲回答此問題，我們便無法迴避「於我們所生存之社會中，何者屬於法律上應予保護之具價值事物」此一政治性提問。「何者屬法律上『應予保護』之利益」此一法益論思考架構，於思考刑法應有面貌時，提醒著人們探討此種伴隨價值判斷之規範性提問極為重要，且於創造討論論壇之意義上，即便是對法益論之立法規制功能持懷疑態度者，法益論依然具備相當之說服力與吸引力。</div>
+            </div>
+        </article>
+        <article id="card-22" class="card-item bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 my-4 hover:shadow-md transition-all duration-300">
+            <!-- Japanese Original Text (Top) -->
+            <div class="jp-col font-serif tracking-normal pb-4 border-b border-slate-100 relative group">
+                <div class="flex justify-end mb-2">
+                    <button onclick="playCardText(22)" class="flex items-center space-x-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200/60 transition-colors select-none">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <span>朗讀本段</span>
+                    </button>
+                </div>
+                <div class="jp-text-content">
+                    <u><ruby>刑法<rt>けいほう(0)</rt></ruby>の<ruby>任務<rt>にんむ(1)</rt></ruby>は<ruby>法益保護<rt>ほうえきほご(4)</rt></ruby>にある、ということを、</u> <u>ただ<ruby>呪文<rt>じゅもん(0)</rt></ruby>のように<ruby>繰<rt>く(0)</rt></ruby>り返しても<ruby>得<rt>え(1)</rt></ruby>られるものはほとんどない。</u> <u>この<ruby>主張<rt>しゅちょう(0)</rt></ruby>がなにを<ruby>狙<rt>ねら(0)</rt></ruby>いとし、</u> <u>それを<ruby>達成<rt>たっせい(0)</rt></ruby>するためにはなにが<ruby>必要<rt>ひつよう(0)</rt></ruby>か、ということを</u> <u>じっくりと<ruby>考<rt>かんが(2)</rt></ruby>えてみることが<ruby>大切<rt>たいせつ(0)</rt></ruby>である。</u> <u>その<ruby>過程<rt>かてい(0)</rt></ruby>では、</u> <u>「うっそうたる<ruby>争点<rt>そうてん(3)</rt></ruby>のジャングル」に<ruby>遭遇<rt>そうぐう(0)</rt></ruby>するかもしれないが、</u> <u><ruby>刑法<rt>けいほう(0)</rt></ruby>について<ruby>真摯<rt>しんし(1)</rt></ruby>に<ruby>取<rt>と(1)</rt></ruby>り<ruby>組<rt>く(0)</rt></ruby>もうとする<ruby>者<rt>もの(2)</rt></ruby>は、</u> <u>そこを<ruby>通<rt>とお(1)</rt></ruby>り<ruby>抜<rt>ぬ(0)</rt></ruby>けなければならない。</u> <u>（たかはし・なおや）</u>
+                </div>
+            </div>
+            <!-- Traditional Chinese Translation (Bottom) -->
+            <div class="zh-col font-sans tracking-normal pt-4 flex items-start space-x-3">
+                <span class="inline-flex items-center justify-center bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded mt-0.5 shrink-0 select-none border border-indigo-200/60">
+                    譯文
+                </span>
+                <div class="text-slate-700 font-normal">將「刑法之任務在於保護法益」如咒語般反覆宣示，幾乎無法獲得任何實質收益。深思此一主張之目的何在、以及為達成該目的需要何種條件，實屬至關重要。於此過程中，或許會遭遇「錯綜複雜之爭點叢林」，但凡欲真摯研究刑法者，皆必須穿透此一叢林前行。（髙橋直哉）</div>
+            </div>
+        </article>
+                </main>
+
+                <!-- Footer -->
+                <footer class="bg-slate-900 border-t border-slate-800 py-6 px-6 rounded-xl text-center text-xs text-slate-400">
+                    <p>刑法「法益保護」 — 左右對照朗讀與翻譯版</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Audio Control Bar -->
+    <div class="fixed bottom-4 right-4 sm:right-8 w-11/12 max-w-xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
+        <div class="flex items-center space-x-3">
+            <button id="btn-play-all" onclick="togglePlayAll()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold p-2.5 rounded-xl transition-colors shadow-md flex items-center justify-center">
+                <svg id="icon-play" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg id="icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <button onclick="stopSpeech()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold p-2.5 rounded-xl border border-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+            </button>
+            <div class="text-xs sm:text-sm">
+                <div id="tts-status" class="font-medium text-slate-200">準備朗讀</div>
+                <div id="tts-detail" class="text-slate-400 text-xs truncate max-w-[150px] sm:max-w-[200px]">點擊按鈕開啟日文語音朗讀</div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <label class="text-xs text-slate-400 select-none hidden sm:inline">語速</label>
+            <select id="select-rate" onchange="changeRate()" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500">
+                <option value="0.75">0.75x</option>
+                <option value="1.0" selected>1.0x (標準)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Speech Synthesis & PDF Zoom JavaScript -->
+    <script>
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+        let playQueue = [];
+        let currentCardIndex = -1;
+        let isPlayingAll = false;
+        let speechRate = 1.0;
+        let japaneseVoice = null;
+        let currentPdfZoom = 1.0;
+        let pdfBaseSrc = '刑法2023.pdf';
+
+        function setPdfZoom(scaleFactor) {
+            currentPdfZoom = scaleFactor;
+            applyPdfZoom();
+        }
+
+        function zoomPdf(ratio) {
+            currentPdfZoom = Math.max(0.5, Math.min(3.0, currentPdfZoom * ratio));
+            applyPdfZoom();
+        }
+
+        function resetPdfZoom() {
+            currentPdfZoom = 1.0;
+            applyPdfZoom();
+        }
+
+        function applyPdfZoom() {
+            const zoomPercent = Math.round(currentPdfZoom * 100);
+            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
+            const iframe = document.getElementById('pdf-frame');
+            
+            // Apply PDF Open Parameters
+            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
+            
+            // Apply CSS Scaling for smooth visual enhancement
+            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+            iframe.style.width = (100 / currentPdfZoom) + '%';
+            iframe.style.height = (100 / currentPdfZoom) + '%';
+        }
+
+        function togglePdfPanel() {
+            const pdfPanel = document.getElementById('pdf-panel');
+            const contentPanel = document.getElementById('content-panel');
+            if (pdfPanel.classList.contains('hidden')) {
+                pdfPanel.classList.remove('hidden');
+                contentPanel.className = 'w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            } else {
+                pdfPanel.classList.add('hidden');
+                contentPanel.className = 'w-full lg:w-full h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300';
+            }
+        }
+
+        function loadVoices() {
+            let voices = synth.getVoices();
+            japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja')) || null;
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+
+        function getCleanText(cardId) {
+            const cardEl = document.getElementById('card-' + cardId);
+            if (!cardEl) return '';
+            
+            let targetEl = cardEl.querySelector('.jp-text-content') || cardEl.querySelector('h2') || cardEl;
+            const clone = targetEl.cloneNode(true);
+            
+            const rts = clone.querySelectorAll('rt');
+            rts.forEach(rt => rt.remove());
+            
+            let text = clone.textContent || '';
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            return text;
+        }
+
+        function highlightCard(index) {
+            document.querySelectorAll('.playing-card').forEach(el => el.classList.remove('playing-card'));
+            if (index >= 0) {
+                const el = document.getElementById('card-' + index);
+                if (el) {
+                    el.classList.add('playing-card');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function updateUIState(playing) {
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const statusEl = document.getElementById('tts-status');
+            
+            if (playing) {
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                statusEl.textContent = '朗讀中...';
+            } else {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                statusEl.textContent = '已暫停 / 準備就緒';
+            }
+        }
+
+        function playCardText(index) {
+            stopSpeech();
+            isPlayingAll = false;
+            currentCardIndex = index;
+            const text = getCleanText(index);
+            if (!text) return;
+            
+            speakText(text, index, () => {
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '朗讀完成';
+            });
+        }
+
+        function speakText(text, cardIndex, onEndCallback) {
+            if (synth.speaking) synth.cancel();
+            
+            highlightCard(cardIndex);
+            updateUIState(true);
+            document.getElementById('tts-detail').textContent = text.substring(0, 30) + '...';
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'ja-JP';
+            if (japaneseVoice) currentUtterance.voice = japaneseVoice;
+            currentUtterance.rate = speechRate;
+            
+            currentUtterance.onend = function() {
+                if (onEndCallback) onEndCallback();
+            };
+            
+            currentUtterance.onerror = function(e) {
+                console.error('Speech synthesis error:', e);
+                highlightCard(-1);
+                updateUIState(false);
+            };
+            
+            synth.speak(currentUtterance);
+        }
+
+        function togglePlayAll() {
+            if (synth.speaking && isPlayingAll) {
+                if (synth.paused) {
+                    synth.resume();
+                    updateUIState(true);
+                } else {
+                    synth.pause();
+                    updateUIState(false);
+                }
+                return;
+            }
+            
+            stopSpeech();
+            isPlayingAll = true;
+            let totalCards = document.querySelectorAll('[id^="card-"]').length;
+            let queue = [];
+            for (let i = 0; i < totalCards; i++) {
+                queue.push(i);
+            }
+            
+            playNextInQueue(queue);
+        }
+
+        function playNextInQueue(queue) {
+            if (!isPlayingAll || queue.length === 0) {
+                isPlayingAll = false;
+                highlightCard(-1);
+                updateUIState(false);
+                document.getElementById('tts-detail').textContent = '全文朗讀完畢';
+                return;
+            }
+            
+            let nextIndex = queue.shift();
+            currentCardIndex = nextIndex;
+            const text = getCleanText(nextIndex);
+            
+            if (!text) {
+                playNextInQueue(queue);
+                return;
+            }
+            
+            speakText(text, nextIndex, () => {
+                if (isPlayingAll) playNextInQueue(queue);
+            });
+        }
+
+        function stopSpeech() {
+            isPlayingAll = false;
+            if (synth.speaking || synth.paused) {
+                synth.cancel();
+            }
+            highlightCard(-1);
+            updateUIState(false);
+            document.getElementById('tts-detail').textContent = '已停止朗讀';
+        }
+
+        function changeRate() {
+            const select = document.getElementById('select-rate');
+            speechRate = parseFloat(select.value);
+            if (synth.speaking && currentCardIndex >= 0) {
+                let wasPlayingAll = isPlayingAll;
+                let cardToResume = currentCardIndex;
+                stopSpeech();
+                if (wasPlayingAll) {
+                    isPlayingAll = true;
+                    let totalCards = document.querySelectorAll('[id^="card-"]').length;
+                    let queue = [];
+                    for (let i = cardToResume; i < totalCards; i++) queue.push(i);
+                    playNextInQueue(queue);
+                } else {
+                    playCardText(cardToResume);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
