@@ -105,7 +105,7 @@
             </div>
             <!-- PDF Iframe Container -->
             <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="憲法2023.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+                <iframe id="pdf-frame" src="憲法2023.pdf#toolbar=0&navpanes=0&view=FitH" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
             </div>
         </div>
 
@@ -755,9 +755,15 @@
             document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
             const iframe = document.getElementById('pdf-frame');
             iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-            iframe.style.width = (100 / currentPdfZoom) + '%';
-            iframe.style.height = (100 / currentPdfZoom) + '%';
+            if (currentPdfZoom === 1.0) {
+                iframe.style.transform = '';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+            } else {
+                iframe.style.transform = 'scale(' + currentPdfZoom + ')';
+                iframe.style.width = (100 / currentPdfZoom) + '%';
+                iframe.style.height = (100 / currentPdfZoom) + '%';
+            }
         }
 
         function togglePdfPanel() {
