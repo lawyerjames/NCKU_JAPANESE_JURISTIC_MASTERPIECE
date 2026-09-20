@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本最高裁司法制度改革 法學日文常用文法彙編 - 互動研讀與填空測驗</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+        .font-serif-jp {
+            font-family: 'Noto Serif JP', 'MS Mincho', serif;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card-hover:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.15);
+        }
+        .active-tab {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+        }
+        .active-filter {
+            background-color: #4f46e5;
+            color: #ffffff;
+            border-color: #6366f1;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 sm:px-8 py-3.5 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Title Branding -->
+            <div class="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-start">
+                <a href="index.html" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/60 hover:bg-indigo-900/80 px-3 py-1.5 rounded-lg border border-indigo-800/50 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>文庫首頁</span>
+                </a>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h1 class="text-base sm:text-lg font-bold text-slate-100 tracking-wide">
+                        日本最高裁司法制度改革 <span class="text-indigo-400 font-normal text-sm sm:text-base">法學日文常用文法彙編</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Mode Selector Tabs -->
+            <div class="flex items-center space-x-1 sm:space-x-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs sm:text-sm">
+                <button id="tab-study-btn" onclick="switchMode('study')" class="px-3.5 py-1.5 rounded-lg font-medium transition-all flex items-center space-x-1.5 active-tab">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <span>文法典藏手冊</span>
+                </button>
+                <button id="tab-quiz-btn" onclick="switchMode('quiz')" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-all flex items-center space-x-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <span>自我填空測驗</span>
+                    <span id="quiz-badge" class="bg-indigo-500/30 text-indigo-300 text-[10px] px-1.5 py-0.5 rounded-full font-mono">50題</span>
+                </button>
+                <button id="tab-core-btn" onclick="switchMode('core')" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-all flex items-center space-x-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>三大語法核心</span>
+                </button>
+                <button id="tab-fav-btn" onclick="switchMode('favorites')" class="px-3.5 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white transition-all flex items-center space-x-1.5">
+                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                    <span>生詞收藏本</span>
+                    <span id="fav-count-badge" class="bg-amber-500/20 text-amber-300 text-[10px] px-1.5 py-0.5 rounded-full font-mono">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-8">
+
+        <!-- ================= MODE 1: STUDY / REFERENCE ================= -->
+        <section id="view-study" class="space-y-6">
+            <!-- Header Banner -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 mb-3">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        最高裁判所官方意見書《21世紀の司法制度を考える》
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
+                        法學機能語、裁判修辭與重要句型全覽
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-400 mt-2.5 leading-relaxed">
+                        收錄日本最高裁向內閣審議會提出之官方公文書核心文法，涵蓋法源引證、程序時相、合目的性規範、因果推論與法益衡平等 <span class="text-indigo-300 font-semibold">50 組高頻關鍵機能語</span>。點擊卡片發音按鈕可聆聽真人般自然日語朗讀。
+                    </p>
+                </div>
+
+                <!-- Live Search and Quick Action -->
+                <div class="mt-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-5 border-t border-slate-800/80">
+                    <div class="relative flex-1 max-w-md">
+                        <input id="search-input" type="text" placeholder="搜尋日文學術句型、中文釋義或例句關鍵字..." 
+                               oninput="filterCards()" 
+                               class="w-full bg-slate-900/90 text-sm text-slate-100 placeholder-slate-500 pl-10 pr-4 py-2.5 rounded-xl border border-slate-700/80 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                        <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-slate-400">
+                        <span id="filter-result-count" class="font-mono text-indigo-400 font-semibold text-sm">50</span> 個項目已顯示
+                        <button onclick="startQuizWithCurrentFilter()" class="ml-2 inline-flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl shadow-md shadow-indigo-600/20 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+                            <span>練習當前顯示項目</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none text-xs sm:text-sm">
+                <button onclick="setCategoryFilter('all')" data-cat="all" class="cat-pill active-filter px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    全部句型 (50)
+                </button>
+                <button onclick="setCategoryFilter('法源・依據・審查基準類')" data-cat="法源・依據・審查基準類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    一、 法源依據 (7)
+                </button>
+                <button onclick="setCategoryFilter('程序時相・關聯牽涉類')" data-cat="程序時相・關聯牽涉類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    二、 程序時相 (7)
+                </button>
+                <button onclick="setCategoryFilter('制度目的・立法旨趣類')" data-cat="制度目的・立法旨趣類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    三、 制度目的 (5)
+                </button>
+                <button onclick="setCategoryFilter('因果推論・立論歸結類')" data-cat="因果推論・立論歸結類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    四、 因果推論 (5)
+                </button>
+                <button onclick="setCategoryFilter('限定排除・比較衡平類')" data-cat="限定排除・比較衡平類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    五、 比較衡平 (10)
+                </button>
+                <button onclick="setCategoryFilter('法律評價・規範模態類')" data-cat="法律評價・規範模態類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    六、 法律評價 (10)
+                </button>
+                <button onclick="setCategoryFilter('司法公文書・體裁形式類')" data-cat="司法公文書・體裁形式類" class="cat-pill px-4 py-2 rounded-xl font-medium border border-slate-700/80 hover:border-indigo-500/50 bg-slate-900/80 text-slate-300 transition-all shrink-0">
+                    七、 公文體裁 (6)
+                </button>
+            </div>
+
+            <!-- Cards Container -->
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- ================= MODE 2: INTERACTIVE CLOZE QUIZ ================= -->
+        <section id="view-quiz" class="hidden space-y-6">
+            <!-- Quiz Setup Card (shown before starting) -->
+            <div id="quiz-setup-card" class="max-w-2xl mx-auto glass-card rounded-2xl p-6 sm:p-10 border border-slate-800 shadow-2xl space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 bg-indigo-600/20 text-indigo-400 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/30">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white tracking-wide">法學日文克漏字自我填空測驗</h3>
+                    <p class="text-sm text-slate-400">所有考題均直接摘錄自日本最高裁判所官方意見書，考驗法律條理、句意理解與機能語精準掌握度。</p>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-slate-800">
+                    <!-- Scope Selection -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">出題範圍</label>
+                        <select id="quiz-scope-select" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
+                            <option value="all">全 50 組文法全真題庫（隨機抽題）</option>
+                            <option value="法源・依據・審查基準類">一、 法源・依據・審查基準類 (7題)</option>
+                            <option value="程序時相・關聯牽涉類">二、 程序時相・關聯牽涉類 (7題)</option>
+                            <option value="制度目的・立法旨趣類">三、 制度目的・立法旨趣類 (5題)</option>
+                            <option value="因果推論・立論歸結類">四、 因果推論・立論歸結類 (5題)</option>
+                            <option value="限定排除・比較衡平類">五、 限定排除・比較衡平類 (10題)</option>
+                            <option value="法律評價・規範模態類">六、 法律評價・規範模態類 (10題)</option>
+                            <option value="司法公文書・體裁形式類">七、 司法公文書・體裁形式類 (6題)</option>
+                            <option value="favorites">⭐ 僅測驗我的收藏項目</option>
+                        </select>
+                    </div>
+
+                    <!-- Question Count Selection -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">測驗題數</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setQuizCount(10)" data-count="10" class="quiz-count-btn active-filter py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-sm font-medium transition-all">
+                                10 題速測
+                            </button>
+                            <button onclick="setQuizCount(25)" data-count="25" class="quiz-count-btn py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-sm font-medium transition-all">
+                                25 題精選
+                            </button>
+                            <button onclick="setQuizCount(50)" data-count="50" class="quiz-count-btn py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-sm font-medium transition-all">
+                                50 題全量
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mode Type: Multiple Choice or Direct Typing -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">測驗題型</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setQuizType('mc')" data-type="mc" class="quiz-type-btn active-filter py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-sm font-medium transition-all flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                                <span>四選一單選題</span>
+                            </button>
+                            <button onclick="setQuizType('input')" data-type="input" class="quiz-type-btn py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-sm font-medium transition-all flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                <span>自主填空拼寫</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="startQuiz()" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center space-x-2 text-base">
+                        <span>開始測驗</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz In-Progress Card -->
+            <div id="quiz-active-card" class="hidden max-w-3xl mx-auto glass-card rounded-2xl p-6 sm:p-10 border border-slate-800 shadow-2xl space-y-6">
+                <!-- Top Progress Bar and Stats -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs text-slate-400">
+                        <span id="quiz-progress-text" class="font-medium text-slate-300">第 1 / 10 題</span>
+                        <span id="quiz-category-tag" class="px-2.5 py-0.5 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">法源・依據類</span>
+                        <span id="quiz-score-badge" class="font-mono text-emerald-400 font-bold">目前正確率: 100%</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all duration-300" style="width: 10%;"></div>
+                    </div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">最高裁判所 意見書原文句型填空</span>
+                        <button onclick="toggleHint()" class="inline-flex items-center space-x-1 text-xs text-amber-400 hover:text-amber-300 font-medium transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <span id="hint-toggle-text">查看法意提示</span>
+                        </button>
+                    </div>
+
+                    <!-- Sentence Prompt -->
+                    <div class="bg-slate-900/90 p-5 sm:p-7 rounded-2xl border border-slate-800 text-slate-100 font-serif-jp text-lg sm:text-xl leading-relaxed tracking-wide" id="quiz-sentence-display">
+                        <!-- Injected -->
+                    </div>
+
+                    <!-- Hint Box (Hidden by default) -->
+                    <div id="quiz-hint-box" class="hidden bg-amber-950/40 border border-amber-800/60 rounded-xl p-4 text-xs sm:text-sm text-amber-300 space-y-1 animate-fadeIn">
+                        <div class="font-bold flex items-center space-x-1.5">
+                            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <span>法意提示與中文線索</span>
+                        </div>
+                        <p id="quiz-hint-content" class="text-amber-200/90 pl-5"></p>
+                    </div>
+                </div>
+
+                <!-- Answer Interface: MC Options or Input Box -->
+                <div id="quiz-options-container" class="space-y-3 pt-2">
+                    <!-- Injected via JavaScript -->
+                </div>
+
+                <!-- Evaluation & Feedback Box (Hidden until answer chosen) -->
+                <div id="quiz-feedback-box" class="hidden rounded-2xl p-5 sm:p-6 border space-y-3 animate-fadeIn">
+                    <div class="flex items-center justify-between">
+                        <div id="quiz-result-title" class="flex items-center space-x-2 font-bold text-base sm:text-lg">
+                            <!-- Injected -->
+                        </div>
+                        <button id="quiz-audio-btn" onclick="playCurrentQuestionAudio()" class="inline-flex items-center space-x-1 bg-indigo-950 text-indigo-300 hover:bg-indigo-900 text-xs px-2.5 py-1 rounded-lg border border-indigo-800/60 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                            <span>朗讀全句</span>
+                        </button>
+                    </div>
+                    <div id="quiz-explanation-text" class="text-sm text-slate-300 leading-relaxed pl-1">
+                        <!-- Injected -->
+                    </div>
+                    <div class="pt-3 flex justify-end">
+                        <button id="quiz-next-btn" onclick="nextQuestion()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl shadow-md transition-all flex items-center space-x-2 text-sm">
+                            <span>下一題</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Result Summary Card -->
+            <div id="quiz-result-card" class="hidden max-w-2xl mx-auto glass-card rounded-2xl p-6 sm:p-10 border border-slate-800 shadow-2xl space-y-6 text-center">
+                <div class="w-20 h-20 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center mx-auto border-2 border-indigo-500/40">
+                    <span id="result-score-percent" class="text-2xl font-black font-mono">100%</span>
+                </div>
+                <div class="space-y-1.5">
+                    <h3 id="result-rank-title" class="text-2xl font-bold text-white tracking-wide">最高裁判所調查官級法學日文大師！</h3>
+                    <p id="result-summary-text" class="text-sm text-slate-400">你一共回答了 10 題，答對 10 題，答錯 0 題。</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-slate-800">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="py-3 bg-amber-600/30 hover:bg-amber-600/40 text-amber-300 font-semibold rounded-xl border border-amber-500/40 transition-all text-xs sm:text-sm">
+                        僅複習錯題 (0)
+                    </button>
+                    <button onclick="bookmarkAllMistakes()" class="py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition-all text-xs sm:text-sm">
+                        將錯題加入收藏
+                    </button>
+                    <button onclick="restartQuiz()" class="py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition-all text-xs sm:text-sm">
+                        全新測驗挑戰
+                    </button>
+                </div>
+
+                <!-- Detailed Review of this Quiz -->
+                <div class="text-left pt-4 space-y-3">
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">答題明細回顧</h4>
+                    <div id="result-details-list" class="space-y-2.5 max-h-72 overflow-y-auto pr-1">
+                        <!-- Injected -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODE 3: THREE CORE PRINCIPLES ================= -->
+        <section id="view-core" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800">
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    最高裁意見書之修辭哲學
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mt-3">法學日文在最高裁判所意見書中的三大語法核心</h2>
+                <p class="text-sm text-slate-400 mt-2">
+                    日本最高裁判所於 1999 年向司法制度改革審議會提交之《裁判所の基本的な考え方》，體現了大陸法系最高司法行政機關公文書的最頂級修辭範式。
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <!-- Core 1 -->
+                    <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4 hover:border-indigo-500/40 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-500/30">
+                            1
+                        </div>
+                        <h3 class="text-lg font-bold text-white tracking-wide">因果與依據之「客觀化」</h3>
+                        <div class="text-xs text-indigo-400 font-mono">客觀事實與心證分離・杜絕主觀獨斷</div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            全文嚴格杜絕情緒化或主觀武斷的斷言（如口語的「～と思う」「～からだ」），而是全面使用 <code class="text-indigo-300 font-mono">～に基づいて</code>、<code class="text-indigo-300 font-mono">～を踏まえて</code> 提供扎實法源與審理經驗依據，並透過 <code class="text-indigo-300 font-mono">～ことから</code>、<code class="text-indigo-300 font-mono">～といえよう</code>、<code class="text-indigo-300 font-mono">～ところである</code> 構建起冷靜、客觀且具備權威感的推論閉環。
+                        </p>
+                        <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                            代表句型：No.1, No.3, No.20, No.43, No.45
+                        </div>
+                    </div>
+
+                    <!-- Core 2 -->
+                    <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4 hover:border-indigo-500/40 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-500/30">
+                            2
+                        </div>
+                        <h3 class="text-lg font-bold text-white tracking-wide">法益衡平時的「讓步與折衝修辭」</h3>
+                        <div class="text-xs text-indigo-400 font-mono">利益衡量的多維視角・兼顧理想與現實</div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            在探討法曹一元、陪審參審制等高度政治與法理爭議議題時，最高裁靈活運用 <code class="text-indigo-300 font-mono">～一方</code>、<code class="text-indigo-300 font-mono">～つつ</code>、<code class="text-indigo-300 font-mono">～にもかかわらず</code>、<code class="text-indigo-300 font-mono">～難い</code>、<code class="text-indigo-300 font-mono">～ざるを得ない</code>。在肯定改革崇高理想的同時，嚴密剖析制度成本、司法資源與現實條件限制，展現法益衡平（Balancing of Interests）的沉穩格局。
+                        </p>
+                        <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                            代表句型：No.31, No.32, No.33, No.35, No.40
+                        </div>
+                    </div>
+
+                    <!-- Core 3 -->
+                    <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4 hover:border-indigo-500/40 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-500/30">
+                            3
+                        </div>
+                        <h3 class="text-lg font-bold text-white tracking-wide">規範與制度目的導向（Sollen）</h3>
+                        <div class="text-xs text-indigo-400 font-mono">合目的性與比例原則・手段服務於目的</div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            全篇反覆出現 <code class="text-indigo-300 font-mono">～を図るため</code>、<code class="text-indigo-300 font-mono">～を主眼とする</code>、<code class="text-indigo-300 font-mono">～べきである</code>，精準體現法學思維中「手段必須服務於法益保護目的」之合目的性原則（Zweckmäßigkeit），是研讀日本最高法院裁判理由書與司法行政綱領時最核心的規範表達法。
+                        </p>
+                        <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                            代表句型：No.15, No.16, No.17, No.18
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODE 4: FAVORITES BOOKMARK ================= -->
+        <section id="view-favorites" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            個人化難點複習
+                        </span>
+                        <h2 class="text-2xl font-bold text-white mt-2">我的生詞收藏與難點清單</h2>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">在文法手冊或測驗中點擊星星標記的項目會自動保存在瀏覽器中。</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="startQuizWithFavorites()" class="inline-flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl shadow-md transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+                            <span>針對收藏項目進行測驗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="fav-empty-state" class="text-center py-16 space-y-3">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mx-auto">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    </div>
+                    <p class="text-sm text-slate-400">目前尚無收藏的文法項目。在「文法典藏手冊」中點擊右上角的星星即可加入！</p>
+                </div>
+
+                <!-- Favorites Cards Grid -->
+                <div id="fav-cards-container" class="hidden grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+                    <!-- Injected -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-card border-t border-slate-800/80 mt-12 py-6 px-4 text-center text-xs text-slate-500">
+        <p>國立成功大學法律學系 法學日文名著選讀（一）專用數位輔助教材</p>
+        <p class="mt-1">文獻來源：日本最高裁判所《21世紀の司法制度を考える》（平成11年12月8日提出於司法制度改革審議會）</p>
+    </footer>
+
+    <!-- Master Application Script -->
+    <script>
+        const GRAMMAR_MASTER_DATA = [{"id": 1, "category": "法源・依據・審查基準類", "pattern": "～に基づいて/ ～に基づき", "meaning": "基於…；依據…", "function": "指出判決、處分或裁量所依憑之實定法、客觀證據或審理結果。「～に基づき」為高度書面化連用形中頓。", "example": "「当事者の訴訟活動をベースに審理を進め，その結果に基づき裁判所が判断を示す…」「証拠に基づいて事実を認定し，法的に判断するという…」", "collocation": "常接：法律／証拠／規定／調査結果に基づき。公文書與判決書之必備用詞。", "q": "当事者の訴訟活動をベースに審理を進め，その結果【　　　】裁判所が判断を示すのが民事訴訟の基本構造である。", "ans": "に基づき", "options": ["に基づき", "に照らして", "を踏まえ", "に沿って"], "hint": "中文釋義：基於…；依據…。指出裁判所作成判斷所依憑之客觀審理結果。", "exp": "「～に基づき（に基づいて）」用於指出判決、處分或裁量所依憑之實定法、客觀證據或審理結果。此處指依審理結果作成判斷。"}, {"id": 2, "category": "法源・依據・審查基準類", "pattern": "～に照らして", "meaning": "對照…；參照…法理", "function": "依據法理、一般條理、經驗法則或憲法意旨進行衡平判斷或合目的性審查。", "example": "「当事者の生の声を聞き，法に従いつつ条理に照らして合理的な解決策を見いだしていく…」", "collocation": "常接：条理／憲法の趣旨／経験則／前例に照らして。用於實質價值評判。", "q": "当事者の生の声を聞き，法に従いつつ条理【　　　】合理的な解決策を見いだしていくことが求められる。", "ans": "に照らして", "options": ["に照らして", "に基づいて", "に沿って", "に従って"], "hint": "中文釋義：對照…；參照…法理。依據條理、經驗法則或憲法意旨進行衡平判斷。", "exp": "「～に照らして」用於對照一般條理、經驗法則、憲法意旨或法理，進行實質價值評判或合目的性衡平審查。"}, {"id": 3, "category": "法源・依據・審查基準類", "pattern": "～を踏まえて/ ～を踏まえ", "meaning": "鑑於…；立足於…；在…基礎之上", "function": "將既有實務運作、歷史教訓或前案判決作為推進論述的既定前提，展現法制安定性思維。", "example": "「法曹養成の規模は，こうした修習制度を踏まえた，養成の在り方との関連でも考慮される必要がある…」「このような改革の在り方を踏まえ，まず…」", "collocation": "常接：実態／判例の蓄積／現行法制を踏まえ。避免推論脫離現實體制。", "q": "法曹養成の規模は，こうした修習制度【　　　】，養成の在り方との関連でも考慮される必要がある。", "ans": "を踏まえた", "options": ["を踏まえた", "に基づいた", "に沿った", "に照らした"], "hint": "中文釋義：鑑於…；立足於…；在…基礎之上。將既定制度現實作為前提。", "exp": "「～を踏まえて／を踏まえた」將既有實務運作、歷史經驗或制度前提作為推進論述的既定基礎，展現法制安定性思維。"}, {"id": 4, "category": "法源・依據・審查基準類", "pattern": "～に沿って/ ～に沿った", "meaning": "遵循…；沿著…方針；符合…規範", "function": "表述具體措施、訴訟活動符合特定法規範、政策綱領或改革指導意旨。", "example": "「この意見書に沿った改革に協力できないとの姿勢をとった。」「この改正に沿った運用が定着していけば…」", "collocation": "常接：法意／指針／趣旨／要綱に沿って。強調與上位指導方針之一致性。", "q": "利用者の利便を図るため，この改正【　　　】運用が定着していけば，迅速な裁判の実現が期待される。", "ans": "に沿った", "options": ["に沿った", "に即した", "に準じた", "に従った"], "hint": "中文釋義：遵循…；沿著…方針；符合…規範。修飾名詞「運用」，表符合指導方針。", "exp": "「～に沿った（に沿って）」表述具體措施、訴訟運作符合特定法規範、政策綱領或改革指導意旨。"}, {"id": 5, "category": "法源・依據・審查基準類", "pattern": "～に従って", "meaning": "依照…；遵循（法定程序）", "function": "表述嚴格遵從實定法條文、正當法律程序（Due Process of Law）及形式要件。", "example": "「基本的に臨司意見書に従って制度改革を進めようとする…」「対立当事者の争いをつ手続に従って解決するという共通の制度原理…」", "collocation": "常接：法令／手続／規則に従って。在法學中強調法形式拘束力。", "q": "対立当事者の争いを公正な手続【　　　】解決するという共通の制度原理が妥当する。", "ans": "に従って", "options": ["に従って", "に即して", "に準じて", "に照らして"], "hint": "中文釋義：依照…；遵循（法定程序）。強調嚴格遵從法定正當程序形式拘束力。", "exp": "「～に従って」表述嚴格遵從實定法條文、正當法律程序（Due Process of Law）及形式法定要件。"}, {"id": 6, "category": "法源・依據・審查基準類", "pattern": "～のとおり", "meaning": "正如…所規定；如…所示", "function": "精確援引具體實定法法條（第○條）、先例文獻或前述無爭議之客觀事實。", "example": "「我が国の裁判官の任用制度については，裁判所法42条に定められているとおり…」", "collocation": "常接：法～条に定められているとおり／判例の示すとおり。訴狀與判決必備引證句。", "q": "我が国の裁判官の任用制度については，裁判所法42条に定められている【　　　】である。", "ans": "とおり", "options": ["とおり", "ばかり", "ほど", "ように"], "hint": "中文釋義：正如…所規定；如…所示。精確援引實定法法條或客觀事實。", "exp": "「～のとおり」在裁判書與法學公文中精確援引具體實定法條（如裁判所法42條）或先例文獻。"}, {"id": 7, "category": "法源・依據・審查基準類", "pattern": "～をベースにして/ ～をベースに", "meaning": "以…為基礎／基底", "function": "確立制度構造的根本運作模式、法理基調或政策出發點。", "example": "「当事者の訴訟活動をベースに審理を進め…」「基本的にはこの二つの観点をベースにして…」", "collocation": "常用於界定訴訟構造本質（如當事人進行主義之於民刑事審判）。", "q": "基本的にはこの二つの観点を【　　　】審理計画を策定することが肝要である。", "ans": "ベースにして", "options": ["ベースにして", "ターゲットにして", "ステップにして", "スタートにして"], "hint": "中文釋義：以…為基礎／基底。吸收外來語的大陸法系現代法學表述。", "exp": "「～をベースにして（をベースに）」將基本原則或核心架構作為制度構建之底座，常用於論述審理模式與制度設計。"}, {"id": 8, "category": "程序時相・關聯牽涉類", "pattern": "～に関わる（かかわる）", "meaning": "關涉…；牽涉到（根本法理）", "function": "遠重於單純「に関する」，表示該事項直接牽涉憲法法益、司法體系根本原理或實質正義。", "example": "「法曹一元は司法制度の基本的な理念に関わる問題である。」「裁判作用に関わる職責を負っていることからしても…」「司法制度の根幹に関わる問題である。」", "collocation": "常接：基本的人権／国家の主権／制度の根幹に関わる。具有提示議題高度重大性之功能。", "q": "法曹一元や陪審制の導入は，司法制度の根本的な理念【　　　】極めて重大な問題である。", "ans": "に関わる", "options": ["に関わる", "による", "に対抗する", "に限る"], "hint": "中文釋義：關涉…；牽涉到（根本法理）。遠重於單純「に関する」，提示議題之根本性。", "exp": "「～に関わる（かかわる）」表示該事項直接牽涉憲法法益、司法體系根本原理或制度根幹，帶有提示重大法益之功能。"}, {"id": 9, "category": "程序時相・關聯牽涉類", "pattern": "～において/ ～における", "meaning": "在…程序中；於…體制下", "function": "取代口語「で」，為法學文書最標準的時空、程序階段與實定法規範範疇標記詞。", "example": "「当審議会において，司法制度全般について…」「民事訴訟，刑事訴訟において…」「司法制度の運用における等質性の要請は極めて強い。」", "collocation": "常接：本件訴訟において／審理の手続における。判決書主文與理由不可或缺。", "q": "司法制度の運用【　　　】等質性の要請は極めて強く，全国的に公平な裁判が保障されなければならない。", "ans": "における", "options": ["における", "に及ぶ", "に至る", "に就く"], "hint": "中文釋義：在…程序中；於…體制下。修飾名詞，取代口語「での」。", "exp": "「～において／における」為法學公文書最標準的時空、程序階段與實定法規範範疇標記詞。"}, {"id": 10, "category": "程序時相・關聯牽涉類", "pattern": "～に当たって/ ～に当たり", "meaning": "在面臨…之際；在執行…作業時", "function": "標記實施裁判職權、行使公權力處分或重大法制運作之正式階段開端。", "example": "「このため，司法運営に当たっては，全国的に統一された制度のもとで…」「もともと，我が国では紛争の解決に当たって…」", "collocation": "常接：法適用の運用に当たって／処分を行うに当たり。展現執法公信力。", "q": "国民の権利保護を全うするため，司法運営【　　　】は全国的に統一された制度の維持が不可欠である。", "ans": "に当たっては", "options": ["に当たっては", "によっても", "につきましても", "に向けては"], "hint": "中文釋義：在面臨…之際；在執行…作業時。帶有莊重性與任務意識。", "exp": "「～に当たって（に当たり）」用於重大職務執行、重要制度交替或面臨重要法制改革關頭之嚴肅表述。"}, {"id": 11, "category": "程序時相・關聯牽涉類", "pattern": "～に際して/ ～に際し", "meaning": "當…之際；值此…手續場合", "function": "標示特定法律行為、程序申告、法案提出或意見陳述發生的時點場合。", "example": "「意見陳述に際して同審議会の各委員に配布したものです。」「事物管轄が訴額10万円から30万円に引き上げられるに際し…」", "collocation": "常接：契約締結に際して／訴えの提起に際し。公務手續正式用語。", "q": "本日の意見陳述【　　　】同審議会の各委員に本意見書を配布した次第であります。", "ans": "に際して", "options": ["に際して", "において", "について", "にとって"], "hint": "中文釋義：當…之際；值此…手續場合。正式公務手續場合之標記詞。", "exp": "「～に際して（に際し）」用於重大正式公務手續、開庭、提出書狀或法案審議之場合節點。"}, {"id": 12, "category": "程序時相・關聯牽涉類", "pattern": "～を契機として", "meaning": "以此為契機；因…而觸發", "function": "分析法律史演進、重大判例變更或法制作業啟動的直接導火線。", "example": "「…司法制度に関する改革については法曹三者の意見を調整して法案を提出すべきであるとの付帯決議がなされ，これを契機として昭和50年三者協議会が設置されることとなった。」", "collocation": "法制史與判例演變評析極常用（如釋憲後促成修法）。", "q": "国会における付帯決議がなされ，これ【　　　】昭和50年三者協議会が設置されることとなった。", "ans": "を契機として", "options": ["を契機として", "を理由として", "を手段として", "を目途として"], "hint": "中文釋義：以此為契機；因…而觸發。交代重大法制改革歷史節點之演變。", "exp": "「～を契機として」用於客觀陳述促成法規制定、歷史轉折或新制度創設之重要契機事件。"}, {"id": 13, "category": "程序時相・關聯牽涉類", "pattern": "～に伴って", "meaning": "隨著…制定實施；伴隨…變遷", "function": "描述實定法制定、修正或社會結構變動所連帶引發的法體系連鎖效應。", "example": "「日本国憲法の制定に伴って，司法制度もアメリカの制度にならって大きな変革を遂げた。」", "collocation": "常接：法の施行に伴って／社会情勢の変遷に伴い。說明修法連動關係。", "q": "日本国憲法の制定【　　　】，司法制度もアメリカ法の影響を受けて大きな変革を遂げた。", "ans": "に伴って", "options": ["に伴って", "によって", "に沿って", "に拠って"], "hint": "中文釋義：隨著…制定實施；伴隨…變遷。表因上位母法變更而連動演變。", "exp": "「～に伴って」表述因上位法律制定、社會結構變遷或重大情事變更而引發之相應法制連動演進。"}, {"id": 14, "category": "程序時相・關聯牽涉類", "pattern": "～に至る/ ～に至るまで", "meaning": "發展至…狀態；演變至…階段", "function": "記錄訴訟進行時間跨度、制度協商過程或因未達成共識而未能完成修法之實態。", "example": "「法曹三者の意見調整が困難で法改正にまで至らなかった動きとしては…」「昭和50年代末からこの審議会設置に至るまでの期間である。」", "collocation": "常用於法律事件進程或程序終局結果之評析。", "q": "法曹三者の意見調整が極めて困難を極め，法改正にまで【　　　】事態が生じた。", "ans": "至らなかった", "options": ["至らなかった", "及ばなかった", "届かなかった", "限らなかった"], "hint": "中文釋義：發展至…狀態；演變至…階段。表未能達到預期目標之消極結果。", "exp": "「～に至る（至らない）」用於刻畫法制研議程序歷經漫長波折後所達到的終極狀態或未能達成的遺憾。"}, {"id": 15, "category": "制度目的・立法旨趣類", "pattern": "～を図るため/ ～を図る", "meaning": "為謀求…；企圖實現…", "function": "日本實定法規第1條（立法目的）最標準之規制句型，表示公權力意圖達成之公共利益。", "example": "「その機能と役割の充実強化を図るための検討がなされることは有意義…」「社会の調和を図るという優れて実践的な役割…」「継続的，漸進的拡大を図ることが現実的かつ妥当…」", "collocation": "常接：権利の保護を図る／公正な手続を図る。行政法、訴訟法核心概念。", "q": "その機能と役割の充実強化【　　　】検討がなされることは極めて有意義である。", "ans": "を図るための", "options": ["を図るための", "を免れるための", "を制約するための", "を拒否するための"], "hint": "中文釋義：為謀求…；企圖實現…。實定法第1條最標準之合目的性立法規制句型。", "exp": "「～を図るため（を図る）」表示公權力或司法體制意圖達成之公共利益目標，為規範目的之標準表達法。"}, {"id": 16, "category": "制度目的・立法旨趣類", "pattern": "～を目指して/ ～を目指した", "meaning": "以…為目標", "function": "表達司法改革或制度革新所致力構築之遠景與法治價值理想。", "example": "「利用しやすく迅速な裁判の実現を目指した民事訴訟法の改正が実現された。」", "collocation": "說明修法旨趣時，闡明制度改良方向。", "q": "利用しやすく迅速な裁判の実現【　　　】新民事訴訟法の改正作業が進められた。", "ans": "を目指して", "options": ["を目指して", "を限定して", "を留保して", "を排除して"], "hint": "中文釋義：以…為目標。表達司法改革所致力構築之長遠法治願景。", "exp": "「～を目指して（を目指した）」用於闡述法制革新所追求的制度遠景與合目的性目標。"}, {"id": 17, "category": "制度目的・立法旨趣類", "pattern": "～を主眼とする/ ～を大きな狙いとする", "meaning": "以…為核心主旨；以…為主要著眼點", "function": "剖析法條、法案核心規制機制與修法最主要針對的實務病灶。", "example": "「この改正は，当事者の事前準備…を活性化し…集中して行うことなどを主眼とするものである。」「社会生活のテンポに合わせた迅速な民事裁判を実現することが大きな狙いであった。」", "collocation": "立法理由書與法條釋義學中，點明核心規範意圖。", "q": "この改正は，当事者の事前準備を活性化し争点整理を集中して行うことなど【　　　】ものである。", "ans": "を主眼とする", "options": ["を主眼とする", "を例外とする", "を付加とする", "を傍論とする"], "hint": "中文釋義：以…為核心主旨；以…為主要著眼點。點出法案之核心要旨。", "exp": "「～を主眼とする（～を大きな狙いとする）」用於定性該法規修正之核心立法意旨，區分主從目的。"}, {"id": 18, "category": "制度目的・立法旨趣類", "pattern": "～べきである/ ～べき", "meaning": "應當…；理應…（規範義務）", "function": "表述規範性義務、應然法則（Sollen）或法治體制下所應採取之必要措施。", "example": "「法曹の質は資格取得後の競争，自然淘汰にゆだねるべきであるという意見がある。」「問題点の改善が実現されるような具体的な方策についても検討されるべきであろう。」", "collocation": "法學論理區隔「實然（Sein/である）」與「應然（Sollen/べき）」的基本語法。", "q": "法曹の質を資格取得後の自由競争に委ねるべきかについては，慎重に検討される【　　　】。", "ans": "べきである", "options": ["べきである", "ざるを得ない", "わけがない", "に違いない"], "hint": "中文釋義：應當…；理應…（規範義務）。宣告制度應然之規範性意志（Sollen）。", "exp": "「～べきである（～べき）」表達應然的規範性義務（Sollen），體現立法政策與法理探討中之價值宣示。"}, {"id": 19, "category": "制度目的・立法旨趣類", "pattern": "～旨（むね）の方針/ ～旨の", "meaning": "載明…意旨之方針；…意旨之內容", "function": "官方公文書專門用語，用於客觀轉述機關決議、公定宣告或協議之核心要旨。", "example": "「養成人員を平成11年度は800人，12年度以降は1000人程度とする旨の方針が打ち出されたところである。」", "collocation": "常接：～旨の合意／～旨の通告／～旨の決定。等同中文法律之「～之意旨」。", "q": "養成人員を平成11年度は800人，12年度以降は1000人程度とする【　　　】方針が打ち出された。", "ans": "旨の", "options": ["旨の", "項の", "条の", "数の"], "hint": "中文釋義：載明…意旨之方針；…意旨之內容。公文書正式引述政策綱領。", "exp": "「～旨（むね）の方針／～旨の」在公文書中正式概括引述特定政策決議、命令或答辯之要旨。"}, {"id": 20, "category": "因果推論・立論歸結類", "pattern": "～ことから/ ～ことからしても", "meaning": "由於…之客觀事實；從…角度來看亦然", "function": "法學論述中最具公信力的因果標記詞。比「から／ので」更冷靜客觀。「～ことからしても」帶有舉重以明輕之強化意味。", "example": "「法曹が究極的には裁判作用に関わる職責を負っていることからしても，一定の質の確保は不可欠であり…」「訴訟準備の負担が極めて重いことから，集中審理を行うためには…」「司法制度の根幹に関わることから，最終的には国民が判断すべき問題であるが…」", "collocation": "判決理由論述核心：以客觀既定事實為前提，導出法律評價。", "q": "法曹が究極的には裁判作用に関わる職責を負っている【　　　】しても，質の確保は不可欠である。", "ans": "ことから", "options": ["ことから", "ことによって", "ことにして", "ことながら"], "hint": "中文釋義：由於…之客觀事實；從…角度來看亦然。客觀冷靜之因果推導標記詞。", "exp": "「～ことから／～ことからしても」比口語「から／ので」更冷靜客觀，常用於以既定客觀事實為前提取信於人。"}, {"id": 21, "category": "因果推論・立論歸結類", "pattern": "～ゆえに", "meaning": "因此；由是之故", "function": "文語殘留的高級書面語，通常在進行多方論理鋪陳後，導出無可動搖之核心大原則。", "example": "「新たな世紀においてもまた様々な大きな変化を迎えることと思われる。それゆえに，将来のニーズに対応し得る柔軟で厚みのある司法制度の基盤を整えた上で…」", "collocation": "具備極強的結論宣告性與法理嚴正感。", "q": "将来のニーズは急速に変化する。それ【　　　】，厚みのある司法基盤を整えることが急務である。", "ans": "ゆえに", "options": ["ゆえに", "ばかりに", "だけに", "わりに"], "hint": "中文釋義：因此；由是之故。文語殘留的高級書面語，宣告無可動搖之核心原則。", "exp": "「～ゆえに」為嚴謹書面文體，在進行充分論理鋪陳後，導出無可動搖之莊重法理結論。"}, {"id": 22, "category": "因果推論・立論歸結類", "pattern": "～余り（あまり）", "meaning": "因過度追求…反致（弊端）", "function": "用於法益衝突或比例原則分析時，警告制度設計偏頗一端可能產生的嚴重反效果。", "example": "「数の増加に走る余り質の低下をきたすことがあってはならないであろう。」", "collocation": "法制政策評析常指手段過激反噬原初目的之弊端。", "q": "法曹人口の増加に走る【　　　】，質の低下をきたすことがあっては決してならない。", "ans": "余り", "options": ["余り", "限り", "通り", "次第"], "hint": "中文釋義：因過度追求…反致（弊端）。警示因急功近利而招致過猶不及之法益危害。", "exp": "「～余り（あまり）」用於警示在追求特定改革目標時，因手段過激反而釀成不可逆之負面制度後果。"}, {"id": 23, "category": "因果推論・立論歸結類", "pattern": "帰するところは～（ため）であろう", "meaning": "歸根究底乃是因為…", "function": "撥開表象爭執，直搗制度機能障礙的真正法制病灶與核心歸責所在。", "example": "「これには種々の要因があると思われるが，帰するところは，臨司意見書で指摘された法曹一元のための基盤整備が進んでいないためであろう。」", "collocation": "法學深層剖析之典型裁斷用語。", "q": "改革が進展しない要因は多々あるが，【　　　】法曹一元の基盤整備が遅れているためであろう。", "ans": "帰するところは", "options": ["帰するところは", "目指すところは", "得るところは", "拠るところは"], "hint": "中文釋義：歸根究底乃是因為…。穿透表面紛擾直指問題核心本質。", "exp": "「帰するところは～（ため）であろう」用於層層剖析複雜爭議後，一針見血指出病灶本質之高階修辭。"}, {"id": 24, "category": "因果推論・立論歸結類", "pattern": "～により/ ～によって", "meaning": "藉由…；經由…之作用", "function": "界定行使訴訟權利之手段、規範產生法律效力之途徑或歸責因果關係。", "example": "「裁判所構成法によってその骨格が定められた。」「裁判の結果は当事者の活動によって左右されるものという考え方である。」", "collocation": "實定法條文界定「權限」、「行為手段」或「損害原因」之基本語法。", "q": "裁判所構成法の制定【　　　】，近代司法制度の基本的骨格が初めて定められた。", "ans": "によって", "options": ["によって", "に向けて", "に対抗して", "を問わず"], "hint": "中文釋義：藉由…；經由…之作用。指特定法律依據產生之實質規範效果。", "exp": "「～により／～によって」在法律文書中明確表示手段、法律行為或法規制定所衍生之法定法律效果。"}, {"id": 25, "category": "限定排除・比較衡平類", "pattern": "～に比して/ ～に比べて", "meaning": "相較於…；與…相比", "function": "用於比較法學研究（Comparative Law）或訴訟實證統計數據之客觀對照。「～に比して」更富學術性。", "example": "「我が国の法曹人口は先進諸国に比して少ないといえよう。」「控訴率は我が国の約21％に比して約58％と高く…」", "collocation": "比較法研究、實證法學常見標準用語。", "q": "我が国の法曹人口は，先進諸国【　　　】極めて少ない水準にとどまっているといえよう。", "ans": "に比して", "options": ["に比して", "に類して", "に約して", "に通じて"], "hint": "中文釋義：相較於…；與…相比。用於比較法學或實證統計之嚴密客觀對照。", "exp": "「～に比して（に比べて）」在比較法學與法體系統計數據對比中，展現嚴謹客觀之學術語調。"}, {"id": 26, "category": "限定排除・比較衡平類", "pattern": "～と対比して", "meaning": "與…相對比／相對照", "function": "將兩種相互競爭或對立的制度模式（如官僚裁判制與法曹一元制）置於同一基準嚴密檢驗。", "example": "「先の臨時司法制度調査会において，キャリアシステムと対比して，そのメリットとデメリットが指摘され…」", "collocation": "制度論衡平剖析優劣利弊之標準搭配。", "q": "先の臨時司法制度調査会において，キャリアシステム【　　　】，その長短が多角的に検討された。", "ans": "と対比して", "options": ["と対比して", "に照合して", "に準拠して", "と矛盾して"], "hint": "中文釋義：與…相對比／相對照。將相互競爭之制度模式置於同一基準嚴密檢驗。", "exp": "「～と対比して」將兩種對立或競合之制度架構置於對稱天秤上，嚴密權衡利弊得失。"}, {"id": 27, "category": "限定排除・比較衡平類", "pattern": "～にとどまる/ ～にとどまらない", "meaning": "僅止於… / 不僅限於…", "function": "嚴密界定法權力行使界線、裁量範圍，或指出規範對象不得被狹隘定義。", "example": "「法曹は単なる技術者にとどまるものではなく…」「専門部の拡充等，部分的な改革が行われるにとどまった。」「問題点を最小限にとどめるという工夫をすることも可能であろう。」", "collocation": "限制解釋（～にとどまる）與擴張解釋（～にとどまらない）的論述核心詞。", "q": "法曹は単なる実務技術者【　　　】ものではなく，高度な社会正義を担う存在である。", "ans": "にとどまる", "options": ["にとどまる", "に尽きる", "に隔たる", "に限定する"], "hint": "中文釋義：僅止於… / 不僅限於…。劃定行為合法範圍或否定狹隘定位。", "exp": "「～にとどまる／にとどまらない」在法理上用於嚴密界定制度功能或行為之容許範圍。"}, {"id": 28, "category": "限定排除・比較衡平類", "pattern": "～にすぎない", "meaning": "只不過是…；僅僅是…", "function": "在法理論辯中用於貶抑對方主張之實質意義，或凸顯客觀數字極端受限之事實。", "example": "「弁護士任官者の数は，現実には年間わずか数人にすぎない状況にあり…」", "collocation": "抗辯書反駁對造主張或點出實務侷限常用。", "q": "弁護士任官者の実数は，年間わずか数人【　　　】状況にあり，法曹一元の理想とは隔たりがある。", "ans": "にすぎない", "options": ["にすぎない", "に及ばない", "に当たらない", "に堪えない"], "hint": "中文釋義：只不過是…；僅僅是…。以客觀實證數據印證現實與理想之差距。", "exp": "「～にすぎない」以嚴峻客觀數據擊破主觀空想，強調實證落差以凸顯改革之迫切性。"}, {"id": 29, "category": "限定排除・比較衡平類", "pattern": "～を除くと", "meaning": "除…之外（例外排除）", "function": "法條結構中「原則與例外（但書）」概念的典型表達，先行剔除特例以確立一般常態。", "example": "「毎年数名程度の弁護士任官者を除くと，判事補から任命される者が大部分となっている。」", "collocation": "等同於法條中的「～を除くほか／～を除いては」。", "q": "毎年数名程度の例外的な弁護士任官者【　　　】，判事補からの内部昇任者が大部分を占めている。", "ans": "を除くと", "options": ["を除くと", "を分けると", "を省くと", "を断つと"], "hint": "中文釋義：除…之外（例外排除）。在法規範中劃定原則與例外界線。", "exp": "「～を除くと」為法律條文界定「但書」或「例外排除要件」時的清晰邏輯修辭。"}, {"id": 30, "category": "限定排除・比較衡平類", "pattern": "～のみならず", "meaning": "不僅…而且…；非但…", "function": "相當於法令用語之「並びに／かつ」，用於疊加規範適用範圍、保護法益或法律責任。", "example": "「臨司意見書は，法曹一元問題のみならず，当時の司法制度全般にわたって検討を加えた…」「従来型の犯罪の増加が予想されるのみならず…」", "collocation": "用於涵蓋多元客體與加重論述範疇。", "q": "意見書は，法曹一元の問題【　　　】，当時の司法制度全般にわたって包括的な検討を加えている。", "ans": "のみならず", "options": ["のみならず", "に限らず", "にも増して", "をおいて"], "hint": "中文釋義：不僅…而且…；非但…。層層遞進拓寬審查與論述範疇。", "exp": "「～のみならず」用於拓寬審理或論述層面，強調議題兼具個案救濟與制度性規範之雙重維度。"}, {"id": 31, "category": "限定排除・比較衡平類", "pattern": "～にもかかわらず（にも関わらず）", "meaning": "儘管…仍…；雖然…卻…", "function": "指出特定制度雖投入努力或有法律明文，現實中卻產生違背期待之矛盾狀況。", "example": "「裁判所，弁護士会の努力にも関わらず，弁護士任官者の数は，現実には年間わずか数人にすぎない状況にあり…」", "collocation": "揭露「法律規範與司法實務脫節」之關鍵轉折詞。", "q": "関係各所の不断の努力【　　　】，制度運用の抜本的改善にはなお多くの課題が残されている。", "ans": "にもかかわらず", "options": ["にもかかわらず", "につけくわえて", "にしたがって", "にともなって"], "hint": "中文釋義：儘管…仍…；雖然…卻…。指出儘管具備積極要素，客觀障礙仍未破除。", "exp": "「～にもかかわらず（にも関わらず）」表述逆接讓步，展現客觀衡量不因主觀良好初衷而掩蓋事實困境之法理清醒。"}, {"id": 32, "category": "限定排除・比較衡平類", "pattern": "～一方（で）", "meaning": "另一方面…；然而…", "function": "法益衡量時必備之轉折詞，在肯定 A 法益之同時，促請注意相衝突之 B 法益。", "example": "「…共通の制度原理に立脚する一方，優れて社会的，文化的な制度である。」「一方，このころから，司法制度の見直しについて次第に法曹三者の意見の合致が見られるようになり…」", "collocation": "兼顧多元法益，展現法律審慎衡平態度。", "q": "司法は共通の制度原理に立脚する【　　　】，優れて歴史的・文化的な営みでもある。", "ans": "一方", "options": ["一方", "反面", "途端", "次第"], "hint": "中文釋義：另一方面…；然而…。雙軌利益衡量、呈現多重視角之平衡詞。", "exp": "「～一方（で）」在法益衡量（Balancing of Interests）時，平衡並陳兩種具正當性但方向相左之法益。"}, {"id": 33, "category": "限定排除・比較衡平類", "pattern": "～つつ", "meaning": "在…同時；一邊…一邊…（調和維持）", "function": "強調在維護既有法定核心原則（如當事人主義）之際，兼顧另一項實體目的（發現真實）。", "example": "「手続的には当事者主義を採りつつ，実体については，真相解明のための職権の行使が求められる…」「常に『変えていくべきものは何か』…を吟味しつつ，継続的な改革努力を…」", "collocation": "訴訟理念兼顧調和之典範句型。", "q": "手続的には当事者主義を採り【　　　】，実体真実の解明のため裁判所の適正な後見的配慮が求められる。", "ans": "つつ", "options": ["つつ", "がてら", "ながらに", "ついでに"], "hint": "中文釋義：在…同時；一邊…一邊…（調和維持）。訴訟程序中兼顧兩相衝突之原理。", "exp": "「～つつ」常用於訴訟程序中調和維持兩種原則（如當事人主義與實體真實發見主義）。"}, {"id": 34, "category": "限定排除・比較衡平類", "pattern": "～をとらえて", "meaning": "抓住…特徵；藉…加以批評", "function": "精準指陳反對派或批評者以某項既定體系特點（如職業法官制）作為攻訐立足點。", "example": "「我が国の裁判官に対し，キャリアであることをとらえて様々な批判や非難がなされている。」", "collocation": "論辯中指出反方批判取向或論理視角之修辭。", "q": "単に裁判官がキャリアシステム出身であること【　　　】直ちに官僚的と非難するのは当を得ない。", "ans": "をとらえて", "options": ["をとらえて", "をかえりみて", "をみとめて", "をこころみて"], "hint": "中文釋義：抓住…特徵；藉…加以批評。反駁對手偏頗以偏概全之論證缺陷。", "exp": "「～をとらえて」用於反駁或批判對造抓住單一枝節片面擴大渲染之論辯謬誤。"}, {"id": 35, "category": "法律評價・規範模態類", "pattern": "～ざるを得ない", "meaning": "不得不…；無可奈何只得…", "function": "基於實定法限制或無可辯駁之客觀事實，心證已達「別無其他推論可能」之客觀斷定。", "example": "「…これらのニーズに対応し得る能力を持った法曹は…不足していると言わざるを得ない。」「そのため，陪審裁判では，真実の発見という要請は後退せざるを得ないことになろう。」", "collocation": "表明結論並非出自自主好惡，而是客觀形勢所迫必然如此。", "q": "これらの新しい紛爭に対応し得る法曹の数は，現時点では不足していると言わ【　　　】。", "ans": "ざるを得ない", "options": ["ざるを得ない", "ねばならない", "ずにはいられない", "てはかなわない"], "hint": "中文釋義：不得不…；無可奈何只得…。心證已達客觀無可辯駁之必然認定。", "exp": "「～ざるを得ない」表明結論並非出自個人偏好，而是客觀法律要件或事證壓倒性所迫必然如此。"}, {"id": 36, "category": "法律評價・規範模態類", "pattern": "～てはならない", "meaning": "絕不容許…；嚴格禁止…", "function": "法令規章與憲法審查中最強烈的消極義務規範與不可逾越之法律底線。", "example": "「…数の増加に走る余り質の低下をきたすことがあってはならないであろう。」", "collocation": "常用於法律禁止規定與核心人權保障底線。", "q": "数の増加を性急に追求する余り，法曹の質の低下をきたすようなことがあっ【　　　】。", "ans": "てはならない", "options": ["てはならない", "ても構わない", "たほうがよい", "るに違いない"], "hint": "中文釋義：絕不容許…；嚴格禁止…。法律禁止規定與核心法益最絕對之底線。", "exp": "「～てはならない」為法令規章與憲法審查中最強烈的消極義務規範與不可逾越之法律底線。"}, {"id": 37, "category": "法律評價・規範模態類", "pattern": "～を要する", "meaning": "需要…；必須具備…條件", "function": "界定法定實質要件、程序要件或行使公權力之必要前提。", "example": "「法曹三者の合意を要する改革は著しく困難となった。」「裁判による問題の解決にはその性質上一定の時間を要するものであり…」", "collocation": "常接：保護を要する利益／同意を要する。法律構成要件的關鍵定式。", "q": "法曹三者の合意【　　　】改革は，利害対立が激しい場合には著しく困難を極める。", "ans": "を要する", "options": ["を要する", "を許す", "を免れる", "を辞さない"], "hint": "中文釋義：需要…；必須具備…條件。法條要件規範之標準客觀用語。", "exp": "「～を要する」為法律明文規定「必須具備該法定要件始得生效」之客觀權威句型。"}, {"id": 38, "category": "法律評價・規範模態類", "pattern": "～を欠く/ ～を欠いた", "meaning": "欠缺…；缺乏…法定要素", "function": "構成要件審查用語，指出主張或體制欠缺證據能力、法益意識或實證基礎。", "example": "「社会的役割の意識を欠いた技術集団として大量に養成された…」「今日の議論には，こうした実証的視点を欠いた理念的なものが少なくなく…」", "collocation": "常用於指出判決「理由不備（理由を欠く）」或要件未備。", "q": "社会的役割への自覚【　　　】法曹が大量に養成されれば，司法への国民の信頼は失墜する。", "ans": "を欠いた", "options": ["を欠いた", "を避けた", "を脱した", "を隔てた"], "hint": "中文釋義：欠缺…；缺乏…法定要素。指出行為具備瑕疵或欠缺法定重要內容。", "exp": "「～を欠く／～を欠いた」在法學中嚴厲指出構成要件之欠缺、程序瑕疵或心證上之重大盲點。"}, {"id": 39, "category": "法律評價・規範模態類", "pattern": "～に値する（あたいする）", "meaning": "值得…；具備…之價值", "function": "給予某項制度提議或訴訟主張高度法律正面評價，認其具備深入審酌之實質意義。", "example": "「専門的民事紛争に対応するための専門参審制などについては…十分に検討に値するところである。」", "collocation": "常接：検討に値する／傾聴に値する／刑罰に値する。", "q": "専門的民事紛争に柔軟に対応するための専門参審制の創設は，十分に検討【　　　】ところである。", "ans": "に値する", "options": ["に値する", "に準ずる", "に附する", "に当たる"], "hint": "中文釋義：值得…；具備…之價值。以高度客觀審慎態度肯定特定提案之法益價值。", "exp": "「～に値する（あたいする）」常用於評價法律學說、裁判先例或制度改革構想是否具備實質考量價值。"}, {"id": 40, "category": "法律評價・規範模態類", "pattern": "～難い（～がたい）", "meaning": "難以…；無法輕易認同", "function": "裁判官或法學者嚴正反駁對造主張時，最為典雅克制卻立場堅定的否定用語。", "example": "「これを自由競争にのみゆだねるべきであるという見解には賛成し難い。」「迅速化にも一定の限界があることは否定し難いが…」「合理的に選択できるシステムになっているとは到底いい難い。」", "collocation": "裁判文書中駁回訴訟主張時極具公信力之措辭。", "q": "法曹養成を市場の自由競争と自然淘汰にのみ委ねるべきであるという見解には，賛成し【　　　】。", "ans": "難い", "options": ["難い", "易い", "兼ねる", "得ない"], "hint": "中文釋義：難以…；無法輕易認同。裁判文書中最禮貌卻極堅決之否定表態。", "exp": "「～難い（がたい）」以理性冷靜態度，表示基於法理與現實衡平，客觀上絕難以接納該主張。"}, {"id": 41, "category": "法律評價・規範模態類", "pattern": "～得ない（あり得ない等）", "meaning": "絕無可能…；不可能存在…", "function": "從邏輯、法理或物理本質上徹底排除某種極端假設之客觀用語。", "example": "「司法制度にどの観点から見ても完全無欠というようなものはあり得ない。」", "collocation": "用於駁回脫離現實之完美體制想像。", "q": "いかなる観点から見ても制度上の摩擦や弊害が全く生じない完全無欠な司法制度は，現実にあり【　　　】。", "ans": "得ない", "options": ["得ない", "得ぬ", "難い", "かねない"], "hint": "中文釋義：絕無可能…；不可能存在…。邏輯心證上對不可能性的絕對斷定。", "exp": "「～得ない（あり得ない等）」在法理推演中宣告在客觀邏輯上與法秩序中「絕不可能成立」。"}, {"id": 42, "category": "法律評價・規範模態類", "pattern": "～得る（～し得る / ～うる）", "meaning": "得以…；具有…之可能性", "function": "界定實定法規範下是否具有「法定權能」、「適格性（Competence）」或制度可塑性。", "example": "「将来のニーズに対応し得る柔軟で厚みのある司法制度の基盤…」「これらのニーズに対応し得る能力を持った法曹…」", "collocation": "表達權限適格性與潛在能力的標準法學用語。", "q": "将来生起する多様な法的ニーズに十全に対応し【　　　】柔軟な司法基盤を構築しなければならない。", "ans": "得る", "options": ["得る", "易い", "難い", "損なう"], "hint": "中文釋義：得以…；具有…之可能性。具備法律上或實質上之實現潛力。", "exp": "「～得る（し得る／うる）」賦予特定主體或制度「具備法定容許度或潛在適應機能」之規範評價。"}, {"id": 43, "category": "法律評價・規範模態類", "pattern": "～といえよう", "meaning": "足可謂…；可以說是…", "function": "法官心證成熟定性、法學推論終結時，最富權威性且兼顧學術審慎性之論斷句尾。", "example": "「第2期は，いわば理念的な対立によって制度改革が停滞した時期であったといえよう。」「国会の付帯決議もかえって司法制度改革を妨げる結果となったといえよう。」「我が国の法曹人口は先進諸国に比して少ないといえよう。」", "collocation": "全篇出現高達 7 次。法學文書避免武斷之「～だ」，多採「～といえよう」。", "q": "この停滞期は，理念的対立により司法制度の抜本的改革が阻害された時期であった【　　　】。", "ans": "といえよう", "options": ["といえよう", "とする", "にすぎない", "とみられる"], "hint": "中文釋義：足可謂…；可以說是…。審議意見書總結階段代表官方權威結論之修辭。", "exp": "「～といえよう」在判決理由書與調查官評釋中，作為官方定性評價宣告之經典收束句。"}, {"id": 44, "category": "法律評價・規範模態類", "pattern": "～わけではない", "meaning": "並非意味著…；不能推導出…", "function": "嚴防「邏輯滑坡（Slippery Slope）」，用於截斷錯誤法理推論，維持概念邊界之精密性。", "example": "「二つの観点から直ちに養成すべき法曹の数値が導き出されるわけではない。」「弁護士に相談しなかったものが必ずしも不健全な選択をしているわけではない。」", "collocation": "裁判文書中進行精準區隔（Distinction）必備。", "q": "弁護士に事前に相談しなかった当事者が，直ちに不適切な選択を行っている【　　　】。", "ans": "わけではない", "options": ["わけではない", "はずがない", "べきではない", "に違いない"], "hint": "中文釋義：並非意味著…；不能推導出…。阻斷對方不當推定之關鍵防禦修辭。", "exp": "「～わけではない」在法律答辯與心證駁斥中，精準阻斷論理跳躍與不當事實推定。"}, {"id": 45, "category": "司法公文書・體裁形式類", "pattern": "～ところである", "meaning": "正值…情況；現階段正如…；立場正是…", "function": "裁判公文書特有結尾。表示經過全盤權衡後，對當前法制實態或官方立場的正式宣示定案。", "example": "「…透明化がまず必要とされるところである。」「十分に検討に値するところである。」「執務姿勢を一貫して堅持してきたところである。」「方針が打ち出されたところである。」", "collocation": "全篇出現 5 次。賦予全句官方正式立場的持重與既定感。", "q": "国民の司法へのアクセスを向上させるため，判決情報の透明化がまず必要とされる【　　　】。", "ans": "ところである", "options": ["ところである", "ことである", "わけである", "ものとする"], "hint": "中文釋義：正值…情況；現階段正如…；立場正是…。公務機關正式立場之宣示定案。", "exp": "「～ところである」賦予全句官方機關正式立場的持重、權威定案感，為公文書特有之結尾體裁。"}, {"id": 46, "category": "司法公文書・體裁形式類", "pattern": "～とされる/ ～とされている", "meaning": "被規定為…；制度上定性為…", "function": "說明實定法規範、官方制度架構或法定義務時的非人稱客觀敘述。", "example": "「修習生は，国家公務員に準ずる身分となり…研修（実務修習）することとされている。」「司法権はすべて裁判所に属することとされ…」", "collocation": "法規釋義學說明職權範圍、法定權益之標準體裁。", "q": "司法修習生は国家公務員に準ずる身分とされ，国費の支給を受けて研修すること【　　　】。", "ans": "とされている", "options": ["とされている", "とおもわれる", "とみられる", "としたい"], "hint": "中文釋義：被規定為…；制度上定性為…。以客觀非人稱體裁陳述法定體制。", "exp": "「～とされる／とされている」為法規釋義學與制度介紹中說明職權範圍、法定地位之非人稱客觀標準體裁。"}, {"id": 47, "category": "司法公文書・體裁形式類", "pattern": "～を前提として", "meaning": "以…為前提／先決條件", "function": "明確規範法律行為效力發生、政策推展所不可或缺的停止條件或先決體系基礎。", "example": "「迅速化，専門化に対応するための増員を前提とした態勢の充実強化が必要である。」「しかし，我が国ではその前提となる大学法学部教育が…」", "collocation": "相當於民事法上之「前置條件／停止條件」。", "q": "迅速かつ充実した審理を実現するには，適正な人員配置を【　　　】態勢の強化が欠かせない。", "ans": "前提とした", "options": ["前提とした", "目標とした", "契機とした", "例外とした"], "hint": "中文釋義：以…為前提／先決條件。確立法規範成立或權益主張不可或缺之先決要件。", "exp": "「～を前提として（前提とした）」在法規適用上明確劃定作為前提要件（Prerequisite）之制度基礎。"}, {"id": 48, "category": "司法公文書・體裁形式類", "pattern": "～のもとで/ ～の下に", "meaning": "在…法秩序／原則引導約束下", "function": "標明某項制度運作或訴訟行為是置於特定憲法原理、訴訟構造或立法意旨之下進行。", "example": "「全国的に統一された制度のもとで，等質な司法サービスを提供し…」「当事者主義の訴訟手続のもとで…」「人間的資質の基盤をかん養するという理念の下に実践されてきた。」", "collocation": "法體系思考的典型體現（如「法治主義のもとで」）。", "q": "最高裁判所を頂点とする全国一律の裁判制度【　　　】，公正無私な裁判が実践されてきた。", "ans": "のもとで", "options": ["のもとで", "のわきで", "のうえで", "のさきで"], "hint": "中文釋義：在…法秩序／原則引導約束下。在特定憲政秩序或法理指導下受其約束。", "exp": "「～のもとで（の下に）」在憲法與公法體系中，表示受特定法治原則、母法秩序或最高心證引導約束。"}, {"id": 49, "category": "司法公文書・體裁形式類", "pattern": "～をはじめ/ ～をはじめとする", "meaning": "以…為首；包含…等代表性…", "function": "法律條文與法制作業中列舉代表性機關、法規或標的物之立法技術（例示規定）。", "example": "「裁判所法，弁護士法，司法試験法をはじめ，刑事訴訟法等の基本法の制定が行われ…」「検察事務官の充実をはじめとする検察の機能の強化が必要であろう。」", "collocation": "法律條文中界定非窮盡列舉（Illustrative list）之必備詞。", "q": "憲法秩序の確立に伴い，裁判所法や弁護士法【　　　】司法関連重要法令の全面改正が行われた。", "ans": "をはじめ", "options": ["をはじめ", "をめぐって", "をかねて", "をさかいに"], "hint": "中文釋義：以…為首；包含…等代表性…。舉出最重要核心法規以涵蓋體系全體。", "exp": "「～をはじめ／～をはじめとする」在法律公文中舉出最重要之代表性核心法規（如裁判所法），以概括規範體系。"}, {"id": 50, "category": "司法公文書・體裁形式類", "pattern": "敬語受身：各委員の指摘されるように", "meaning": "如各委員所指陳者", "function": "審議公文書中的最高尊稱。使用「受身型敬語（指摘される）」，兼具客觀記敘與同儕推崇。", "example": "「井上，竹下各委員の指摘されるように，この審議会においては…」「各委員が指摘されるように，法曹の機能の充実を図るため…」", "collocation": "全篇出現 6 次之多。公務論辯中肯認他人見解並納入自身框架的標準範例。", "q": "審議会において各委員の【　　　】ように，法曹の質の維持と量的拡大は両立されねばならない。", "ans": "指摘される", "options": ["指摘される", "指摘なさる", "指摘いたす", "ご指摘する"], "hint": "中文釋義：如各委員所指陳者。審議公文書中的最高尊稱，使用「受身型敬語」。", "exp": "「各委員の指摘されるように」使用受身型敬語（指摘される），兼具客觀中立之公文記敘與對論辯對象之尊崇推崇。"}];
+
+        // State
+        let currentMode = 'study';
+        let currentCategoryFilter = 'all';
+        let searchQuery = '';
+        let favorites = JSON.parse(localStorage.getItem('legal_jp_favorites') || '[]');
+
+        // Quiz State
+        let quizPool = [];
+        let currentQuestionIdx = 0;
+        let quizScore = 0;
+        let quizType = 'mc'; // 'mc' or 'input'
+        let quizCount = 10;
+        let quizHistory = [];
+        let isQuestionAnswered = false;
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStudyCards();
+            updateFavoriteBadge();
+        });
+
+        // ================= MODE SWITCHING =================
+        function switchMode(mode) {
+            currentMode = mode;
+            ['study', 'quiz', 'core', 'favorites'].forEach(m => {
+                const el = document.getElementById('view-' + m);
+                const btn = document.getElementById('tab-' + (m === 'favorites' ? 'fav' : m) + '-btn');
+                if (el) el.classList.toggle('hidden', m !== mode);
+                if (btn) {
+                    if (m === mode) {
+                        btn.classList.add('active-tab');
+                        btn.classList.remove('text-slate-300');
+                    } else {
+                        btn.classList.remove('active-tab');
+                        btn.classList.add('text-slate-300');
+                    }
+                }
+            });
+
+            if (mode === 'favorites') {
+                renderFavoritesCards();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================= STUDY MODE =================
+        function setCategoryFilter(cat) {
+            currentCategoryFilter = cat;
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.classList.add('active-filter');
+                    btn.classList.remove('text-slate-300');
+                } else {
+                    btn.classList.remove('active-filter');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+            renderStudyCards();
+        }
+
+        function filterCards() {
+            searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+            renderStudyCards();
+        }
+
+        function renderStudyCards() {
+            const container = document.getElementById('cards-container');
+            const filtered = GRAMMAR_MASTER_DATA.filter(item => {
+                const matchCat = (currentCategoryFilter === 'all' || item.category === currentCategoryFilter);
+                const matchSearch = !searchQuery || 
+                    item.pattern.toLowerCase().includes(searchQuery) ||
+                    item.meaning.toLowerCase().includes(searchQuery) ||
+                    item.function.toLowerCase().includes(searchQuery) ||
+                    item.example.toLowerCase().includes(searchQuery) ||
+                    item.collocation.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            document.getElementById('filter-result-count').textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-slate-500 glass-card rounded-2xl">
+                        <svg class="w-12 h-12 mx-auto text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        找不到符合「${searchQuery}」的文法項目
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => createCardHTML(item)).join('');
+        }
+
+        function createCardHTML(item) {
+            const isFav = favorites.includes(item.id);
+            // Highlight pattern in example
+            let highlightedEx = item.example;
+            const patClean = item.pattern.split('/')[0].replace('～', '').trim();
+            if (patClean) {
+                const re = new RegExp(patClean, 'g');
+                highlightedEx = highlightedEx.replace(re, `<mark class="bg-indigo-500/30 text-indigo-200 px-1 py-0.5 rounded font-bold">${patClean}</mark>`);
+            }
+
+            return `
+                <article class="glass-card glass-card-hover rounded-2xl p-5 sm:p-6 border border-slate-800/90 flex flex-col justify-between transition-all">
+                    <div class="space-y-3.5">
+                        <!-- Top Badges & Favorite -->
+                        <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 font-bold border border-indigo-800/50">#${String(item.id).padStart(2, '0')}</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/60">${item.category.replace('・', '').replace('類', '')}</span>
+                            </div>
+                            <button onclick="toggleFavorite(${item.id})" class="text-slate-500 hover:text-amber-400 transition-colors p-1" title="${isFav ? '取消收藏' : '加入生詞收藏'}">
+                                <svg class="w-5 h-5 ${isFav ? 'text-amber-400 fill-current' : ''}" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                            </button>
+                        </div>
+
+                        <!-- Pattern Title & Meaning -->
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white tracking-wide font-serif-jp">${item.pattern}</h3>
+                            <div class="mt-1.5 inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-950/60 text-emerald-300 text-xs font-semibold border border-emerald-800/40">
+                                釋義：${item.meaning}
+                            </div>
+                        </div>
+
+                        <!-- Legal Function Description -->
+                        <div class="bg-slate-900/80 rounded-xl p-3.5 border border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            <span class="text-indigo-400 font-bold block mb-1">【法學領域功用與特徵】</span>
+                            ${item.function}
+                        </div>
+
+                        <!-- Authentic Supreme Court Example -->
+                        <div class="space-y-1.5">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span class="font-semibold text-slate-300">最高裁判所意見書例句：</span>
+                                <button onclick="speakText('${item.example.replace(/['"«»「」]/g, '').replace(/…/g, '')}')" class="inline-flex items-center space-x-1 text-indigo-400 hover:text-indigo-300 transition-colors">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                    <span>朗讀</span>
+                                </button>
+                            </div>
+                            <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs sm:text-sm font-serif-jp text-slate-200 leading-relaxed">
+                                ${highlightedEx}
+                            </div>
+                        </div>
+
+                        <!-- Collocation -->
+                        <div class="text-xs text-slate-400 pt-1">
+                            <span class="text-slate-500 font-semibold">搭配與解析：</span> ${item.collocation}
+                        </div>
+                    </div>
+
+                    <!-- Card Action Button -->
+                    <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-end">
+                        <button onclick="quizSingleItem(${item.id})" class="inline-flex items-center space-x-1 text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/50 hover:bg-indigo-900/60 px-3 py-1.5 rounded-lg border border-indigo-800/40 transition-colors">
+                            <span>測驗此句型</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </article>
+            `;
+        }
+
+        // ================= FAVORITES =================
+        function toggleFavorite(id) {
+            const idx = favorites.indexOf(id);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('legal_jp_favorites', JSON.stringify(favorites));
+            updateFavoriteBadge();
+            if (currentMode === 'study') renderStudyCards();
+            if (currentMode === 'favorites') renderFavoritesCards();
+        }
+
+        function updateFavoriteBadge() {
+            const el = document.getElementById('fav-count-badge');
+            if (el) el.textContent = favorites.length;
+        }
+
+        function renderFavoritesCards() {
+            const container = document.getElementById('fav-cards-container');
+            const emptyState = document.getElementById('fav-empty-state');
+            const favItems = GRAMMAR_MASTER_DATA.filter(item => favorites.includes(item.id));
+
+            if (favItems.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                container.classList.remove('hidden');
+                container.innerHTML = favItems.map(item => createCardHTML(item)).join('');
+            }
+        }
+
+        // ================= CLOZE QUIZ ENGINE =================
+        function setQuizCount(n) {
+            quizCount = n;
+            document.querySelectorAll('.quiz-count-btn').forEach(b => {
+                if (parseInt(b.getAttribute('data-count')) === n) {
+                    b.classList.add('active-filter');
+                    b.classList.remove('text-slate-300');
+                } else {
+                    b.classList.remove('active-filter');
+                    b.classList.add('text-slate-300');
+                }
+            });
+        }
+
+        function setQuizType(t) {
+            quizType = t;
+            document.querySelectorAll('.quiz-type-btn').forEach(b => {
+                if (b.getAttribute('data-type')) {
+                    if (b.getAttribute('data-type') === t) {
+                        b.classList.add('active-filter');
+                        b.classList.remove('text-slate-300');
+                    } else {
+                        b.classList.remove('active-filter');
+                        b.classList.add('text-slate-300');
+                    }
+                }
+            });
+        }
+
+        function startQuizWithCurrentFilter() {
+            switchMode('quiz');
+            startQuiz();
+        }
+
+        function startQuizWithFavorites() {
+            if (favorites.length === 0) {
+                alert('您尚未收藏任何文法項目！請先在文法手冊中點擊星星標記。');
+                return;
+            }
+            document.getElementById('quiz-scope-select').value = 'favorites';
+            switchMode('quiz');
+            startQuiz();
+        }
+
+        function quizSingleItem(id) {
+            const target = GRAMMAR_MASTER_DATA.find(x => x.id === id);
+            if (!target) return;
+            switchMode('quiz');
+            quizPool = [target];
+            currentQuestionIdx = 0;
+            quizScore = 0;
+            quizHistory = [];
+            showActiveQuiz();
+        }
+
+        function startQuiz() {
+            const scope = document.getElementById('quiz-scope-select').value;
+            let pool = [];
+
+            if (scope === 'all') {
+                pool = [...GRAMMAR_MASTER_DATA];
+            } else if (scope === 'favorites') {
+                pool = GRAMMAR_MASTER_DATA.filter(x => favorites.includes(x.id));
+                if (pool.length === 0) {
+                    alert('生詞收藏本目前為空，將為您切換為全量題庫！');
+                    pool = [...GRAMMAR_MASTER_DATA];
+                }
+            } else {
+                pool = GRAMMAR_MASTER_DATA.filter(x => x.category === scope);
+            }
+
+            // Shuffle pool
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            // Slice to count
+            quizPool = pool.slice(0, Math.min(quizCount, pool.length));
+            currentQuestionIdx = 0;
+            quizScore = 0;
+            quizHistory = [];
+
+            showActiveQuiz();
+        }
+
+        function showActiveQuiz() {
+            document.getElementById('quiz-setup-card').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-active-card').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            isQuestionAnswered = false;
+            const q = quizPool[currentQuestionIdx];
+            
+            // Update progress
+            const progress = ((currentQuestionIdx + 1) / quizPool.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = progress + '%';
+            document.getElementById('quiz-progress-text').textContent = `第 ${currentQuestionIdx + 1} / ${quizPool.length} 題`;
+            document.getElementById('quiz-category-tag').textContent = q.category.replace('類', '');
+            
+            const currentAcc = currentQuestionIdx === 0 ? 100 : Math.round((quizScore / currentQuestionIdx) * 100);
+            document.getElementById('quiz-score-badge').textContent = `答對數: ${quizScore} / 正確率: ${currentAcc}%`;
+
+            // Render sentence
+            const formattedSentence = q.q.replace('【　　　】', '<span class="inline-block px-3 py-1 bg-indigo-950/80 border-2 border-indigo-500 text-indigo-300 font-bold rounded-xl mx-1 shadow-inner shadow-indigo-900/50">【　　　】</span>');
+            document.getElementById('quiz-sentence-display').innerHTML = formattedSentence;
+
+            // Render hint
+            document.getElementById('quiz-hint-content').textContent = q.hint;
+            document.getElementById('quiz-hint-box').classList.add('hidden');
+            document.getElementById('hint-toggle-text').textContent = '查看法意提示';
+
+            // Hide feedback
+            document.getElementById('quiz-feedback-box').classList.add('hidden');
+
+            // Render answer options
+            const optContainer = document.getElementById('quiz-options-container');
+            if (quizType === 'mc') {
+                // Multiple Choice: shuffle options
+                const shuffledOpts = [...q.options];
+                for (let i = shuffledOpts.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledOpts[i], shuffledOpts[j]] = [shuffledOpts[j], shuffledOpts[i]];
+                }
+
+                optContainer.innerHTML = shuffledOpts.map((opt, idx) => `
+                    <button onclick="handleSelectOption('${opt}')" class="mc-option-btn w-full text-left p-4 rounded-xl border border-slate-700 bg-slate-900/90 hover:border-indigo-500 hover:bg-slate-800/90 text-slate-200 font-serif-jp text-base font-medium transition-all flex items-center justify-between group">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-6 h-6 rounded-full bg-slate-800 group-hover:bg-indigo-600 text-slate-400 group-hover:text-white flex items-center justify-center text-xs font-mono transition-colors font-bold">${['A', 'B', 'C', 'D'][idx]}</span>
+                            <span>${opt}</span>
+                        </span>
+                        <svg class="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                `).join('');
+            } else {
+                // Direct Typing Input
+                optContainer.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex gap-2">
+                            <input id="user-typed-input" type="text" placeholder="請直接輸入日文填空文法（如：に基づき）..." 
+                                   onkeypress="if(event.key==='Enter') handleTypeSubmit()"
+                                   class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-base text-slate-100 font-serif-jp focus:outline-none focus:border-indigo-500">
+                            <button onclick="handleTypeSubmit()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-md transition-all">
+                                送出
+                            </button>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="handleGiveUp()" class="text-xs text-slate-500 hover:text-slate-300 underline">
+                                不確定，直接看解答
+                            </button>
+                        </div>
+                    </div>
+                `;
+                setTimeout(() => {
+                    const inp = document.getElementById('user-typed-input');
+                    if (inp) inp.focus();
+                }, 100);
+            }
+        }
+
+        function toggleHint() {
+            const box = document.getElementById('quiz-hint-box');
+            const txt = document.getElementById('hint-toggle-text');
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                txt.textContent = '收起法意提示';
+            } else {
+                box.classList.add('hidden');
+                txt.textContent = '查看法意提示';
+            }
+        }
+
+        function handleSelectOption(userChoice) {
+            if (isQuestionAnswered) return;
+            isQuestionAnswered = true;
+            evaluateAnswer(userChoice);
+        }
+
+        function handleTypeSubmit() {
+            if (isQuestionAnswered) return;
+            const input = document.getElementById('user-typed-input');
+            const val = input ? input.value.trim() : '';
+            if (!val) return;
+            isQuestionAnswered = true;
+            evaluateAnswer(val);
+        }
+
+        function handleGiveUp() {
+            if (isQuestionAnswered) return;
+            isQuestionAnswered = true;
+            evaluateAnswer('(放棄)');
+        }
+
+        function evaluateAnswer(userChoice) {
+            const q = quizPool[currentQuestionIdx];
+            const isCorrect = (userChoice === q.ans);
+
+            if (isCorrect) {
+                quizScore++;
+            }
+
+            quizHistory.push({
+                q: q,
+                userChoice: userChoice,
+                isCorrect: isCorrect
+            });
+
+            // Style buttons if MC
+            if (quizType === 'mc') {
+                document.querySelectorAll('.mc-option-btn').forEach(btn => {
+                    const text = btn.querySelector('span > span:last-child').textContent.trim();
+                    if (text === q.ans) {
+                        btn.classList.add('border-emerald-500', 'bg-emerald-950/60', 'text-emerald-300');
+                        btn.classList.remove('bg-slate-900/90', 'border-slate-700');
+                    } else if (text === userChoice && !isCorrect) {
+                        btn.classList.add('border-rose-500', 'bg-rose-950/60', 'text-rose-300');
+                        btn.classList.remove('bg-slate-900/90', 'border-slate-700');
+                    }
+                    btn.disabled = true;
+                });
+            }
+
+            // Show feedback
+            const feedbackBox = document.getElementById('quiz-feedback-box');
+            const titleEl = document.getElementById('quiz-result-title');
+            const expEl = document.getElementById('quiz-explanation-text');
+
+            if (isCorrect) {
+                feedbackBox.className = 'rounded-2xl p-5 sm:p-6 border border-emerald-500/50 bg-emerald-950/40 space-y-3 animate-fadeIn';
+                titleEl.className = 'flex items-center space-x-2 font-bold text-base sm:text-lg text-emerald-400';
+                titleEl.innerHTML = `
+                    <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>正解！回答正確</span>
+                `;
+            } else {
+                feedbackBox.className = 'rounded-2xl p-5 sm:p-6 border border-rose-500/50 bg-rose-950/40 space-y-3 animate-fadeIn';
+                titleEl.className = 'flex items-center space-x-2 font-bold text-base sm:text-lg text-rose-400';
+                titleEl.innerHTML = `
+                    <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>未達正解！正確答案為：<strong class="font-serif-jp text-white underline decoration-emerald-500 decoration-2 font-bold ml-1">${q.ans}</strong></span>
+                `;
+            }
+
+            expEl.innerHTML = `
+                <div class="space-y-2">
+                    <div><strong class="text-indigo-300">【法理解析】：</strong>${q.exp}</div>
+                    <div class="text-slate-400 text-xs"><strong class="text-slate-300">【原句中文】：</strong>${q.hint}</div>
+                </div>
+            `;
+
+            feedbackBox.classList.remove('hidden');
+
+            // Scroll feedback into view
+            feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizPool.length) {
+                renderQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-active-card').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+
+            const total = quizPool.length;
+            const pct = Math.round((quizScore / total) * 100);
+            document.getElementById('result-score-percent').textContent = pct + '%';
+
+            const rankTitle = document.getElementById('result-rank-title');
+            const summaryText = document.getElementById('result-summary-text');
+            
+            if (pct === 100) {
+                rankTitle.textContent = '🏆 最高裁判所調查官級 法學日文大師！';
+            } else if (pct >= 80) {
+                rankTitle.textContent = '🎓 法學碩博級 日本公文書研讀精通水準！';
+            } else if (pct >= 60) {
+                rankTitle.textContent = '📚 法學日文基礎扎實，建議加強錯題複習！';
+            } else {
+                rankTitle.textContent = '💡 熟能生巧！建議多瀏覽文法典藏手冊與例句。';
+            }
+
+            summaryText.textContent = `共測驗 ${total} 題，答對 ${quizScore} 題，答錯 ${total - quizScore} 題。`;
+
+            // Update retry wrong btn
+            const wrongCount = total - quizScore;
+            const retryBtn = document.getElementById('retry-wrong-btn');
+            if (wrongCount === 0) {
+                retryBtn.classList.add('hidden');
+            } else {
+                retryBtn.classList.remove('hidden');
+                retryBtn.textContent = `僅複習錯題 (${wrongCount})`;
+            }
+
+            // Details list
+            const detailsContainer = document.getElementById('result-details-list');
+            detailsContainer.innerHTML = quizHistory.map((item, idx) => `
+                <div class="p-3.5 rounded-xl border ${item.isCorrect ? 'border-emerald-800/40 bg-emerald-950/20' : 'border-rose-800/40 bg-rose-950/20'} flex items-start justify-between text-xs sm:text-sm">
+                    <div class="space-y-1">
+                        <div class="font-serif-jp text-slate-200">${idx + 1}. ${item.q.q.replace('【　　　】', `<strong class="${item.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">【${item.q.ans}】</strong>`)}</div>
+                        <div class="text-xs text-slate-400">您的作答：<span class="${item.isCorrect ? 'text-emerald-400' : 'text-rose-400 font-bold'}">${item.userChoice}</span> | 正確解答：<span class="text-emerald-400 font-bold">${item.q.ans}</span></div>
+                    </div>
+                    <span class="shrink-0 font-bold text-xs px-2 py-0.5 rounded ${item.isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
+                        ${item.isCorrect ? '正確' : '錯誤'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function retryWrongQuestions() {
+            const wrongItems = quizHistory.filter(x => !x.isCorrect).map(x => x.q);
+            if (wrongItems.length === 0) return;
+            quizPool = wrongItems;
+            currentQuestionIdx = 0;
+            quizScore = 0;
+            quizHistory = [];
+            showActiveQuiz();
+        }
+
+        function bookmarkAllMistakes() {
+            const wrongIds = quizHistory.filter(x => !x.isCorrect).map(x => x.q.id);
+            wrongIds.forEach(id => {
+                if (!favorites.includes(id)) favorites.push(id);
+            });
+            localStorage.setItem('legal_jp_favorites', JSON.stringify(favorites));
+            updateFavoriteBadge();
+            alert(`已將 ${wrongIds.length} 個錯題項目成功加入您的生詞收藏本！`);
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-setup-card').classList.remove('hidden');
+        }
+
+        // ================= TEXT-TO-SPEECH (TTS) =================
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) {
+                alert('您的瀏覽器不支援語音朗讀功能。');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ja-JP';
+            utterance.rate = 0.95;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function playCurrentQuestionAudio() {
+            if (!quizPool || !quizPool[currentQuestionIdx]) return;
+            const q = quizPool[currentQuestionIdx];
+            const fullText = q.q.replace('【　　　】', q.ans);
+            speakText(fullText);
+        }
+    </script>
+</body>
+</html>
