@@ -61,6 +61,13 @@
             background-color: #f5f3ff !important;
         }
     </style>
+    <!-- PDF.js library for cross-browser, cross-device HTML5 canvas PDF rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (typeof window !== 'undefined' && window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
 </head>
 
 <body class="h-screen overflow-hidden flex flex-col bg-slate-950">
@@ -86,26 +93,35 @@
     <!-- Split View Container (Height = 100vh - 3.5rem) -->
     <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
         <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+                <!-- Left Panel: Fixed Original PDF Viewer with Canvas & Zoom Controls -->
         <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
             <!-- PDF Zoom & Control Bar -->
-            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
-                <span class="text-slate-400 font-semibold flex items-center">
-                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    PDF 縮放控制
-                </span>
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex flex-wrap items-center justify-between text-xs shrink-0 select-none gap-2">
+                <div class="flex items-center space-x-2">
+                    <span class="text-slate-300 font-semibold flex items-center">
+                        <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        原文 PDF
+                    </span>
+                    <span id="pdf-page-count" class="bg-slate-800 text-indigo-300 text-[11px] px-2 py-0.5 rounded border border-slate-700 font-mono">載入中...</span>
+                </div>
                 <div class="flex items-center space-x-1.5">
                     <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
                     <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
                     <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
-                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
-                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
-                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors hidden sm:inline">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors hidden sm:inline">1.5x</button>
                     <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                    <a id="pdf-external-link" href="001%E6%86%B2%E6%B3%95%E3%81%AB%E3%82%88%E3%82%8B%E6%8D%9C%E6%9F%BB%E3%81%AE%E7%B5%B1%E5%88%B6.pdf" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-0.5 rounded border border-indigo-500 transition-colors flex items-center space-x-1 text-[11px] shadow-sm ml-1" title="在新分頁開啟或下載原文 PDF">
+                        <span>新分頁開啟</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
                 </div>
             </div>
-            <!-- PDF Iframe Container -->
-            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="001憲法による捜査の統制.pdf" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            <!-- PDF Canvas Container with Independent Scrolling -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-y-auto overflow-x-auto bg-slate-900/90 p-3 sm:p-4 relative">
+                <div id="pdf-render-container" class="w-full flex flex-col items-center space-y-4">
+                    <!-- Dynamic PDF Pages will be rendered here by PDF.js -->
+                </div>
             </div>
         </div>
 
@@ -549,8 +565,11 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+                // ================= PDF.js ENGINE =================
+        let pdfDoc = null;
         let currentPdfZoom = 1.0;
-        let pdfBaseSrc = '001憲法による捜査の統制.pdf';
+        let isPdfRendering = false;
+        const pdfBaseSrc = '001%E6%86%B2%E6%B3%95%E3%81%AB%E3%82%88%E3%82%8B%E6%8D%9C%E6%9F%BB%E3%81%AE%E7%B5%B1%E5%88%B6.pdf';
 
         function setPdfZoom(scaleFactor) {
             currentPdfZoom = scaleFactor;
@@ -569,17 +588,120 @@
 
         function applyPdfZoom() {
             const zoomPercent = Math.round(currentPdfZoom * 100);
-            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
-            const iframe = document.getElementById('pdf-frame');
-            
-            // Apply PDF Open Parameters
-            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            
-            // Apply CSS Scaling for smooth visual enhancement
-            iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-            iframe.style.width = (100 / currentPdfZoom) + '%';
-            iframe.style.height = (100 / currentPdfZoom) + '%';
+            const zoomEl = document.getElementById('pdf-zoom-val');
+            if (zoomEl) zoomEl.textContent = zoomPercent + '%';
+            if (pdfDoc) {
+                renderAllPdfPages();
+            }
         }
+
+        async function initPdfViewer() {
+            const container = document.getElementById('pdf-render-container');
+            const pageCountEl = document.getElementById('pdf-page-count');
+            
+            if (typeof window.pdfjsLib === 'undefined') {
+                console.warn('PDF.js not loaded, falling back to native iframe');
+                fallbackToNativeIframe();
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-20 text-slate-400 space-y-3">
+                    <svg class="animate-spin w-8 h-8 text-indigo-500" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <div class="text-xs font-medium text-slate-300">正在透過 HTML5 引擎載入原文 PDF...</div>
+                </div>
+            `;
+
+            try {
+                const loadingTask = pdfjsLib.getDocument({
+                    url: pdfBaseSrc,
+                    cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+                    cMapPacked: true
+                });
+                pdfDoc = await loadingTask.promise;
+                if (pageCountEl) pageCountEl.textContent = `共 ${pdfDoc.numPages} 頁`;
+                await renderAllPdfPages();
+            } catch (err) {
+                console.error('PDF.js loading failed:', err);
+                fallbackToNativeIframe();
+            }
+        }
+
+        async function renderAllPdfPages() {
+            if (!pdfDoc || isPdfRendering) return;
+            isPdfRendering = true;
+            const container = document.getElementById('pdf-render-container');
+            container.innerHTML = '';
+            
+            const pdfContainerEl = document.getElementById('pdf-container');
+            const containerWidth = (pdfContainerEl ? pdfContainerEl.clientWidth : 500) - 36;
+            
+            for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                try {
+                    const page = await pdfDoc.getPage(pageNum);
+                    const unscaledViewport = page.getViewport({ scale: 1.0 });
+                    
+                    let baseScale = containerWidth > 200 ? (containerWidth / unscaledViewport.width) : 1.1;
+                    const scale = baseScale * currentPdfZoom;
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    const pageCard = document.createElement('div');
+                    pageCard.className = 'w-full flex flex-col items-center mb-6';
+                    pageCard.id = 'pdf-page-' + pageNum;
+                    
+                    const badge = document.createElement('div');
+                    badge.className = 'text-[11px] font-mono text-slate-400 mb-1.5 flex items-center space-x-1.5';
+                    badge.innerHTML = `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">第 ${pageNum} / ${pdfDoc.numPages} 頁</span>`;
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.className = 'rounded-lg shadow-xl max-w-full bg-white border border-slate-700 transition-all';
+                    const context = canvas.getContext('2d');
+                    
+                    const outputScale = window.devicePixelRatio || 1;
+                    canvas.width = Math.floor(viewport.width * outputScale);
+                    canvas.height = Math.floor(viewport.height * outputScale);
+                    canvas.style.width = Math.floor(viewport.width) + 'px';
+                    canvas.style.height = Math.floor(viewport.height) + 'px';
+                    
+                    const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+                    
+                    pageCard.appendChild(badge);
+                    pageCard.appendChild(canvas);
+                    container.appendChild(pageCard);
+                    
+                    await page.render({
+                        canvasContext: context,
+                        transform: transform,
+                        viewport: viewport
+                    }).promise;
+                } catch (pageErr) {
+                    console.error(`Error rendering page ${pageNum}:`, pageErr);
+                }
+            }
+            isPdfRendering = false;
+        }
+
+        function fallbackToNativeIframe() {
+            const container = document.getElementById('pdf-render-container');
+            const pageCountEl = document.getElementById('pdf-page-count');
+            if (pageCountEl) pageCountEl.textContent = '原生預覽';
+            container.innerHTML = `
+                <div class="w-full h-full min-h-[500px] flex flex-col">
+                    <div class="p-3 bg-indigo-950/40 border border-indigo-500/30 rounded-lg text-xs text-indigo-200 mb-3 flex items-center justify-between">
+                        <span>如瀏覽器未直接顯示 PDF，請點擊右側按鈕：</span>
+                        <a href="${pdfBaseSrc}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1 rounded">在新分頁開啟</a>
+                    </div>
+                    <iframe id="pdf-frame" src="${pdfBaseSrc}" class="w-full flex-1 min-h-[600px] rounded-xl bg-white shadow-inner border border-slate-700"></iframe>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initPdfViewer();
+        });
 
         function togglePdfPanel() {
             const pdfPanel = document.getElementById('pdf-panel');

@@ -61,6 +61,13 @@
             background-color: #f5f3ff !important;
         }
     </style>
+    <!-- PDF.js library for cross-browser, cross-device HTML5 canvas PDF rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (typeof window !== 'undefined' && window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
 </head>
 
 <body class="h-screen overflow-hidden flex flex-col bg-slate-950">
@@ -86,26 +93,35 @@
     <!-- Split View Container (Height = 100vh - 3.5rem) -->
     <div class="flex-1 flex flex-col lg:flex-row w-full overflow-hidden h-[calc(100vh-3.5rem)]">
         <!-- Left Panel: Fixed Original PDF Viewer with Zoom Controls -->
+                <!-- Left Panel: Fixed Original PDF Viewer with Canvas & Zoom Controls -->
         <div id="pdf-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
             <!-- PDF Zoom & Control Bar -->
-            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between text-xs shrink-0 select-none">
-                <span class="text-slate-400 font-semibold flex items-center">
-                    <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    PDF 縮放控制
-                </span>
+            <div class="bg-slate-950 px-3 py-2 border-b border-slate-800 flex flex-wrap items-center justify-between text-xs shrink-0 select-none gap-2">
+                <div class="flex items-center space-x-2">
+                    <span class="text-slate-300 font-semibold flex items-center">
+                        <svg class="w-3.5 h-3.5 mr-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        原文 PDF
+                    </span>
+                    <span id="pdf-page-count" class="bg-slate-800 text-indigo-300 text-[11px] px-2 py-0.5 rounded border border-slate-700 font-mono">載入中...</span>
+                </div>
                 <div class="flex items-center space-x-1.5">
                     <button onclick="zoomPdf(0.9)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="縮小">-</button>
                     <span id="pdf-zoom-val" class="font-mono text-indigo-300 w-12 text-center">100%</span>
                     <button onclick="zoomPdf(1.1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2 py-0.5 rounded border border-slate-700 transition-colors" title="放大">+</button>
-                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.25x</button>
-                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">1.5x</button>
-                    <button onclick="setPdfZoom(2.0)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-0.5 rounded border border-slate-700 transition-colors">2.0x</button>
+                    <button onclick="setPdfZoom(1.25)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors hidden sm:inline">1.25x</button>
+                    <button onclick="setPdfZoom(1.5)" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-0.5 rounded border border-slate-700 transition-colors hidden sm:inline">1.5x</button>
                     <button onclick="resetPdfZoom()" class="bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-0.5 rounded border border-slate-700 transition-colors">重置</button>
+                    <a id="pdf-external-link" href="07%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E4%BC%9A%E7%A4%BE%E6%B3%95.pdf" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-0.5 rounded border border-indigo-500 transition-colors flex items-center space-x-1 text-[11px] shadow-sm ml-1" title="在新分頁開啟或下載原文 PDF">
+                        <span>新分頁開啟</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
                 </div>
             </div>
-            <!-- PDF Iframe Container -->
-            <div id="pdf-container" class="flex-1 w-full h-full overflow-auto bg-slate-900 p-2 relative">
-                <iframe id="pdf-frame" src="07サイバーセキュリティと会社法.pdf#toolbar=0&navpanes=0&view=FitH" class="w-full h-full rounded-xl bg-white shadow-inner border border-slate-700 transition-transform origin-top-left"></iframe>
+            <!-- PDF Canvas Container with Independent Scrolling -->
+            <div id="pdf-container" class="flex-1 w-full h-full overflow-y-auto overflow-x-auto bg-slate-900/90 p-3 sm:p-4 relative">
+                <div id="pdf-render-container" class="w-full flex flex-col items-center space-y-4">
+                    <!-- Dynamic PDF Pages will be rendered here by PDF.js -->
+                </div>
             </div>
         </div>
 
@@ -305,7 +321,7 @@
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u>ランサム<ruby>攻撃<rt>こうげき(0)</rt></ruby>によってデータが</u> <u><ruby>暗号化<rt>あんごうか(0)</rt></ruby>されて<ruby>使<rt>つか(0)</rt></ruby>えなくなることで<ruby>可用性<rt>かようせい(0)</rt></ruby>が<ruby>侵害<rt>しんがい(0)</rt></ruby>され、</u> <u><ruby>同時<rt>どうじ(0)</rt></ruby>に、<ruby>該攻撃<rt>がいこうげき(3)</rt></ruby>によって<ruby>情報<rt>じょうほう(0)</rt></ruby>が<ruby>漏洩<rt>ろうえい(0)</rt></ruby>することにより</u> <u><ruby>機密性<rt>きみつせい(0)</rt></ruby>が<ruby>侵害<rt>しんがい(0)</rt></ruby>されることがある）。</u> <u>
+                    <u><ruby>例<rt>たと(0)</rt></ruby>えば、</u> <u>ランサム<ruby>攻撃<rt>こうげき(0)</rt></ruby>によってデータが</u> <u><ruby>暗号化<rt>あんごうか(0)</rt></ruby>されて<ruby>使<rt>つか(0)</rt></ruby>えなくなることで<ruby>可用性<rt>かようせい(0)</rt></ruby>が<ruby>侵害<rt>しんがい(0)</rt></ruby>され、</u> <u><ruby>同時<rt>どうじ(0)</rt></ruby>に、<ruby>該攻撃<rt>がいこうげき(3)</rt></ruby>によって<ruby>情報<rt>じょうほう(0)</rt></ruby>が<ruby>漏洩<rt>ろうえい(0)</rt></ruby>することにより</u> <u><ruby>機密性<rt>きみつせい(0)</rt></ruby>が<ruby>侵害<rt>しんがい(0)</rt></ruby>されることがある）。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -338,7 +354,7 @@
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    </u> <u><ruby>当然<rt>とうぜん(0)</rt></ruby>のことながら、<ruby>企業<rt>きぎょう(1)</rt></ruby>としては、</u> <u>サイバー<ruby>攻撃<rt>こうげき(0)</rt></ruby>その<ruby>他<rt>ほか(0)</rt></ruby>の<ruby>機密性<rt>きみつせい(0)</rt></ruby>・<ruby>完全性<rt>かんぜんせい(0)</rt></ruby>・<ruby>可用性<rt>かようせい(0)</rt></ruby>が</u> <u><ruby>害<rt>がい(1)</rt></ruby>されるような<ruby>状況<rt>じょうきょう(0)</rt></ruby>を<ruby>予防<rt>よぼう(0)</rt></ruby>するための<ruby>措置<rt>そち(1)</rt></ruby>を<ruby>講<rt>こう(0)</rt></ruby>じる。</u> <u>この<ruby>具体的內容<rt>ぐたいてきないよう(4)</rt></ruby>については、</u> <u>さまざまなガイドラインや<ruby>法令等<rt>ほうれいとう(0)</rt></ruby>が<ruby>規律<rt>きりつ(1)</rt></ruby>するところ、</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば、<ruby>個人情報<rt>こじんじょうほう(4)</rt></ruby>の<ruby>安全管理<rt>あんぜんかんり(4)</rt></ruby>のため、</u> <u><ruby>個人情報保護法<rt>こじんじょうほうほごほう(6)</rt></ruby>23<ruby>条<rt>じょう(0)</rt></ruby>およびガイドラインは、</u> <u><ruby>組織的<rt>そしきてき(0)</rt></ruby>・<ruby>人的<rt>じんてき(0)</rt></ruby>・<ruby>物理的<rt>ぶつりてき(0)</rt></ruby>・<ruby>技術的<rt>ぎじゅつてき(0)</rt></ruby>な<ruby>安全管理措置<rt>あんぜんかんりそち(5)</rt></ruby>を<ruby>求<rt>もと(2)</rt></ruby>めている。</u>
+                    <u><ruby>当然<rt>とうぜん(0)</rt></ruby>のことながら、<ruby>企業<rt>きぎょう(1)</rt></ruby>としては、</u> <u>サイバー<ruby>攻撃<rt>こうげき(0)</rt></ruby>その<ruby>他<rt>ほか(0)</rt></ruby>の<ruby>機密性<rt>きみつせい(0)</rt></ruby>・<ruby>完全性<rt>かんぜんせい(0)</rt></ruby>・<ruby>可用性<rt>かようせい(0)</rt></ruby>が</u> <u><ruby>害<rt>がい(1)</rt></ruby>されるような<ruby>状況<rt>じょうきょう(0)</rt></ruby>を<ruby>予防<rt>よぼう(0)</rt></ruby>するための<ruby>措置<rt>そち(1)</rt></ruby>を<ruby>講<rt>こう(0)</rt></ruby>じる。</u> <u>この<ruby>具体的內容<rt>ぐたいてきないよう(4)</rt></ruby>については、</u> <u>さまざまなガイドラインや<ruby>法令等<rt>ほうれいとう(0)</rt></ruby>が<ruby>規律<rt>きりつ(1)</rt></ruby>するところ、</u> <u><ruby>例<rt>たと(0)</rt></ruby>えば、<ruby>個人情報<rt>こじんじょうほう(4)</rt></ruby>の<ruby>安全管理<rt>あんぜんかんり(4)</rt></ruby>のため、</u> <u><ruby>個人情報保護法<rt>こじんじょうほうほごほう(6)</rt></ruby>23<ruby>条<rt>じょう(0)</rt></ruby>およびガイドラインは、</u> <u><ruby>組織的<rt>そしきてき(0)</rt></ruby>・<ruby>人的<rt>じんてき(0)</rt></ruby>・<ruby>物理的<rt>ぶつりてき(0)</rt></ruby>・<ruby>技術的<rt>ぎじゅつてき(0)</rt></ruby>な<ruby>安全管理措置<rt>あんぜんかんりそち(5)</rt></ruby>を<ruby>求<rt>もと(2)</rt></ruby>めている。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -503,7 +519,7 @@
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    <u>つまり、サイバーセキュリティは<ruby>重要<rt>じゅうよう(0)</rt></ruby>な<ruby>経営課題<rt>けいえいかだい(4)</rt></ruby>であり、</u> <u>ガバナンスの<ruby>一環<rt>いっかん(0)</rt></ruby>として<ruby>行<rt>おこな(0)</rt></ruby>われるリスク<ruby>管理<rt>かんり(1)</rt></ruby>において、</u> <u><ruby>対処<rt>たいしょ(1)</rt></ruby>されるべき<ruby>重要<rt>じゅうよう(0)</rt></ruby>なリスクなのである。</u> <u>
+                    <u>つまり、サイバーセキュリティは<ruby>重要<rt>じゅうよう(0)</rt></ruby>な<ruby>経営課題<rt>けいえいかだい(4)</rt></ruby>であり、</u> <u>ガバナンスの<ruby>一環<rt>いっかん(0)</rt></ruby>として<ruby>行<rt>おこな(0)</rt></ruby>われるリスク<ruby>管理<rt>かんり(1)</rt></ruby>において、</u> <u><ruby>対処<rt>たいしょ(1)</rt></ruby>されるべき<ruby>重要<rt>じゅうよう(0)</rt></ruby>なリスクなのである。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -536,7 +552,7 @@
                     </button>
                 </div>
                 <div class="jp-text-content">
-                    </u> <u>そして、このように<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティ<ruby>対策<rt>たいさく(0)</rt></ruby>は</u> <u>ガバナンスとの<ruby>関係<rt>かんけい(0)</rt></ruby>でも<ruby>重要<rt>じゅうよう(0)</rt></ruby>であるところ、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>に<ruby>述<rt>のべ(1)</rt></ruby>べるとおり、<ruby>会社法<rt>かいしゃほう(0)</rt></ruby>は、</u> <u><ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>し、<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティ<ruby>対策<rt>たいさく(0)</rt></ruby>を</u> <u><ruby>講<rt>こう(0)</rt></ruby>じることを<ruby>義務<rt>ぎむ(1)</rt></ruby>づけている。</u>
+                    <u>そして、このように<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティ<ruby>対策<rt>たいさく(0)</rt></ruby>は</u> <u>ガバナンスとの<ruby>関係<rt>かんけい(0)</rt></ruby>でも<ruby>重要<rt>じゅうよう(0)</rt></ruby>であるところ、</u> <u><ruby>以下<rt>いか(1)</rt></ruby>に<ruby>述<rt>のべ(1)</rt></ruby>べるとおり、<ruby>会社法<rt>かいしゃほう(0)</rt></ruby>は、</u> <u><ruby>経営者<rt>けいえいしゃ(3)</rt></ruby>に<ruby>対<rt>たい(1)</rt></ruby>し、<ruby>情報<rt>じょうほう(0)</rt></ruby>セキュリティ<ruby>対策<rt>たいさく(0)</rt></ruby>を</u> <u><ruby>講<rt>こう(0)</rt></ruby>じることを<ruby>義務<rt>ぎむ(1)</rt></ruby>づけている。</u>
                 </div>
             </div>
             <!-- Traditional Chinese Translation (Bottom) -->
@@ -940,8 +956,11 @@
         let isPlayingAll = false;
         let speechRate = 1.0;
         let japaneseVoice = null;
+                // ================= PDF.js ENGINE =================
+        let pdfDoc = null;
         let currentPdfZoom = 1.0;
-        let pdfBaseSrc = '07サイバーセキュリティと会社法.pdf';
+        let isPdfRendering = false;
+        const pdfBaseSrc = '07%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E4%BC%9A%E7%A4%BE%E6%B3%95.pdf';
 
         function setPdfZoom(scaleFactor) {
             currentPdfZoom = scaleFactor;
@@ -960,19 +979,120 @@
 
         function applyPdfZoom() {
             const zoomPercent = Math.round(currentPdfZoom * 100);
-            document.getElementById('pdf-zoom-val').textContent = zoomPercent + '%';
-            const iframe = document.getElementById('pdf-frame');
-            iframe.src = pdfBaseSrc + '#zoom=' + zoomPercent + '&view=FitH';
-            if (currentPdfZoom === 1.0) {
-                iframe.style.transform = '';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-            } else {
-                iframe.style.transform = 'scale(' + currentPdfZoom + ')';
-                iframe.style.width = (100 / currentPdfZoom) + '%';
-                iframe.style.height = (100 / currentPdfZoom) + '%';
+            const zoomEl = document.getElementById('pdf-zoom-val');
+            if (zoomEl) zoomEl.textContent = zoomPercent + '%';
+            if (pdfDoc) {
+                renderAllPdfPages();
             }
         }
+
+        async function initPdfViewer() {
+            const container = document.getElementById('pdf-render-container');
+            const pageCountEl = document.getElementById('pdf-page-count');
+            
+            if (typeof window.pdfjsLib === 'undefined') {
+                console.warn('PDF.js not loaded, falling back to native iframe');
+                fallbackToNativeIframe();
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-20 text-slate-400 space-y-3">
+                    <svg class="animate-spin w-8 h-8 text-indigo-500" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <div class="text-xs font-medium text-slate-300">正在透過 HTML5 引擎載入原文 PDF...</div>
+                </div>
+            `;
+
+            try {
+                const loadingTask = pdfjsLib.getDocument({
+                    url: pdfBaseSrc,
+                    cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+                    cMapPacked: true
+                });
+                pdfDoc = await loadingTask.promise;
+                if (pageCountEl) pageCountEl.textContent = `共 ${pdfDoc.numPages} 頁`;
+                await renderAllPdfPages();
+            } catch (err) {
+                console.error('PDF.js loading failed:', err);
+                fallbackToNativeIframe();
+            }
+        }
+
+        async function renderAllPdfPages() {
+            if (!pdfDoc || isPdfRendering) return;
+            isPdfRendering = true;
+            const container = document.getElementById('pdf-render-container');
+            container.innerHTML = '';
+            
+            const pdfContainerEl = document.getElementById('pdf-container');
+            const containerWidth = (pdfContainerEl ? pdfContainerEl.clientWidth : 500) - 36;
+            
+            for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                try {
+                    const page = await pdfDoc.getPage(pageNum);
+                    const unscaledViewport = page.getViewport({ scale: 1.0 });
+                    
+                    let baseScale = containerWidth > 200 ? (containerWidth / unscaledViewport.width) : 1.1;
+                    const scale = baseScale * currentPdfZoom;
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    const pageCard = document.createElement('div');
+                    pageCard.className = 'w-full flex flex-col items-center mb-6';
+                    pageCard.id = 'pdf-page-' + pageNum;
+                    
+                    const badge = document.createElement('div');
+                    badge.className = 'text-[11px] font-mono text-slate-400 mb-1.5 flex items-center space-x-1.5';
+                    badge.innerHTML = `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">第 ${pageNum} / ${pdfDoc.numPages} 頁</span>`;
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.className = 'rounded-lg shadow-xl max-w-full bg-white border border-slate-700 transition-all';
+                    const context = canvas.getContext('2d');
+                    
+                    const outputScale = window.devicePixelRatio || 1;
+                    canvas.width = Math.floor(viewport.width * outputScale);
+                    canvas.height = Math.floor(viewport.height * outputScale);
+                    canvas.style.width = Math.floor(viewport.width) + 'px';
+                    canvas.style.height = Math.floor(viewport.height) + 'px';
+                    
+                    const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+                    
+                    pageCard.appendChild(badge);
+                    pageCard.appendChild(canvas);
+                    container.appendChild(pageCard);
+                    
+                    await page.render({
+                        canvasContext: context,
+                        transform: transform,
+                        viewport: viewport
+                    }).promise;
+                } catch (pageErr) {
+                    console.error(`Error rendering page ${pageNum}:`, pageErr);
+                }
+            }
+            isPdfRendering = false;
+        }
+
+        function fallbackToNativeIframe() {
+            const container = document.getElementById('pdf-render-container');
+            const pageCountEl = document.getElementById('pdf-page-count');
+            if (pageCountEl) pageCountEl.textContent = '原生預覽';
+            container.innerHTML = `
+                <div class="w-full h-full min-h-[500px] flex flex-col">
+                    <div class="p-3 bg-indigo-950/40 border border-indigo-500/30 rounded-lg text-xs text-indigo-200 mb-3 flex items-center justify-between">
+                        <span>如瀏覽器未直接顯示 PDF，請點擊右側按鈕：</span>
+                        <a href="${pdfBaseSrc}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1 rounded">在新分頁開啟</a>
+                    </div>
+                    <iframe id="pdf-frame" src="${pdfBaseSrc}" class="w-full flex-1 min-h-[600px] rounded-xl bg-white shadow-inner border border-slate-700"></iframe>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initPdfViewer();
+        });
 
         function togglePdfPanel() {
             const pdfPanel = document.getElementById('pdf-panel');
