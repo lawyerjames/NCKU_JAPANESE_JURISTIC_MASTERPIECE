@@ -3,11 +3,21 @@ import json
 import sys
 from mcp.server.fastmcp import FastMCP
 
-from .furigana_annotator import sanitize_furigana_ruby, audit_annotations
+from .furigana_annotator import sanitize_furigana_ruby, audit_annotations, format_japanese_text
 from .html_builder import build_stacked_bilingual_html
 from .pdf_ocr import process_pdf_smart_ocr
 
 mcp = FastMCP("Japanese Legal Text Formatter & Bilingual Annotator")
+
+@mcp.tool()
+def format_japanese_legal_text(text: str) -> str:
+    """
+    Formats Japanese legal text with:
+    1. Bunsetsu boundaries tagged with <u>...</u>.
+    2. Kanji annotated with <ruby>kanji<rt>reading(pitch)</rt></ruby>.
+    3. Legal domain-specific pitch accents from comprehensive PITCH_DB.
+    """
+    return format_japanese_text(text)
 
 @mcp.tool()
 def sanitize_japanese_furigana(html_text: str) -> str:
@@ -29,13 +39,16 @@ def audit_furigana_annotations(html_text: str) -> str:
 def generate_stacked_bilingual_document(
     japanese_blocks: list[str],
     chinese_translations: list[str],
-    title: str = "デジタル時代に対応する刑事訴訟法",
-    subtitle: str = "——我が国の刑事手続を規律する基本原理",
-    subtitle_zh: str = "（規範我國刑事程序之基本原理）",
-    author: str = "山田峻悠（中京大学准教授 / YAMADA Takaharu）"
+    title: str = "法学日本語",
+    subtitle: str = "",
+    subtitle_zh: str = "",
+    author: str = "",
+    heading_indices: list[int] = None,
+    pdf_filename: str = ""
 ) -> str:
     """
-    Generates a responsive, stacked top-and-bottom Japanese-Chinese bilingual HTML document with zero line collisions and 1-to-1 card alignment.
+    Generates a responsive, stacked top-and-bottom Japanese-Chinese bilingual HTML document with zero line collisions,
+    1-to-1 card alignment, interactive TTS reading, and integrated PDF split viewer.
     """
     return build_stacked_bilingual_html(
         japanese_blocks=japanese_blocks,
@@ -43,7 +56,9 @@ def generate_stacked_bilingual_document(
         title=title,
         subtitle=subtitle,
         subtitle_zh=subtitle_zh,
-        author=author
+        author=author,
+        heading_indices=heading_indices,
+        pdf_filename=pdf_filename
     )
 
 @mcp.tool()

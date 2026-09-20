@@ -14,6 +14,8 @@ authors = [
 license = { text = "MIT" }
 dependencies = [
     "mcp>=1.0.0",
+    "sudachipy>=0.6.8",
+    "sudachidict-core>=20240409",
 ]
 
 [project.scripts]

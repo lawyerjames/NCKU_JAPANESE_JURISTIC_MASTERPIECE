@@ -28,6 +28,10 @@ def build_stacked_bilingual_html(
         jp_plain = re.sub(r'<[^>]+>', '', jp_plain)
         jp_clean = re.sub(r'\s+', ' ', jp_plain).strip()
         
+        # Skip empty blocks to prevent phantom cards
+        if not jp_clean or jp_clean == '*** EMPTY JP! ***':
+            continue
+            
         is_heading_block = (
             i in heading_indices or 
             jp_clean.startswith('SPECIAL FEATURE') or
@@ -315,7 +319,12 @@ def build_stacked_bilingual_html(
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            text = text.replace(/\\(\\d+\\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            text = text.replace(/\\(\\d+\\)/g, '')
+                       .replace(/朗讀本段|朗讀標題/g, '')
+                       .replace(/^[▶・★\\s]+/g, '')
+                       .replace(/[①-⑳]/g, '')
+                       .replace(/(?:(?<=[^\\d])\\d{1,2}[\\）\\)]|\\(\\d{1,2}\\))/g, '')
+                       .trim();
             return text;
         }}
 

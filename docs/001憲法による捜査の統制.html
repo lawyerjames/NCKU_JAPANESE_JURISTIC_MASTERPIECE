@@ -614,7 +614,7 @@
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').replace(/^[▶・★\s]+/g, '').replace(/[①-⑳]/g, '').replace(/(?:(?<=[^\d])\d{1,2}[\）\)]|\(\d{1,2}\))/g, '').trim();
             return text;
         }
 

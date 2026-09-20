@@ -104,31 +104,27 @@
             </div>
         </div>
 
-        <!-- Right Panel: Translated Content & Audio Reader -->
+        <!-- Right Panel: Independently Scrolling Translated Content & Audio Reader -->
         <div id="content-panel" class="w-full lg:w-1/2 h-1/2 lg:h-full bg-slate-950 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pb-32 transition-all duration-300">
             <div class="max-w-3xl mx-auto space-y-4">
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
-        <!-- Document Header -->
-        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-8 px-6 sm:px-10 border-b border-indigo-900 shadow-lg">
-            <div class="max-w-3xl">
-                <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-400/30">
-                    法學日文上下對照朗讀版
-                </span>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2 font-serif">
-                    デジタル時代に対応する刑事訴訟法
-                </h1>
-                <p class="text-indigo-200 text-base sm:text-lg font-medium mb-3">
-                    ——我が国の刑事手続を規律する基本原理 <span class="text-indigo-300/80 text-sm font-normal">（規範我國刑事程序之基本原理）</span>
-                </p>
-                <div class="flex items-center text-xs sm:text-sm text-slate-300 pt-3 border-t border-indigo-900/80 mt-2">
-                    <span class="font-semibold text-indigo-300">作者：</span>
-                    <span class="ml-1.5 text-slate-200">山田峻悠（中京大学准教授 / YAMADA Takaharu）</span>
+                <!-- Banner Card -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-indigo-900">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-400/30">
+                        法學日文上下對照朗讀版
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 font-serif">
+                        デジタル時代に対応する刑事訴訟法
+                    </h2>
+                    <p class="text-indigo-200 text-sm sm:text-base font-medium mb-3">
+                        ——我が国の刑事手続を規律する基本原理 <span class="text-indigo-300/80 text-xs font-normal">（規範我國刑事程序之基本原理）</span>
+                    </p>
+                    <div class="text-xs text-slate-300 pt-3 border-t border-indigo-900/80">
+                        <span class="font-semibold text-indigo-300">作者：</span>山田峻悠（中京大学准教授 / YAMADA Takaharu）
+                    </div>
                 </div>
-            </div>
-        </header>
 
-        <!-- Document Content -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-2">
+                <!-- Main Paragraphs -->
+                <main class="space-y-4">
 
         <section id="card-0" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
             <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">▶はじめに</h2>
@@ -293,7 +289,7 @@
         </article>
 
         <section id="card-6" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅰ <ruby>我が国<rt>わがくに(0)</rt></ruby>の <ruby>刑事手続<rt>けいじてつづき(4)</rt></ruby>を <ruby>規律<rt>きりつ(0)</rt></ruby>する <ruby>基本原理<rt>きほんげんり(4)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅰ 我が国の刑事手続を規律する基本原理</h2>
                 <button onclick="playCardText(6)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -302,7 +298,7 @@
         </section>
 
         <section id="card-7" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">1．<ruby>刑事訴訟<ruby>法<rt>ほう(0)</rt></ruby><rt>けいじそしょうほう(0)</rt></ruby>の<ruby>意義<rt>いぎ(1)</rt></ruby>・<ruby>目<ruby>的<rt>てき(0)</rt></ruby><rt>もくてき(0)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">1．刑事訴訟法の意義・目的</h2>
                 <button onclick="playCardText(7)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -536,7 +532,7 @@
         </article>
 
         <section id="card-15" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">2. <ruby>犯罪捜査<rt>はんざいそうさ(4)</rt></ruby>を<ruby>規<ruby>律<rt>りつ(0)</rt></ruby><rt>きりつ(0)</rt></ruby>する<ruby><ruby>基<rt>もと(2)</rt></ruby><ruby>本原理<rt>ほんげんり(1)</rt></ruby><rt>きほんげんり(4)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">2. 犯罪捜査を規律する基本原理</h2>
                 <button onclick="playCardText(15)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -728,7 +724,7 @@
         </article>
 
         <section id="card-22" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">3. <ruby><ruby>新<rt>あらた(0)</rt></ruby><rt>あらた(0)</rt></ruby>な<ruby>事態<rt>じたい(1)</rt></ruby>への<ruby><ruby>対<rt>たい(0)</rt></ruby><ruby>応<rt>おう(0)</rt></ruby><rt>たいおう(0)</rt></ruby>の<ruby>仕方<rt>しかた(0)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">3. 新たな事態への対応の仕方</h2>
                 <button onclick="playCardText(22)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -860,7 +856,7 @@
         </article>
 
         <section id="card-28" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅱ <ruby>情報<rt>じょうほう(1)</rt></ruby>の<ruby><ruby>取得<rt>しゅとく(0)</rt></ruby><ruby>活動<rt>かつどう(0)</rt></ruby><rt>しゅとくかつどう(4)</rt></ruby>とその<ruby>問題<ruby>点<rt>てん(0)</rt></ruby><rt>もんだいてん(3)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅱ 情報の取得活動とその問題点</h2>
                 <button onclick="playCardText(28)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -1530,7 +1526,7 @@
         </article>
 
         <section id="card-57" class="my-8 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 shadow-md border border-indigo-900/80">
-            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅲ <ruby>暗号化<rt>あんごうか(0)</rt></ruby>された<ruby>情報<rt>じょうほう(1)</rt></ruby>の<ruby>取得<rt>しゅとく(0)</rt></ruby>と<ruby>理論<ruby>的<rt>てき(0)</rt></ruby><ruby>課題<rt>かだい(0)</rt></ruby><rt>りろんてきかだい(5)</rt></ruby></h2>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-wide font-serif text-amber-300 mb-1.5">Ⅲ 暗号化された情報の取得と理論的課題</h2>
                 <button onclick="playCardText(57)" class="shrink-0 flex items-center space-x-1 bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-400/40 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     <span>朗讀標題</span>
@@ -2101,16 +2097,9 @@
             </div>
         </article>
         </main>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 border-t border-slate-200 py-6 px-8 text-center text-sm text-slate-500">
-            <p>デジタル時代に対応する刑事訴訟法 — 上下對照朗讀與翻譯版</p>
-        </footer>
+            </div>
+        </div>
     </div>
-
-    </div>
-</div>
-</div>
 
     <!-- Floating Audio Control Bar -->
     <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 max-w-2xl bg-slate-900/95 backdrop-blur text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between z-50">
@@ -2210,7 +2199,7 @@
             rts.forEach(rt => rt.remove());
             
             let text = clone.textContent || '';
-            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').trim();
+            text = text.replace(/\(\d+\)/g, '').replace(/朗讀本段|朗讀標題/g, '').replace(/^[▶・★\s]+/g, '').replace(/[①-⑳]/g, '').replace(/(?:(?<=[^\d])\d{1,2}[\）\)]|\(\d{1,2}\))/g, '').trim();
             return text;
         }
 

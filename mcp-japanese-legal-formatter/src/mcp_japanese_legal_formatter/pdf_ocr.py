@@ -71,10 +71,17 @@ if let data = try? encoder.encode(results) {{
     with open(swift_file, "w", encoding="utf-8") as f:
         f.write(swift_script)
     
+    # Try swift runner, with xcrun swiftc fallback for toolchain mismatch
     cmd = ["swift", "-module-cache-path", cache_dir, swift_file]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode != 0:
-        raise RuntimeError(f"OCR Swift Execution Error: {res.stderr}")
+        bin_file = os.path.join(cache_dir, "temp_ocr_bin")
+        compile_cmd = ["xcrun", "-sdk", "macosx", "swiftc", swift_file, "-module-cache-path", cache_dir, "-o", bin_file]
+        compile_res = subprocess.run(compile_cmd, capture_output=True, text=True)
+        if compile_res.returncode == 0:
+            res = subprocess.run([bin_file], capture_output=True, text=True)
+        else:
+            raise RuntimeError(f"OCR Swift Execution Error: {res.stderr}\nCompile Error: {compile_res.stderr}")
     
     try:
         return json.loads(res.stdout)
@@ -89,18 +96,34 @@ def is_header_footer(line_text):
         return True
     return False
 
+# Explicit footnote markers: 1）, (1), 注1, 前掲注, etc.
+FN_MARKER_REGEX = re.compile(r'^(?:\d{1,2}[\）\)]|\(\d{1,2}\)|注\s*\d+|前掲注|\*\d+|【註|\[註)')
+CITATION_HINTS = ['頁', '年', '巻', '号', '判', '事件', '前掲', '参照', '著', '訳', '書房', '出版', '編']
+
+def is_footnote_line(l):
+    text = l['text'].strip()
+    if l['y'] > 0.32:
+        return False
+    if FN_MARKER_REGEX.match(text):
+        return True
+    dot_match = re.match(r'^\d{1,2}[\.．]\s*(.*)', text)
+    if dot_match:
+        rest = dot_match.group(1).strip()
+        # If it has citation hints and is substantial, it is a footnote; otherwise it is a section heading (e.g. 1. 形式)
+        if any(h in rest for h in CITATION_HINTS) and len(rest) > 8:
+            return True
+        return False
+    return False
+
 def analyze_and_extract_page(page_lines, remove_footnotes=True):
     valid_lines = [l for l in page_lines if not is_header_footer(l['text'])]
     if not valid_lines:
         return ""
     
-    fn_start_regex = re.compile(r'^(?:\d{1,2}[\）\)\.]|\(\d{1,2}\)|注\s*\d+|前掲注|\*\d+|【註|\[註)')
-    
     fn_cutoff_y = 0.0
-    lines_by_y = sorted(valid_lines, key=lambda l: -l['y'])
-    for l in lines_by_y:
-        if l['y'] < 0.32 and fn_start_regex.match(l['text'].strip()):
-            fn_cutoff_y = max(fn_cutoff_y, l['y'] + 0.02)
+    for l in valid_lines:
+        if is_footnote_line(l):
+            fn_cutoff_y = max(fn_cutoff_y, l['y'] + 0.015)
     
     if remove_footnotes and fn_cutoff_y > 0:
         body_lines = [l for l in valid_lines if l['y'] >= fn_cutoff_y]
@@ -152,7 +175,8 @@ def process_pdf_smart_ocr(pdf_path: str, output_path: str = None, remove_footnot
     raw_combined = "".join(full_doc_text)
     
     if remove_footnotes:
-        raw_combined = re.sub(r'(\d{1,2}\）)', '', raw_combined)
+        # Strip inline footnote callouts like 1）, 20）, (1), 10）
+        raw_combined = re.sub(r'(?:(?<=[^\d])\d{1,2}[\）\)]|\(\d{1,2}\))', '', raw_combined)
     
     if output_path:
         os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
